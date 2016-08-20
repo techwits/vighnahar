@@ -1,0 +1,843 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/save_addadditionalcharge.php" description="//    echo (&quot;areaname:- &quot;.$areaname.&quot;&lt;/br&gt;&quot;);" line="36" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="0964f998-4cc2-432e-86fe-fef7fae52ef8" name="Default" comment="" />
+    <ignored path="LTR.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <ignored path=".idea/dataSources.local.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DatabaseView">
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_TABLE_DETAILS" value="true" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="LTR" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="search.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/assets/js/search/search.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="221">
+              <caret line="2444" column="0" selection-start-line="2444" selection-start-column="0" selection-end-line="2444" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="common-function.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/assets/inc/common-function.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="399">
+              <caret line="479" column="46" selection-start-line="472" selection-start-column="8" selection-end-line="479" selection-end-column="46" />
+              <folding>
+                <marker date="1471689631079" expanded="true" signature="4304:4318" placeholder="select * fro... ${$TableName}" />
+                <marker date="1471689631079" expanded="true" signature="5152:5182" placeholder="select id fr... log_tablelist" />
+                <marker date="1471689631079" expanded="true" signature="6300:6317" placeholder="select ${$Co... ${$TableName}" />
+                <marker date="1471689631079" expanded="true" signature="6300:6337" placeholder="select fyid financialyear_master" />
+                <marker date="1471689631079" expanded="true" signature="6841:6873" placeholder="select ${$Co... ${$TableName}" />
+                <marker date="1471689631079" expanded="true" signature="6841:6893" placeholder="select ${$Co... financialyear_master" />
+                <marker date="1471689631079" expanded="true" signature="7414:7438" placeholder="select void,... ${$TableName}" />
+                <marker date="1471689631079" expanded="true" signature="7414:7448" placeholder="select void,... vehicleownership_master" />
+                <marker date="1471689631079" expanded="true" signature="7937:7985" placeholder="select consi... consignor_master" />
+                <marker date="1471689631079" expanded="true" signature="8588:8732" placeholder="select consi... consignor_master" />
+                <marker date="1471689631079" expanded="true" signature="9384:9435" placeholder="select void,... vehicleownership_master" />
+                <marker date="1471689631079" expanded="true" signature="9909:9966" placeholder="select desig... designation_master" />
+                <marker date="1471689631079" expanded="true" signature="10457:10499" placeholder="select login... login_master" />
+                <marker date="1471689631079" expanded="true" signature="11028:11096" placeholder="select pmid,... product_master" />
+                <marker date="1471689631079" expanded="true" signature="11790:11834" placeholder="select pmid,... product_master" />
+                <marker date="1471689631079" expanded="true" signature="12307:12343" placeholder="select menus... 1menusub" />
+                <marker date="1471689631079" expanded="true" signature="12861:12868" placeholder="select Privi... designation_master" />
+                <marker date="1471689631079" expanded="true" signature="12861:12925" placeholder="select Charg... additionalcharge_master" />
+                <marker date="1471689631079" expanded="true" signature="13902:13944" placeholder="select Privi... designation_master" />
+                <marker date="1471689631079" expanded="true" signature="14495:14549" placeholder="select Charg... additionalcharge_master" />
+                <marker date="1471689631079" expanded="true" signature="15065:15112" placeholder="select Charg... additionalcharge_master" />
+                <marker date="1471689631079" expanded="true" signature="15682:15729" placeholder="select Carto... rate_master" />
+                <marker date="1471689631079" expanded="true" signature="16476:16502" placeholder="select Privi... designation_master" />
+                <marker date="1471689631079" expanded="true" signature="17028:17063" placeholder="select UserN... login_master" />
+                <marker date="1471689631079" expanded="true" signature="17616:17655" placeholder="select Servi... consignor_master" />
+                <marker date="1471689631079" expanded="true" signature="18384:18401" placeholder="select ${$ID... ${$IDTableName}" />
+                <marker date="1471689631079" expanded="true" signature="18384:18412" placeholder="select amid area_master" />
+                <marker date="1471689631079" expanded="true" signature="18999:19025" placeholder="select ${$ID... ${$IDTableName}" />
+                <marker date="1471689631079" expanded="true" signature="18999:19037" placeholder="select id fr... pageaccess_member" />
+                <marker date="1471689631079" expanded="true" signature="19571:19605" placeholder="select id fr... pageaccess_member" />
+                <marker date="1471689631079" expanded="true" signature="20135:20169" placeholder="select login... login_master" />
+                <marker date="1471689631079" expanded="true" signature="20693:20726" placeholder="select mmid merchant_master" />
+                <marker date="1471689631079" expanded="true" signature="21259:21293" placeholder="select mmid merchant_master" />
+                <marker date="1471689631079" expanded="true" signature="21837:21872" placeholder="select mmid merchant_master" />
+                <marker date="1471689631079" expanded="true" signature="22456:22499" placeholder="select cnaid... consigneeaddress_master" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="lrentry.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/lrentry.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="221">
+              <caret line="296" column="63" selection-start-line="296" selection-start-column="63" selection-end-line="296" selection-end-column="63" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="lrentry_1.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lrentry_1.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="9" column="42" selection-start-line="9" selection-start-column="42" selection-end-line="9" selection-end-column="42" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="lrentry_2.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lrentry_2.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="425">
+              <caret line="25" column="44" selection-start-line="25" selection-start-column="43" selection-end-line="25" selection-end-column="44" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="lrentry_3.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lrentry_3.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="365">
+              <caret line="48" column="46" selection-start-line="48" selection-start-column="46" selection-end-line="48" selection-end-column="46" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="lrentry_4.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lrentry_4.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-502">
+              <caret line="49" column="32" selection-start-line="49" selection-start-column="17" selection-end-line="49" selection-end-column="32" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="lrentry_5.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lrentry_5.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="289">
+              <caret line="34" column="4" selection-start-line="34" selection-start-column="4" selection-end-line="34" selection-end-column="4" />
+              <folding>
+                <marker date="1471689693937" expanded="true" signature="1467:1531" placeholder="select Charg... additionalcharge_master" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="save_lrentry.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/save_lrentry.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="144">
+              <caret line="115" column="77" selection-start-line="115" selection-start-column="54" selection-end-line="115" selection-end-column="77" />
+              <folding>
+                <marker date="1471690606957" expanded="true" signature="5228:5301" placeholder="insert into `inwardcharge`... " />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/add_contacttype_1.php" />
+        <option value="$PROJECT_DIR$/add_contacttype.php" />
+        <option value="$PROJECT_DIR$/add_menu_2.php" />
+        <option value="$PROJECT_DIR$/add_menu_1.php" />
+        <option value="$PROJECT_DIR$/add_menu.php" />
+        <option value="$PROJECT_DIR$/add_pageaccess_2.php" />
+        <option value="$PROJECT_DIR$/add_pageaccess.php" />
+        <option value="$PROJECT_DIR$/add_pageaccess_1.php" />
+        <option value="$PROJECT_DIR$/add_product_2.php" />
+        <option value="$PROJECT_DIR$/add_product_1.php" />
+        <option value="$PROJECT_DIR$/add_product.php" />
+        <option value="$PROJECT_DIR$/add_transporter_2.php" />
+        <option value="$PROJECT_DIR$/add_transporter_1.php" />
+        <option value="$PROJECT_DIR$/add_transporter.php" />
+        <option value="$PROJECT_DIR$/add_vehicle_2.php" />
+        <option value="$PROJECT_DIR$/add_vehicle_1.php" />
+        <option value="$PROJECT_DIR$/add_login.php" />
+        <option value="$PROJECT_DIR$/add_vehicle.php" />
+        <option value="$PROJECT_DIR$/add_vehicleownership_2.php" />
+        <option value="$PROJECT_DIR$/add_vehicleownership_1.php" />
+        <option value="$PROJECT_DIR$/add_vehicleownership.php" />
+        <option value="$PROJECT_DIR$/add_rate_1.php" />
+        <option value="$PROJECT_DIR$/save_merchant.php" />
+        <option value="$PROJECT_DIR$/form_controls_extended.html" />
+        <option value="$PROJECT_DIR$/form_controls_extended.php" />
+        <option value="$PROJECT_DIR$/add_merchant_2.php" />
+        <option value="$PROJECT_DIR$/add_merchant.php" />
+        <option value="$PROJECT_DIR$/add_consignor_2.php" />
+        <option value="$PROJECT_DIR$/assets/js/pages/form_controls_extended.js" />
+        <option value="$PROJECT_DIR$/picker_date.html" />
+        <option value="$PROJECT_DIR$/assets/js/core/app.js" />
+        <option value="$PROJECT_DIR$/form_controls_extended_jaywant_LRentry.html" />
+        <option value="$PROJECT_DIR$/assets/js/pages/picker_date.js" />
+        <option value="$PROJECT_DIR$/add_consignee_2.php" />
+        <option value="$PROJECT_DIR$/add_consignee.php" />
+        <option value="$PROJECT_DIR$/save_consignee.php" />
+        <option value="$PROJECT_DIR$/add_rate_2.php" />
+        <option value="$PROJECT_DIR$/add_rate.php" />
+        <option value="$PROJECT_DIR$/save_addrate.php" />
+        <option value="$PROJECT_DIR$/lrentry_2.php" />
+        <option value="$PROJECT_DIR$/add_consignor.php" />
+        <option value="$PROJECT_DIR$/save_addconsignor.php" />
+        <option value="$PROJECT_DIR$/add_financialyear.php" />
+        <option value="$PROJECT_DIR$/lrentry_3.php" />
+        <option value="$PROJECT_DIR$/lrentry_4.php" />
+        <option value="$PROJECT_DIR$/lrentry_1.php" />
+        <option value="$PROJECT_DIR$/assets/inc/common-function.php" />
+        <option value="$PROJECT_DIR$/lrentry_5.php" />
+        <option value="$PROJECT_DIR$/assets/js/search/search.js" />
+        <option value="$PROJECT_DIR$/save_lrentry.php" />
+        <option value="$PROJECT_DIR$/lrentry.php" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" />
+  <component name="JsBuildToolPackageJson" detection-done="true" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+  </component>
+  <component name="PhpServers">
+    <servers />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1382" />
+    <option name="height" value="744" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane />
+      </pane>
+      <pane id="Scratches" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="settings.editor.selected.configurable" value="reference.settings.deploy.options" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../server" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\xampp\htdocs\LTR" />
+      <recent name="E:\xampp\htdocs\LTR\" />
+      <recent name="E:\xampp\htdocs\LTR\assets\inc" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpBehatConfigurationType" factoryName="Behat">
+      <BehatRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run-script" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0964f998-4cc2-432e-86fe-fef7fae52ef8" name="Default" comment="" />
+      <created>1471065323544</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1471065323544</updated>
+      <workItem from="1471065325180" duration="9082000" />
+      <workItem from="1471080426649" duration="16289000" />
+      <workItem from="1471148426377" duration="16199000" />
+      <workItem from="1471181400950" duration="3755000" />
+      <workItem from="1471232825568" duration="23727000" />
+      <workItem from="1471321985967" duration="23136000" />
+      <workItem from="1471407711218" duration="5573000" />
+      <workItem from="1471435183490" duration="3088000" />
+      <workItem from="1471500667257" duration="14128000" />
+      <workItem from="1471542138175" duration="1644000" />
+      <workItem from="1471581327808" duration="26749000" />
+      <workItem from="1471668196001" duration="17757000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="161127000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2265861" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.326284" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Command Line Tools Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32879046" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="3" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/assets/js/plugins/forms/inputs/formatter.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/plugins/forms/inputs/typeahead/typeahead.bundle.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-26">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/plugins/forms/inputs/typeahead/handlebars.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-40712">
+          <caret line="11" column="50" selection-start-line="11" selection-start-column="50" selection-end-line="11" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/plugins/forms/inputs/passy.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-26">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/add_merchant_2.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="55" selection-start-line="13" selection-start-column="55" selection-end-line="13" selection-end-column="55" />
+          <folding>
+            <marker date="1471522596350" expanded="true" signature="2769:2804" placeholder="select ${$co... merchant_master" />
+            <marker date="1471522596350" expanded="true" signature="3958:3991" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/form_controls_extended.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="63" column="71" selection-start-line="63" selection-start-column="71" selection-end-line="63" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/add_merchant.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="501">
+          <caret line="37" column="41" selection-start-line="37" selection-start-column="41" selection-end-line="37" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/pages/form_controls_extended.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="257" column="34" selection-start-line="257" selection-start-column="34" selection-end-line="257" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Else/picker_date.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="13" column="47" selection-start-line="13" selection-start-column="47" selection-end-line="13" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/core/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="562" column="13" selection-start-line="562" selection-start-column="13" selection-end-line="562" selection-end-column="13" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/picker_date.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="20" column="60" selection-start-line="20" selection-start-column="60" selection-end-line="20" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/add_pageaccess.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="132" column="46" selection-start-line="120" selection-start-column="40" selection-end-line="132" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/add_transporter_1.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="264" selection-start-line="18" selection-start-column="264" selection-end-line="18" selection-end-column="264" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/add_transporter_2.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="428">
+          <caret line="141" column="12" selection-start-line="141" selection-start-column="12" selection-end-line="141" selection-end-column="12" />
+          <folding>
+            <marker date="1471356412938" expanded="true" signature="3273:3311" placeholder="select ${$co... transporter_master" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/form_controls_extended.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1442">
+          <caret line="33" column="37" selection-start-line="33" selection-start-column="36" selection-end-line="33" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/form_controls_extended_jaywant_LRentry.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="381" column="105" selection-start-line="381" selection-start-column="60" selection-end-line="382" selection-end-column="130" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Else/form_controls_extended.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="1213" column="102" selection-start-line="1213" selection-start-column="79" selection-end-line="1213" selection-end-column="102" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/pages/picker_date.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/add_transporter.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="38" column="28" selection-start-line="32" selection-start-column="4" selection-end-line="38" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/add_consignee_1.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="220" selection-start-line="18" selection-start-column="220" selection-end-line="18" selection-end-column="220" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/save_consignee.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/add_consignee_2.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="131" column="65" selection-start-line="131" selection-start-column="52" selection-end-line="131" selection-end-column="65" />
+          <folding>
+            <marker date="1471594762427" expanded="true" signature="3364:3400" placeholder="select ${$co... consignee_master" />
+            <marker date="1471594762427" expanded="true" signature="4137:4193" placeholder="..." />
+            <marker date="1471594762427" expanded="true" signature="4929:4962" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/add_consignee.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="130" column="104" selection-start-line="130" selection-start-column="86" selection-end-line="130" selection-end-column="104" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/save_addrate.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="74" column="0" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Else/form_validation.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="1326" column="93" selection-start-line="1326" selection-start-column="81" selection-end-line="1326" selection-end-column="93" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/add_rate_1.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="40" selection-start-line="13" selection-start-column="40" selection-end-line="13" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/add_rate_2.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="365">
+          <caret line="133" column="60" selection-start-line="133" selection-start-column="52" selection-end-line="133" selection-end-column="60" />
+          <folding>
+            <marker date="1471605098483" expanded="true" signature="3357:3388" placeholder="select ${$co... additionalcharge_master" />
+            <marker date="1471605098483" expanded="true" signature="4983:5016" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/save_addconsignor.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="138" column="0" selection-start-line="138" selection-start-column="0" selection-end-line="138" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/add_consignor_2.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="94" column="37" selection-start-line="94" selection-start-column="37" selection-end-line="94" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/add_consignor_1.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="261" selection-start-line="18" selection-start-column="261" selection-end-line="18" selection-end-column="261" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Else/form_checkboxes_radios.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="348">
+          <caret line="1146" column="48" selection-start-line="1143" selection-start-column="40" selection-end-line="1146" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/add_consignor.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="295" column="106" selection-start-line="295" selection-start-column="96" selection-end-line="295" selection-end-column="106" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/add_menu.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/add_menu_1.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/add_financialyear_1.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/add_menu_2.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1471354638415" expanded="true" signature="2952:2980" placeholder="select ${$co... 1menusub" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/add_financialyear_2.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/save_menu.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/save_financialyear.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/add_financialyear.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-612">
+          <caret line="66" column="43" selection-start-line="66" selection-start-column="43" selection-end-line="66" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/add_rate.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="121" column="104" selection-start-line="121" selection-start-column="70" selection-end-line="121" selection-end-column="104" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/save_addarea.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="46" selection-start-line="10" selection-start-column="46" selection-end-line="10" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lrentry_1.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="42" selection-start-line="9" selection-start-column="42" selection-end-line="9" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lrentry_2.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="25" column="44" selection-start-line="25" selection-start-column="43" selection-end-line="25" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lrentry_3.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="365">
+          <caret line="48" column="46" selection-start-line="48" selection-start-column="46" selection-end-line="48" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lrentry_4.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-502">
+          <caret line="49" column="32" selection-start-line="49" selection-start-column="17" selection-end-line="49" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/search/search.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="2444" column="0" selection-start-line="2444" selection-start-column="0" selection-end-line="2444" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lrentry_5.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="34" column="4" selection-start-line="34" selection-start-column="4" selection-end-line="34" selection-end-column="4" />
+          <folding>
+            <marker date="1471689693937" expanded="true" signature="1467:1531" placeholder="select Charg... additionalcharge_master" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/inc/common-function.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="479" column="46" selection-start-line="472" selection-start-column="8" selection-end-line="479" selection-end-column="46" />
+          <folding>
+            <marker date="1471689631079" expanded="true" signature="4304:4318" placeholder="select * fro... ${$TableName}" />
+            <marker date="1471689631079" expanded="true" signature="5152:5182" placeholder="select id fr... log_tablelist" />
+            <marker date="1471689631079" expanded="true" signature="6300:6317" placeholder="select ${$Co... ${$TableName}" />
+            <marker date="1471689631079" expanded="true" signature="6300:6337" placeholder="select fyid financialyear_master" />
+            <marker date="1471689631079" expanded="true" signature="6841:6873" placeholder="select ${$Co... ${$TableName}" />
+            <marker date="1471689631079" expanded="true" signature="6841:6893" placeholder="select ${$Co... financialyear_master" />
+            <marker date="1471689631079" expanded="true" signature="7414:7438" placeholder="select void,... ${$TableName}" />
+            <marker date="1471689631079" expanded="true" signature="7414:7448" placeholder="select void,... vehicleownership_master" />
+            <marker date="1471689631079" expanded="true" signature="7937:7985" placeholder="select consi... consignor_master" />
+            <marker date="1471689631079" expanded="true" signature="8588:8732" placeholder="select consi... consignor_master" />
+            <marker date="1471689631079" expanded="true" signature="9384:9435" placeholder="select void,... vehicleownership_master" />
+            <marker date="1471689631079" expanded="true" signature="9909:9966" placeholder="select desig... designation_master" />
+            <marker date="1471689631079" expanded="true" signature="10457:10499" placeholder="select login... login_master" />
+            <marker date="1471689631079" expanded="true" signature="11028:11096" placeholder="select pmid,... product_master" />
+            <marker date="1471689631079" expanded="true" signature="11790:11834" placeholder="select pmid,... product_master" />
+            <marker date="1471689631079" expanded="true" signature="12307:12343" placeholder="select menus... 1menusub" />
+            <marker date="1471689631079" expanded="true" signature="12861:12868" placeholder="select Privi... designation_master" />
+            <marker date="1471689631079" expanded="true" signature="12861:12925" placeholder="select Charg... additionalcharge_master" />
+            <marker date="1471689631079" expanded="true" signature="13902:13944" placeholder="select Privi... designation_master" />
+            <marker date="1471689631079" expanded="true" signature="14495:14549" placeholder="select Charg... additionalcharge_master" />
+            <marker date="1471689631079" expanded="true" signature="15065:15112" placeholder="select Charg... additionalcharge_master" />
+            <marker date="1471689631079" expanded="true" signature="15682:15729" placeholder="select Carto... rate_master" />
+            <marker date="1471689631079" expanded="true" signature="16476:16502" placeholder="select Privi... designation_master" />
+            <marker date="1471689631079" expanded="true" signature="17028:17063" placeholder="select UserN... login_master" />
+            <marker date="1471689631079" expanded="true" signature="17616:17655" placeholder="select Servi... consignor_master" />
+            <marker date="1471689631079" expanded="true" signature="18384:18401" placeholder="select ${$ID... ${$IDTableName}" />
+            <marker date="1471689631079" expanded="true" signature="18384:18412" placeholder="select amid area_master" />
+            <marker date="1471689631079" expanded="true" signature="18999:19025" placeholder="select ${$ID... ${$IDTableName}" />
+            <marker date="1471689631079" expanded="true" signature="18999:19037" placeholder="select id fr... pageaccess_member" />
+            <marker date="1471689631079" expanded="true" signature="19571:19605" placeholder="select id fr... pageaccess_member" />
+            <marker date="1471689631079" expanded="true" signature="20135:20169" placeholder="select login... login_master" />
+            <marker date="1471689631079" expanded="true" signature="20693:20726" placeholder="select mmid merchant_master" />
+            <marker date="1471689631079" expanded="true" signature="21259:21293" placeholder="select mmid merchant_master" />
+            <marker date="1471689631079" expanded="true" signature="21837:21872" placeholder="select mmid merchant_master" />
+            <marker date="1471689631079" expanded="true" signature="22456:22499" placeholder="select cnaid... consigneeaddress_master" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/save_lrentry.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="115" column="77" selection-start-line="115" selection-start-column="54" selection-end-line="115" selection-end-column="77" />
+          <folding>
+            <marker date="1471690606957" expanded="true" signature="5228:5301" placeholder="insert into `inwardcharge`... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lrentry.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="296" column="63" selection-start-line="296" selection-start-column="63" selection-end-line="296" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

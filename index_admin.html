@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Limitless - Responsive Web Application Kit by Eugene Kopyov</title>
+
+	<!-- Global stylesheets -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+	<link href="assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/core.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/components.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/colors.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/icons/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/extras/animate.min.css" rel="stylesheet" type="text/css">
+	<!-- /global stylesheets -->
+
+	<!-- Core JS files -->
+	<script type="text/javascript" src="assets/js/plugins/loaders/pace.min.js"></script>
+	<script type="text/javascript" src="assets/js/core/libraries/jquery.min.js"></script>
+	<script type="text/javascript" src="assets/js/core/libraries/bootstrap.min.js"></script>
+	<script type="text/javascript" src="assets/js/plugins/loaders/blockui.min.js"></script>
+	<script type="text/javascript" src="assets/js/plugins/ui/nicescroll.min.js"></script>
+	<script type="text/javascript" src="assets/js/plugins/ui/drilldown.js"></script>
+	<!-- /core JS files -->
+
+	<!-- Theme JS files -->
+	<script type="text/javascript" src="assets/js/plugins/visualization/d3/d3.min.js"></script>
+	<script type="text/javascript" src="assets/js/plugins/visualization/d3/d3_tooltip.js"></script>
+	<script type="text/javascript" src="assets/js/plugins/forms/styling/switchery.min.js"></script>
+	<script type="text/javascript" src="assets/js/plugins/forms/styling/uniform.min.js"></script>
+	<script type="text/javascript" src="assets/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
+	<script type="text/javascript" src="assets/js/plugins/ui/moment/moment.min.js"></script>
+	<script type="text/javascript" src="assets/js/plugins/pickers/daterangepicker.js"></script>
+
+	<script type="text/javascript" src="assets/js/core/app.js"></script>
+	<script type="text/javascript" src="assets/js/pages/dashboard.js"></script>
+	<!-- /theme JS files -->
+
+<body class="navbar-top">
+
+	<!-- Main navbar -->
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="index.html"><img src="assets/images/logo_light.png" alt=""></a>
+
+			<ul class="nav navbar-nav pull-right visible-xs-block">
+				<li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
+			</ul>
+		</div>
+
+		<div class="navbar-collapse collapse" id="navbar-mobile">
+			<ul class="nav navbar-nav">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						<i class="icon-git-compare"></i>
+						<span class="visible-xs-inline-block position-right">Git updates</span>
+						<span class="badge bg-warning-400">9</span>
+					</a>
+					
+					<div class="dropdown-menu dropdown-content">
+						<div class="dropdown-content-heading">
+							Git updates
+							<ul class="icons-list">
+								<li><a href="#"><i class="icon-sync"></i></a></li>
+							</ul>
+						</div>
+
+						<ul class="media-list dropdown-content-body width-350">
+							<li class="media">
+								<div class="media-left">
+									<a href="#" class="btn border-primary text-primary btn-flat btn-rounded btn-icon btn-sm"><i class="icon-git-pull-request"></i></a>
+								</div>
+
+								<div class="media-body">
+									Drop the IE <a href="#">specific hacks</a> for temporal inputs
+									<div class="media-annotation">4 minutes ago</div>
+								</div>
+							</li>
+
+							<li class="media">
+								<div class="media-left">
+									<a href="#" class="btn border-warning text-warning btn-flat btn-rounded btn-icon btn-sm"><i class="icon-git-commit"></i></a>
+								</div>
+								
+								<div class="media-body">
+									Add full font overrides for popovers and tooltips
+									<div class="media-annotation">36 minutes ago</div>
+								</div>
+							</li>
+
+							<li class="media">
+								<div class="media-left">
+									<a href="#" class="btn border-info text-info btn-flat btn-rounded btn-icon btn-sm"><i class="icon-git-branch"></i></a>
+								</div>
+								
+								<div class="media-body">
+									<a href="#">Chris Arney</a> created a new <span class="text-semibold">Design</span> branch
+									<div class="media-annotation">2 hours ago</div>
+								</div>
+							</li>
+
+							<li class="media">
+								<div class="media-left">
+									<a href="#" class="btn border-success text-success btn-flat btn-rounded btn-icon btn-sm"><i class="icon-git-merge"></i></a>
+								</div>
+								
+								<div class="media-body">
+									<a href="#">Eugene Kopyov</a> merged <span class="text-semibold">Master</span> and <span class="text-semibold">Dev</span> branches
+									<div class="media-annotation">Dec 18, 18:36</div>
+								</div>
+							</li>
+
+							<li class="media">
+								<div class="media-left">
+									<a href="#" class="btn border-primary text-primary btn-flat btn-rounded btn-icon btn-sm"><i class="icon-git-pull-request"></i></a>
+								</div>
+								
+								<div class="media-body">
+									Have Carousel ignore keyboard events
+									<div class="media-annotation">Dec 12, 05:46</div>
+								</div>
+							</li>
+						</ul>
+
+						<div class="dropdown-content-footer">
+							<a href="#" data-popup="tooltip" title="All activity"><i class="icon-menu display-block"></i></a>
+						</div>
+					</div>
+				</li>
+
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						<i class="icon-people"></i>
+						<span class="visible-xs-inline-block position-right">Users</span>
+					</a>
+					
+					<div class="dropdown-menu dropdown-content">
+						<div class="dropdown-content-heading">
+							Users online
+							<ul class="icons-list">
+								<li><a href="#"><i class="icon-gear"></i></a></li>
+							</ul>
+						</div>
+
+						<ul class="media-list dropdown-content-body width-300">
+							<li class="media">
+								<div class="media-left"><img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt=""></div>
+								<div class="media-body">
+									<a href="#" class="media-heading text-semibold">Jordana Ansley</a>
+									<span class="display-block text-muted text-size-small">Lead web developer</span>
+								</div>
+								<div class="media-right media-middle"><span class="status-mark border-success"></span></div>
+							</li>
+
+							<li class="media">
+								<div class="media-left"><img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt=""></div>
+								<div class="media-body">
+									<a href="#" class="media-heading text-semibold">Will Brason</a>
+									<span class="display-block text-muted text-size-small">Marketing manager</span>
+								</div>
+								<div class="media-right media-middle"><span class="status-mark border-danger"></span></div>
+							</li>
+
+							<li class="media">
+								<div class="media-left"><img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt=""></div>
+								<div class="media-body">
+									<a href="#" class="media-heading text-semibold">Hanna Walden</a>
+									<span class="display-block text-muted text-size-small">Project manager</span>
+								</div>
+								<div class="media-right media-middle"><span class="status-mark border-success"></span></div>
+							</li>
+
+							<li class="media">
+								<div class="media-left"><img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt=""></div>
+								<div class="media-body">
+									<a href="#" class="media-heading text-semibold">Dori Laperriere</a>
+									<span class="display-block text-muted text-size-small">Business developer</span>
+								</div>
+								<div class="media-right media-middle"><span class="status-mark border-warning-300"></span></div>
+							</li>
+
+							<li class="media">
+								<div class="media-left"><img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt=""></div>
+								<div class="media-body">
+									<a href="#" class="media-heading text-semibold">Vanessa Aurelius</a>
+									<span class="display-block text-muted text-size-small">UX expert</span>
+								</div>
+								<div class="media-right media-middle"><span class="status-mark border-grey-400"></span></div>
+							</li>
+						</ul>
+
+						<div class="dropdown-content-footer">
+							<a href="#" data-popup="tooltip" title="All users"><i class="icon-menu display-block"></i></a>
+						</div>
+					</div>
+				</li>
+			</ul>
+
+			<p class="navbar-text"><span class="label bg-success-400">Online</span></p>
+
+			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown language-switch">
+					<a class="dropdown-toggle" data-toggle="dropdown">
+						<img src="assets/images/flags/gb.png" class="position-left" alt="">
+						English
+						<span class="caret"></span>
+					</a>
+
+					<ul class="dropdown-menu">
+						<li><a class="deutsch"><img src="assets/images/flags/de.png" alt=""> Deutsch</a></li>
+						<li><a class="ukrainian"><img src="assets/images/flags/ua.png" alt=""> Українська</a></li>
+						<li><a class="english"><img src="assets/images/flags/gb.png" alt=""> English</a></li>
+						<li><a class="espana"><img src="assets/images/flags/es.png" alt=""> España</a></li>
+						<li><a class="russian"><img src="assets/images/flags/ru.png" alt=""> Русский</a></li>
+					</ul>
+				</li>
+
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						<i class="icon-bubbles4"></i>
+						<span class="visible-xs-inline-block position-right">Messages</span>
+						<span class="badge bg-warning-400">2</span>
+					</a>
+					
+					<div class="dropdown-menu dropdown-content width-350">
+						<div class="dropdown-content-heading">
+							Messages
+							<ul class="icons-list">
+								<li><a href="#"><i class="icon-compose"></i></a></li>
+							</ul>
+						</div>
+
+						<ul class="media-list dropdown-content-body">
+							<li class="media">
+								<div class="media-left">
+									<img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt="">
+									<span class="badge bg-danger-400 media-badge">5</span>
+								</div>
+
+								<div class="media-body">
+									<a href="#" class="media-heading">
+										<span class="text-semibold">James Alexander</span>
+										<span class="media-annotation pull-right">04:58</span>
+									</a>
+
+									<span class="text-muted">who knows, maybe that would be the best thing for me...</span>
+								</div>
+							</li>
+
+							<li class="media">
+								<div class="media-left">
+									<img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt="">
+									<span class="badge bg-danger-400 media-badge">4</span>
+								</div>
+
+								<div class="media-body">
+									<a href="#" class="media-heading">
+										<span class="text-semibold">Margo Baker</span>
+										<span class="media-annotation pull-right">12:16</span>
+									</a>
+
+									<span class="text-muted">That was something he was unable to do because...</span>
+								</div>
+							</li>
+
+							<li class="media">
+								<div class="media-left"><img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt=""></div>
+								<div class="media-body">
+									<a href="#" class="media-heading">
+										<span class="text-semibold">Jeremy Victorino</span>
+										<span class="media-annotation pull-right">22:48</span>
+									</a>
+
+									<span class="text-muted">But that would be extremely strained and suspicious...</span>
+								</div>
+							</li>
+
+							<li class="media">
+								<div class="media-left"><img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt=""></div>
+								<div class="media-body">
+									<a href="#" class="media-heading">
+										<span class="text-semibold">Beatrix Diaz</span>
+										<span class="media-annotation pull-right">Tue</span>
+									</a>
+
+									<span class="text-muted">What a strenuous career it is that I've chosen...</span>
+								</div>
+							</li>
+
+							<li class="media">
+								<div class="media-left"><img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt=""></div>
+								<div class="media-body">
+									<a href="#" class="media-heading">
+										<span class="text-semibold">Richard Vango</span>
+										<span class="media-annotation pull-right">Mon</span>
+									</a>
+									
+									<span class="text-muted">Other travelling salesmen live a life of luxury...</span>
+								</div>
+							</li>
+						</ul>
+
+						<div class="dropdown-content-footer">
+							<a href="#" data-popup="tooltip" title="All messages"><i class="icon-menu display-block"></i></a>
+						</div>
+					</div>
+				</li>
+
+				<li class="dropdown dropdown-user">
+					<a class="dropdown-toggle" data-toggle="dropdown">
+						<img src="assets/images/placeholder.jpg" alt="">
+						<span>Victoria</span>
+						<i class="caret"></i>
+					</a>
+
+					<ul class="dropdown-menu dropdown-menu-right">
+						<li><a href="#"><i class="icon-user-plus"></i> My profile</a></li>
+						<li><a href="#"><i class="icon-coins"></i> My balance</a></li>
+						<li><a href="#"><span class="badge badge-warning pull-right">58</span> <i class="icon-comment-discussion"></i> Messages</a></li>
+						<li class="divider"></li>
+						<li><a href="#"><i class="icon-cog5"></i> Account settings</a></li>
+						<li><a href="#"><i class="icon-switch2"></i> Logout</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!-- /main navbar -->
+
+	<!-- Page container -->
+	<div class="page-container">
+
+		<!-- Page content -->
+		<div class="page-content">
+
+			<!-- Main content -->
+			<div class="content-wrapper">
+
+				<!-- Dashboard content -->
+                
+			<div class="row">
+				<div class="col-lg-10">
+            <!-- Quick stats boxes -->
+						<div class="row">
+							<div class="col-lg-4">
+
+								<!-- Members online -->
+								<div class="panel bg-teal-400">
+									<div class="panel-body">
+										<div class="heading-elements">
+											<span class="heading-text badge bg-teal-800">+53,6%</span>
+										</div>
+
+										<h3 class="no-margin">3,450</h3>
+										Members online
+										<div class="text-muted text-size-small">489 avg</div>
+									</div>
+
+									<div class="container-fluid">
+										<div id="members-online"></div>
+									</div>
+								</div>
+								<!-- /members online -->
+
+							</div>
+
+							<div class="col-lg-4">
+
+								<!-- Current server load -->
+								<div class="panel bg-pink-400">
+									<div class="panel-body">
+										<div class="heading-elements">
+											<ul class="icons-list">
+						                		<li class="dropdown">
+						                			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cog3"></i> <span class="caret"></span></a>
+													<ul class="dropdown-menu dropdown-menu-right">
+														<li><a href="#"><i class="icon-sync"></i> Update data</a></li>
+														<li><a href="#"><i class="icon-list-unordered"></i> Detailed log</a></li>
+														<li><a href="#"><i class="icon-pie5"></i> Statistics</a></li>
+														<li><a href="#"><i class="icon-cross3"></i> Clear list</a></li>
+													</ul>
+						                		</li>
+						                	</ul>
+										</div>
+
+										<h3 class="no-margin">49.4%</h3>
+										Current server load
+										<div class="text-muted text-size-small">34.6% avg</div>
+									</div>
+
+									<div id="server-load"></div>
+								</div>
+								<!-- /current server load -->
+
+							</div>
+
+							<div class="col-lg-4">
+
+								<!-- Today's revenue -->
+								<div class="panel bg-blue-400">
+									<div class="panel-body">
+										<div class="heading-elements">
+											<ul class="icons-list">
+						                		<li><a data-action="reload"></a></li>
+						                	</ul>
+					                	</div>
+
+										<h3 class="no-margin">$18,390</h3>
+										Today's revenue
+										<div class="text-muted text-size-small">$37,578 avg</div>
+									</div>
+
+									<div id="today-revenue"></div>
+								</div>
+								<!-- /today's revenue -->
+
+							</div>
+						</div>
+						<!-- /quick stats boxes -->
+            
+            <!-- Support tickets -->
+                <div class="row">
+					<div class="col-md-6">
+						<!-- Column selectors -->
+				<div class="panel panel-flat">
+					<div class="panel-heading">
+						<h5 class="panel-title">Column selectors</h5>
+						<div class="heading-elements">
+							<ul class="icons-list">
+		                		<li><a data-action="collapse"></a></li>
+		                		<li><a data-action="reload"></a></li>
+		                		<li><a data-action="close"></a></li>
+		                	</ul>
+	                	</div>
+					</div>
+
+					<table class="table datatable-button-html5-columns">
+						<thead>
+							<tr>
+								<th>First Name</th>
+								<th>Last Name</th>
+								<th>Job Title</th>
+								<th>DOB</th>
+								<th>Status</th>
+								<th>Salary</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Marth</td>
+								<td><a href="#">Enright</a></td>
+								<td>Traffic Court Referee</td>
+								<td>22 Jun 1972</td>
+								<td><span class="label label-success">Active</span></td>
+								<td>$85,600</td>
+							</tr>
+							<tr>
+								<td>Jackelyn</td>
+								<td>Weible</td>
+								<td><a href="#">Airline Transport Pilot</a></td>
+								<td>3 Oct 1981</td>
+								<td><span class="label label-default">Inactive</span></td>
+								<td>$106,450</td>
+							</tr>
+							<tr>
+								<td>Aura</td>
+								<td>Hard</td>
+								<td>Business Services Sales Representative</td>
+								<td>19 Apr 1969</td>
+								<td><span class="label label-danger">Suspended</span></td>
+								<td>$237,500</td>
+							</tr>
+							<tr>
+								<td>Nathalie</td>
+								<td><a href="#">Pretty</a></td>
+								<td>Drywall Stripper</td>
+								<td>13 Dec 1977</td>
+								<td><span class="label label-info">Pending</span></td>
+								<td>$198,500</td>
+							</tr>
+							<tr>
+								<td>Sharan</td>
+								<td>Leland</td>
+								<td>Aviation Tactical Readiness Officer</td>
+								<td>30 Dec 1991</td>
+								<td><span class="label label-default">Inactive</span></td>
+								<td>$470,600</td>
+							</tr>
+							<tr>
+								<td>Maxine</td>
+								<td><a href="#">Woldt</a></td>
+								<td><a href="#">Business Services Sales Representative</a></td>
+								<td>17 Oct 1987</td>
+								<td><span class="label label-info">Pending</span></td>
+								<td>$90,560</td>
+							</tr>
+							<tr>
+								<td>Sylvia</td>
+								<td><a href="#">Mcgaughy</a></td>
+								<td>Hemodialysis Technician</td>
+								<td>11 Nov 1983</td>
+								<td><span class="label label-danger">Suspended</span></td>
+								<td>$103,600</td>
+							</tr>
+							<tr>
+								<td>Lizzee</td>
+								<td><a href="#">Goodlow</a></td>
+								<td>Technical Services Librarian</td>
+								<td>1 Nov 1961</td>
+								<td><span class="label label-danger">Suspended</span></td>
+								<td>$205,500</td>
+							</tr>
+							<tr>
+								<td>Kennedy</td>
+								<td>Haley</td>
+								<td>Senior Marketing Designer</td>
+								<td>18 Dec 1960</td>
+								<td><span class="label label-success">Active</span></td>
+								<td>$137,500</td>
+							</tr>
+							<tr>
+								<td>Chantal</td>
+								<td><a href="#">Nailor</a></td>
+								<td>Technical Services Librarian</td>
+								<td>10 Jan 1980</td>
+								<td><span class="label label-default">Inactive</span></td>
+								<td>$372,000</td>
+							</tr>
+							<tr>
+								<td>Delma</td>
+								<td>Bonds</td>
+								<td>Lead Brand Manager</td>
+								<td>21 Dec 1968</td>
+								<td><span class="label label-info">Pending</span></td>
+								<td>$162,700</td>
+							</tr>
+							<tr>
+
+								<td>Roland</td>
+								<td>Salmos</td>
+								<td><a href="#">Senior Program Developer</a></td>
+								<td>5 Jun 1986</td>
+								<td><span class="label label-default">Inactive</span></td>
+								<td>$433,060</td>
+							</tr>
+							<tr>
+								<td>Coy</td>
+								<td>Wollard</td>
+								<td>Customer Service Operator</td>
+								<td>12 Oct 1982</td>
+								<td><span class="label label-success">Active</span></td>
+								<td>$86,000</td>
+							</tr>
+							<tr>
+								<td>Maxwell</td>
+								<td>Maben</td>
+								<td>Regional Representative</td>
+								<td>25 Feb 1988</td>
+								<td><span class="label label-danger">Suspended</span></td>
+								<td>$130,500</td>
+							</tr>
+							<tr>
+								<td>Cicely</td>
+								<td>Sigler</td>
+								<td><a href="#">Senior Research Officer</a></td>
+								<td>15 Mar 1960</td>
+								<td><span class="label label-info">Pending</span></td>
+								<td>$159,000</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<!-- /column selectors -->
+					</div>
+
+					<div class="col-md-6">
+						<div class="panel border-left-lg border-left-danger">
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-md-8">
+										<h6 class="no-margin-top"><a href="task_manager_detailed.html">#23. New icons set for an iOS app</a></h6>
+										<p class="mb-15">A collection of textile samples pread out on the table..</p>
+
+					                	<a href="#"><img src="assets/images/placeholder.jpg" class="img-circle img-xs" alt=""></a>
+					                	<a href="#"><img src="assets/images/placeholder.jpg" class="img-circle img-xs" alt=""></a>
+					                	<a href="#" class="text-default">&nbsp;<i class="icon-plus22"></i></a>
+									</div>
+
+									<div class="col-md-4">
+										<ul class="list task-details">
+											<li>20 January, 2015</li>
+											<li class="dropdown">
+						                		Priority: &nbsp; 
+												<a href="#" class="label label-danger dropdown-toggle" data-toggle="dropdown">Highest <span class="caret"></span></a>
+												<ul class="dropdown-menu dropdown-menu-right">
+													<li class="active"><a href="#"><span class="status-mark position-left bg-danger"></span> Highest priority</a></li>
+													<li><a href="#"><span class="status-mark position-left bg-info"></span> High priority</a></li>
+													<li><a href="#"><span class="status-mark position-left bg-primary"></span> Normal priority</a></li>
+													<li><a href="#"><span class="status-mark position-left bg-success"></span> Low priority</a></li>
+												</ul>
+											</li>
+											<li><a href="#">Eternity app</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+
+							<div class="panel-footer">
+								<ul>
+									<li>Due: <span class="text-semibold">18 hours</span></li>
+								</ul>
+
+								<ul class="pull-right">
+									<li class="dropdown">
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown">On hold <span class="caret"></span></a>
+										<ul class="dropdown-menu dropdown-menu-right">
+											<li><a href="#">Open</a></li>
+											<li class="active"><a href="#">On hold</a></li>
+											<li><a href="#">Resolved</a></li>
+											<li><a href="#">Closed</a></li>
+											<li class="divider"></li>
+											<li><a href="#">Dublicate</a></li>
+											<li><a href="#">Invalid</a></li>
+											<li><a href="#">Wontfix</a></li>
+										</ul>
+									</li>
+
+									<li class="dropdown">
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-menu7"></i> <span class="caret"></span></a>
+										<ul class="dropdown-menu dropdown-menu-right">
+											<li><a href="#"><i class="icon-alarm-add"></i> Check in</a></li>
+											<li><a href="#"><i class="icon-attachment"></i> Attach screenshot</a></li>
+											<li><a href="#"><i class="icon-rotate-ccw2"></i> Reassign</a></li>
+											<li class="divider"></li>
+											<li><a href="#"><i class="icon-pencil7"></i> Edit task</a></li>
+											<li><a href="#"><i class="icon-cross2"></i> Remove</a></li>
+										</ul>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+						<!-- /support tickets -->
+
+
+						<!-- Latest posts -->
+						<div class="panel panel-flat">
+							<div class="panel-heading">
+								<h6 class="panel-title">Latest posts</h6>
+								<div class="heading-elements">
+									<ul class="icons-list">
+				                		<li><a data-action="collapse"></a></li>
+				                		<li><a data-action="reload"></a></li>
+				                		<li><a data-action="close"></a></li>
+				                	</ul>
+			                	</div>
+		                	</div>
+
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-lg-6">
+										<ul class="media-list content-group">
+											<li class="media stack-media-on-mobile">
+			                					<div class="media-left">
+													<div class="thumb">
+														<a href="#">
+															<img src="assets/images/placeholder.jpg" class="img-responsive img-rounded media-preview" alt="">
+															<span class="zoom-image"><i class="icon-play3"></i></span>
+														</a>
+													</div>
+												</div>
+
+			                					<div class="media-body">
+													<h6 class="media-heading"><a href="#">Up unpacked friendly</a></h6>
+						                    		<ul class="list-inline list-inline-separate text-muted mb-5">
+						                    			<li><i class="icon-book-play position-left"></i> Video tutorials</li>
+						                    			<li>14 minutes ago</li>
+						                    		</ul>
+													The him father parish looked has sooner. Attachment frequently gay terminated son...
+												</div>
+											</li>
+
+											<li class="media stack-media-on-mobile">
+			                					<div class="media-left">
+													<div class="thumb">
+														<a href="#">
+															<img src="assets/images/placeholder.jpg" class="img-responsive img-rounded media-preview" alt="">
+															<span class="zoom-image"><i class="icon-play3"></i></span>
+														</a>
+													</div>
+												</div>
+
+			                					<div class="media-body">
+													<h6 class="media-heading"><a href="#">It allowance prevailed</a></h6>
+						                    		<ul class="list-inline list-inline-separate text-muted mb-5">
+						                    			<li><i class="icon-book-play position-left"></i> Video tutorials</li>
+						                    			<li>12 days ago</li>
+						                    		</ul>
+													Alteration literature to or an sympathize mr imprudence. Of is ferrars subject as enjoyed...
+												</div>
+											</li>
+										</ul>
+									</div>
+
+									<div class="col-lg-6">
+										<ul class="media-list content-group">
+											<li class="media stack-media-on-mobile">
+			                					<div class="media-left">
+													<div class="thumb">
+														<a href="#">
+															<img src="assets/images/placeholder.jpg" class="img-responsive img-rounded media-preview" alt="">
+															<span class="zoom-image"><i class="icon-play3"></i></span>
+														</a>
+													</div>
+												</div>
+
+			                					<div class="media-body">
+													<h6 class="media-heading"><a href="#">Case read they must</a></h6>
+						                    		<ul class="list-inline list-inline-separate text-muted mb-5">
+						                    			<li><i class="icon-book-play position-left"></i> Video tutorials</li>
+						                    			<li>20 hours ago</li>
+						                    		</ul>
+													On it differed repeated wandered required in. Then girl neat why yet knew rose spot...
+												</div>
+											</li>
+
+											<li class="media stack-media-on-mobile">
+			                					<div class="media-left">
+													<div class="thumb">
+														<a href="#">
+															<img src="assets/images/placeholder.jpg" class="img-responsive img-rounded media-preview" alt="">
+															<span class="zoom-image"><i class="icon-play3"></i></span>
+														</a>
+													</div>
+												</div>
+
+			                					<div class="media-body">
+													<h6 class="media-heading"><a href="#">Too carriage attended</a></h6>
+						                    		<ul class="list-inline list-inline-separate text-muted mb-5">
+						                    			<li><i class="icon-book-play position-left"></i> FAQ section</li>
+						                    			<li>2 days ago</li>
+						                    		</ul>
+													Marianne or husbands if at stronger ye. Considered is as middletons uncommonly...
+												</div>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- /latest posts -->
+
+					</div>
+
+        <div class="col-lg-2">
+          <!-- Secondary sidebar -->
+			<div class="sidebar sidebar-secondary sidebar-default">
+				<div class="sidebar-content">
+
+					<!-- Actions -->
+					<div class="sidebar-category">
+						<div class="category-title">
+							<span>Masters Entry</span>
+						</div>
+
+                        <ul class="navigation navigation-alt navigation-accordion">
+								<li><a href="#"><i class="icon-googleplus5"></i> Create invoice</a></li>
+								<li><a href="#"><i class="icon-compose"></i> Edit invoice</a></li>
+								<li><a href="#"><i class="icon-archive"></i> Archive <span class="badge badge-default">190</span></a></li>
+								<li><a href="#"><i class="icon-files-empty"></i> All invoices</a></li>
+								<li><a href="#"><i class="icon-file-plus"></i> Pending invoices <span class="badge badge-info">16</span></a></li>
+								<li><a href="#"><i class="icon-file-check"></i> Paid tasks <span class="badge badge-success">50</span></a></li>
+						</ul>
+					</div>
+					<!-- /actions -->
+
+
+					<!-- Navigation -->
+					<div class="sidebar-category">
+						<div class="category-content no-padding">
+							
+						</div>
+					</div>
+					<!-- /navigation -->
+
+
+
+
+				</div>
+			</div>
+			<!-- /secondary sidebar -->
+                    
+                    </div>
+				</div>
+				<!-- /dashboard content -->
+
+			</div>
+			<!-- /main content -->
+
+		</div>
+		<!-- /page content -->
+
+
+		<!-- Footer -->
+		<div class="navbar navbar-inverse navbar-sm navbar-fixed-bottom">
+			<ul class="nav navbar-nav no-border visible-xs-block">
+				<li><a class="text-center collapsed" data-toggle="collapse" data-target="#navbar-second"><i class="icon-circle-up2"></i></a></li>
+			</ul>
+            <div class="navbar-collapse collapse" id="navbar-second">
+			<div class="navbar-text">
+				&copy; 2015. 
+               <a href="#">Limitless Web App Kit</a> by <a href="http://themeforest.net/user/Kopyov" target="_blank">Eugene Kopyov</a>
+			</div>
+
+				<div class="navbar-right">
+					<ul class="nav navbar-nav">
+						<li><a href="#">Help center</a></li>
+						<li><a href="#">Policy</a></li>
+						<li><a href="#" class="text-semibold">Upgrade your account</a></li>
+						
+					</ul>
+				</div>
+			</div>
+        </div>
+
+		
+		
+		<!-- /footer -->
+
+	</div>
+	<!-- /page container -->
+
+</body>
+</html>
