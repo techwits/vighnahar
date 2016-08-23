@@ -54,6 +54,20 @@
 		return $LogID;
 	}
 
+	function Add_ConsignorProduct($con, $CurrentDate, $session_userid, $session_ip, $LastInsertedID, $product)
+	{
+		$Split_Product = explode(",", $product);
+		foreach ($Split_Product as $SingleProduct)
+		{
+			$Procedure="";
+			$Procedure = "Call Save_ConsignorProduct('$CurrentDate', $session_userid, '$session_ip', $LastInsertedID, $SingleProduct);";
+			echo("Procedure :- $Procedure </br>");
+			unset($con);
+			include('assets/inc/db_connect.php');
+			$resultproduct = mysqli_query($con, $Procedure) or trigger_error("Query Failed(save consignor product)! Error: " . mysqli_error($con), E_USER_ERROR);
+		}
+	}
+
 	function Update_LogTable($con, $LogTable_ID, $tableName, $oldValue, $outTime)
 	{
 		$Proc= "";
@@ -412,12 +426,44 @@
 		mysqli_free_result($result);
 	}
 
+	function Fill_AreaForJS($con)
+	{
+		$Getting_AreaForJS="";
+		$sqlQry= "";
+		$sqlQry= "select AreaName from area_master ";
+		$sqlQry.= " where Active=1";
+		$sqlQry.= " group by AreaName";
+		$sqlQry.= " order by AreaName";
+		//echo ("$sqlQry");
+		mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0)
+		{
+			$inc=0;
+			$Getting_AreaForJS="";
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$inc=$inc+1;
+				if($inc==1) {
+					$Getting_AreaForJS = "'".$row{0}."'";
+				}
+				else{
+					$Getting_AreaForJS = $Getting_AreaForJS.", "."'".$row{0}."'";
+				}
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_AreaForJS;
+	}
+
 	function Fill_PageName($con)
 		{
 			$sqlQry= "";
-			$sqlQry= "select menusub_id, url from 1menusub ";
+			$sqlQry= "select menusub_id, urlDescription from 1menusub ";
 			$sqlQry.= " where Active=1";
-			$sqlQry.= " order by url";
+			$sqlQry.= " order by urlDescription";
 			//echo ("$sqlQry");
 			mysqli_close($con);
 			include('db_connect.php');

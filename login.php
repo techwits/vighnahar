@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
     <?php
-        include_once 'assets/inc/logout.php';
+    include_once 'assets/inc/logout.php';
     ?>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Limitless - Responsive Web Application Kit by Eugene Kopyov</title>
+    <title>Login Page</title>
 
     <!-- Global stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
@@ -26,56 +26,20 @@
     <!-- /core JS files -->
 
     <!-- Theme JS files -->
+    <script type="text/javascript" src="assets/js/plugins/forms/validation/validate.min.js"></script>
     <script type="text/javascript" src="assets/js/plugins/forms/styling/uniform.min.js"></script>
 
     <script type="text/javascript" src="assets/js/core/app.js"></script>
-    <script type="text/javascript" src="assets/js/pages/login.js"></script>
+    <script type="text/javascript" src="assets/js/pages/login_validation.js"></script>
     <!-- /theme JS files -->
 
     <script type="text/JavaScript" src="assets/js/search/search.js"></script>
     <script type="text/JavaScript" src="assets/js/sha512.js"></script>
     <script type="text/JavaScript" src="assets/js/forms.js"></script>
 
-
 </head>
 
-<body>
-
-<!-- Main navbar -->
-<div class="navbar navbar-inverse">
-    <div class="navbar-header">
-        <a class="navbar-brand" href="index.html"><img src="assets/images/logo_light.png" alt=""></a>
-
-        <ul class="nav navbar-nav pull-right visible-xs-block">
-            <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
-        </ul>
-    </div>
-
-    <div class="navbar-collapse collapse" id="navbar-mobile">
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                <a href="#">
-                    <i class="icon-display4"></i> <span class="visible-xs-inline-block position-right"> Go to website</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="#">
-                    <i class="icon-user-tie"></i> <span class="visible-xs-inline-block position-right"> Contact admin</span>
-                </a>
-            </li>
-
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown">
-                    <i class="icon-cog3"></i>
-                    <span class="visible-xs-inline-block position-right"> Options</span>
-                </a>
-            </li>
-        </ul>
-    </div>
-</div>
-<!-- /main navbar -->
-
+<body class="login-cover">
 
 <!-- Page container -->
 <div class="page-container login-container">
@@ -89,8 +53,8 @@
             <!-- Content area -->
             <div class="content">
 
-                <!-- Advanced login -->
-                <form class="form-horizontal form-validate-jquery" name="logincheck_form" id="logincheck_form" action="#">
+                <!-- Form with validation -->
+                <form action="#" class="form-validate" name="logincheck_form" id="logincheck_form">
                     <div class="panel panel-body login-form">
                         <div class="text-center">
                             <div class="icon-object border-slate-300 text-slate-300"><i class="icon-reading"></i></div>
@@ -119,10 +83,6 @@
                                         Remember
                                     </label>
                                 </div>
-
-                                <div class="col-sm-6 text-right">
-                                    <a href="login_password_recover.html">Forgot password?</a>
-                                </div>
                             </div>
                         </div>
 
@@ -130,20 +90,26 @@
                             <button type="button" class="btn bg-blue btn-block" onclick="formhash(this.form, this.form.password);">Login <i class="icon-arrow-right14 position-right"></i></button>
                         </div>
                         <div id="div_login" style="font-size: 14px;color: #EF4836; ">
-                            
+                            <div class="content-divider text-muted form-group"><span>or sign in with</span></div>
+                            <ul class="list-inline form-group list-inline-condensed text-center">
+                                <li><a href="#" class="btn border-indigo text-indigo btn-flat btn-icon btn-rounded"><i class="icon-facebook"></i></a></li>
+                                <li><a href="#" class="btn border-pink-300 text-pink-300 btn-flat btn-icon btn-rounded"><i class="icon-dribbble3"></i></a></li>
+                                <li><a href="#" class="btn border-slate-600 text-slate-600 btn-flat btn-icon btn-rounded"><i class="icon-github"></i></a></li>
+                                <li><a href="#" class="btn border-info text-info btn-flat btn-icon btn-rounded"><i class="icon-twitter"></i></a></li>
+                            </ul>
+
+                            <div class="content-divider text-muted form-group"><span>Don't have an account?</span></div>
+                            <a href="login_registration.html" class="btn btn-default btn-block content-group">Sign up</a>
+                            <span class="help-block text-center no-margin">By continuing, you're confirming that you've read our <a href="#">Terms &amp; Conditions</a> and <a href="#">Cookie Policy</a></span>
                         </div>
-                        <div class="content-divider text-muted form-group"><span>Don't have an account?</span></div>
-                        <a href="login_registration.html" class="btn btn-default btn-block content-group">Sign up</a>
-                        <span class="help-block text-center no-margin">By continuing, you're confirming that you've read our <a href="#">Terms &amp; Conditions</a> and <a href="#">Cookie Policy</a></span>
-                    </div>
                 </form>
-                <!-- /advanced login -->
+                <!-- /form with validation -->
 
 
                 <!-- Footer -->
-                <div class="footer text-muted">
-                    &copy; 2015. <a href="#">Limitless Web App Kit</a> by <a href="http://themeforest.net/user/Kopyov" target="_blank">Eugene Kopyov</a>
-                </div>
+                <!--                <div class="footer text-white">-->
+                <!--                    &copy; 2015. <a href="#" class="text-white">Limitless Web App Kit</a> by <a href="http://themeforest.net/user/Kopyov" class="text-white" target="_blank">Eugene Kopyov</a>-->
+                <!--                </div>-->
                 <!-- /footer -->
 
             </div>

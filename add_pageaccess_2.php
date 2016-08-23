@@ -1,31 +1,6 @@
-<!-- Global stylesheets -->
-<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
-<link href="assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
-<link href="assets/css/bootstrap.css" rel="stylesheet" type="text/css">
-<link href="assets/css/core.css" rel="stylesheet" type="text/css">
-<link href="assets/css/components.css" rel="stylesheet" type="text/css">
-<link href="assets/css/colors.css" rel="stylesheet" type="text/css">
-<!-- /global stylesheets -->
-
-<!-- Core JS files -->
-<script type="text/javascript" src="assets/js/plugins/loaders/pace.min.js"></script>
-<script type="text/javascript" src="assets/js/core/libraries/jquery.min.js"></script>
-<script type="text/javascript" src="assets/js/core/libraries/bootstrap.min.js"></script>
-<script type="text/javascript" src="assets/js/plugins/loaders/blockui.min.js"></script>
-<script type="text/javascript" src="assets/js/plugins/ui/nicescroll.min.js"></script>
-<script type="text/javascript" src="assets/js/plugins/ui/drilldown.js"></script>
-<!-- /core JS files -->
-
 <!-- Theme JS files -->
-<script type="text/javascript" src="assets/js/plugins/tables/datatables/datatables.min.js"></script>
-<script type="text/javascript" src="assets/js/plugins/forms/selects/select2.min.js"></script>
-
-<script type="text/javascript" src="assets/js/core/app.js"></script>
-<script type="text/javascript" src="assets/js/pages/datatables_api.js"></script>
+    <script type="text/javascript" src="assets/js/pages/datatables_api_2columns.js"></script>
 <!-- /theme JS files -->
-
-
-
 <?php
     $error_msg="";
     $CurrentDate = date('Y-m-d h:i:s');
@@ -52,6 +27,7 @@
     $pre_wildcharacter="";
     $post_wildcharacter="";
     if ($searchin==1){
+
         $columnname="menusub_id = ";
         $pre_wildcharacter="";
         $post_wildcharacter="";
@@ -74,10 +50,8 @@
     <table class="table datatable-selection-single">
         <thead>
         <tr>
-            <th>Name</th>
-            <th>Telephone</th>
-            <th>Email</th>
-            <th class="text-center">Actions</th>
+            <th>Page Name</th>
+            <th>Designation</th>
         </tr>
         </thead>
         <tbody>
@@ -92,7 +66,13 @@
         $sqlQry.= " on  `pageaccess_member`.`designation_id` = `designation_master`.`designationid` ";
         $sqlQry.= " where 1=1 ";
         if (strlen($searchvalue)>0) {
-            $sqlQry.= " and $columnname '$pre_wildcharacter$searchvalue$post_wildcharacter'";
+//            $sqlQry.= " and $columnname '$pre_wildcharacter$searchvalue$post_wildcharacter'";
+            if ($searchin==1){
+                $sqlQry.= " and 1menusub.url like '$searchvalue%' ";
+            }
+            elseif ($searchin==2){
+                $sqlQry.= " and designation_master.Designation like '$searchvalue%' ";
+            }
         }
         $sqlQry.=" and `pageaccess_member`.Active=1";
         $sqlQry.=" order by `pageaccess_member`.menusub_id";
@@ -120,22 +100,6 @@
                 <tr>
                     <td><a href="#" onclick="return editpageaccess(<?php echo $id; ?>, '<?php echo $CreationDate; ?>', '<?php echo $ModificationDate; ?>', '<?php echo $Creator; ?>', '<?php echo $ip; ?>', '<?php echo $menusub_id; ?>', '<?php echo $PageName; ?>', '<?php echo $designation_id; ?>', '<?php echo $LoginName; ?>', '<?php echo $Active; ?>');"><?php echo $PageName; ?></a> </td>
                     <td><?php echo $LoginName; ?></td>
-                    <td>12</td>
-                    <td class="text-center">
-                        <ul class="icons-list">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="icon-menu9"></i>
-                                </a>
-
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="#"><i class="icon-file-pdf"></i> Export to .pdf</a></li>
-                                    <li><a href="#"><i class="icon-file-excel"></i> Export to .csv</a></li>
-                                    <li><a href="#"><i class="icon-file-word"></i> Export to .doc</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </td>
                 </tr>
                 <?php
             }

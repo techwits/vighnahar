@@ -5478,7 +5478,7 @@ button.list-group-item-danger.active:focus {
   color: inherit;
 }
 .panel-footer {
-  padding: 0 20px;
+  padding: 10px 20px 10px;
   background-color: #fcfcfc;
   border-top: 1px solid #ddd;
   border-bottom-right-radius: 2px;

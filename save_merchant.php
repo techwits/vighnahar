@@ -32,9 +32,18 @@
     $address=sanitize($con, $_REQUEST["address"]);
     $area=sanitize($con, $_REQUEST["area"]);
     $AreaID=Check_AreaID($con, $AddEdit1, $area);
-    if($AreaID<>0){
-        echo("Area Name is already present in master table. Please check.....");
-        die();
+    if($AreaID==0){
+            $Procedure="";
+            $Procedure = "Call Save_Area('$CurrentDate', $session_userid, '$session_ip', '$area');";
+            mysqli_close($con);
+            include('assets/inc/db_connect.php');
+            $resultarea = mysqli_query($con, $Procedure) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
+            if (mysqli_num_rows($resultarea) != 0) {
+                $row = mysqli_fetch_array($resultarea, MYSQLI_NUM);
+                $AreaID = $row{0};
+            }
+            mysqli_free_result($result);
+            include('assets/inc/db_connect.php');
     }
     $pincode=sanitize($con, $_REQUEST["pincode"]);
     $city=sanitize($con, $_REQUEST["city"]);
@@ -49,7 +58,7 @@
 //    echo ("session_ip:- ".$session_ip."</br>");
 //    echo ("companyname:- ".$companyname."</br>");
 //    echo ("address:- ".$address."</br>");
-//    echo ("area:- ".$area."</br>");
+//    echo ("AreaID:- ".$AreaID."</br>");
 //    echo ("pincode:- ".$pincode."</br>");
 //    echo ("city:- ".$city."</br>");
 //    echo ("panno:- ".$panno."</br>");
@@ -80,12 +89,12 @@
     if(trim($error_msg)=="") {
 
         if ($AddEdit==0) {
-            $Procedure = "Call Save_Merchant('$CurrentDate', $session_userid, '$session_ip', '$companyname', '$address', '$area', $pincode, '$city', '$telephone', '$email', '$url', '$panno');";
+            $Procedure = "Call Save_Merchant('$CurrentDate', $session_userid, '$session_ip', '$companyname', '$address', $AreaID, $pincode, '$city', '$telephone', '$email', '$url', '$panno');";
         }
         else{
             $IDExist=Check_MerchantIDExist($con, $AddEdit);
             if($IDExist>0) {
-                $Procedure = "Call Update_Merchant($IDExist, $AddEdit1, '$CurrentDate', $session_userid, '$session_ip', '$companyname', '$address', '$area', $pincode, '$city', '$telephone', '$email', '$url', '$panno');";
+                $Procedure = "Call Update_Merchant($IDExist, '$CurrentDate', $session_userid, '$session_ip', '$companyname', '$address', $AreaID, $pincode, '$city', '$telephone', '$email', '$url', '$panno');";
             }
             else{
                 echo("Merchant ID is not getting. Please contact system administrator....");
@@ -122,14 +131,6 @@
 <script language="javascript">
     ClearAllControls(0);
     show_newlyaddedlist('add_merchant_2.php', 'div_searchmerchant');
-    // Solid primary
-    new PNotify({
-        title: 'Success notice',
-        text: 'Check me out! I\'m a notice.',
-        icon: 'icon-checkmark3',
-        type: 'success'
-    });
-    
 </script>
 
 

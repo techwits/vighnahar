@@ -329,6 +329,10 @@ a.bg-danger:focus {
   padding: 0;
   border-bottom-width: 0;
 }
+.page-header-inverse.has-cover {
+    background: url(../images/login_cover.jpg);
+    background-size: cover;
+}
 .page-header .navbar {
   margin-bottom: 20px;
 }
@@ -1320,16 +1324,31 @@ input[class*=bg-] + .form-control-feedback {
 .btn::-moz-focus-inner {
   border: 0;
 }
-.btn:hover,
+.btn:hover {
+  -webkit-box-shadow: 0 0 0 100px rgba(0, 0, 0, 0.10) inset;
+  box-shadow: 0 0 0 100px rgba(0, 0, 0, 0.10) inset;
+  background: #2c3f52;
+  /*-webkit-transform: scale(0.9);
+  -ms-transform: scale(0.9);
+  transform: scale(0.9);*/
+  transition-property: transform;
+  transition-duration: 1s;
+  transition-timing-function: linear;
+}
 .btn:focus,
 .btn.focus {
-  -webkit-box-shadow: 0 0 0 100px rgba(0, 0, 0, 0.05) inset;
-  box-shadow: 0 0 0 100px rgba(0, 0, 0, 0.05) inset;
+  -webkit-box-shadow: 0 0 0 100px rgba(0, 0, 0, 0.15) inset;
+  box-shadow: 0 0 0 100px rgba(0, 0, 0, 0.15) inset;
+  background: #2c3f52;
+ /* -webkit-transform: scale(0.9);
+  -ms-transform: scale(0.9);
+  transform: scale(0.9);*/
 }
 .btn:active,
 .btn.active {
   -webkit-box-shadow: 0 0 0 100px rgba(0, 0, 0, 0.1) inset;
   box-shadow: 0 0 0 100px rgba(0, 0, 0, 0.1) inset;
+  background: #2c3f52;
 }
 .btn[class*=bg-]:hover,
 .btn[class*=bg-]:focus,
@@ -1517,7 +1536,7 @@ input[class*=bg-] + .form-control-feedback {
   margin-bottom: -6px;
 }
 .btn-float.btn-float-lg i {
-  font-size: 32px;
+  font-size: 25px;
 }
 .btn-link {
   color: #333333;
@@ -5539,6 +5558,7 @@ button.list-group-item-success {
   color: #43A047;
 }
 a.list-group-item-success .list-group-item-heading,
+
 button.list-group-item-success .list-group-item-heading {
   color: inherit;
 }
@@ -5933,11 +5953,17 @@ h6.panel-title,
 .panel-primary.panel-bordered {
   border-color: #2196F3;
 }
+.panel-primary.panel-bordered a {
+  color: #2196F3;
+}
 .panel-success {
   border-color: #ddd;
 }
 .panel-success.panel-bordered {
   border-color: #4CAF50;
+}
+.panel-success.panel-bordered a {
+  color: #4CAF50;
 }
 .panel-info {
   border-color: #ddd;
@@ -5951,12 +5977,55 @@ h6.panel-title,
 .panel-warning.panel-bordered {
   border-color: #FF5722;
 }
+.panel-warning.panel-bordered a {
+  color: #FF5722;
+}
 .panel-danger {
   border-color: #ddd;
 }
 .panel-danger.panel-bordered {
   border-color: #F44336;
 }
+.panel-danger.panel-bordered a {
+  color: #F44336;
+}
+.huge {
+    font-size: 35px;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.huge1 {
+    font-size: 25px;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+/*.stylish-panel {
+    padding: 20px 0;
+    text-align: center;
+	
+}
+.stylish-panel > div > div{
+    padding: 10px;
+    border: 1px solid #BDBDBD;
+	background-color: transparent;
+    border-radius: 4px;
+    transition: 0.2s;
+}
+.stylish-panel > div:hover > div{
+    margin-top: -10px;
+    border: 1px solid rgb(200, 200, 200);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 5px 2px;
+    background: rgba(200, 200, 200, 0.1);
+    transition: 0.5s;
+}
+
+.stylish-panel > div:hover img {
+    border-radius: 50%;
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+}*/
 /* ------------------------------------------------------------------------------
 *
 *  # Wells component

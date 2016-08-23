@@ -1,30 +1,3 @@
-<!-- Global stylesheets -->
-<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
-<link href="assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
-<link href="assets/css/bootstrap.css" rel="stylesheet" type="text/css">
-<link href="assets/css/core.css" rel="stylesheet" type="text/css">
-<link href="assets/css/components.css" rel="stylesheet" type="text/css">
-<link href="assets/css/colors.css" rel="stylesheet" type="text/css">
-<!-- /global stylesheets -->
-
-<!-- Core JS files -->
-<script type="text/javascript" src="assets/js/plugins/loaders/pace.min.js"></script>
-<script type="text/javascript" src="assets/js/core/libraries/jquery.min.js"></script>
-<script type="text/javascript" src="assets/js/core/libraries/bootstrap.min.js"></script>
-<script type="text/javascript" src="assets/js/plugins/loaders/blockui.min.js"></script>
-<script type="text/javascript" src="assets/js/plugins/ui/nicescroll.min.js"></script>
-<script type="text/javascript" src="assets/js/plugins/ui/drilldown.js"></script>
-<!-- /core JS files -->
-
-<!-- Theme JS files -->
-<script type="text/javascript" src="assets/js/plugins/tables/datatables/datatables.min.js"></script>
-<script type="text/javascript" src="assets/js/plugins/forms/selects/select2.min.js"></script>
-
-<script type="text/javascript" src="assets/js/core/app.js"></script>
-<script type="text/javascript" src="assets/js/pages/datatables_api.js"></script>
-<!-- /theme JS files -->
-
-
 
 <?php
     $error_msg="";
@@ -52,9 +25,9 @@
     $pre_wildcharacter="";
     $post_wildcharacter="";
     if ($searchin==1){
-        $columnname="url like";
+        $columnname="LRID = ";
         $pre_wildcharacter="";
-        $post_wildcharacter="%";
+        $post_wildcharacter="";
     }
 //    elseif ($searchin==2){
 //        $columnname="Telephone like";
@@ -71,6 +44,7 @@
 
 <!-- Single row selection -->
 
+
     <table class="table datatable-selection-single">
         <thead>
         <tr>
@@ -84,10 +58,34 @@
 
 
         <?php
-        $cols="menusub_id, CreationDate, ModificationDate, Creator, ip, url, Active";
-        $sqlQry= "select $cols from `1menusub`";
-        $sqlQry = $sqlQry . " where $columnname '$pre_wildcharacter$searchvalue$post_wildcharacter'";
-        $sqlQry= $sqlQry." and Active=1";
+        $cols=" `inward`.LRID, `inward`.ReceivedDate, `inward`.InvoiceNumber, `inward`.PakageType, `inward`.Amount ";
+        $cols.=" , `vehicle_master`.`VehicleNumber`";
+        $cols.=" , `consignor_master`.`ConsignorName`";
+        $cols.=" , `consignee_master`.`ConsigneeName`";
+
+        $sqlQry= "select $cols from `inward`";
+
+        $sqlQry.= "inner join `vehicle_master`";
+        $sqlQry.= "on `inward`.`vmid` = `vehicle_master`.`vmid`";
+
+        $sqlQry.= "inner join `consignoraddress_master`";
+        $sqlQry.= "on `inward`.`caid` = `consignoraddress_master`.`caid`";
+        $sqlQry.= "inner join `consignor_master`";
+        $sqlQry.= "on `consignoraddress_master`.`cid` = `consignor_master`.`cid`";
+
+        $sqlQry.= "inner join `consignee_master`";
+        $sqlQry.= "on `inward`.`cnid` = `consignee_master`.`cnid`";
+
+        $sqlQry.= "inner join `product_master`";
+        $sqlQry.= "on `inward`.`pmid` = `product_master`.`pmid`";
+
+        $sqlQry.= " where 1=1";
+
+        if($searchvalue!="") {
+            $sqlQry.= " where $columnname '$pre_wildcharacter$searchvalue$post_wildcharacter'";
+        }
+
+        $sqlQry.= " and `inward`.Active=1";
 //        echo ("Check sqlQry :- $sqlQry </br>");
 //        die();
         unset($con);
@@ -97,16 +95,10 @@
         {
             while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
             {
-                $menusub_id=$row[0];
-                $CreationDate=$row[1];
-                $ModificationDate=$row[2];
-                $Creator=$row[3];
-                $ip=$row[4];
-                $url=$row[5];
-                $Active=$row[6];
+                    $lrid=$row[0];
                 ?>
                 <tr>
-                    <td><a href="#" onclick="return editmenu(<?php echo $menusub_id; ?>, '<?php echo $CreationDate; ?>', '<?php echo $ModificationDate; ?>', '<?php echo $Creator; ?>', '<?php echo $ip; ?>', '<?php echo $url; ?>', '<?php echo $Active; ?>');"><?php echo $url; ?></a> </td>
+                    <td><a href="#" onclick="return editlrentry(<?php echo $lrid; ?>);"><?php echo $lrid; ?></a> </td>
                     <td>Sachin</td>
                     <td>12</td>
                     <td class="text-center">
@@ -129,6 +121,7 @@
             }
         }
         ?>
+
 
         </tbody>
     </table>

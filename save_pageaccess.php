@@ -100,15 +100,6 @@
 <script language="javascript">
     ClearAllControls(0);
     show_newlyaddedlist('add_pageaccess_2.php', 'div_pageaccess2');
-    // Solid primary
-    new PNotify({
-        title: 'Success notice',
-        text: 'Check me out! I\'m a notice.',
-        icon: 'icon-checkmark3',
-        type: 'success'
-    });
-    
-    
 </script>
 
 

@@ -6,6 +6,72 @@ function test()
 }
 
 
+function dateDifference(Start, End){
+	var date1 = new Date(Start)//converts string to date object
+	//alert(date1);
+	var date2 = new Date(End)
+	//alert(date2);
+
+	var oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+	//var diffDays = Math.abs((date1.getTime() - date2.getTime()) / (oneDay));
+	var diffDays = (date2.getTime() - date1.getTime()) / (oneDay);
+	//alert(diffDays);
+	return diffDays;
+}
+
+function isDate(txtDate, separator) {
+	var aoDate,           // needed for creating array and object
+		ms,               // date in milliseconds
+		month, day, year; // (integer) month, day and year
+	// if separator is not defined then set '/'
+	if (separator === undefined) {
+		separator = '/';
+	}
+	// split input date to month, day and year
+	aoDate = txtDate.split(separator);
+	// array length should be exactly 3 (no more no less)
+	if (aoDate.length !== 3) {
+		return false;
+	}
+	// define month, day and year from array (expected format is m/d/yyyy)
+	// subtraction will cast variables to integer implicitly
+	//month = aoDate[0] - 1; // because months in JS start from 0
+	//day = aoDate[1] - 0;
+	//year = aoDate[2] - 0;
+
+	// year = aoDate[0] - 0;
+	// month = aoDate[1] - 1; // because months in JS start from 0
+	// day = aoDate[2] - 0;
+
+
+	month = aoDate[0] - 1; // because months in JS start from 0
+	day = aoDate[1] - 0;
+	year = aoDate[2] - 0;
+    
+	// alert("year :- " + year);
+	// alert("month :- " + month);
+	// alert("day :- " + day);
+
+	// test year range
+	if (year < 1000 || year > 3000) {
+		return false;
+	}
+	// convert input date to milliseconds
+	ms = (new Date(year, month, day)).getTime();
+	// initialize Date() object from milliseconds (reuse aoDate variable)
+	aoDate = new Date();
+	aoDate.setTime(ms);
+	// compare input date and parts from Date() object
+	// if difference exists then input date is not valid
+	if (aoDate.getFullYear() !== year ||
+		aoDate.getMonth() !== month ||
+		aoDate.getDate() !== day) {
+		return false;
+	}
+	// date is OK, return true
+	return true;
+}
+
 function trim(stringToTrim)
 {
 	return stringToTrim.replace(/^\s+|\s+$/g,"");
@@ -50,6 +116,21 @@ function onlyNos(evt) {
 
 }
 
+function only_Alpha_Numeric_Space(evt) {
+	var theEvent = evt || window.event;
+	var key = theEvent.keyCode || theEvent.which;
+	key = String.fromCharCode(key);
+	if (key.length == 0) return;
+	var regex = /^[0-9,\b \d,a-z,A-Z]+$/;
+	if (!regex.test(key)) {
+		theEvent.returnValue = false;
+		if (theEvent.preventDefault) theEvent.preventDefault();
+	}
+	//var charCode = (evt.which) ? evt.which : event.keyCode
+	//if ((charCode > 31 && charCode > 44) && (charCode < 48 || charCode > 57) && (charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122))
+	//	return false;
+	//return true;
+}
 
 function only_Alpha_Numeric_Comma(evt) {
 	var theEvent = evt || window.event;
@@ -57,6 +138,38 @@ function only_Alpha_Numeric_Comma(evt) {
 	key = String.fromCharCode(key);
 	if (key.length == 0) return;
 	var regex = /^[0-9,\b,\d,a-z,A-Z]+$/;
+	if (!regex.test(key)) {
+		theEvent.returnValue = false;
+		if (theEvent.preventDefault) theEvent.preventDefault();
+	}
+	//var charCode = (evt.which) ? evt.which : event.keyCode
+	//if ((charCode > 31 && charCode > 44) && (charCode < 48 || charCode > 57) && (charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122))
+	//	return false;
+	//return true;
+}
+
+function only_Alpha_Space(evt) {
+	var theEvent = evt || window.event;
+	var key = theEvent.keyCode || theEvent.which;
+	key = String.fromCharCode(key);
+	if (key.length == 0) return;
+	var regex = /^[ \b,\d,a-z,A-Z]+$/;
+	if (!regex.test(key)) {
+		theEvent.returnValue = false;
+		if (theEvent.preventDefault) theEvent.preventDefault();
+	}
+	//var charCode = (evt.which) ? evt.which : event.keyCode
+	//if ((charCode > 31 && charCode > 44) && (charCode < 48 || charCode > 57) && (charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122))
+	//	return false;
+	//return true;
+}
+
+function only_Alpha_Numeric(evt) {
+	var theEvent = evt || window.event;
+	var key = theEvent.keyCode || theEvent.which;
+	key = String.fromCharCode(key);
+	if (key.length == 0) return;
+	var regex = /^[0-9,\b\d,a-z,A-Z]+$/;
 	if (!regex.test(key)) {
 		theEvent.returnValue = false;
 		if (theEvent.preventDefault) theEvent.preventDefault();
@@ -563,7 +676,7 @@ function searchmenu(searchvalue, searchin)
 	if(Number(error_count) == 0)
 	{
 		var div_name = "#div_searchmenu";
-		var page_name = "add_menu_2.php";
+		var page_name = "add_pages_2.php";
 		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
 		$.post(page_name, {searchvalue:searchvalue, searchin:searchin},
 			function(data)
@@ -631,6 +744,17 @@ function editlogin(loginid, CreationDate, ModificationDate, Creator, ip, UserNam
 		document.getElementById("designation").disabled=true;
 
 		document.getElementById("username").focus();
+
+		// $('#div_merchantcontrols').addClass('animated swing');
+		document.getElementById('div_merchantcontrols').style.borderColor='#b8b894';
+		document.getElementById('div_merchantcontrols').style.borderTopWidth='3px';
+		document.getElementById('div_panel').style.backgroundColor='#b8b894';
+
+		// $("#div_merchantcontrols").css({ 'border-color': "#00c0ef" });
+		// $( "#div_merchantcontrols" ).css( "border-top", "3px solid red");
+		document.getElementById("span_pageName").innerHTML="Update - " +UserName;
+		document.getElementById("span_pageButton").innerHTML="Update";
+
 	}
 	else
 	{
@@ -885,13 +1009,33 @@ function editarea(amid, CreationDate, ModificationDate, Creator, ip, AreaName, A
 	}
 }
 
-function editmenu(menusub_id, CreationDate, ModificationDate, Creator, ip, url, Active)
+function editlrentry(lrid)
+{
+	// alert("LRID :- " + lrid);
+	document.getElementById("AddEdit").value=lrid;
+	if(Number(lrid) > 0)
+	{
+		document.getElementById("additionalcharges").checked=false;
+		displayAdditionalCharges(6, '::1');
+		document.getElementById("div_pageheader").innerHTML = "Edit LREntry " + lrid;
+
+		document.getElementById("invoicenumber").focus();
+
+	}
+	else
+	{
+		alert("Menu ID is Blank. Please check......");
+	}
+}
+
+function editmenu(menusub_id, CreationDate, ModificationDate, Creator, ip, url, urlDescription, Active)
 {
 	// alert("ID :- " + id);
 	document.getElementById("AddEdit").value=menusub_id;
 	if(Number(menusub_id) > 0)
 	{
 		document.getElementById("menuname").value=url;
+		document.getElementById("pagedescription").value=urlDescription;
 		document.getElementById("menuname").focus();
 	}
 	else
@@ -918,6 +1062,16 @@ function editmenu(menusub_id, CreationDate, ModificationDate, Creator, ip, url, 
 		document.getElementById("url").value=Website;
 		document.getElementById("panno").value=Pancard;
 		document.getElementById("companyname").focus();
+
+		// $('#div_merchantcontrols').addClass('animated swing');
+		document.getElementById('div_merchantcontrols').style.borderColor='#b8b894';
+		document.getElementById('div_merchantcontrols').style.borderTopWidth='3px';
+		document.getElementById('div_panel').style.backgroundColor='#b8b894';
+
+		// $("#div_merchantcontrols").css({ 'border-color': "#00c0ef" });
+		// $( "#div_merchantcontrols" ).css( "border-top", "3px solid red");
+		document.getElementById("span_pageName").innerHTML="Update - " +UserName;
+		document.getElementById("span_pageButton").innerHTML="Update";
 	}
 	else
 	{
@@ -1310,6 +1464,15 @@ function add_area()
 	}
 }
 
+
+function lrentry_disabled(Values, ControlName)
+{
+	if(Values.length > 0 || Values != "")
+	{
+		document.getElementById(ControlName).disabled=true;
+	}
+}
+
 function add_lrentry()
 {
 	// alert("Hi...");
@@ -1344,13 +1507,55 @@ function add_lrentry()
 		frm.financialyear.focus();
 	}
 
-	var lrdate=trim(frm.lrdate.value);
-	if(lrdate.length <= 0 || lrdate == "")
+
+
+
+
+	FromDate=trim(frm.todaysdate.value);
+	if(FromDate.length <= 0 || FromDate == "")
 	{
 		error_count = error_count + 1;
-		error_msg  =  error_msg + error_count + ") " + " Please Enter LR Date" + "\n";
-		frm.lrdate.focus();
+		error_msg  =  error_msg + error_count + ") " + " From Date is blank." + "\n";
+		//frm.order.focus();
 	}
+	else {
+		FromDate_Valid = isDate(FromDate, "/");
+		if (FromDate_Valid == false) {
+			error_count = error_count + 1;
+			error_msg = error_msg + error_count + ") " + " From Date is invalid. Please enter date in mm/dd/yyyy Format.";
+		}
+	}
+
+	ToDate=trim(frm.lrdate.value);
+	if(ToDate.length <= 0 || ToDate == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please select LR date." + "\n";
+		document.getElementById("lrdate").focus();
+	}
+	else {
+		ToDate_Valid = isDate(ToDate, "/")
+		//alert("FinishDate_Valid :- " + FinishDate_Valid);
+		if (ToDate_Valid == false) {
+			error_count = error_count + 1;
+			error_msg = error_msg + error_count + ") " + " LR Date is invalid. Please enter date in mm/dd/yyyy Format.";
+			document.getElementById("lrdate").focus();
+		}
+	}
+
+	if (FromDate_Valid==true && ToDate_Valid==true){
+		Difference=dateDifference(FromDate, ToDate)
+		// alert("Difference :- " + Difference);
+		if (Difference > 0){
+			error_count = error_count + 1;
+			error_msg  =  error_msg + error_count + ") " + " No future date.";
+			document.getElementById("lrdate").focus();
+		}
+	}
+
+
+
+
 
 	var invoicenumber=trim(frm.invoicenumber.value);
 	if(invoicenumber.length <= 0 || invoicenumber == "")
@@ -1441,7 +1646,7 @@ function add_lrentry()
 		var div_name = "#div_lrentry";
 		var page_name = "save_lrentry.php";
 		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
-		$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, financialyear:financialyear, lrdate:lrdate, invoicenumber:invoicenumber, vehicleid:vehicleid, consignorid:consignorid, consigneeid:consigneeid, productid:productid, packagetype:packagetype, productrate:productrate, qauntity:qauntity, paidlramount:paidlramount, shippingcharge:shippingcharge, biltycharge:biltycharge, servicetax:servicetax, additionalchargesentry:additionalchargesentry},
+		$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, financialyear:financialyear, ToDate:ToDate, invoicenumber:invoicenumber, vehicleid:vehicleid, consignorid:consignorid, consigneeid:consigneeid, productid:productid, packagetype:packagetype, productrate:productrate, qauntity:qauntity, paidlramount:paidlramount, shippingcharge:shippingcharge, biltycharge:biltycharge, servicetax:servicetax, additionalchargesentry:additionalchargesentry},
 			function(data)
 			{
 				$(div_name).html(data);
@@ -1449,6 +1654,11 @@ function add_lrentry()
 		);
 		return false;
 	}
+	else{
+		alert(error_msg);
+		return false;
+	}
+
 }
 
 function add_transporter()
@@ -1824,12 +2034,20 @@ function add_menu()
 		frm.menuname.focus();
 	}
 
+	var pagedescription=trim(frm.pagedescription.value);
+	if(pagedescription.length <= 0 || pagedescription == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter Page Description" + "\n";
+		frm.pagedescription.focus();
+	}
+
 	if(Number(error_count) == 0)
 	{
 		var div_name = "#div_menu";
-		var page_name = "save_menu.php";
+		var page_name = "save_pages.php";
 		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
-		$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, menuname:menuname},
+		$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, menuname:menuname, pagedescription:pagedescription},
 			function(data)
 			{
 				$(div_name).html(data);
@@ -1949,13 +2167,30 @@ function add_consignor()
 		frm.url.focus();
 	}
 
-	var product=trim(frm.product.value);
-	if(product.length <= 0 || product == "")
+	var j=0;
+	var selectedvalue="";
+	var product_len=document.getElementById("product").length;
+	for($i=0; $i<product_len; $i++)
+	{
+		var selected=document.getElementById("product").options[$i].selected;
+		if(selected==true){
+			j=j+1;
+			if(j==1) {
+				selectedvalue = document.getElementById("product").options[$i].value;
+			}
+			else{
+				selectedvalue = selectedvalue+","+document.getElementById("product").options[$i].value;
+			}
+		}
+	}
+
+	if(selectedvalue.length <= 0 || selectedvalue == "")
 	{
 		error_count = error_count + 1;
-		error_msg  =  error_msg + error_count + ") " + " Please Select Product" + "\n";
-		frm.url.focus();
+		error_msg  =  error_msg + error_count + ") " + " Please Enter Product" + "\n";
+		frm.product.focus();
 	}
+	// alert($('product option').length);
 
 	var remark=trim(frm.remark.value);
 	var servicetax=0;
@@ -1970,7 +2205,7 @@ function add_consignor()
 		var div_name = "#div_consignor";
 		var page_name = "save_addconsignor.php";
 		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
-		$.post(page_name, {AddEdit:AddEdit, AddEdit1:AddEdit1, AddEdit2:AddEdit2, AddEdit3:AddEdit3, session_userid:session_userid, session_ip:session_ip, consignorname:consignorname, address:address, area:area, pincode:pincode, city:city, panno:panno, telephone1:telephone1, telephone2:telephone2, telephone3:telephone3, email:email, url:url, product:product, remark:remark, servicetax:servicetax},
+		$.post(page_name, {AddEdit:AddEdit, AddEdit1:AddEdit1, AddEdit2:AddEdit2, AddEdit3:AddEdit3, session_userid:session_userid, session_ip:session_ip, consignorname:consignorname, address:address, area:area, pincode:pincode, city:city, panno:panno, telephone1:telephone1, telephone2:telephone2, telephone3:telephone3, email:email, url:url, selectedvalue:selectedvalue, remark:remark, servicetax:servicetax},
 			function(data)
 			{
 				$(div_name).html(data);
@@ -1978,6 +2213,17 @@ function add_consignor()
 		);
 		return false;
 	}
+	else
+	{
+		alert(error_msg);
+		return false;
+	}
+}
+
+function t()
+{
+
+	// alert("Selected Value :- " + selectedvalue);
 }
 
 function add_consignee()
@@ -2293,6 +2539,10 @@ function add_login()
 		);
 		return false;
 	}
+	else{
+		alert(error_msg);
+		return false;
+	}
 }
 
 function displayAdditionalCharges(session_userid, session_ip)
@@ -2414,6 +2664,7 @@ function get_quantityRate(Quantity, Creator, ip)
 
 	if(Number(error_count) == 0)
 	{
+		document.getElementById("qauntity").disabled = true;
 		var div_name = "#div_quantityrate";
 		var page_name = "lrentry_4.php";
 		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
@@ -2533,6 +2784,7 @@ function get_productRate(packageType, Creator, ip)
 
 	if(Number(error_count) == 0)
 	{
+		document.getElementById("packagetype").disabled = true;
 		var div_name = "#div_productrate";
 		var page_name = "lrentry_3.php";
 		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
@@ -2593,6 +2845,7 @@ function get_productOnConsignee(ConsigneeID, ConsignorID, Creator, ip)
 
 	if(Number(error_count) == 0)
 	{
+		document.getElementById("consigneeid").disabled = true;
 		var div_name = "#div_product";
 		var page_name = "lrentry_2.php";
 		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
@@ -2644,6 +2897,7 @@ function get_consignee(ConsignorID, Creator, ip)
 
 	if(Number(error_count) == 0)
 	{
+		document.getElementById("consignorid").disabled = true;
 		var div_name = "#div_consignee";
 		var page_name = "lrentry_1.php";
 		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");

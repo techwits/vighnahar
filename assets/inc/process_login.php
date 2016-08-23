@@ -7,9 +7,9 @@ $username = $_POST['userid'];
 $password = $_POST['pwd']; // The hashed password.
 $autologin=$_POST['autologin'];
 
-echo("username :- $username </br>");
-echo("password :- $password </br>");
-echo("autologin :- $autologin </br>");
+//echo("username :- $username </br>");
+//echo("password :- $password </br>");
+//echo("autologin :- $autologin </br>");
 //die();
 
     if (isset($_POST["userid"])) {

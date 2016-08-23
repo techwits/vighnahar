@@ -1,21 +1,6 @@
-<!-- Global stylesheets -->
-<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
-<link href="assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
-<link href="assets/css/bootstrap.css" rel="stylesheet" type="text/css">
-<link href="assets/css/core.css" rel="stylesheet" type="text/css">
-<link href="assets/css/components.css" rel="stylesheet" type="text/css">
-<link href="assets/css/colors.css" rel="stylesheet" type="text/css">
-<!-- /global stylesheets -->
-
 <!-- Theme JS files -->
-<script type="text/javascript" src="assets/js/plugins/tables/datatables/datatables.min.js"></script>
-<script type="text/javascript" src="assets/js/plugins/forms/selects/select2.min.js"></script>
-
-<script type="text/javascript" src="assets/js/core/app.js"></script>
-<script type="text/javascript" src="assets/js/pages/datatables_api.js"></script>
+<script type="text/javascript" src="assets/js/pages/datatables_api_2columns.js"></script>
 <!-- /theme JS files -->
-
-
 
 <?php
     $error_msg="";
@@ -47,11 +32,11 @@
         $pre_wildcharacter="";
         $post_wildcharacter="%";
     }
-    elseif ($searchin==2){
-        $columnname="Telephone like";
-        $pre_wildcharacter="%";
-        $post_wildcharacter="%";
-    }
+//    elseif ($searchin==2){
+//        $columnname="Telephone like";
+//        $pre_wildcharacter="%";
+//        $post_wildcharacter="%";
+//    }
     //    echo ("CurrentDate:- ".$CurrentDate."</br>");
     //    echo ("searchvalue:- ".$searchvalue."</br>");
     //    die();
@@ -67,10 +52,8 @@
     <table class="table datatable-selection-single">
         <thead>
         <tr>
-            <th>Name</th>
+            <th>Merchant</th>
             <th>Telephone</th>
-            <th>Email</th>
-            <th class="text-center">Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -112,23 +95,7 @@
         ?>
                 <tr>
                     <td><a href="#" onclick="return editmerchant(<?php echo $mmid; ?>, '<?php echo $CreationDate; ?>', '<?php echo $ModificationDate; ?>', '<?php echo $Creator; ?>', '<?php echo $ip; ?>', '<?php echo $Company; ?>', '<?php echo $Address; ?>', '<?php echo $amid; ?>', '<?php echo $AreaName; ?>', '<?php echo $Pincode; ?>', '<?php echo $City; ?>', '<?php echo $Telephone; ?>', '<?php echo $Email; ?>', '<?php echo $Website; ?>', '<?php echo $Pancard; ?>', '<?php echo $Active; ?>');"><?php echo $Company; ?></a> </td>
-                    <td>Sachin</td>
-                    <td>12</td>
-                    <td class="text-center">
-                        <ul class="icons-list">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="icon-menu9"></i>
-                                </a>
-
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="#"><i class="icon-file-pdf"></i> Export to .pdf</a></li>
-                                    <li><a href="#"><i class="icon-file-excel"></i> Export to .csv</a></li>
-                                    <li><a href="#"><i class="icon-file-word"></i> Export to .doc</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </td>
+                    <td><?php echo $Telephone; ?></td>
                 </tr>
                 <?php
             }

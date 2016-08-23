@@ -88,8 +88,8 @@
                 echo("Menu ID is not getting. Please contact system administrator....");
             }
         }
-        echo ("Procedure:- ".$Procedure."</br>");
-        die();
+//        echo ("Procedure:- ".$Procedure."</br>");
+//        die();
         unset($con);
         include('assets/inc/db_connect.php');
         $result = mysqli_query($con, $Procedure) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
@@ -114,14 +114,6 @@
 <script language="javascript">
     ClearAllControls(0);
     show_newlyaddedlist('add_login_2.php', 'div_searchlogin');
-    // Solid primary
-    new PNotify({
-    title: 'Success notice',
-        text: 'Check me out! I\'m a notice.',
-        icon: 'icon-checkmark3',
-        type: 'success'
-    });
-
 </script>
 
 

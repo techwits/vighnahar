@@ -7,9 +7,9 @@
 //define("PASSWORD", "S@chinD");    // The database password.
 //define("DATABASE", "gruhsankul");    // The database name.
 
-define("HOST", "localhost");     // The host you want to connect to.
+define("HOST", "192.168.0.88");     // The host you want to connect to.
 define("USER", "root");    // The database username.
-define("PASSWORD", "");    // The database password.
+define("PASSWORD", "root");    // The database password.
 define("DATABASE", "vighnahar");    // The database name.
 
 

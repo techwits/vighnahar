@@ -1,30 +1,6 @@
-<!-- Global stylesheets -->
-<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
-<link href="assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
-<link href="assets/css/bootstrap.css" rel="stylesheet" type="text/css">
-<link href="assets/css/core.css" rel="stylesheet" type="text/css">
-<link href="assets/css/components.css" rel="stylesheet" type="text/css">
-<link href="assets/css/colors.css" rel="stylesheet" type="text/css">
-<!-- /global stylesheets -->
-
-<!-- Core JS files -->
-<script type="text/javascript" src="assets/js/plugins/loaders/pace.min.js"></script>
-<script type="text/javascript" src="assets/js/core/libraries/jquery.min.js"></script>
-<script type="text/javascript" src="assets/js/core/libraries/bootstrap.min.js"></script>
-<script type="text/javascript" src="assets/js/plugins/loaders/blockui.min.js"></script>
-<script type="text/javascript" src="assets/js/plugins/ui/nicescroll.min.js"></script>
-<script type="text/javascript" src="assets/js/plugins/ui/drilldown.js"></script>
-<!-- /core JS files -->
-
 <!-- Theme JS files -->
-<script type="text/javascript" src="assets/js/plugins/tables/datatables/datatables.min.js"></script>
-<script type="text/javascript" src="assets/js/plugins/forms/selects/select2.min.js"></script>
-
-<script type="text/javascript" src="assets/js/core/app.js"></script>
-<script type="text/javascript" src="assets/js/pages/datatables_api.js"></script>
+<script type="text/javascript" src="assets/js/pages/datatables_api_2columns.js"></script>
 <!-- /theme JS files -->
-
-
 
 <?php
     $error_msg="";
@@ -56,13 +32,13 @@
         $pre_wildcharacter="";
         $post_wildcharacter="%";
     }
-//    elseif ($searchin==2){
-//        $columnname="Telephone like";
-//        $pre_wildcharacter="%";
-//        $post_wildcharacter="%";
-//    }
-    //    echo ("CurrentDate:- ".$CurrentDate."</br>");
-    //    echo ("searchvalue:- ".$searchvalue."</br>");
+    elseif ($searchin==2){
+        $columnname="Telephone like";
+        $pre_wildcharacter="%";
+        $post_wildcharacter="%";
+    }
+//        echo ("searchin:- ".$searchin."</br>");
+//        echo ("searchvalue:- ".$searchvalue."</br>");
     //    die();
 ?>
 
@@ -74,10 +50,8 @@
     <table class="table datatable-selection-single">
         <thead>
         <tr>
-            <th>Name</th>
-            <th>Telephone</th>
-            <th>Email</th>
-            <th class="text-center">Actions</th>
+            <th>Consignee Name</th>
+            <th>Area</th>
         </tr>
         </thead>
         <tbody>
@@ -102,7 +76,15 @@
         $sqlQry.=" on `consigneeaddress_master`.`amid`=`area_master`.`amid`";
 
         $sqlQry.= " where 1=1";
-        $sqlQry.= " and $columnname '$pre_wildcharacter$searchvalue$post_wildcharacter'";
+        if ($searchin==1) {
+            $sqlQry.= " and consignee_master.ConsigneeName like '$searchvalue%'";
+        }
+        elseif ($searchin==2) {
+            $sqlQry.= " and consignor_master.ConsignorName like '$searchvalue%'";
+        }
+        elseif ($searchin==3) {
+            $sqlQry.= " and area_master.AreaName like '$searchvalue%'";
+        }
         $sqlQry.= " and `consignee_master`.Active=1";
 //        echo ("Check sqlQry :- $sqlQry </br>");
 //        die();
@@ -130,23 +112,7 @@
 
                 <tr>
                     <td><a href="#" onclick="return editconsignee(<?php echo $cnid; ?>, '<?php echo $ConsigneeName; ?>', '<?php echo $Website; ?>', '<?php echo $cnaid; ?>', '<?php echo $Address; ?>', '<?php echo $Pincode; ?>', '<?php echo $City; ?>', '<?php echo $Telephone; ?>', '<?php echo $Email; ?>', '<?php echo $amid; ?>', '<?php echo $AreaName; ?>', '<?php echo $ConsignorID; ?>', '<?php echo $ConsignorName; ?>');"><?php echo $ConsigneeName; ?></a> </td>
-                    <td>Sachin</td>
-                    <td>12</td>
-                    <td class="text-center">
-                        <ul class="icons-list">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="icon-menu9"></i>
-                                </a>
-
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="#"><i class="icon-file-pdf"></i> Export to .pdf</a></li>
-                                    <li><a href="#"><i class="icon-file-excel"></i> Export to .csv</a></li>
-                                    <li><a href="#"><i class="icon-file-word"></i> Export to .doc</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </td>
+                    <td><?php echo $AreaName; ?></td>
                 </tr>
                 <?php
             }

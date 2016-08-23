@@ -1,8 +1,7 @@
 <!-- Theme JS files -->
-<script type="text/javascript" src="assets/js/plugins/notifications/pnotify.min.js"></script>
-
-<script type="text/javascript" src="assets/js/core/app.js"></script>
-<script type="text/javascript" src="assets/js/pages/components_notifications_pnotify.js"></script>
+    <script type="text/javascript" src="assets/js/plugins/notifications/pnotify.min.js"></script>
+    <script type="text/javascript" src="assets/js/core/app.js"></script>
+    <script type="text/javascript" src="assets/js/pages/components_notifications_pnotify.js"></script>
 <!-- /theme JS files -->
 
 
@@ -27,11 +26,13 @@
     $session_ip=$_REQUEST["session_ip"];
 
     $menuname=sanitize($con, $_REQUEST["menuname"]);
+    $pagedescription=sanitize($con, $_REQUEST["pagedescription"]);
 
 //    echo ("AddEdit:- ".$AddEdit."</br>");
 //    echo ("session_userid:- ".$session_userid."</br>");
 //    echo ("session_ip:- ".$session_ip."</br>");
 //    echo ("menuname:- ".$menuname."</br>");
+//    echo ("pagedescription:- ".$pagedescription."</br>");
 //    die();
 
     $tablename="1menusub";
@@ -56,12 +57,12 @@
     if(trim($error_msg)=="") {
 
         if ($AddEdit==0) {
-            $Procedure = "Call Save_Menu('$CurrentDate', $session_userid, '$session_ip', '$menuname');";
+            $Procedure = "Call Save_Menu('$CurrentDate', $session_userid, '$session_ip', '$menuname', '$pagedescription');";
         }
         else{
             $IDExist=Check_MenuIDExist($con, $AddEdit);
             if($IDExist>0) {
-                $Procedure = "Call Update_Menu($IDExist, '$CurrentDate', $session_userid, '$session_ip', '$menuname');";
+                $Procedure = "Call Update_Menu($IDExist, '$CurrentDate', $session_userid, '$session_ip', '$menuname', '$pagedescription');";
             }
             else{
                 echo("Menu ID is not getting. Please contact system administrator....");
@@ -79,7 +80,7 @@
         }
         mysqli_free_result($result);
 //        echo("Saved Successfully & LastInsertedID :- $LastInsertedID </br>");
-
+//        die();
 
 
         /* Log Ends*/
@@ -97,16 +98,7 @@
 
 <script language="javascript">
     ClearAllControls(0);
-    show_newlyaddedlist('add_menu_2.php', 'div_searchmenu');
-    // Solid primary
-    new PNotify({
-        title: 'Success notice',
-        text: 'Check me out! I\'m a notice.',
-        icon: 'icon-checkmark3',
-        type: 'success'
-    });
-    
-    
+    show_newlyaddedlist('add_pages_2.php', 'div_searchmenu');
 </script>
 
 

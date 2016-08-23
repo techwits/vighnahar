@@ -2390,7 +2390,7 @@ label.checkbox-switch.checkbox-inline {
   cursor: pointer;
   outline: 0;
   display: block;
-  height: 36px;
+  height: 30px;
   padding: 7px 0;
   line-height: 1.5384616;
   position: relative;
@@ -2406,13 +2406,14 @@ label.checkbox-switch.checkbox-inline {
 .select2-selection--single:focus,
 .select2-container--open .select2-selection--single {
   -webkit-box-shadow: 0 0 0 100px rgba(0, 0, 0, 0.01) inset;
-  box-shadow: 0 0 0 100px rgba(0, 0, 0, 0.01) inset;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(221, 221, 221, 0.9) inset;
+  border-color: #1c5591;
 }
 .select2-selection--single:not([class*=bg-]) {
   background-color: #fff;
 }
 .select2-selection--single:not([class*=bg-]):not([class*=border-]) {
-  border-color: #ddd;
+  border-color: #BDBDBD;
 }
 .select2-selection--single[class*=bg-]:hover,
 .select2-selection--single[class*=bg-]:focus,
