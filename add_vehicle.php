@@ -46,12 +46,27 @@
 
 	<!-- /theme JS files -->
 
+	<!-- Theme JS files -->
+		<script type="text/javascript" src="assets/js/plugins/notifications/jgrowl.min.js"></script>
+		<script type="text/javascript" src="assets/js/plugins/ui/moment/moment.min.js"></script>
+		<script type="text/javascript" src="assets/js/plugins/pickers/daterangepicker.js"></script>
+		<script type="text/javascript" src="assets/js/plugins/pickers/anytime.min.js"></script>
+		<script type="text/javascript" src="assets/js/plugins/pickers/pickadate/picker.js"></script>
+		<script type="text/javascript" src="assets/js/plugins/pickers/pickadate/picker.date.js"></script>
+		<script type="text/javascript" src="assets/js/plugins/pickers/pickadate/picker.time.js"></script>
+		<script type="text/javascript" src="assets/js/plugins/pickers/pickadate/legacy.js"></script>
+
+		<script type="text/javascript" src="assets/js/core/app.js"></script>
+		<script type="text/javascript" src="assets/js/pages/picker_date.js"></script>
+	<!-- /theme JS files -->
+
+
 	<script type="text/JavaScript" src="assets/js/search/search.js"></script>
 	<script type="text/JavaScript" src="assets/js/sha512.js"></script>
 
 </head>
 
-<body class="navbar-top">
+<body class="navbar-top" onload="return ClearAllControls(0);">
 
 	<!-- Main navbar -->
 	<?php
@@ -89,7 +104,7 @@
 							<div id="<?php echo $div_merchantcontrols; ?>" class="panel panel-flat" style="border-color:<?php echo $Form_BorderColor; ?>; border-top-width:<?php echo $Form_BorderTopWidth; ?>;">
 
 								<div class="panel-heading" id="<?php echo $div_panel; ?>" style="background-color:<?php echo $FormHeadingColor; ?>;">
-									<h5 class="panel-title"><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold" id="<?php echo $span_pageName; ?>"><?php echo $PageHeaderName; ?></h5>
+									<h5 class="panel-title"><i class="icon-bus position-left"></i> <span class="text-semibold" id="<?php echo $span_pageName; ?>"><?php echo $PageHeaderName; ?></h5>
 									<div class="heading-elements">
 										<ul class="icons-list">
 											<li><a data-action="collapse"></a></li>
@@ -98,46 +113,49 @@
 									</div>
 								</div>
 
-								<div class="panel-body">
+								<div class="panel-body" style="margin-top:15px;">
 									<div class="row">
-										<div class="col-lg-3">
+										<div class="col-lg-6">
 											<div class="form-group form-group-material">
-												<label>Vehicle Name <span class="text-danger">*</span></label>
+												<label>Vehicle Make <span class="text-danger">*</span></label>
 												<div class="input-group">
-													<input type="text" class="form-control" name="vehiclename" id="vehiclename"  required="required" autofocus onkeypress="return only_Alpha_Numeric_underscore_dot(event);" ondrop="return false;" onpaste="return false;">
+													<input type="text" class="form-control" name="vehiclename" id="vehiclename"  required="required" autofocus onkeypress="return only_Alpha_Space(event);" ondrop="return false;" onpaste="return false;">
                                                         <span class="input-group-addon">
-                                                    <i class="icon-user"></i>
-                                                    </span>
+                                                    		<i class="icon-bus"></i>
+                                                    	</span>
 												</div>
 											</div>
 										</div>
-										<div class="col-lg-3">
+										<div class="col-lg-6">
 											<div class="form-group form-group-material">
 												<label>Vehicle Number <span class="text-danger">*</span></label>
 												<div class="input-group">
-													<input type="text" class="form-control" name="vehiclenumber" id="vehiclenumber"  required="required" autofocus onkeypress="return only_Alpha_Numeric_underscore_dot(event);" ondrop="return false;" onpaste="return false;">
+													<input type="text" class="form-control" name="vehiclenumber" id="vehiclenumber"  required="required" autofocus onkeypress="return only_Alpha_Numeric_Hyphen_Space(event);" ondrop="return false;" onpaste="return false;">
                                                         <span class="input-group-addon">
-                                                    <i class="icon-user"></i>
-                                                    </span>
+                                                    		<i class="icon-list-numbered"></i>
+                                                    	</span>
 												</div>
 											</div>
 										</div>
-										<div class="col-lg-3">
+									</div>
+
+									<div class="row">
+										<div class="col-lg-6">
 											<div class="form-group form-group-material">
-												<label>Vehicle RCBook Number <span class="text-danger">*</span></label>
+												<label>RCBook Number </label>
 												<div class="input-group">
-													<input type="text" class="form-control" name="vehiclercbooknumber" id="vehiclercbooknumber"  required="required" autofocus onkeypress="return only_Alpha_Numeric_underscore_dot(event);" ondrop="return false;" onpaste="return false;">
-                                                        <span class="input-group-addon"
-                                                    <i class="icon-user"></i>
-                                                    </span>
+													<input type="text" class="form-control" name="vehiclercbooknumber" id="vehiclercbooknumber" autofocus onkeypress="return only_Alpha_Numeric_Hyphen_Space(event);" ondrop="return false;" onpaste="return false;">
+                                                        <span class="input-group-addon">
+                                                    		<i class="icon-list-numbered"></i>
+                                                    	</span>
 												</div>
 											</div>
 										</div>
 
 										<div class="col-lg-3">
 											<div class="form-group">
-												<label>Vehicle Ownership Name <span class="text-danger">*</span></label>
-												<select name="vehicleownershipname" id="vehicleownershipname" class="select-search select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+												<label>Ownership Type <span class="text-danger">*</span></label>
+												<select name="vehicleownershipname" id="vehicleownershipname" class="form-control" required="required">
 													<option value=""></option>-->
 													<?php
 														Fill_VehicleOwnership($con);
@@ -145,7 +163,64 @@
 												</select>
 											</div>
 										</div>
+										<div class="col-lg-3">
+											<div class="form-group form-group-material">
+												<label>Registration Year </label>
+												<div class="input-group">
+													<input type="text" class="form-control" name="registrationyear" id="registrationyear" maxlength="4" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
+													<span class="input-group-addon">
+														<i class="icon-calendar52"></i>
+													</span>
+												</div>
+											</div>
+										</div>
 									</div>
+
+									<div class="row">
+
+										<div class="col-lg-3">
+											<div class="form-group form-group-material">
+												<label>Permit number </label>
+												<div class="input-group">
+													<input type="text" class="form-control" name="permitnumber" id="permitnumber" onkeypress="return only_Alpha_Numeric(event);" ondrop="return false;" onpaste="return false;">
+													<span class="input-group-addon">
+														<i class="icon-list-numbered"></i>
+													</span>
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-3">
+											<div class="form-group form-group-material">
+												<label>Permit Expire date </label>
+												<div class="input-group">
+													<input type="text" class="form-control daterange-single"  name="vehiclepermitexpiredate" id="vehiclepermitexpiredate" onblur="return clearText('permitnumber', 'vehiclepermitexpiredate');">
+													<span class="input-group-addon"><i class="icon-calendar22"></i></span>
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-3">
+											<div class="form-group form-group-material">
+												<label>Insurance number </label>
+												<div class="input-group">
+													<input type="text" class="form-control" name="insurancenumber" id="insurancenumber"  onkeypress="return only_Alpha_Numeric(event);" ondrop="return false;" onpaste="return false;">
+													<span class="input-group-addon">
+														<i class="icon-list-numbered"></i>
+													</span>
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-3">
+											<div class="form-group form-group-material">
+												<label>Insurance Expire date </label>
+												<div class="input-group">
+													<input type="text" class="form-control daterange-single"  name="insuranceexpiredate" id="insuranceexpiredate" value="" onblur="return clearText('insurancenumber', 'insuranceexpiredate');">
+													<span class="input-group-addon"><i class="icon-calendar22"></i></span>
+													</span>
+												</div>
+											</div>
+										</div>
+									</div>
+
 								</div>
 								<div class="panel-footer">
 									<div class="col-md-12">

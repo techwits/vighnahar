@@ -49,7 +49,7 @@
 	<script type="text/javascript" src="assets/js/pages/form_select2.js"></script>
 
 	<script type="text/javascript" src="assets/js/plugins/tables/datatables/datatables.min.js"></script>
-	<script type="text/javascript" src="assets/js/pages/datatables_api_2columns.js"></script>
+	<script type="text/javascript" src="assets/js/pages/datatables_api.js"></script>
 
 	<!-- /theme JS files -->
 
@@ -117,6 +117,10 @@
 							<input type="hidden" name="session_userid" id="session_userid" value="<?php echo $_SESSION['user_id']; ?>">
 							<input type="hidden" name="session_ip" id="session_ip" value="<?php echo $_SESSION['ip']; ?>">
 							<input type="hidden" name="AddEdit" id="AddEdit" value="0">
+							<input type="hidden" name="AddEdit1" id="AddEdit1" value="0">
+							<input type="hidden" name="AddEdit2" id="AddEdit2" value="0">
+							<input type="hidden" name="AddEdit3" id="AddEdit3" value="0">
+							<input type="hidden" name="AddEdit4" id="AddEdit4" value="0">
 							<div id="<?php echo $div_merchantcontrols; ?>" class="panel panel-flat" style="border-color:<?php echo $Form_BorderColor; ?>; border-top-width:<?php echo $Form_BorderTopWidth; ?>;">
 
 								<div class="panel-heading" id="<?php echo $div_panel; ?>" style="background-color:<?php echo $FormHeadingColor; ?>;">

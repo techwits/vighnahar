@@ -31,14 +31,33 @@
     $vehiclercbooknumber=sanitize($con, $_REQUEST["vehiclercbooknumber"]);
     $vehicleownershipname=sanitize($con, $_REQUEST["vehicleownershipname"]);
 
-//    echo ("AddEdit:- ".$AddEdit."</br>");
-//    echo ("session_userid:- ".$session_userid."</br>");
-//    echo ("session_ip:- ".$session_ip."</br>");
-//    echo ("vehiclename:- ".$vehiclename."</br>");
-//    echo ("vehiclenumber:- ".$vehiclenumber."</br>");
-//    echo ("vehiclercbooknumber:- ".$vehiclercbooknumber."</br>");
-//    echo ("vehicleownershipname:- ".$vehicleownershipname."</br>");
-//    die();
+    $registrationyear=sanitize($con, $_REQUEST["registrationyear"]);
+    $permitnumber=sanitize($con, $_REQUEST["permitnumber"]);
+    $vehiclepermitexpiredate=sanitize($con, $_REQUEST["vehiclepermitexpiredate"]);
+    $insurancenumber=sanitize($con, $_REQUEST["insurancenumber"]);
+    $insuranceexpiredate=sanitize($con, $_REQUEST["insuranceexpiredate"]);
+
+
+    $oldDate = $insuranceexpiredate;
+    $arr = explode('/', $oldDate);
+    $newDate = $arr[2].'-'.$arr[1].'-'.$arr[0].'-'.$arr[0];
+    $newDate_Valid=validateDate($newDate);
+
+    echo ("AddEdit:- ".$AddEdit."</br>");
+    echo ("session_userid:- ".$session_userid."</br>");
+    echo ("session_ip:- ".$session_ip."</br>");
+    echo ("vehiclename:- ".$vehiclename."</br>");
+    echo ("vehiclenumber:- ".$vehiclenumber."</br>");
+    echo ("vehiclercbooknumber:- ".$vehiclercbooknumber."</br>");
+    echo ("vehicleownershipname:- ".$vehicleownershipname."</br>");
+    echo ("registrationyear:- ".$registrationyear."</br>");
+    echo ("permitnumber:- ".$permitnumber."</br>");
+    echo ("vehiclepermitexpiredate:- ".$vehiclepermitexpiredate."</br>");
+    echo ("insurancenumber:- ".$insurancenumber."</br>");
+    echo ("insuranceexpiredate:- ".$insuranceexpiredate."</br>");
+    echo ("newDate:- ".$newDate."</br>");
+    echo ("newDate_Valid:- ".$newDate_Valid."</br>");
+    die();
 
     $tablename="vehicle_master";
     $searchColumn="vmid";

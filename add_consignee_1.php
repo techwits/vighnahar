@@ -25,7 +25,7 @@
                 </form>
             </div>
 
-            <div class="tab-pane has-padding active" id="bordered-tab2">
+            <div class="tab-pane has-padding" id="bordered-tab2">
                 <form name="search_menu" action="#" class="main-search">
                     <div class="input-group content-group">
                         <div class="has-feedback has-feedback-left">

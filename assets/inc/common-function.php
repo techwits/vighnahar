@@ -10,6 +10,12 @@
 		return date(preg_replace('`(?<!\\\\)u`', $milliseconds, $format), $timestamp);
 	}
 
+	function validateDate($date)
+	{
+		$d = DateTime::createFromFormat('Y-m-d', $date);
+		return $d && $d->format('Y-m-d') == $date;
+	}
+
 	function sanitize($con, $input) {
 		if (is_array($input)) {
 			foreach($input as $var=>$val) {

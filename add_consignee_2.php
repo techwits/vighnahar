@@ -1,5 +1,5 @@
 <!-- Theme JS files -->
-<script type="text/javascript" src="assets/js/pages/datatables_api_2columns.js"></script>
+<script type="text/javascript" src="assets/js/pages/datatables_api.js"></script>
 <!-- /theme JS files -->
 
 <?php
@@ -51,7 +51,9 @@
         <thead>
         <tr>
             <th>Consignee Name</th>
+            <th>Consignor Name</th>
             <th>Area</th>
+            
         </tr>
         </thead>
         <tbody>
@@ -112,7 +114,9 @@
 
                 <tr>
                     <td><a href="#" onclick="return editconsignee(<?php echo $cnid; ?>, '<?php echo $ConsigneeName; ?>', '<?php echo $Website; ?>', '<?php echo $cnaid; ?>', '<?php echo $Address; ?>', '<?php echo $Pincode; ?>', '<?php echo $City; ?>', '<?php echo $Telephone; ?>', '<?php echo $Email; ?>', '<?php echo $amid; ?>', '<?php echo $AreaName; ?>', '<?php echo $ConsignorID; ?>', '<?php echo $ConsignorName; ?>');"><?php echo $ConsigneeName; ?></a> </td>
+                    <td><?php echo $ConsignorName; ?></td>
                     <td><?php echo $AreaName; ?></td>
+
                 </tr>
                 <?php
             }

@@ -296,6 +296,22 @@ function only_Numeric(evt) {
 	return true;
 }
 
+function only_Alpha_Numeric_Hyphen_Space(evt) {
+	//var theEvent = evt || window.event;
+	//var key = theEvent.keyCode || theEvent.which;
+	//key = String.fromCharCode(key);
+	//if (key.length == 0) return;
+	//var regex = /^[a-zA-Z ']+$/;
+	//if (!regex.test(key)) {
+	//	theEvent.returnValue = false;
+	//	if (theEvent.preventDefault) theEvent.preventDefault();
+	//}
+	var charCode = (evt.which) ? evt.which : event.keyCode
+	if (charCode > 31 && (charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122) && (charCode < 48 || charCode > 57) && (charCode < 45 || charCode > 45) && (charCode < 32 || charCode > 32))
+		return false;
+	return true;
+}
+
 function only_Alpha_Numeric_Apostrophy_Space(evt) {
 	//var theEvent = evt || window.event;
 	//var key = theEvent.keyCode || theEvent.which;
@@ -481,6 +497,15 @@ function ClearAllControls(formno) {
 		icon: 'icon-checkmark3',
 		type: 'success'
 	});
+}
+
+function clearText(PrvControlName, ControlName)
+{
+	PrvControlName=document.getElementById(PrvControlName).value;
+	if(PrvControlName.length <= 0 || PrvControlName == ""){
+		var ControlName="#"+ControlName;
+		$(ControlName).val("");
+	}
 }
 
 function searchlogin(searchvalue, searchin)
@@ -791,6 +816,16 @@ function editconsignee(cnid, companyname,url, cnaid, address, pincode, city, tel
 		}
 
 		document.getElementById("companyname").focus();
+
+		// $('#div_merchantcontrols').addClass('animated swing');
+		document.getElementById('div_merchantcontrols').style.borderColor='#b8b894';
+		document.getElementById('div_merchantcontrols').style.borderTopWidth='3px';
+		document.getElementById('div_panel').style.backgroundColor='#b8b894';
+
+		// $("#div_merchantcontrols").css({ 'border-color': "#00c0ef" });
+		// $( "#div_merchantcontrols" ).css( "border-top", "3px solid red");
+		document.getElementById("span_pageName").innerHTML="Update - " +companyname;
+		document.getElementById("span_pageButton").innerHTML="Update";
 	}
 	else
 	{
@@ -887,6 +922,16 @@ function editvehicleownership(vo_id, CreationDate, ModificationDate, Creator, ip
 	{
 		document.getElementById("vehicleownershipname").value=Owner;
 		document.getElementById("vehicleownershipname").focus();
+
+		// $('#div_merchantcontrols').addClass('animated swing');
+		document.getElementById('div_merchantcontrols').style.borderColor='#b8b894';
+		document.getElementById('div_merchantcontrols').style.borderTopWidth='3px';
+		document.getElementById('div_panel').style.backgroundColor='#b8b894';
+
+		// $("#div_merchantcontrols").css({ 'border-color': "#00c0ef" });
+		// $( "#div_merchantcontrols" ).css( "border-top", "3px solid red");
+		document.getElementById("span_pageName").innerHTML="Update - " +Owner;
+		document.getElementById("span_pageButton").innerHTML="Update";
 	}
 	else
 	{
@@ -1779,12 +1824,7 @@ function add_vehicle()
 	}
 
 	var vehiclercbooknumber=trim(frm.vehiclercbooknumber.value);
-	if(vehiclercbooknumber.length <= 0 || vehiclercbooknumber == "")
-	{
-		error_count = error_count + 1;
-		error_msg  =  error_msg + error_count + ") " + " Please Enter Vehicle RC Book Number" + "\n";
-		frm.vehicleownershipname.focus();
-	}
+
 
 	var vehicleownershipname=trim(frm.vehicleownershipname.value);
 	if(vehicleownershipname.length <= 0 || vehicleownershipname == "")
@@ -1794,17 +1834,54 @@ function add_vehicle()
 		frm.vehicleownershipname.focus();
 	}
 
+	var registrationyear=trim(frm.registrationyear.value);
+
+	var permitnumber=trim(frm.permitnumber.value);
+	var vehiclepermitexpiredate=trim(frm.vehiclepermitexpiredate.value);
+	if(permitnumber.length > 0 && (vehiclepermitexpiredate.length <= 0 || vehiclepermitexpiredate == ""))
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Permit Expiry date " + "\n";
+		frm.vehiclepermitexpiredate.focus();
+	}
+
+	if(vehiclepermitexpiredate.length > 0 && (permitnumber.length <= 0 || permitnumber == ""))
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter Permit Number" + "\n";
+		frm.permitnumber.focus();
+	}
+
+	var insurancenumber=trim(frm.insurancenumber.value);
+	var insuranceexpiredate=trim(frm.insuranceexpiredate.value);
+	if(insurancenumber.length > 0 && (insuranceexpiredate.length <= 0 || insuranceexpiredate == ""))
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter Insurance Expiry date" + "\n";
+		frm.insuranceexpiredate.focus();
+	}
+	if(insuranceexpiredate.length > 0 && (insurancenumber.length <= 0 || insurancenumber == ""))
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter Insurance Number" + "\n";
+		frm.insurancenumber.focus();
+	}
+
 	if(Number(error_count) == 0)
 	{
 		var div_name = "#div_vehicle";
 		var page_name = "save_addvehicle.php";
 		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
-		$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, vehiclename:vehiclename, vehiclenumber:vehiclenumber, vehiclercbooknumber:vehiclercbooknumber, vehicleownershipname:vehicleownershipname},
-			function(data)
-			{
+		$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, vehiclename:vehiclename, vehiclenumber:vehiclenumber, vehiclercbooknumber:vehiclercbooknumber, vehicleownershipname:vehicleownershipname, registrationyear:registrationyear, permitnumber:permitnumber, vehiclepermitexpiredate:vehiclepermitexpiredate, insurancenumber:insurancenumber, insuranceexpiredate:insuranceexpiredate},
+			function(data) {
 				$(div_name).html(data);
 			}
 		);
+		return false;
+	}
+	else
+	{
+		alert(error_msg);
 		return false;
 	}
 }
