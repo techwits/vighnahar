@@ -1055,6 +1055,16 @@ function editadditionalcharge(acmid, CreationDate, ModificationDate, Creator, ip
 		document.getElementById("chargepercentage").value=ChargePercentage;
 		document.getElementById("chargefix").value=ChargeFix;
 		document.getElementById("additionalchargename").focus();
+
+		// $('#div_merchantcontrols').addClass('animated swing');
+		document.getElementById('div_merchantcontrols').style.borderColor='#b8b894';
+		document.getElementById('div_merchantcontrols').style.borderTopWidth='3px';
+		document.getElementById('div_panel').style.backgroundColor='#b8b894';
+
+		// $("#div_merchantcontrols").css({ 'border-color': "#00c0ef" });
+		// $( "#div_merchantcontrols" ).css( "border-top", "3px solid red");
+		document.getElementById("span_pageName").innerHTML="Update - " + ChargeName;
+		document.getElementById("span_pageButton").innerHTML="Update";
 	}
 	else
 	{
@@ -1122,6 +1132,16 @@ function editarea(amid, CreationDate, ModificationDate, Creator, ip, AreaName, A
 	{
 		document.getElementById("areaname").value=AreaName;
 		document.getElementById("areaname").focus();
+
+		// $('#div_merchantcontrols').addClass('animated swing');
+		document.getElementById('div_merchantcontrols').style.borderColor='#b8b894';
+		document.getElementById('div_merchantcontrols').style.borderTopWidth='3px';
+		document.getElementById('div_panel').style.backgroundColor='#b8b894';
+
+		// $("#div_merchantcontrols").css({ 'border-color': "#00c0ef" });
+		// $( "#div_merchantcontrols" ).css( "border-top", "3px solid red");
+		document.getElementById("span_pageName").innerHTML="Update - " + AreaName;
+		document.getElementById("span_pageButton").innerHTML="Update";
 	}
 	else
 	{
@@ -2986,6 +3006,58 @@ function get_productOnConsignee(ConsigneeID, ConsignorID, Creator, ip)
 		var page_name = "lrentry_2.php";
 		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
 		$.post(page_name, {ConsigneeID:ConsigneeID, ConsignorID:ConsignorID, session_userid:session_userid, session_ip:session_ip},
+			function(data)
+			{
+				$(div_name).html(data);
+			}
+		);
+		return false;
+	}
+	else
+	{
+		alert("ID is Blank.");
+		return false;
+	}
+}
+
+function get_rate_consignee(ConsignorID, Creator, ip)
+{
+	var error_count;
+	var error_msg;
+	error_msg="";
+	error_count=0;
+
+	var ConsignorID=ConsignorID;
+	if(ConsignorID.length <= 0 || ConsignorID == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Error - Consignor ID" + "\n";
+		// frm.username.focus();
+	}
+
+	var session_userid=Creator;
+	if(session_userid.length <= 0 || session_userid == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Error - User ID" + "\n";
+		// frm.username.focus();
+	}
+	var session_ip=ip;
+	if(session_ip.length <= 0 || session_ip == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Error - IP Address " + "\n";
+		// frm.username.focus();
+	}
+
+
+	if(Number(error_count) == 0)
+	{
+		document.getElementById("consignorid").disabled = true;
+		var div_name = "#div_consignee";
+		var page_name = "add_rate_3.php";
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$.post(page_name, {ConsignorID:ConsignorID, session_userid:session_userid, session_ip:session_ip},
 			function(data)
 			{
 				$(div_name).html(data);

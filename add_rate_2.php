@@ -50,10 +50,10 @@
     <table class="table datatable-selection-single">
         <thead>
         <tr>
-            <th>Name</th>
-            <th>Telephone</th>
-            <th>Email</th>
-            <th class="text-center">Actions</th>
+            <th>Consignor</th>
+            <th>Consignee</th>
+            <th>Product</th>
+            <th>Rate</th>
         </tr>
         </thead>
         <tbody>
@@ -79,7 +79,18 @@
         $sqlQry.=" inner join product_master ";
         $sqlQry.=" on rate_master.pmid = product_master.pmid ";
 
-        $sqlQry.= " where $columnname '$pre_wildcharacter$searchvalue$post_wildcharacter'";
+        $sqlQry.= " where 1=1";
+
+        if ($searchin==1) {
+            $sqlQry.= " and consignor_master.ConsignorName like '$searchvalue%'";
+        }
+        elseif ($searchin==2) {
+            $sqlQry.= " and consignee_master.ConsigneeName like '$searchvalue%'";
+        }
+        elseif ($searchin==3) {
+            $sqlQry.= " and product_master.ProductName like '$searchvalue%'";
+        }
+        
         $sqlQry.= " order by `consignor_master`.`ConsignorName` ";
 //        echo ("Check sqlQry :- $sqlQry </br>");
 //        die();
@@ -108,23 +119,9 @@
                 ?>
                 <tr>
                     <td><a href="#" onclick="return editrate(<?php echo $rmid; ?>, '<?php echo $CreationDate; ?>', '<?php echo $ModificationDate; ?>', '<?php echo $Creator; ?>', '<?php echo $ip; ?>', '<?php echo $caid; ?>', '<?php echo $cnid; ?>', '<?php echo $pmid; ?>', '<?php echo $MinimumRate; ?>', '<?php echo $CartoonRate; ?>', '<?php echo $ItemRate; ?>', '<?php echo $Active; ?>', '<?php echo $ConsignorName; ?>', '<?php echo $ProductName; ?>', '<?php echo $ConsigneeName; ?>');"><?php echo $ConsignorName; ?></a> </td>
-                    <td>Sachin</td>
-                    <td>12</td>
-                    <td class="text-center">
-                        <ul class="icons-list">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="icon-menu9"></i>
-                                </a>
-
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="#"><i class="icon-file-pdf"></i> Export to .pdf</a></li>
-                                    <li><a href="#"><i class="icon-file-excel"></i> Export to .csv</a></li>
-                                    <li><a href="#"><i class="icon-file-word"></i> Export to .doc</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </td>
+                    <td><?php echo $ConsigneeName; ?></td>
+                    <td><?php echo $ProductName; ?></td>
+                    <td><?php echo $CartoonRate.", ".$ItemRate; ?></td>
                 </tr>
                 <?php
             }

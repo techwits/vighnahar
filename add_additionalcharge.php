@@ -56,7 +56,7 @@
 
 	<!-- Main navbar -->
 	<?php
-		$PageHeaderName="Add Additional Charge";
+		$PageHeaderName="Manage Additional Charge";
 		$icon="icon-address-book";
 		$EntryToday=2345;
 		$EntryWeek=5364;
@@ -74,7 +74,6 @@
 		//		mysqli_close($con);
 		include_once('assets/inc/db_connect.php');
 
-
 	?>
 	<!-- /main navbar -->
 
@@ -82,14 +81,9 @@
 	<div class="page-container">
 		<!-- Page content -->
 		<div class="page-content">
-
 			<!-- Main content -->
 			<div class="content-wrapper">
-
-
 				<!-- Form actions -->
-
-
 				<div class="row">
 					<div class="col-sm-8 col-md-8 col-lg-8">
 						<form name="additionalcharge_form" id="additionalcharge_form" action="#">
@@ -99,7 +93,7 @@
 							<div id="<?php echo $div_merchantcontrols; ?>" class="panel panel-flat" style="border-color:<?php echo $Form_BorderColor; ?>; border-top-width:<?php echo $Form_BorderTopWidth; ?>;">
 
 								<div class="panel-heading" id="<?php echo $div_panel; ?>" style="background-color:<?php echo $FormHeadingColor; ?>;">
-									<h5 class="panel-title"><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold" id="<?php echo $span_pageName; ?>"><?php echo $PageHeaderName; ?></h5>
+									<h5 class="panel-title"><i class="icon-coin-dollar position-left"></i> <span class="text-semibold" id="<?php echo $span_pageName; ?>"><?php echo $PageHeaderName; ?></h5>
 									<div class="heading-elements">
 										<ul class="icons-list">
 											<li><a data-action="collapse"></a></li>
@@ -107,16 +101,16 @@
 										</ul>
 									</div>
 								</div>
-								<div class="panel-body">
+								<div class="panel-body" style="margin-top:15px;">
 									<div class="row">
 										<div class="col-lg-6">
 											<div class="form-group form-group-material">
 												<label>Additional Charge Name <span class="text-danger">*</span></label>
 												<div class="input-group">
-													<input type="text" class="form-control" name="additionalchargename" id="additionalchargename" autofocus required="required" onkeypress="return only_Alpha_Numeric_underscore_dot(event);" ondrop="return false;" onpaste="return false;">
+													<input type="text" class="form-control" name="additionalchargename" id="additionalchargename" autofocus required="required" onkeypress="return only_Alpha_Space(event);" ondrop="return false;" onpaste="return false;">
                                                         <span class="input-group-addon">
-                                                    <i class="icon-user"></i>
-                                                    </span>
+															<i class="icon-coin-dollar"></i>
+														</span>
 												</div>
 											</div>
 										</div>
@@ -126,8 +120,8 @@
 												<div class="input-group">
 													<input type="text" class="form-control" name="chargepercentage" id="chargepercentage" autofocus required="required" onkeypress="return only_Numeric_Dot(event);" ondrop="return false;" onpaste="return false;">
                                                         <span class="input-group-addon">
-                                                    <i class="icon-user"></i>
-                                                    </span>
+															<i class="icon-percent"></i>
+                                                    	</span>
 												</div>
 											</div>
 										</div>
@@ -137,8 +131,8 @@
 												<div class="input-group">
 													<input type="text" class="form-control" name="chargefix" id="chargefix" autofocus required="required" onkeypress="return only_Numeric_Dot(event);" ondrop="return false;" onpaste="return false;">
                                                         <span class="input-group-addon">
-                                                    <i class="icon-user"></i>
-                                                    </span>
+                                                    		<i class="icon-seven-segment-8"></i>
+                                                    	</span>
 												</div>
 											</div>
 										</div>
@@ -164,7 +158,7 @@
 						<!-- Search field -->
 						<div class="panel panel-flat" style="border-color:<?php echo $Search_BorderColor; ?>; border-top-width:<?php echo $Search_BorderTopWidth; ?>;">
 							<div class="panel-heading" style="background-color:<?php echo $SearchHeadingColor; ?>;">
-								<h5 class="panel-title"><i class="icon-search4 text-size-base"></i> <span class="text-semibold">Search</h5>
+								<h5 class="panel-title"><i class="icon-search4 text-size-base"></i> <span class="text-semibold"><?php echo $SearchPageHeading; ?></h5>
 								<div class="heading-elements">
 									<ul class="icons-list">
 										<li><a data-action="collapse"></a></li>

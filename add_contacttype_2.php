@@ -71,14 +71,14 @@
         {
             while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
             {
-                $ctmid=$row[0];
-                $CreationDate=$row[1];
-                $CreationDate=substr($CreationDate,0,strpos($CreationDate," "));
-                $ModificationDate=$row[2];
-                $Creator=$row[3];
-                $ip=$row[4];
-                $ContactName=$row[5];
-                $Active=$row[6];
+                    $ctmid=$row[0];
+                    $CreationDate=$row[1];
+                    $CreationDate=substr($CreationDate,0,strpos($CreationDate," "));
+                    $ModificationDate=$row[2];
+                    $Creator=$row[3];
+                    $ip=$row[4];
+                    $ContactName=$row[5];
+                    $Active=$row[6];
                 ?>
                 <tr>
                     <td><a href="#" onclick="return editcontacttype(<?php echo $ctmid; ?>, '<?php echo $CreationDate; ?>', '<?php echo $ModificationDate; ?>', '<?php echo $Creator; ?>', '<?php echo $ip; ?>', '<?php echo $ContactName; ?>', '<?php echo $Active; ?>');"><?php echo $ContactName; ?></a> </td>

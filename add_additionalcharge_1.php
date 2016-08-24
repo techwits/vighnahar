@@ -16,7 +16,7 @@
                             </div>
                         </div>
                         <div class="input-group-btn">
-                            <button type="button" class="btn btn-primary btn-xlg" onclass="btn btn-primary btn-xlg" onclick="return searchform1(document.getElementById('searchvalue_additionalchargename').value, 1, 'div_additionalcharges','add_additionalcharge_2.php');">Submit </button>
+                            <button type="button" class="btn btn-primary btn-xlg" onclass="btn btn-primary btn-xlg" onclick="return searchform1(document.getElementById('searchvalue_additionalchargename').value, 1, 'div_searchadditionalcharges','add_additionalcharge_2.php');">Submit </button>
                         </div>
                     </div>
                 </form>

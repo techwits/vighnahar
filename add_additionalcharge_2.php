@@ -51,10 +51,9 @@
     <table class="table datatable-selection-single">
         <thead>
         <tr>
-            <th>Name</th>
-            <th>Telephone</th>
-            <th>Email</th>
-            <th class="text-center">Actions</th>
+            <th>Charge Name</th>
+            <th>Percentage</th>
+            <th>Fix</th>
         </tr>
         </thead>
         <tbody>
@@ -88,23 +87,8 @@
                 ?>
                 <tr>
                     <td><a href="#" onclick="return editadditionalcharge(<?php echo $acmid; ?>, '<?php echo $CreationDate; ?>', '<?php echo $ModificationDate; ?>', '<?php echo $Creator; ?>', '<?php echo $ip; ?>', '<?php echo $ChargeName; ?>', '<?php echo $ChargePercentage; ?>', '<?php echo $ChargeFix; ?>', '<?php echo $Active; ?>');"><?php echo $ChargeName; ?></a> </td>
-                    <td>Sachin</td>
-                    <td>12</td>
-                    <td class="text-center">
-                        <ul class="icons-list">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="icon-menu9"></i>
-                                </a>
-
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="#"><i class="icon-file-pdf"></i> Export to .pdf</a></li>
-                                    <li><a href="#"><i class="icon-file-excel"></i> Export to .csv</a></li>
-                                    <li><a href="#"><i class="icon-file-word"></i> Export to .doc</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </td>
+                    <td><?php echo $ChargePercentage; ?></td>
+                    <td><?php echo $ChargeFix; ?></td>
                 </tr>
                 <?php
             }

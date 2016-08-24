@@ -874,3 +874,35 @@
 		mysqli_free_result($result);
 		return $Getting_ConsigneeAddressID;
 	}
+
+	function Update_ConsignorConsigneeRate($con, $Consignorid, $ConsigneeID, $Productid)
+	{
+		$sqlQry= "";
+		$sqlQry= "select rmid from `rate_master`";
+		$sqlQry= $sqlQry." where caid=$Consignorid ";
+		$sqlQry= $sqlQry." and cnid=$ConsigneeID";
+		$sqlQry= $sqlQry." and pmid=$Productid";
+		$sqlQry= $sqlQry." and Active=1";
+//		echo ("Check sqlQry :- $sqlQry </br>");
+//		die();
+		unset($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		if (mysqli_num_rows($result)!=0)
+		{
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$db_rmid=$row{0};
+				$sqlQry1= "";
+				$sqlQry1= "update `rate_master`";
+				$sqlQry1.=" set Active=0";
+				$sqlQry1.=" where rmid=$db_rmid ";
+//				echo ("Check sqlQry :- $sqlQry1 </br>");
+//				die();
+				mysqli_close($con);
+				include('db_connect.php');
+				$Updateresult = mysqli_query($con, $sqlQry1);
+			}
+		}
+		mysqli_free_result($result);
+	}
