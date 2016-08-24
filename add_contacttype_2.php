@@ -1,5 +1,5 @@
 <!-- Theme JS files -->
-<script type="text/javascript" src="assets/js/pages/datatables_api.js"></script>
+    <script type="text/javascript" src="assets/js/pages/datatables_api_2columns.js"></script>
 <!-- /theme JS files -->
 
 <?php
@@ -51,9 +51,7 @@
         <thead>
         <tr>
             <th>Name</th>
-            <th>Telephone</th>
-            <th>Email</th>
-            <th class="text-center">Actions</th>
+            <th>Creation Date</th>
         </tr>
         </thead>
         <tbody>
@@ -75,6 +73,7 @@
             {
                 $ctmid=$row[0];
                 $CreationDate=$row[1];
+                $CreationDate=substr($CreationDate,0,strpos($CreationDate," "));
                 $ModificationDate=$row[2];
                 $Creator=$row[3];
                 $ip=$row[4];
@@ -83,23 +82,7 @@
                 ?>
                 <tr>
                     <td><a href="#" onclick="return editcontacttype(<?php echo $ctmid; ?>, '<?php echo $CreationDate; ?>', '<?php echo $ModificationDate; ?>', '<?php echo $Creator; ?>', '<?php echo $ip; ?>', '<?php echo $ContactName; ?>', '<?php echo $Active; ?>');"><?php echo $ContactName; ?></a> </td>
-                    <td>Sachin</td>
-                    <td>12</td>
-                    <td class="text-center">
-                        <ul class="icons-list">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="icon-menu9"></i>
-                                </a>
-
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="#"><i class="icon-file-pdf"></i> Export to .pdf</a></li>
-                                    <li><a href="#"><i class="icon-file-excel"></i> Export to .csv</a></li>
-                                    <li><a href="#"><i class="icon-file-word"></i> Export to .doc</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </td>
+                    <td><?php echo $CreationDate;?></td>
                 </tr>
                 <?php
             }

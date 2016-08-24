@@ -26,13 +26,11 @@
     $session_userid=$_REQUEST["session_userid"];
     $session_ip=$_REQUEST["session_ip"];
 
-    $categoryname=sanitize($con, $_REQUEST["categoryname"]);
     $productname=sanitize($con, $_REQUEST["productname"]);
 
 //    echo ("AddEdit:- ".$AddEdit."</br>");
 //    echo ("session_userid:- ".$session_userid."</br>");
 //    echo ("session_ip:- ".$session_ip."</br>");
-//    echo ("categoryname:- ".$categoryname."</br>");
 //    echo ("productname:- ".$productname."</br>");
 //    die();
 
@@ -57,14 +55,14 @@
     if(trim($error_msg)=="") {
 
         if ($AddEdit==0) {
-            $Procedure = "Call Save_Product('$CurrentDate', $session_userid, '$session_ip', $categoryname, '$productname');";
+            $Procedure = "Call Save_Product('$CurrentDate', $session_userid, '$session_ip', '$productname');";
         }
         else{
             $IDTableName="product_master";
             $IDColumnName="pmid";
             $IDExist=Check_IDExist($con, $IDTableName, $IDColumnName, $AddEdit);
             if($IDExist>0) {
-                $Procedure = "Call Update_Product($AddEdit, '$CurrentDate', $session_userid, '$session_ip', $categoryname, '$productname');";
+                $Procedure = "Call Update_Product($AddEdit, '$CurrentDate', $session_userid, '$session_ip', '$productname');";
             }
             else{
                 echo("Transporter ID is not getting. Please contact system administrator....");

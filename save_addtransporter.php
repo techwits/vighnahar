@@ -26,20 +26,26 @@
     $session_userid=$_REQUEST["session_userid"];
     $session_ip=$_REQUEST["session_ip"];
 
-    $vehiclename=sanitize($con, $_REQUEST["vehiclename"]);
+
+
+
+
+
     $transportername=sanitize($con, $_REQUEST["transportername"]);
+    $address=sanitize($con, $_REQUEST["address"]);
     $mobilenumber=sanitize($con, $_REQUEST["mobilenumber"]);
     $licencenumber=sanitize($con, $_REQUEST["licencenumber"]);
-    $remark=sanitize($con, $_REQUEST["remark"]);
+
 
 //    echo ("AddEdit:- ".$AddEdit."</br>");
 //    echo ("session_userid:- ".$session_userid."</br>");
 //    echo ("session_ip:- ".$session_ip."</br>");
-//    echo ("vehiclename:- ".$vehiclename."</br>");
+//
 //    echo ("transportername:- ".$transportername."</br>");
+//    echo ("address:- ".$address."</br>");
 //    echo ("mobilenumber:- ".$mobilenumber."</br>");
 //    echo ("licencenumber:- ".$licencenumber."</br>");
-//    echo ("remark:- ".$remark."</br>");
+//
 //    die();
 
     $tablename="transporter_master";
@@ -63,17 +69,18 @@
     if(trim($error_msg)=="") {
 
         if ($AddEdit==0) {
-            $Procedure = "Call Save_Transporter('$CurrentDate', $session_userid, '$session_ip', $vehiclename, '$transportername', '$mobilenumber', '$licencenumber', '$remark');";
+            $Procedure = "Call Save_Transporter('$CurrentDate', $session_userid, '$session_ip', '$transportername', '$address', '$mobilenumber', '$licencenumber');";
         }
         else{
-            $IDTableName="vehicle_master";
-            $IDColumnName="vmid";
+            $IDTableName="transporter_master";
+            $IDColumnName="tmid";
             $IDExist=Check_IDExist($con, $IDTableName, $IDColumnName, $AddEdit);
             if($IDExist>0) {
-                $Procedure = "Call Update_Transporter($AddEdit, '$CurrentDate', $session_userid, '$session_ip', $vehiclename, '$transportername', '$mobilenumber', '$licencenumber', '$remark');";
+                $Procedure = "Call Update_Transporter($AddEdit, '$CurrentDate', $session_userid, '$session_ip', '$transportername', '$address', '$mobilenumber', '$licencenumber');";
             }
             else{
                 echo("Transporter ID is not getting. Please contact system administrator....");
+                die();
             }
         }
 //        echo ("Procedure:- ".$Procedure."</br>");

@@ -1,5 +1,5 @@
 <!-- Theme JS files -->
-<script type="text/javascript" src="assets/js/pages/datatables_api.js"></script>
+<script type="text/javascript" src="assets/js/pages/datatables_api_2columns.js"></script>
 <!-- /theme JS files -->
 
 <?php
@@ -52,19 +52,14 @@
         <tr>
             <th>Name</th>
             <th>Telephone</th>
-            <th>Email</th>
-            <th class="text-center">Actions</th>
         </tr>
         </thead>
         <tbody>
 
 
         <?php
-        $cols="transporter_master.tmid, transporter_master.CreationDate, transporter_master.ModificationDate, transporter_master.Creator, transporter_master.ip, transporter_master.vmid, transporter_master.TransporterName, transporter_master.MobileNumber, transporter_master.LicenceNumber, transporter_master.Remark, transporter_master.Active, ";
-        $cols.=" vehicle_master.VehicleNumber ";
+        $cols="transporter_master.tmid, transporter_master.CreationDate, transporter_master.ModificationDate, transporter_master.Creator, transporter_master.ip, transporter_master.TransporterName, transporter_master.Address, transporter_master.MobileNumber, transporter_master.LicenceNumber, transporter_master.Active ";
         $sqlQry= "select $cols from `transporter_master`";
-        $sqlQry.= " inner join vehicle_master";
-        $sqlQry.= " on transporter_master.vmid = vehicle_master.vmid";
         $sqlQry.= " where $columnname '$pre_wildcharacter$searchvalue$post_wildcharacter'";
         $sqlQry.= " and transporter_master.Active=1";
 //        echo ("Check sqlQry :- $sqlQry </br>");
@@ -81,33 +76,15 @@
                 $ModificationDate=$row[2];
                 $Creator=$row[3];
                 $ip=$row[4];
-                $vmid=$row[5];
-                $TransporterName=$row[6];
+                $TransporterName=$row[5];
+                $Address=$row[6];
                 $MobileNumber=$row[7];
                 $LicenceNumber=$row[8];
-                $Remark=$row[9];
                 $Active=$row[10];
-                $VehicleName=$row[11];
                 ?>
                 <tr>
-                    <td><a href="#" onclick="return edittransporter(<?php echo $tmid; ?>, '<?php echo $CreationDate; ?>', '<?php echo $ModificationDate; ?>', '<?php echo $Creator; ?>', '<?php echo $ip; ?>', '<?php echo $vmid; ?>', '<?php echo $VehicleName; ?>', '<?php echo $TransporterName; ?>', '<?php echo $MobileNumber; ?>', '<?php echo $LicenceNumber; ?>', '<?php echo $Remark; ?>', '<?php echo $Active; ?>');"><?php echo $TransporterName; ?></a> </td>
-                    <td>Sachin</td>
-                    <td>12</td>
-                    <td class="text-center">
-                        <ul class="icons-list">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="icon-menu9"></i>
-                                </a>
-
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="#"><i class="icon-file-pdf"></i> Export to .pdf</a></li>
-                                    <li><a href="#"><i class="icon-file-excel"></i> Export to .csv</a></li>
-                                    <li><a href="#"><i class="icon-file-word"></i> Export to .doc</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </td>
+                    <td><a href="#" onclick="return edittransporter(<?php echo $tmid; ?>, '<?php echo $CreationDate; ?>', '<?php echo $ModificationDate; ?>', '<?php echo $Creator; ?>', '<?php echo $ip; ?>', '<?php echo $TransporterName; ?>', '<?php echo $Address; ?>', '<?php echo $MobileNumber; ?>', '<?php echo $LicenceNumber; ?>', '<?php echo $Active; ?>');"><?php echo $TransporterName; ?></a> </td>
+                    <td><?php echo $MobileNumber; ?></td>
                 </tr>
                 <?php
             }

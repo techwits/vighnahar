@@ -42,7 +42,7 @@
 	<script type="text/javascript" src="assets/js/pages/form_select2.js"></script>
 
 	<script type="text/javascript" src="assets/js/plugins/tables/datatables/datatables.min.js"></script>
-	<script type="text/javascript" src="assets/js/pages/datatables_api.js"></script>
+	<script type="text/javascript" src="assets/js/pages/datatables_api_2columns.js"></script>
 
 	<!-- /theme JS files -->
 
@@ -56,7 +56,7 @@
 
 	<!-- Main navbar -->
 	<?php
-		$PageHeaderName="Add Product";
+		$PageHeaderName="Manage Product";
 		$icon="icon-address-book";
 
 		include('page_header.php');
@@ -90,7 +90,7 @@
 							<div id="<?php echo $div_merchantcontrols; ?>" class="panel panel-flat" style="border-color:<?php echo $Form_BorderColor; ?>; border-top-width:<?php echo $Form_BorderTopWidth; ?>;">
 
 								<div class="panel-heading" id="<?php echo $div_panel; ?>" style="background-color:<?php echo $FormHeadingColor; ?>;">
-									<h5 class="panel-title"><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold" id="<?php echo $span_pageName; ?>"><?php echo $PageHeaderName; ?></h5>
+									<h5 class="panel-title"><i class="icon-cart-add2 position-left"></i> <span class="text-semibold" id="<?php echo $span_pageName; ?>"><?php echo $PageHeaderName; ?></h5>
 									<div class="heading-elements">
 										<ul class="icons-list">
 											<li><a data-action="collapse"></a></li>
@@ -99,25 +99,8 @@
 									</div>
 								</div>
 
-								<div class="panel-body">
+								<div class="panel-body" style="margin-top:15px;">
 									<div class="row">
-
-										<div class="col-lg-6">
-											<div class="form-group">
-												<label>Select Category</label>
-												<select name="categoryname" id="categoryname" class="select-search select2-hidden-accessible" tabindex="-1" aria-hidden="true">
-													<option></option>
-													<?php
-													$TableName="category_master";
-													$ColumnName="cmid, CategoryName";
-													$OrderBy="CategoryName";
-													Fill_Master($con, $TableName, $ColumnName, $OrderBy);
-													?>
-												</select>
-											</div>
-
-										</div>
-
 										<div class="col-lg-6">
 											<div class="form-group form-group-material">
 												<label>Product Name <span class="text-danger">*</span></label>
@@ -150,7 +133,7 @@
 						<!-- Search field -->
 						<div class="panel panel-flat" style="border-color:<?php echo $Search_BorderColor; ?>; border-top-width:<?php echo $Search_BorderTopWidth; ?>;">
 							<div class="panel-heading" style="background-color:<?php echo $SearchHeadingColor; ?>;">
-								<h5 class="panel-title"><i class="icon-search4 text-size-base"></i> <span class="text-semibold">Search</h5>
+								<h5 class="panel-title"><i class="icon-search4 text-size-base"></i> <span class="text-semibold"><?php echo $SearchPageHeading; ?></h5>
 								<div class="heading-elements">
 									<ul class="icons-list">
 										<li><a data-action="collapse"></a></li>

@@ -2,7 +2,7 @@
 <div class="panel-body">
     <div class="tabbable tab-content-bordered">
         <ul class="nav nav-tabs nav-tabs-highlight">
-            <li class="active"><a href="#bordered-tab1" data-toggle="tab">Vehicle Name</a></li>
+            <li class="active"><a href="#bordered-tab1" data-toggle="tab">Vehicle Number</a></li>
         </ul>
 
         <div class="tab-content">

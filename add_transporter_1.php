@@ -16,7 +16,7 @@
                             </div>
                         </div>
                         <div class="input-group-btn">
-                            <button type="button" class="btn btn-primary btn-xlg" onclass="btn btn-primary btn-xlg"  onclick="return searchform1(document.getElementById('searchvalue_vehiclename').value, 1, 'div_searchtransporter','add_transporter_2.php');">Submit </button>
+                            <button type="button" class="btn btn-primary btn-xlg" onclass="btn btn-primary btn-xlg"  onclick="return searchform1(document.getElementById('searchvalue_transportername').value, 1, 'div_searchtransporter','add_transporter_2.php');">Submit </button>
                         </div>
                     </div>
                 </form>

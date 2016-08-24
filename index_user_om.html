@@ -37,6 +37,7 @@
 
 	<script type="text/javascript" src="assets/js/core/app.js"></script>
 	<script type="text/javascript" src="assets/js/pages/datatables_extension_fixed_header.js"></script>
+    <script type="text/javascript" src="assets/js/layout_sidebar_sticky.js"></script>
 	<!-- /theme JS files -->
 
 </head>
@@ -91,8 +92,8 @@
 
 	<!-- Page content -->
 	<div class="page-content">
-
-		<!-- Main content -->
+    
+    	<!-- Main content -->
 		<div class="content-wrapper">
 
 
@@ -138,8 +139,7 @@
 									<div class="clearfix"></div>
 								</div>
 							</div>
-						</div>
-						<div class="col-lg-4 col-md-6">
+						</div><div class="col-lg-4 col-md-6">
 							<div class="panel panel-success panel-bordered animated bounceIn">
 								<div class="panel-heading">
 									<div class="row">
@@ -177,6 +177,7 @@
 								</div>
 							</div>
 						</div>
+						
 
 						<div class="col-lg-4 col-md-6">
 							<div class="panel panel-danger panel-bordered animated bounceIn">
@@ -221,8 +222,6 @@
 
 
 					<!-- Trail COntent Om  ... ->
-
-
                     <!-- Header and footer fixed -->
 					<div class="panel panel-flat">
 						<div class="panel-heading">
@@ -593,6 +592,107 @@
 
 				</div>
 				<!-- /main content -->
+                
+                <div class="col-lg-2">
+          <!-- Secondary sidebar -->
+			<div class="sidebar sidebar-secondary sidebar-default">
+				<div class="sidebar-content">
+
+					<!-- Actions -->
+					<div class="sidebar-category sidebar-category-visible">
+						<div class="category-title">
+							<span>Masters Entry</span>
+                            <ul class="icons-list">
+                                <li><a href="#" data-action="collapse"></a></li>
+                            </ul>
+						</div>
+                        <div class="category-content">
+							<div class="row row-condensed">
+								<div class="col-xs-6">
+									<button type="button" class="btn bg-teal-400 btn-block btn-float btn-float-sm ">
+                                    <i class="icon-file-plus"></i> <span>Invoice</span></button>
+									<button type="button" class="btn bg-purple-300 btn-block btn-float btn-float-sm">
+                                    <i class="icon-archive"></i> <span>Archive</span></button>
+                                </div>
+                                <div class="col-xs-6">
+									<button type="button" class="btn bg-warning-400 btn-block btn-float btn-float-sm ">
+                                    <i class="icon-stats-bars"></i> <span>Statistics</span></button>
+                                    <button type="button" class="btn bg-blue btn-block btn-float btn-float-sm">
+                                    <i class="icon-cog3"></i> <span>Settings</span></button>
+								</div>
+							</div>
+						</div>
+                        <ul class="navigation navigation-alt navigation-accordion">
+                        	<li class="navigation-divider"></li>
+                            <li><a href="#"><i class="icon-googleplus5"></i> Create invoice</a></li>
+                            <li><a href="#"><i class="icon-compose"></i> Edit invoice</a></li>
+                            <li><a href="#"><i class="icon-archive"></i> Archive <span class="badge badge-default">190</span></a></li>
+                        </ul>
+					</div>
+					<!-- /actions -->
+				</div>
+			</div>
+			<!-- /secondary sidebar -->
+                    
+           </div>
+           
+           <div class="col-lg-2">    
+                <!-- Main sidebar -->
+			<div class="sidebar sidebar-main sidebar-default">
+				<div class="sidebar-fixed">
+					<div class="sidebar-content">
+
+						<!-- Main navigation -->
+						<div class="sidebar-category sidebar-category-visible">
+							<div class="category-title h6">
+								<span>Main sidebar</span>
+								<ul class="icons-list">
+									<li><a href="#" data-action="collapse"></a></li>
+								</ul>
+							</div>
+
+							<div class="category-content no-padding">
+                            
+								<ul class="navigation navigation-main navigation-accordion">
+
+									<!-- Main -->
+									<li class="navigation-header"><span>Main</span> <i class="icon-menu" title="Main pages"></i></li>
+									<li>
+										<a href="#"><i class="icon-stack"></i> <span>Starter kit</span></a>
+										<ul>
+											<li><a href="1_col.html">1 column</a></li>
+											<li><a href="2_col.html">2 columns</a></li>
+											<li>
+												<a href="#">3 columns</a>
+												<ul>
+													<li><a href="3_col_dual.html">Dual sidebars</a></li>
+													<li><a href="3_col_double.html">Double sidebars</a></li>
+												</ul>
+											</li>
+											<li><a href="4_col.html">4 columns</a></li>
+											<li><a href="layout_boxed.html">Boxed layout</a></li>
+											<li class="navigation-divider"></li>
+											<li><a href="layout_navbar_fixed_main.html">Fixed top navbar</a></li>
+											<li><a href="layout_navbar_fixed_secondary.html">Fixed secondary navbar</a></li>
+											<li><a href="layout_navbar_fixed_both.html">Both navbars fixed</a></li>
+											<li class="active"><a href="layout_sidebar_sticky.html">Sticky sidebar</a></li>
+										</ul>
+									</li>
+									<!-- /main -->
+
+								</ul>
+							</div>
+						</div>
+						<!-- /main navigation -->
+
+					</div>
+				</div>
+			</div>
+			<!-- /main sidebar -->
+                
+           </div>
+				<!-- /main sidebar -->
+
 
 			</div>
 			<!-- /page content -->

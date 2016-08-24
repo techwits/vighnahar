@@ -32,32 +32,53 @@
     $vehicleownershipname=sanitize($con, $_REQUEST["vehicleownershipname"]);
 
     $registrationyear=sanitize($con, $_REQUEST["registrationyear"]);
+    if($registrationyear==""){
+        $registrationyear=0;
+    }
+
     $permitnumber=sanitize($con, $_REQUEST["permitnumber"]);
     $vehiclepermitexpiredate=sanitize($con, $_REQUEST["vehiclepermitexpiredate"]);
+    if(strlen(trim($vehiclepermitexpiredate))>0){
+        $Permit_oldDate = $vehiclepermitexpiredate;
+        $Permit_arr = explode('/', $Permit_oldDate);
+        $Permit_newDate = $Permit_arr[2].'-'.$Permit_arr[1].'-'.$Permit_arr[0];
+        $Permit_newDate_Valid=validateDate($Permit_newDate);
+        if($Permit_newDate_Valid<>1){
+            $error_msg.=" Entered Permit Date is invalid. Please check..........";
+        }
+    }
+
     $insurancenumber=sanitize($con, $_REQUEST["insurancenumber"]);
     $insuranceexpiredate=sanitize($con, $_REQUEST["insuranceexpiredate"]);
+    if(strlen(trim($insuranceexpiredate))>0){
+        $Insurance_oldDate = $insuranceexpiredate;
+        $Insurance_arr = explode('/', $Insurance_oldDate);
+        $Insurance_newDate = $Insurance_arr[2].'-'.$Insurance_arr[1].'-'.$Insurance_arr[0];
+        $Insurance_newDate_Valid=validateDate($Insurance_newDate);
+        if($Insurance_newDate_Valid<>1){
+            $error_msg.=" Entered Insurance Date is invalid. Please check..........";
+        }
+    }
 
-
-    $oldDate = $insuranceexpiredate;
-    $arr = explode('/', $oldDate);
-    $newDate = $arr[2].'-'.$arr[1].'-'.$arr[0].'-'.$arr[0];
-    $newDate_Valid=validateDate($newDate);
-
-    echo ("AddEdit:- ".$AddEdit."</br>");
-    echo ("session_userid:- ".$session_userid."</br>");
-    echo ("session_ip:- ".$session_ip."</br>");
-    echo ("vehiclename:- ".$vehiclename."</br>");
-    echo ("vehiclenumber:- ".$vehiclenumber."</br>");
-    echo ("vehiclercbooknumber:- ".$vehiclercbooknumber."</br>");
-    echo ("vehicleownershipname:- ".$vehicleownershipname."</br>");
-    echo ("registrationyear:- ".$registrationyear."</br>");
-    echo ("permitnumber:- ".$permitnumber."</br>");
-    echo ("vehiclepermitexpiredate:- ".$vehiclepermitexpiredate."</br>");
-    echo ("insurancenumber:- ".$insurancenumber."</br>");
-    echo ("insuranceexpiredate:- ".$insuranceexpiredate."</br>");
-    echo ("newDate:- ".$newDate."</br>");
-    echo ("newDate_Valid:- ".$newDate_Valid."</br>");
-    die();
+//    echo ("AddEdit:- ".$AddEdit."</br>");
+//    echo ("session_userid:- ".$session_userid."</br>");
+//    echo ("session_ip:- ".$session_ip."</br>");
+//    echo ("vehiclename:- ".$vehiclename."</br>");
+//    echo ("vehiclenumber:- ".$vehiclenumber."</br>");
+//    echo ("vehiclercbooknumber:- ".$vehiclercbooknumber."</br>");
+//    echo ("vehicleownershipname:- ".$vehicleownershipname."</br>");
+//    echo ("registrationyear:- ".$registrationyear."</br>");
+//    echo ("permitnumber:- ".$permitnumber."</br>");
+//    echo ("vehiclepermitexpiredate:- ".$vehiclepermitexpiredate."</br>");
+//    echo ("insurancenumber:- ".$insurancenumber."</br>");
+//    echo ("insuranceexpiredate:- ".$insuranceexpiredate."</br>");
+//
+//    echo ("Permit_newDate:- ".$Permit_newDate."</br>");
+//    echo ("Permit_newDate_Valid:- ".$Permit_newDate_Valid."</br>");
+//
+//    echo ("Insurance_newDate:- ".$Insurance_newDate."</br>");
+//    echo ("Insurance_newDate_Valid:- ".$Insurance_newDate_Valid."</br>");
+//    die();
 
     $tablename="vehicle_master";
     $searchColumn="vmid";
@@ -81,14 +102,14 @@
     if(trim($error_msg)=="") {
 
         if ($AddEdit==0) {
-            $Procedure = "Call Save_Vehicle('$CurrentDate', $session_userid, '$session_ip', $vehicleownershipname, '$vehiclename', '$vehiclenumber', '$vehiclercbooknumber');";
+            $Procedure = "Call Save_Vehicle('$CurrentDate', $session_userid, '$session_ip', $vehicleownershipname, '$vehiclename', '$vehiclenumber', '$vehiclercbooknumber', $registrationyear, '$permitnumber', '$Permit_newDate', '$insurancenumber', '$Insurance_newDate');";
         }
         else{
             $IDTableName="vehicle_master";
             $IDColumnName="vmid";
             $IDExist=Check_IDExist($con, $IDTableName, $IDColumnName, $AddEdit);
             if($IDExist>0) {
-                $Procedure = "Call Update_Vehicle($AddEdit, '$CurrentDate', $session_userid, '$session_ip', $vehicleownershipname, '$vehiclename', '$vehiclenumber', '$vehiclercbooknumber');";
+                $Procedure = "Call Update_Vehicle($AddEdit, '$CurrentDate', $session_userid, '$session_ip', $vehicleownershipname, '$vehiclename', '$vehiclenumber', '$vehiclercbooknumber', $registrationyear, '$permitnumber', '$Permit_newDate', '$insurancenumber', '$Insurance_newDate');";
             }
             else{
                 echo("Vehicle ID is not getting. Please contact system administrator....");
@@ -123,7 +144,7 @@
 
 <script language="javascript">
     ClearAllControls(0);
-    show_newlyaddedlist('add_vehicleownership_2.php', 'div_searchvehicleownership');
+    show_newlyaddedlist('add_vehicle_2.php', 'div_searchvehicle');
 </script>
 
 

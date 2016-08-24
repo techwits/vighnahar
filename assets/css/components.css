@@ -33,7 +33,7 @@
     display: table-cell;
     vertical-align: top;
     width: 280px;
-    padding-right: 20px;
+    padding-right: 10px;
   }
 }
 .sidebar-main {
@@ -123,7 +123,7 @@
 }
 .category-content {
   position: relative;
-  padding: 20px;
+  padding: 10px;
 }
 .navigation {
   margin: 0;

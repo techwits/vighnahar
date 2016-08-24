@@ -1,5 +1,5 @@
 <!-- Theme JS files -->
-    <script type="text/javascript" src="assets/js/pages/datatables_api.js"></script>
+    <script type="text/javascript" src="assets/js/pages/datatables_api_2columns.js"></script>
 <!-- /theme JS files -->
 
 <?php
@@ -50,21 +50,16 @@
     <table class="table datatable-selection-single">
         <thead>
         <tr>
-            <th>Name</th>
-            <th>Telephone</th>
-            <th>Email</th>
-            <th class="text-center">Actions</th>
+            <th>Product</th>
+            <th>Creation Date</th>
         </tr>
         </thead>
         <tbody>
 
 
         <?php
-        $cols="product_master.pmid, product_master.CreationDate, product_master.ModificationDate, product_master.Creator, product_master.ip, product_master.cmid, product_master.ProductName, product_master.Active, ";
-        $cols.=" category_master.CategoryName ";
+        $cols="product_master.pmid, product_master.CreationDate, product_master.ModificationDate, product_master.Creator, product_master.ip, product_master.ProductName, product_master.Active ";
         $sqlQry= "select $cols from `product_master`";
-        $sqlQry.= " inner join category_master";
-        $sqlQry.= " on product_master.cmid = category_master.cmid";
         $sqlQry.= " where $columnname '$pre_wildcharacter$searchvalue$post_wildcharacter'";
         $sqlQry.= " and product_master.Active=1";
 //        echo ("Check sqlQry :- $sqlQry </br>");
@@ -78,33 +73,16 @@
             {
                 $pmid=$row[0];
                 $CreationDate=$row[1];
+                $CreationDate=substr($CreationDate,0,strpos($CreationDate," "));
                 $ModificationDate=$row[2];
                 $Creator=$row[3];
                 $ip=$row[4];
-                $cmid=$row[5];
-                $ProductName=$row[6];
-                $Active=$row[7];
-                $CategoryName=$row[8];
+                $ProductName=$row[5];
+                $Active=$row[6];
                 ?>
                 <tr>
-                    <td><a href="#" onclick="return editproduct(<?php echo $pmid; ?>, '<?php echo $CreationDate; ?>', '<?php echo $ModificationDate; ?>', '<?php echo $Creator; ?>', '<?php echo $ip; ?>', '<?php echo $cmid; ?>', '<?php echo $CategoryName; ?>', '<?php echo $ProductName; ?>', '<?php echo $Active; ?>');"><?php echo $ProductName; ?></a> </td>
-                    <td>Sachin</td>
-                    <td>12</td>
-                    <td class="text-center">
-                        <ul class="icons-list">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="icon-menu9"></i>
-                                </a>
-
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="#"><i class="icon-file-pdf"></i> Export to .pdf</a></li>
-                                    <li><a href="#"><i class="icon-file-excel"></i> Export to .csv</a></li>
-                                    <li><a href="#"><i class="icon-file-word"></i> Export to .doc</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </td>
+                    <td><a href="#" onclick="return editproduct(<?php echo $pmid; ?>, '<?php echo $CreationDate; ?>', '<?php echo $ModificationDate; ?>', '<?php echo $Creator; ?>', '<?php echo $ip; ?>', '<?php echo $ProductName; ?>', '<?php echo $Active; ?>');"><?php echo $ProductName; ?></a> </td>
+                    <td><?php echo $CreationDate; ?></td>
                 </tr>
                 <?php
             }

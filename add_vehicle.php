@@ -42,7 +42,7 @@
 	<script type="text/javascript" src="assets/js/pages/form_select2.js"></script>
 
 	<script type="text/javascript" src="assets/js/plugins/tables/datatables/datatables.min.js"></script>
-	<script type="text/javascript" src="assets/js/pages/datatables_api.js"></script>
+	<script type="text/javascript" src="assets/js/pages/datatables_api_2columns.js"></script>
 
 	<!-- /theme JS files -->
 
@@ -66,11 +66,11 @@
 
 </head>
 
-<body class="navbar-top" onload="return ClearAllControls(0);">
+<body class="navbar-top" onload="return ClearAllControls_Only(0);">
 
 	<!-- Main navbar -->
 	<?php
-		$PageHeaderName="Add Vehicle";
+		$PageHeaderName="Manage Vehicle";
 		$icon="icon-address-book";
 
 		include('page_header.php');
@@ -237,7 +237,7 @@
 						<!-- Search field -->
 						<div class="panel panel-flat" style="border-color:<?php echo $Search_BorderColor; ?>; border-top-width:<?php echo $Search_BorderTopWidth; ?>;">
 							<div class="panel-heading" style="background-color:<?php echo $SearchHeadingColor; ?>;">
-								<h5 class="panel-title"><i class="icon-search4 text-size-base"></i> <span class="text-semibold">Search</h5>
+								<h5 class="panel-title"><i class="icon-search4 text-size-base"></i> <span class="text-semibold"><?php echo $SearchPageHeading; ?></h5>
 								<div class="heading-elements">
 									<ul class="icons-list">
 										<li><a data-action="collapse"></a></li>

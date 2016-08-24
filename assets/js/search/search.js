@@ -454,6 +454,44 @@ function add_designation()
 	}
 }
 
+function ClearAllControls_Only(formno) {
+	document.getElementById("AddEdit").value=0;
+	for (i = 0; i < document.forms[formno].length; i++) {
+		doc = document.forms[formno].elements[i];
+		//alert("doc.type :- " + doc.type);
+		doc.style.backgroundColor="";
+		switch (doc.type) {
+			case "text":
+				doc.value = "";
+				break;
+			case "email":
+				doc.value = "";
+				break;
+			case "password":
+				doc.value = "";
+				break;
+			case "textarea":
+				doc.value = "";
+				break;
+			case "checkbox":
+				doc.checked = false;
+				break;
+			case "radio":
+				doc.checked = false;
+				break;
+			case "select-one":
+				doc.selectedIndex = 0;
+				break;
+			case "select-multiple":
+				doc.selectedIndex = 0;
+				break;
+			default:
+				break;
+		}
+	}
+	$("input:text:visible:first").focus();
+}
+
 function ClearAllControls(formno) {
 	document.getElementById("AddEdit").value=0;
 	for (i = 0; i < document.forms[formno].length; i++) {
@@ -833,23 +871,24 @@ function editconsignee(cnid, companyname,url, cnaid, address, pincode, city, tel
 	}
 }
 
-function editproduct(pmid, CreationDate, ModificationDate, Creator, ip, cmid, CategoryName, ProductName, Active)
+function editproduct(pmid, CreationDate, ModificationDate, Creator, ip, ProductName, Active)
 {
 	// alert("ID :- " + id);
-	edited_categoryname=document.getElementById("categoryname").value;
 	document.getElementById("AddEdit").value=pmid;
 	if(Number(pmid) > 0)
 	{
 		document.getElementById("productname").value=ProductName;
-		if(edited_categoryname!=cmid) {
-			var oForm = document.forms["product_form"];
-			$("#categoryname option").eq(0).before($('<option>', {
-				value: cmid,
-				text: CategoryName
-			}));
-			document.getElementById("categoryname").selectedIndex = 0;
-		}
-		document.getElementById("categoryname").focus();
+		document.getElementById("productname").focus();
+
+		// $('#div_merchantcontrols').addClass('animated swing');
+		document.getElementById('div_merchantcontrols').style.borderColor='#b8b894';
+		document.getElementById('div_merchantcontrols').style.borderTopWidth='3px';
+		document.getElementById('div_panel').style.backgroundColor='#b8b894';
+
+		// $("#div_merchantcontrols").css({ 'border-color': "#00c0ef" });
+		// $( "#div_merchantcontrols" ).css( "border-top", "3px solid red");
+		document.getElementById("span_pageName").innerHTML="Update - " +ProductName;
+		document.getElementById("span_pageButton").innerHTML="Update";
 	}
 	else
 	{
@@ -857,28 +896,29 @@ function editproduct(pmid, CreationDate, ModificationDate, Creator, ip, cmid, Ca
 	}
 }
 
- function edittransporter(tmid, CreationDate, ModificationDate, Creator, ip, vmid, VehicleName, TransporterName, MobileNumber, LicenceNumber, Remark, Active)
+ function edittransporter(tmid, CreationDate, ModificationDate, Creator, ip, TransporterName, Address, MobileNumber, LicenceNumber, Active)
 {
 	// alert("ID :- " + id);
-	edited_vehiclename=document.getElementById("vehiclename").value;
 	document.getElementById("AddEdit").value=tmid;
 	if(Number(tmid) > 0)
 	{
 		document.getElementById("transportername").value=TransporterName;
+		document.getElementById("address").value=Address;
 		document.getElementById("mobilenumber").value=MobileNumber;
 		document.getElementById("licencenumber").value=LicenceNumber;
-		document.getElementById("remark").value=Remark;
 
-		if(edited_vehiclename!=vmid) {
-			var oForm = document.forms["transporter_form"];
-			$("#vehiclename option").eq(0).before($('<option>', {
-				value: vmid,
-				text: VehicleName
-			}));
+		document.getElementById("transportername").focus();
 
-			document.getElementById("vehiclename").selectedIndex = 0;
-		}
-		document.getElementById("TransporterName").focus();
+		// $('#div_merchantcontrols').addClass('animated swing');
+		document.getElementById('div_merchantcontrols').style.borderColor='#b8b894';
+		document.getElementById('div_merchantcontrols').style.borderTopWidth='3px';
+		document.getElementById('div_panel').style.backgroundColor='#b8b894';
+
+		// $("#div_merchantcontrols").css({ 'border-color': "#00c0ef" });
+		// $( "#div_merchantcontrols" ).css( "border-top", "3px solid red");
+		document.getElementById("span_pageName").innerHTML="Update - " +TransporterName;
+		document.getElementById("span_pageButton").innerHTML="Update";
+
 	}
 	else
 	{
@@ -886,9 +926,11 @@ function editproduct(pmid, CreationDate, ModificationDate, Creator, ip, cmid, Ca
 	}
 }
 
-function editvehicle(vmid, CreationDate, ModificationDate, Creator, ip, vo_id, VehicleOwnershipName, VehicleName, VehicleNumber, RCBookNumber, Active)
+function editvehicle(vmid, CreationDate, ModificationDate, Creator, ip, vo_id, VehicleOwnershipName, VehicleName, VehicleNumber, RCBookNumber, Active, RegistrationYear, PermitNo, PermitExpiry, InsuranceNo, InsuranceExpiry)
 {
 	// alert("ID :- " + id);
+
+	ClearAllControls_Only(0);
 	edited_vehicleownershipname=document.getElementById("vehicleownershipname").value;
 	document.getElementById("AddEdit").value=vmid;
 	if(Number(vmid) > 0)
@@ -906,7 +948,29 @@ function editvehicle(vmid, CreationDate, ModificationDate, Creator, ip, vo_id, V
 			document.getElementById("vehicleownershipname").selectedIndex = 0;
 		}
 
-		document.getElementById("VehicleName").focus();
+		document.getElementById("registrationyear").value=RegistrationYear;
+		document.getElementById("permitnumber").value=PermitNo;
+		// alert("PermitExpiry :- " + PermitExpiry);
+		if(PermitExpiry!="0000-00-00" && PermitExpiry!="") {
+			document.getElementById("vehiclepermitexpiredate").value = PermitExpiry;
+		}
+
+		document.getElementById("insurancenumber").value=InsuranceNo;
+		if(InsuranceExpiry!="0000-00-00" && InsuranceExpiry!="") {
+			document.getElementById("insuranceexpiredate").value = InsuranceExpiry;
+		}
+		document.getElementById("vehiclename").focus();
+
+		// $('#div_merchantcontrols').addClass('animated swing');
+		document.getElementById('div_merchantcontrols').style.borderColor='#b8b894';
+		document.getElementById('div_merchantcontrols').style.borderTopWidth='3px';
+		document.getElementById('div_panel').style.backgroundColor='#b8b894';
+
+		// $("#div_merchantcontrols").css({ 'border-color': "#00c0ef" });
+		// $( "#div_merchantcontrols" ).css( "border-top", "3px solid red");
+		document.getElementById("span_pageName").innerHTML="Update - " +VehicleNumber;
+		document.getElementById("span_pageButton").innerHTML="Update";
+
 	}
 	else
 	{
@@ -963,6 +1027,17 @@ function editcontacttype(ctmid, CreationDate, ModificationDate, Creator, ip, Con
 	{
 		document.getElementById("contacttypename").value=ContactName;
 		document.getElementById("contacttypename").focus();
+
+		// $('#div_merchantcontrols').addClass('animated swing');
+		document.getElementById('div_merchantcontrols').style.borderColor='#b8b894';
+		document.getElementById('div_merchantcontrols').style.borderTopWidth='3px';
+		document.getElementById('div_panel').style.backgroundColor='#b8b894';
+
+		// $("#div_merchantcontrols").css({ 'border-color': "#00c0ef" });
+		// $( "#div_merchantcontrols" ).css( "border-top", "3px solid red");
+		document.getElementById("span_pageName").innerHTML="Update - " + ContactName;
+		document.getElementById("span_pageButton").innerHTML="Update";
+
 	}
 	else
 	{
@@ -1248,14 +1323,6 @@ function add_product()
 		// frm.username.focus();
 	}
 
-	var categoryname=trim(frm.categoryname.value);
-	if(categoryname.length <= 0 || categoryname == "")
-	{
-		error_count = error_count + 1;
-		error_msg  =  error_msg + error_count + ") " + " Please Select Category Name" + "\n";
-		frm.categoryname.focus();
-	}
-
 	var productname=trim(frm.productname.value);
 	if(productname.length <= 0 || productname == "")
 	{
@@ -1269,7 +1336,7 @@ function add_product()
 		var div_name = "#div_product";
 		var page_name = "save_addproduct.php";
 		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
-		$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, categoryname:categoryname, productname:productname},
+		$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, productname:productname},
 			function(data)
 			{
 				$(div_name).html(data);
@@ -1732,13 +1799,6 @@ function add_transporter()
 		// frm.username.focus();
 	}
 
-	var vehiclename=trim(frm.vehiclename.value);
-	if(vehiclename.length <= 0 || vehiclename == "")
-	{
-		error_count = error_count + 1;
-		error_msg  =  error_msg + error_count + ") " + " Please Select Vehicle Name" + "\n";
-		frm.vehiclename.focus();
-	}
 
 	var transportername=trim(frm.transportername.value);
 	if(transportername.length <= 0 || transportername == "")
@@ -1747,6 +1807,8 @@ function add_transporter()
 		error_msg  =  error_msg + error_count + ") " + " Please Enter Transporter Name" + "\n";
 		frm.transportername.focus();
 	}
+
+	var address=trim(frm.address.value);
 
 	var mobilenumber=trim(frm.mobilenumber.value);
 	if(mobilenumber.length <= 0 || mobilenumber == "")
@@ -1757,26 +1819,23 @@ function add_transporter()
 	}
 
 	var licencenumber=trim(frm.licencenumber.value);
-	if(licencenumber.length <= 0 || licencenumber == "")
-	{
-		error_count = error_count + 1;
-		error_msg  =  error_msg + error_count + ") " + " Please Enter Licence Ownership" + "\n";
-		frm.licencenumber.focus();
-	}
 
-	var remark=trim(frm.remark.value);
 
 	if(Number(error_count) == 0)
 	{
 		var div_name = "#div_transporter";
 		var page_name = "save_addtransporter.php";
 		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
-		$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, vehiclename:vehiclename, transportername:transportername, mobilenumber:mobilenumber, licencenumber:licencenumber, remark:remark},
+		$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, transportername:transportername, address:address, mobilenumber:mobilenumber, licencenumber:licencenumber},
 			function(data)
 			{
 				$(div_name).html(data);
 			}
 		);
+		return false;
+	}
+	else{
+		alert(error_msg);
 		return false;
 	}
 }
