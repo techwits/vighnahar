@@ -54,16 +54,12 @@
 
 </head>
 
-<body>
+<body class="navbar-top">
 
 <!-- Main navbar -->
 <?php
 $PageHeaderName="Add Lorry Receipt";
 $icon="icon-address-book";
-$EntryToday=2345;
-$EntryWeek=5364;
-$EntryMonth=9546;
-$EntryTillDate=9957;
 
 include('page_header.php');
 
@@ -95,20 +91,32 @@ include_once('assets/inc/db_connect.php');
 
 
 			<!-- Form actions -->
-
 			<div class="row">
 				<div class="col-sm-10 col-md-10 col-lg-10 col-lg-10 col-lg-offset-1">
 					<form name="lrentry_form" id="lrentry_form" action="#">
 						<input type="hidden" name="session_userid" id="session_userid" value="<?php echo $_SESSION['user_id']; ?>">
 						<input type="hidden" name="session_ip" id="session_ip" value="<?php echo $_SESSION['ip']; ?>">
 						<input type="hidden" name="AddEdit" id="AddEdit" value="0">
-						<div id="div_merchantcontrols" class="panel panel-flat">
-							<div class="panel-body">
+						<div id="<?php echo $div_merchantcontrols; ?>" class="panel panel-flat" style="border-color:<?php echo $Form_BorderColor; ?>; border-top-width:<?php echo $Form_BorderTopWidth; ?>;">
+
+							<div class="panel-heading" id="<?php echo $div_panel; ?>" style="background-color:<?php echo $FormHeadingColor; ?>;">
+								<h5 class="panel-title"><i class="icon-newspaper position-left"></i> <span class="text-semibold" id="<?php echo $span_pageName; ?>"><?php echo $PageHeaderName; ?></h5>
+								<div class="heading-elements">
+									<ul class="icons-list">
+										<li><a data-action="collapse"></a></li>
+										<li><a data-action="reload" onclick="return ClearAllControls(0);"></a></li>
+									</ul>
+								</div>
+							</div>
+
+							<div class="panel-body" style="margin-top:15px;">
+
+
 								<div class="row">
-									<div class="col-lg-2">
+									<div class="col-md-2">
 										<div class="form-group form-group-material">
 											<label>Financial Year <span class="text-danger">*</span></label>
-											<div class="content-group-lg">
+											<div>
 												<div class="input-group">
 													<?php
 													
@@ -121,7 +129,7 @@ include_once('assets/inc/db_connect.php');
 //														echo("FinancialYear :- $FinancialYear </br>");
 														$FinancialYear_P=$FinancialYear_C-1;
 													?>
-													<select name="financialyear" id="financialyear" class="form-control">
+													<select name="financialyear" id="financialyear" class="form-control" required="required">
 															<?php
 																Fill_FinancialYear($con, $FinancialYear_P, $FinancialYear_C);
 															?>
@@ -130,33 +138,34 @@ include_once('assets/inc/db_connect.php');
 											</div>
 										</div>
 									</div>
-									<div class="col-lg-2">
+									<div class="col-md-2">
 										<div class="form-group form-group-material">
 											<label>Date <span class="text-danger">*</span></label>
 											<div class="content-group-lg">
 												<div class="input-group">
-													<input type="text" class="form-control daterange-single"  name="lrdate" id="lrdate">
+													<input type="hidden" class="form-control daterange-single"  name="todaysdate" id="todaysdate" required="required">
+													<input type="text" class="form-control daterange-single"  name="lrdate" id="lrdate" required="required">
 													<span class="input-group-addon"><i class="icon-calendar22"></i></span>
 												</div>
 											</div>
 										</div>
 									</div>
-									<div class="col-lg-4">
+									<div class="col-md-4">
 										<div class="form-group form-group-material">
-											<label>Invoice / Challan <span class="text-danger">*</span></label>
+											<label>Invoice / Challan No. <span class="text-danger">*</span></label>
 											<div class="input-group">
-												<input type="text" class="form-control" name="invoicenumber" id="invoicenumber" autofocus>
+												<input type="text" class="form-control" name="invoicenumber" id="invoicenumber" autofocus required="required">
                                                         <span class="input-group-addon">
-                                                    <i class="icon-invoice"></i>
-                                                    </span>
+                                                    		<i class="icon-profile"></i>
+                                                    	</span>
 											</div>
 										</div>
 									</div>
 									<div class="col-md-4">
 										<div class="form-group form-group-material">
-											<label>Truck Number <span class="text-danger">*</span></label>
+											<label>Truck Number </label>
 											<div class="input-group">
-												<select name="vehicleid" id="vehicleid" class="form-control">
+												<select name="vehicleid" id="vehicleid" class="form-control" onblur="return lrentry_disabled(this.value, 'vehicleid');">
 													<option></option>
 														<?php
 															$TableName="vehicle_master";
@@ -177,14 +186,14 @@ include_once('assets/inc/db_connect.php');
 										<div class="form-group form-group-material">
 											<label>Consignor <span class="text-danger">*</span></label>
 											<div class="input-group">
-												<select name="consignorid" id="consignorid"  class="form-control" onchange="return get_consignee(this.value, <?php echo $_SESSION['user_id']; ?>, '<?php echo $_SESSION['ip']; ?>');">
+												<select name="consignorid" id="consignorid" required="required"  class="form-control" onchange="return get_consignee(this.value, <?php echo $_SESSION['user_id']; ?>, '<?php echo $_SESSION['ip']; ?>');" onblur="return lrentry_disabled(this.value, 'consignorid');">
 													<option></option>
 													<?php
 													Fill_Consignor($con);
 													?>
 												</select>
 												<span class="input-group-addon">
-                                                    <i class="icon-truck"></i>
+                                                    <i class="icon-user-check"></i>
                                                 </span>
 											</div>
 										</div>
@@ -194,11 +203,11 @@ include_once('assets/inc/db_connect.php');
 												<div class="form-group form-group-material">
 													<label>Consignee <span class="text-danger">*</span></label>
 													<div class="input-group">
-														<select name="consigneeid" id="consigneeid"  class="form-control">
+														<select name="consigneeid" id="consigneeid" required="required"  class="form-control">
 															<option></option>
 														</select>
 														<span class="input-group-addon">
-															<i class="icon-truck"></i>
+															<i class="icon-users2"></i>
 														</span>
 													</div>
 												</div>
@@ -207,11 +216,11 @@ include_once('assets/inc/db_connect.php');
 												<div class="form-group form-group-material">
 													<label>Product <span class="text-danger">*</span></label>
 													<div class="input-group">
-														<select name="productid" id="productid"  class="form-control">
+														<select name="productid" id="productid" required="required"  class="form-control" onblur="return lrentry_disabled(this.value, 'productid');">
 															<option></option>
 														</select>
 														<span class="input-group-addon">
-															<i class="icon-truck"></i>
+															<i class="icon-cart-add2"></i>
 														</span>
 													</div>
 												</div>
@@ -223,13 +232,13 @@ include_once('assets/inc/db_connect.php');
 										<div class="form-group form-group-material">
 											<label>Package Type <span class="text-danger">*</span></label>
 											<div class="input-group">
-												<select name="packagetype" id="packagetype" class="form-control" onchange="return get_productRate(this.value, <?php echo $_SESSION['user_id']; ?>, '<?php echo $_SESSION['ip']; ?>');">
+												<select name="packagetype" id="packagetype" required="required" class="form-control" onchange="return get_productRate(this.value, <?php echo $_SESSION['user_id']; ?>, '<?php echo $_SESSION['ip']; ?>');" onblur="return lrentry_disabled(this.value, 'packagetype');">
 													<option></option>
 														<option value="CartoonRate">CartoonRate</option>
 														<option value="ItemRate">ItemRate</option>
 												</select>
 												<span class="input-group-addon">
-													<i class="icon-truck"></i>
+													<i class="icon-package"></i>
 												</span>
 											</div>
 										</div>
@@ -239,9 +248,10 @@ include_once('assets/inc/db_connect.php');
 										<div class="form-group form-group-material">
 											<label>Rate <span class="text-danger">*</span></label>
 											<div class="input-group">
-												<input type="text" class="form-control" name="productrate" id="productrate" disabled>
-                                                        <span class="input-group-btn">
-                         	                           </span>
+												<input type="text" class="form-control" required="required" name="productrate" id="productrate" disabled>
+												<span class="input-group-addon">
+													<img src="assets/images/rupees-128.png" height="15" width="15">
+												</span>
 											</div>
 										</div>
 									</div>
@@ -250,8 +260,10 @@ include_once('assets/inc/db_connect.php');
 										<div class="form-group form-group-material">
 											<label>Quantity <span class="text-danger">*</span></label>
 											<div class="input-group">
-												<input type="text" class="form-control" placeholder="" name="qauntity" id="qauntity" onblur="return get_quantityRate(this.value, <?php echo $_SESSION['user_id']; ?>, '<?php echo $_SESSION['ip']; ?>');">
-												<span class="input-group-addon"><i class="icon-user"></i></span>
+												<input type="text" class="form-control" required="required" name="qauntity" id="qauntity" onblur="return get_quantityRate(this.value, <?php echo $_SESSION['user_id']; ?>, '<?php echo $_SESSION['ip']; ?>');">
+												<span class="input-group-addon">
+													<i class="icon-seven-segment-8"></i>
+												</span>
 											</div>
 										</div>
 									</div>
@@ -263,8 +275,10 @@ include_once('assets/inc/db_connect.php');
 											<div class="form-group form-group-material">
 												<label>Shiping Charges <span class="text-danger">*</span></label>
 												<div class="input-group">
-													<input type="text" class="form-control" name="shippingcharge" id="shippingcharge" value="">
-													<span class="input-group-addon"><i class="icon-user"></i></span>
+													<input type="text" class="form-control" required="required" name="shippingcharge" id="shippingcharge" value="">
+													<span class="input-group-addon">
+														<img src="assets/images/rupees-128.png" height="15" width="15">
+													</span>
 												</div>
 											</div>
 										</div>
@@ -273,7 +287,9 @@ include_once('assets/inc/db_connect.php');
 												<label>Bilty Charges </label>
 												<div class="input-group">
 													<input type="text" class="form-control" name="biltycharge" id="biltycharge" value="">
-													<span class="input-group-addon"><i class="icon-user"></i></span>
+													<span class="input-group-addon">
+														<img src="assets/images/rupees-128.png" height="15" width="15">
+													</span>
 												</div>
 											</div>
 										</div>
@@ -282,7 +298,9 @@ include_once('assets/inc/db_connect.php');
 												<label>Serice Tax </label>
 												<div class="input-group">
 													<input type="text" class="form-control" name="servicetax" id="servicetax" value="">
-													<span class="input-group-addon"><i class="icon-user"></i></span>
+													<span class="input-group-addon">
+														<img src="assets/images/rupees-128.png" height="15" width="15">
+													</span>
 												</div>
 											</div>
 										</div>
@@ -312,25 +330,24 @@ include_once('assets/inc/db_connect.php');
 											<label>LR Amount </label>
 											<div class="input-group">
 												<input type="hidden" class="form-control" name="lramount" id="lramount" value="">
-												<input type="text" class="form-control" name="paidlramount" id="paidlramount" value="">
-												<span class="input-group-addon"><i class="icon-user"></i></span>
+												<input type="text" class="form-control" name="paidlramount" id="paidlramount" disabled required="required" value="">
+												<span class="input-group-addon">
+													<img src="assets/images/rupees-128.png" height="15" width="15">
+												</span>
 											</div>
 										</div>
 									</div>
 								</div>
 
-
-								<div class="row">
+								<div class="panel-footer">
 									<div class="col-md-12">
 										<div class="text-right">
-											<button type="button" class="btn btn-default" id="resetasas" onclick="return ClearAllControls(0);">Reset <i class="icon-reload-alt position-right"></i></button>
-											<button type="submit" class="btn bg-teal-400" onclick="return add_lrentry();">Submit form <i class="icon-arrow-right14 position-right"></i></button>
-
+											<button type="submit" name="submit" id="submit" class="btn bg-grey-600" onclick="return add_lrentry();"><span class="text-semibold" id="<?php echo $span_pageButton; ?>">Submit</span></button>
 										</div>
 									</div>
-
+									<div id="div_lrentry"></div>
 								</div>
-								<div id="div_lrentry"></div>
+
 							</div>
 						</div>
 					</form>
@@ -347,12 +364,12 @@ include_once('assets/inc/db_connect.php');
 							<h6 class="panel-title"><i class="icon-search4 text-size-base"></i> Search</h6>
 						</div>
 
-<!--						--><?php //include('add_transporter_1.php'); ?>
+						<?php include('lrentry_6.php'); ?>
 
 
 						<!-- Basic datatable -->
-						<div class="panel-heading" id="div_searchtransporter">
-<!--							--><?php //include('add_transporter_2.php'); ?>
+						<div class="panel-heading" id="div_searchlrentry">
+							<?php include('lrentry_7.php'); ?>
 							<div/>
 							<!-- /basic datatable -->
 						</div>

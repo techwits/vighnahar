@@ -69,7 +69,7 @@
 			$Procedure = "Call Save_ConsignorProduct('$CurrentDate', $session_userid, '$session_ip', $LastInsertedID, $SingleProduct);";
 			echo("Procedure :- $Procedure </br>");
 			unset($con);
-			include('assets/inc/db_connect.php');
+			include('db_connect.php');
 			$resultproduct = mysqli_query($con, $Procedure) or trigger_error("Query Failed(save consignor product)! Error: " . mysqli_error($con), E_USER_ERROR);
 		}
 	}
@@ -239,6 +239,100 @@
 		}
 		mysqli_free_result($result);
 		return $Getting_FinancialYearID;
+	}
+
+	function Get_ConsignorProduct($con, $caid)
+	{
+		$Getting_ConsignorProduct="";
+		$sqlQry= "";
+		$sqlQry= "select consignorproduct_master.pmid, product_master.ProductName from consignorproduct_master ";
+		$sqlQry.= " inner join product_master";
+		$sqlQry.= " on consignorproduct_master.pmid=product_master.pmid";
+		$sqlQry.= " where consignorproduct_master.caid=$caid";
+		$sqlQry.= " and consignorproduct_master.Active=1";
+		$sqlQry.= " group by consignorproduct_master.pmid";
+		$sqlQry.= " order by consignorproduct_master.pmid";
+//			echo ("$sqlQry");
+//			die();
+		mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0)
+		{
+			$inc=0;
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$inc=$inc+1;
+				if($inc==1){
+					$Getting_ConsignorProduct=$row{1};
+				}
+				else{
+					$Getting_ConsignorProduct=$Getting_ConsignorProduct.",".$row{1};
+				}
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_ConsignorProduct;
+	}
+
+
+	function Get_ContactTypeID($con, $caid, $ctmid, $Contact)
+	{
+		$Getting_ContactTypeID=0;
+		$sqlQry= "";
+		$sqlQry= "select ccid from consignorcontact_master ";
+		$sqlQry.= " where caid=$caid";
+		$sqlQry.= " and ctmid=$ctmid";
+		$sqlQry.= " and Contact='$Contact'";
+		$sqlQry.= " and Active=1";
+//		echo ("$sqlQry");
+//		die();
+		mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0)
+		{
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$Getting_ContactTypeID=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_ContactTypeID;
+	}
+
+	function Get_ConsignorDetails($con, $caid, $ctmid)
+	{
+		$Getting_ConsignorDetails="";
+		$sqlQry= "";
+		$sqlQry= "select Contact from consignorcontact_master ";
+		$sqlQry.= " where caid=$caid";
+		$sqlQry.= " and ctmid=$ctmid";
+		$sqlQry.= " and Active=1";
+	//			echo ("$sqlQry");
+	//			die();
+		mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0)
+		{
+			$inc=0;
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$inc=$inc+1;
+				if($inc==1){
+					$Getting_ConsignorDetails=$row{0};
+				}
+				else{
+					$Getting_ConsignorDetails=$Getting_ConsignorDetails.",".$row{0};
+				}
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_ConsignorDetails;
 	}
 
 	function Fill_FinancialYear($con, $Prv, $Nxt)
@@ -484,6 +578,29 @@
 			mysqli_free_result($result);
 		}
 
+
+	function Get_AreaName($con, $amid)
+	{
+		$Getting_AreaName="";
+		$sqlQry= "";
+		$sqlQry= "select AreaName from area_master ";
+		$sqlQry= $sqlQry." where amid=$amid";
+		$sqlQry= $sqlQry." and Active=1";
+//		echo ("Check sqlQry :- $sqlQry </br>");
+//		die();
+		unset($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		if (mysqli_num_rows($result)!=0)		{
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))			{
+				$Getting_AreaName=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_AreaName;
+	}
+
+
 	function Get_AdditionalChargeList($con)
 	{
 		$Getting_allControlName="";
@@ -495,7 +612,7 @@
 	//			echo ("Check sqlQry :- $sqlQry </br>");
 	//			die();
 		unset($con);
-		include('assets/inc/db_connect.php');
+		include('db_connect.php');
 		$result = mysqli_query($con, $sqlQry);
 		if (mysqli_num_rows($result)!=0)
 		{
@@ -875,8 +992,9 @@
 		return $Getting_ConsigneeAddressID;
 	}
 
-	function Update_ConsignorConsigneeRate($con, $Consignorid, $ConsigneeID, $Productid)
+	function Check_ConsignorConsigneeRate($con, $Consignorid, $ConsigneeID, $Productid)
 	{
+		$Getting_rmid=0;
 		$sqlQry= "";
 		$sqlQry= "select rmid from `rate_master`";
 		$sqlQry= $sqlQry." where caid=$Consignorid ";
@@ -892,16 +1010,273 @@
 		{
 			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
 			{
-				$db_rmid=$row{0};
+				$Getting_rmid=$row{0};
+//				$sqlQry1= "";
+//				$sqlQry1= "update `rate_master`";
+//				$sqlQry1.=" set Active=0";
+//				$sqlQry1.=" where rmid=$db_rmid ";
+////				echo ("Check sqlQry :- $sqlQry1 </br>");
+////				die();
+//				mysqli_close($con);
+//				include('db_connect.php');
+//				$Updateresult = mysqli_query($con, $sqlQry1);
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_rmid;
+	}
+
+	function Set_ConsignorProductDeactive($con, $CurrentDate, $session_userid, $session_ip, $Consignorid)
+		{
+			$sqlQry= "select cpid from `consignorproduct_master`";
+			$sqlQry= $sqlQry." where caid=$Consignorid ";
+			$sqlQry= $sqlQry." and Active=1";
+//			echo ("Check sqlQry :- $sqlQry </br>");
+//			die();
+			mysqli_close($con);
+			include('db_connect.php');
+			$result = mysqli_query($con, $sqlQry);
+			if (mysqli_num_rows($result)!=0)
+			{
+				$ConsignorProductID=0;
+				while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+				{
+					$ConsignorProductID=$row{0};
+					$Contact="";
+						$Contact=$Url;
+						$sqlQry1= "";
+						$sqlQry1= "update `consignorproduct_master`";
+						$sqlQry1.=" set ModificationDate='$CurrentDate',";
+						$sqlQry1.=" Creator=$session_userid, ";
+						$sqlQry1.=" ip='$session_ip', ";
+						$sqlQry1.=" Active=0 ";
+						$sqlQry1.=" where cpid=$ConsignorProductID ";
+//						echo ("Check sqlQry :- $sqlQry1 </br>");
+//						die();
+						mysqli_close($con);
+						include('db_connect.php');
+						$Updateresult = mysqli_query($con, $sqlQry1);
+
+				}
+			}
+			mysqli_free_result($result);
+		}
+
+	function Set_ConsignorProductActive($con, $CurrentDate, $session_userid, $session_ip, $Consignorid, $ProductID)
+	{
+		$sqlQry= "select cpid from `consignorproduct_master`";
+		$sqlQry= $sqlQry." where caid=$Consignorid ";
+		$sqlQry= $sqlQry." and pmid=$ProductID";
+	//			echo ("Check sqlQry :- $sqlQry </br>");
+	//			die();
+		mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		if (mysqli_num_rows($result)!=0)
+		{
+			$ConsignorProductID=0;
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$ConsignorProductID=$row{0};
+				$Contact="";
+				$Contact=$Url;
 				$sqlQry1= "";
-				$sqlQry1= "update `rate_master`";
-				$sqlQry1.=" set Active=0";
-				$sqlQry1.=" where rmid=$db_rmid ";
+				$sqlQry1= "update `consignorproduct_master`";
+				$sqlQry1.=" set ModificationDate='$CurrentDate',";
+				$sqlQry1.=" Creator=$session_userid, ";
+				$sqlQry1.=" ip='$session_ip', ";
+				$sqlQry1.=" Active=1 ";
+				$sqlQry1.=" where cpid=$ConsignorProductID ";
 //				echo ("Check sqlQry :- $sqlQry1 </br>");
 //				die();
 				mysqli_close($con);
 				include('db_connect.php');
 				$Updateresult = mysqli_query($con, $sqlQry1);
+
+			}
+		}
+		mysqli_free_result($result);
+	}
+
+	function Check_ConsignorProductExist($Consignorid, $SingleProduct)
+	{
+		$Getting_ConsignorProductExist=0;
+		$sqlQry= "select cpid from `consignorproduct_master`";
+		$sqlQry= $sqlQry." where caid=$Consignorid ";
+		$sqlQry= $sqlQry." and pmid=$SingleProduct";
+//			echo ("Check sqlQry :- $sqlQry </br>");
+//			die();
+		mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		if (mysqli_num_rows($result)!=0)
+		{
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$Getting_ConsignorProductExist=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_ConsignorProductExist;
+	}
+
+	function Update_ConsignorProduct($con, $CurrentDate, $session_userid, $session_ip, $Consignorid, $product)
+	{
+		Set_ConsignorProductDeactive($con, $CurrentDate, $session_userid, $session_ip, $Consignorid);
+//		echo("Deactiveted....");
+//		die();
+		$Split_Product = explode(",", $product);
+		foreach ($Split_Product as $SingleProduct)
+		{
+			$ConsignorProductExist=Check_ConsignorProductExist($Consignorid, $SingleProduct);
+//			echo("ConsignorProductExist :- $ConsignorProductExist </br>");
+//			die();
+			if($ConsignorProductExist>0) {
+//				echo("Activation Mode...");
+//				die();
+				Set_ConsignorProductActive($con, $CurrentDate, $session_userid, $session_ip, $Consignorid, $SingleProduct);
+			}
+			else {
+//				echo("Reached here.... </br>");
+//				die();
+				$Procedure = "";
+				$Procedure = "Call Save_ConsignorProduct('$CurrentDate', $session_userid, '$session_ip', $Consignorid, $SingleProduct);";
+//				echo("Procedure :- $Procedure </br>");
+//				die();
+				mysqli_close($con);
+				include('db_connect.php');
+				$resultproduct = mysqli_query($con, $Procedure) or trigger_error("Query Failed(save consignor product)! Error: " . mysqli_error($con), E_USER_ERROR);
+			}
+		}
+
+	}
+	function Update_ConsignorUrl($con, $Consignorid, $Url)
+	{
+		$sqlQry= "select ccid from `consignorcontact_master`";
+		$sqlQry= $sqlQry." where caid=$Consignorid ";
+		$sqlQry= $sqlQry." and ctmid=3";
+		$sqlQry= $sqlQry." and Active=1";
+		//		echo ("Check sqlQry :- $sqlQry </br>");
+		//		die();
+		mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		if (mysqli_num_rows($result)!=0)
+		{
+			$inc=0;
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$inc=$inc+1;
+				$ConsignorContactID=$row{0};
+				$Contact="";
+				if($inc==1){
+					$Contact=$Url;
+					$sqlQry1= "";
+					$sqlQry1= "update `consignorcontact_master`";
+					$sqlQry1.=" set Contact='$Contact'";
+					$sqlQry1.=" where ccid=$ConsignorContactID ";
+//					echo ("Check sqlQry :- $sqlQry1 </br>");
+//					die();
+					mysqli_close($con);
+					include('db_connect.php');
+					$Updateresult = mysqli_query($con, $sqlQry1);
+				}
+			}
+		}
+		mysqli_free_result($result);
+	}
+
+	function Update_ConsignorEmail($con, $Consignorid, $Email)
+	{
+		$sqlQry= "select ccid from `consignorcontact_master`";
+		$sqlQry= $sqlQry." where caid=$Consignorid ";
+		$sqlQry= $sqlQry." and ctmid=2";
+		$sqlQry= $sqlQry." and Active=1";
+	//		echo ("Check sqlQry :- $sqlQry </br>");
+	//		die();
+		mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		if (mysqli_num_rows($result)!=0)
+		{
+			$inc=0;
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$inc=$inc+1;
+				$ConsignorContactID=$row{0};
+				$Contact="";
+				if($inc==1){
+					$Contact=$Email;
+					$sqlQry1= "";
+					$sqlQry1= "update `consignorcontact_master`";
+					$sqlQry1.=" set Contact='$Contact'";
+					$sqlQry1.=" where ccid=$ConsignorContactID ";
+	//					echo ("Check sqlQry :- $sqlQry1 </br>");
+	//					die();
+					mysqli_close($con);
+					include('db_connect.php');
+					$Updateresult = mysqli_query($con, $sqlQry1);
+				}
+			}
+		}
+		mysqli_free_result($result);
+	}
+
+	function Update_ConsignorTelephone($con, $Consignorid, $telephone1, $telephone2, $telephone3)
+	{
+		$sqlQry= "select ccid from `consignorcontact_master`";
+		$sqlQry= $sqlQry." where caid=$Consignorid ";
+		$sqlQry= $sqlQry." and ctmid=1";
+		$sqlQry= $sqlQry." and Active=1";
+//		echo ("Check sqlQry :- $sqlQry </br>");
+//		die();
+		mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		if (mysqli_num_rows($result)!=0)
+		{
+			$inc=0;
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$inc=$inc+1;
+				$ConsignorContactID=$row{0};
+				$Contact="";
+				if($inc==1){
+					$Contact=$telephone1;
+					$sqlQry1= "";
+					$sqlQry1= "update `consignorcontact_master`";
+					$sqlQry1.=" set Contact='$Contact'";
+					$sqlQry1.=" where ccid=$ConsignorContactID ";
+//					echo ("Check sqlQry :- $sqlQry1 </br>");
+//					die();
+					mysqli_close($con);
+					include('db_connect.php');
+					$Updateresult = mysqli_query($con, $sqlQry1);
+				}
+				elseif($inc==2){
+					$Contact=$telephone2;
+					$sqlQry1= "";
+					$sqlQry1= "update `consignorcontact_master`";
+					$sqlQry1.=" set Contact='$Contact'";
+					$sqlQry1.=" where ccid=$ConsignorContactID ";
+//					echo ("Check sqlQry :- $sqlQry1 </br>");
+//					die();
+					mysqli_close($con);
+					include('db_connect.php');
+					$Updateresult = mysqli_query($con, $sqlQry1);
+				}
+				elseif($inc==3){
+					$Contact=$telephone3;
+					$sqlQry1= "";
+					$sqlQry1= "update `consignorcontact_master`";
+					$sqlQry1.=" set Contact='$Contact'";
+					$sqlQry1.=" where ccid=$ConsignorContactID ";
+//					echo ("Check sqlQry :- $sqlQry1 </br>");
+//					die();
+					mysqli_close($con);
+					include('db_connect.php');
+					$Updateresult = mysqli_query($con, $sqlQry1);
+				}
 			}
 		}
 		mysqli_free_result($result);

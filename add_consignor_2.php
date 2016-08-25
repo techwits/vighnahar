@@ -1,5 +1,5 @@
 <!-- Theme JS files -->
-    <script type="text/javascript" src="assets/js/pages/datatables_api.js"></script>
+    <script type="text/javascript" src="assets/js/pages/datatables_api_2columns.js"></script>
 <!-- /theme JS files -->
 
 <?php
@@ -50,41 +50,27 @@
         <thead>
         <tr>
             <th>Name</th>
-            <th>Telephone</th>
-            <th>Email</th>
-            <th class="text-center">Actions</th>
+            <th>Creation date</th>
         </tr>
         </thead>
         <tbody>
 
 
         <?php
-        $cols="`consignor_master`.`cid`, `consignor_master`.`ConsignorName`, `consignor_master`.`PanCard`, ";
-        $cols.="`consignoraddress_master`.`caid`, `consignoraddress_master`.`Address`, `consignoraddress_master`.`Pincode`, `consignoraddress_master`.`City`, ";
-        $cols.="`consignorcontact_master`.`ccid`, `consignorcontact_master`.`ctmid`, `consignorcontact_master`.`Contact`, `consignorcontact_master`.`PrimaryContact`, ";
-        $cols.="`consignorproduct_master`.`cpid`, `consignorproduct_master`.`pmid`, ";
-        $cols.=" `consignoraddress_master`.`amid`, `area_master`.`AreaName`";
-
+        $cols="`consignor_master`.`cid`, `consignor_master`.`ConsignorName`, `consignor_master`.`PanCard`, `consignor_master`.`ServiceTax`, `consignor_master`.`Remark`, ";
+        $cols.="`consignoraddress_master`.`caid`, `consignoraddress_master`.`Address`, `consignoraddress_master`.`amid`, `consignoraddress_master`.`Pincode`, `consignoraddress_master`.`City` ";
+        $cols.=", `consignor_master`.`CreationDate`";
 
         $sqlQry= " select $cols from `consignor_master` ";
         $sqlQry.= " inner join `consignoraddress_master`";
         $sqlQry.= " on `consignor_master`.`cid`=`consignoraddress_master`.`cid`";
 
-        $sqlQry.= " inner join `consignorcontact_master`";
-        $sqlQry.= " on `consignoraddress_master`.`caid`=`consignorcontact_master`.`caid`";
-
-        $sqlQry.= " inner join `consignorproduct_master`";
-        $sqlQry.= " on `consignoraddress_master`.`caid`=`consignorproduct_master`.`caid`";
-
-        $sqlQry.= " inner join `area_master`";
-        $sqlQry.= " on `consignoraddress_master`.`amid`=`area_master`.`amid`";
-
-
         $sqlQry.= " where 1=1";
         $sqlQry.= " and $columnname '$pre_wildcharacter$searchvalue$post_wildcharacter'";
         $sqlQry.= " and `consignor_master`.Active=1";
-        echo ("Check sqlQry :- $sqlQry </br>");
-        die();
+//        echo ("Check sqlQry :- $sqlQry </br>");
+//        die();
+
         unset($con);
         include('assets/inc/db_connect.php');
         $result = mysqli_query($con, $sqlQry);
@@ -92,44 +78,53 @@
         {
             while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
             {
-                $cnid=$row[0];
-                $ConsigneeName=$row[1];
-                $Website=$row[2];
-                $cnaid=$row[3];
-                $Address=$row[4];
-                $Pincode=$row[5];
-                $City=$row[6];
-                $Telephone=$row[7];
-                $Email=$row[8];
+                    $cid=$row[0];
+                    $ConsignorName=$row[1];
+                    $Pancard=$row[2];
+                    $ServiceTax=$row[3];
+                    $Remark=$row[4];
+
+                    $caid=$row[5];
+                    $Address=$row[6];
+                    $amid=$row[7];
+                    $Pincode=$row[8];
+                    $City=$row[9];
+                    $Creationdate=$row[10];
+                    $Creationdate=substr($Creationdate,0,strpos($Creationdate," "));
+
+                    $AreaName=Get_AreaName($con, $amid);
+//                    echo("AreaName :- $AreaName </br>");
+
+                    $ConsignorTelephone=Get_ConsignorDetails($con, $caid, 1);
+                    $Split_Telephone = explode(",", $ConsignorTelephone);
+                    $Telephone1=$Split_Telephone[0];
+                    $Telephone2=$Split_Telephone[1];
+                    $Telephone3=$Split_Telephone[2];
+
+//                    echo("ConsignorTelephone :- $ConsignorTelephone </br>");
+//                    echo("ConsignorTelephone1 :- $Telephone1 </br>");
+//                    echo("ConsignorTelephone2 :- $Telephone2 </br>");
+//                    echo("ConsignorTelephone3 :- $Telephone3 </br>");
+//                    die();
+
+                    $ConsignorEmail=Get_ConsignorDetails($con, $caid, 2);
+//                    echo("ConsignorEmail :- $ConsignorEmail </br>");
+
+                    $ConsignorWebsite=Get_ConsignorDetails($con, $caid, 3);
+//                    echo("ConsignorWebsite :- $ConsignorWebsite </br>");
+
+                    $ConsignorProduct=Get_ConsignorProduct($con, $caid);
+//                    echo("ConsignorProduct :- $ConsignorProduct </br>");
 
                 ?>
-
                 <tr>
-                    <td><a href="#" onclick="return editconsignee(<?php echo $cnid; ?>, '<?php echo $ConsigneeName; ?>', '<?php echo $Website; ?>', '<?php echo $cnaid; ?>', '<?php echo $Address; ?>', '<?php echo $Pincode; ?>', '<?php echo $City; ?>', '<?php echo $Telephone; ?>', '<?php echo $Email; ?>');"><?php echo $ConsigneeName; ?></a> </td>
-                    <td>Sachin</td>
-                    <td>12</td>
-                    <td class="text-center">
-                        <ul class="icons-list">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="icon-menu9"></i>
-                                </a>
-
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="#"><i class="icon-file-pdf"></i> Export to .pdf</a></li>
-                                    <li><a href="#"><i class="icon-file-excel"></i> Export to .csv</a></li>
-                                    <li><a href="#"><i class="icon-file-word"></i> Export to .doc</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </td>
+                    <td><a href="#" onclick="return editconsignee(<?php echo $cid; ?>, '<?php echo $ConsignorName; ?>', '<?php echo $Pancard; ?>', '<?php echo $ServiceTax; ?>', '<?php echo $Remark; ?>', '<?php echo $caid; ?>', '<?php echo $Address; ?>', '<?php echo $amid; ?>', '<?php echo $Pincode; ?>', '<?php echo $City; ?>', '<?php echo $AreaName; ?>', '<?php echo $Telephone1; ?>', '<?php echo $Telephone2; ?>', '<?php echo $Telephone3; ?>', '<?php echo $ConsignorEmail; ?>', '<?php echo $ConsignorWebsite; ?>', '<?php echo $ConsignorProduct; ?>');"><?php echo $ConsignorName; ?></a> </td>
+                    <td><?php echo $Creationdate; ?></td>
                 </tr>
                 <?php
             }
         }
         ?>
-
         </tbody>
     </table>
-
 <!-- /single row selection -->

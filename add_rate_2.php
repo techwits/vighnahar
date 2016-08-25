@@ -1,5 +1,5 @@
 <!-- Theme JS files -->
-<script type="text/javascript" src="assets/js/pages/datatables_api.js"></script>
+    <script type="text/javascript" src="assets/js/pages/datatables_api.js"></script>
 <!-- /theme JS files -->
 
 <?php
@@ -53,7 +53,9 @@
             <th>Consignor</th>
             <th>Consignee</th>
             <th>Product</th>
-            <th>Rate</th>
+            <th>Minimum Rate</th>
+            <th>Cartoon Rate</th>
+            <th>Item Rate</th>
         </tr>
         </thead>
         <tbody>
@@ -121,7 +123,9 @@
                     <td><a href="#" onclick="return editrate(<?php echo $rmid; ?>, '<?php echo $CreationDate; ?>', '<?php echo $ModificationDate; ?>', '<?php echo $Creator; ?>', '<?php echo $ip; ?>', '<?php echo $caid; ?>', '<?php echo $cnid; ?>', '<?php echo $pmid; ?>', '<?php echo $MinimumRate; ?>', '<?php echo $CartoonRate; ?>', '<?php echo $ItemRate; ?>', '<?php echo $Active; ?>', '<?php echo $ConsignorName; ?>', '<?php echo $ProductName; ?>', '<?php echo $ConsigneeName; ?>');"><?php echo $ConsignorName; ?></a> </td>
                     <td><?php echo $ConsigneeName; ?></td>
                     <td><?php echo $ProductName; ?></td>
-                    <td><?php echo $CartoonRate.", ".$ItemRate; ?></td>
+                    <td><?php echo $MinimumRate; ?></td>
+                    <td><?php echo $CartoonRate; ?></td>
+                    <td><?php echo $ItemRate; ?></td>
                 </tr>
                 <?php
             }

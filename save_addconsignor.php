@@ -37,6 +37,22 @@
     $consignorname=sanitize($con, $_REQUEST["consignorname"]);
     $address=sanitize($con, $_REQUEST["address"]);
     $area=sanitize($con, $_REQUEST["area"]);
+    $AreaID=Check_AreaID($con, $AddEdit1, $area);
+    if($AreaID==0){
+        $Procedure="";
+        $Procedure = "Call Save_Area('$CurrentDate', $session_userid, '$session_ip', '$area');";
+        mysqli_close($con);
+        include('assets/inc/db_connect.php');
+        $resultarea = mysqli_query($con, $Procedure) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
+        if (mysqli_num_rows($resultarea) != 0) {
+            $row = mysqli_fetch_array($resultarea, MYSQLI_NUM);
+            $AreaID = $row{0};
+        }
+        mysqli_free_result($result);
+        include('assets/inc/db_connect.php');
+    }
+
+
     $pincode=sanitize($con, $_REQUEST["pincode"]);
     $city=sanitize($con, $_REQUEST["city"]);
     $panno=sanitize($con, $_REQUEST["panno"]);
@@ -59,7 +75,7 @@
 
     $contacttype5=3;
     $url=sanitize($con, $_REQUEST["url"]);
-    $product=sanitize($con, $_REQUEST["product"]);
+    $product=sanitize($con, $_REQUEST["selectedvalue"]);
     $product==""?$product=0:$product=$product;
 
     $remark=sanitize($con, $_REQUEST["remark"]);
@@ -142,14 +158,17 @@
 if(trim($error_msg)=="") {
 
     if ($AddEdit==0) {
-        $Procedure = "Call Save_Consignor('$CurrentDate', $session_userid, '$session_ip', '$consignorname', '$panno', '$address', '$area', $pincode, '$city', $contacttype1, '$telephone1', $contacttype2, '$telephone2', $contacttype3, '$telephone3', $contacttype4, '$email', $contacttype5, '$url', $product, '$remark', $servicetax);";
+        $Procedure = "Call Save_Consignor('$CurrentDate', $session_userid, '$session_ip', '$consignorname', '$panno', '$address', '$area', $pincode, '$city', $contacttype1, '$telephone1', $contacttype2, '$telephone2', $contacttype3, '$telephone3', $contacttype4, '$email', $contacttype5, '$url', '$remark', $servicetax);";
     }
     else{
-        
-        $IDExist=Check_ConsigneeIDExist($con, $AddEdit);
-        $IDExist1=Check_ConsigneeAddressIDExist($con, $AddEdit, $AddEdit1);
-        if($IDExist>0 and $IDExist1>0) {
-            $Procedure = "Call Update_Consignee($IDExist, $IDExist1, '$CurrentDate', $session_userid, '$session_ip', '$companyname', '$address', $pincode, '$city', '$telephone', '$email', '$url');";
+
+         
+        $IDTableName="consignor_master";
+        $IDColumnName="cid";
+        $IDExist=Check_IDExist($con, $IDTableName, $IDColumnName, $AddEdit);
+        if($AddEdit>0 and $AddEdit1>0 and $AddEdit2>0) {
+            $Procedure = "Call Update_Consignor($AddEdit, $AddEdit1, '$CurrentDate', $session_userid, '$session_ip', '$consignorname', '$panno', '$address', $AreaID, $pincode, '$city', '$remark', $servicetax);";
+            
         }
         else{
             echo("Consignee ID is not getting. Please contact system administrator....");
@@ -164,12 +183,21 @@ if(trim($error_msg)=="") {
     if (mysqli_num_rows($result) != 0) {
         $row = mysqli_fetch_array($result, MYSQLI_NUM);
         $LastInsertedID = $row{0};
+        if($LastInsertedID>0){
+            if ($AddEdit==0) {
+                Add_ConsignorProduct($con, '$CurrentDate', $session_userid, '$session_ip', $LastInsertedID, $product);
+            }
+            else{
+                Update_ConsignorTelephone($con, $AddEdit1, $telephone1, $telephone2, $telephone3);
+                Update_ConsignorEmail($con, $AddEdit1, $email);
+                Update_ConsignorUrl($con, $AddEdit1, $url);
+                Update_ConsignorProduct($con, $CurrentDate, $session_userid, $session_ip, $AddEdit1, $product);
+            }
+        }
     }
     mysqli_free_result($result);
 //        echo("Saved Successfully & LastInsertedID :- $LastInsertedID </br>");
-
-
-
+    
     /* Log Ends*/
         Log_End($con, $searchColumn_Value, $LogStart_Value);
         unset($con);
@@ -200,6 +228,7 @@ else{
 ?>
 
 <script language="javascript">
-    ClearAllControls(0);
-    show_newlyaddedlist('add_consignor_2.php', 'div_searchconsignor');
+//    ClearAllControls(0);
+//    show_newlyaddedlist('add_consignor_2.php', 'div_searchconsignor');
+    window.location.reload(true);
 </script>

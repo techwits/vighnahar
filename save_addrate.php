@@ -33,6 +33,7 @@
     $cartoonrate=sanitize($con, $_REQUEST["cartoonrate"]);
     $itemrate=sanitize($con, $_REQUEST["itemrate"]);
 
+//    echo ("error_msg:- ".$error_msg."</br>");
 //    echo ("AddEdit:- ".$AddEdit."</br>");
 //    echo ("session_userid:- ".$session_userid."</br>");
 //    echo ("session_ip:- ".$session_ip."</br>");
@@ -44,16 +45,11 @@
 //    echo ("itemrate:- ".$itemrate."</br>");
 //    die();
 
-
-
     if(trim($error_msg)=="") {
 
 
 
-
                 if ($AddEdit==0) {
-
-
 
                     $sqlQry= "";
                     $sqlQry= "select cnid from `consignee_master` where 1=1";
@@ -73,50 +69,53 @@
                         {
                                 $db_consigneeID=0;
                                 $db_consigneeID=$row{0};
-                                Update_ConsignorConsigneeRate($con, $consignorid, $db_consigneeID, $productid);
-                                mysqli_close($con);
-                                include('assets/inc/db_connect.php');
+                                $ConsignorConsigneeRate=0;
+                                $ConsignorConsigneeRate=Check_ConsignorConsigneeRate($con, $consignorid, $db_consigneeID, $productid);
+                                if($ConsignorConsigneeRate==0) {
+                                    mysqli_close($con);
+                                    include('assets/inc/db_connect.php');
 
-                                $tablename="rate_master";
-                                $searchColumn="rmid";
-                                $searchColumn_Value=$AddEdit;
-                                $PageName=basename(__FILE__);
-                                $CurrentDate = date('Y-m-d h:i:s');
-                                $inTime=udate('H:i:s:u');
-                                $Creator=$session_userid;
-                                $ip=$session_ip;
+                                    $tablename = "rate_master";
+                                    $searchColumn = "rmid";
+                                    $searchColumn_Value = $AddEdit;
+                                    $PageName = basename(__FILE__);
+                                    $CurrentDate = date('Y-m-d h:i:s');
+                                    $inTime = udate('H:i:s:u');
+                                    $Creator = $session_userid;
+                                    $ip = $session_ip;
 
-                                /* Log Start*/
-                                $LogStart_Value=Log_Start($con, $CurrentDate, $Creator, $ip, $PageName, $inTime, $tablename, $searchColumn, $searchColumn_Value);
-                                //        echo("LogStart_Value :- $LogStart_Value </br>");
-                                //        die();
-                                mysqli_close($con);
-                                include('assets/inc/db_connect.php');
-                                /* Log Start*/
-
-
-                                $Procedure = "Call Save_Rate('$CurrentDate', $session_userid, '$session_ip', $consignorid, $db_consigneeID, $productid, $minimumrate, $cartoonrate, $itemrate);";
-//                                echo ("Procedure:- ".$Procedure."</br>");
-//                                die();
-                                mysqli_close($con);
-                                include('assets/inc/db_connect.php');
-
-                                $result = mysqli_query($con, $Procedure) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
-                                if (mysqli_num_rows($result) != 0) {
-                                    $row = mysqli_fetch_array($result, MYSQLI_NUM);
-                                    $LastInsertedID = $row{0};
-                                }
-                                mysqli_free_result($result);
-                                include('assets/inc/db_connect.php');
+                                    /* Log Start*/
+                                    $LogStart_Value = Log_Start($con, $CurrentDate, $Creator, $ip, $PageName, $inTime, $tablename, $searchColumn, $searchColumn_Value);
+                                    //        echo("LogStart_Value :- $LogStart_Value </br>");
+                                    //        die();
+                                    mysqli_close($con);
+                                    include('assets/inc/db_connect.php');
+                                    /* Log Start*/
 
 
-                                /* Log Ends*/
+                                    $Procedure = "Call Save_Rate('$CurrentDate', $session_userid, '$session_ip', $consignorid, $db_consigneeID, $productid, $minimumrate, $cartoonrate, $itemrate);";
+                                    //                                echo ("Procedure:- ".$Procedure."</br>");
+                                    //                                die();
+                                    mysqli_close($con);
+                                    include('assets/inc/db_connect.php');
+
+                                    $result = mysqli_query($con, $Procedure) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
+                                    if (mysqli_num_rows($result) != 0) {
+                                        $row = mysqli_fetch_array($result, MYSQLI_NUM);
+                                        $LastInsertedID = $row{0};
+                                    }
+                                    mysqli_free_result($result);
+                                    include('assets/inc/db_connect.php');
+
+                                    /* Log Ends*/
                                     Log_End($con, $searchColumn_Value, $LogStart_Value);
                                     unset($con);
-                                /* Log Ends*/
-
-
-
+                                    /* Log Ends*/
+                                }
+                            else{
+                                echo("For this consigee rate has been already added. Please check.........");
+                                die();
+                            }
 
                         }
                     }
@@ -129,10 +128,7 @@
                     <?php
 
 
-
-
-
-
+                    
 
                 }
                 else{

@@ -43,9 +43,8 @@ function isDate(txtDate, separator) {
 	// month = aoDate[1] - 1; // because months in JS start from 0
 	// day = aoDate[2] - 0;
 
-
-	month = aoDate[0] - 1; // because months in JS start from 0
-	day = aoDate[1] - 0;
+	day = aoDate[0] - 0;
+	month = aoDate[1] - 1; // because months in JS start from 0
 	year = aoDate[2] - 0;
     
 	// alert("year :- " + year);
@@ -825,35 +824,68 @@ function editlogin(loginid, CreationDate, ModificationDate, Creator, ip, UserNam
 	}
 }
 
-function editconsignee(cnid, companyname,url, cnaid, address, pincode, city, telephone,  email, amid, AreaName, consignoraddressid, ConsignorName)
+
+function editconsignee(cid, ConsignorName, Pancard, ServiceTax, Remark, caid, Address, amid, Pincode, City, AreaName, Telephone1, Telephone2, Telephone3, ConsignorEmail, ConsignorWebsite, ConsignorProduct)
 {
 	// alert("ConsignorName :- " + ConsignorName);
-	document.getElementById("AddEdit").value=cnid;
-	document.getElementById("AddEdit1").value=cnaid;
-	document.getElementById("AddEdit4").value=amid;
-	edited_consignoraddressid=document.getElementById("consignoraddressid").value;
+	document.getElementById("AddEdit").value=cid;
+	document.getElementById("AddEdit1").value=caid;
+	document.getElementById("AddEdit2").value=amid;
 
-	if(Number(cnid) > 0 && Number(cnaid) > 0 && Number(amid) > 0)
+	if(Number(cid) > 0)
 	{
-		document.getElementById("companyname").value=companyname;
-		document.getElementById("url").value=url;
-		document.getElementById("address").value=address;
+		document.getElementById("consignorname").value=ConsignorName;
+		document.getElementById("address").value=Address;
 		document.getElementById("area").value=AreaName;
-		document.getElementById("pincode").value=pincode;
-		document.getElementById("city").value=city;
-		document.getElementById("telephone").value=telephone;
-		document.getElementById("email").value=email;
-
-		if(edited_consignoraddressid!=consignoraddressid) {
-			var oForm = document.forms["consignee_form"];
-			$("#consignoraddressid option").eq(0).before($('<option>', {
-				value: consignoraddressid,
-				text: ConsignorName
-			}));
-			document.getElementById("consignoraddressid").selectedIndex = 0;
+		document.getElementById("city").value=City;
+		document.getElementById("pincode").value=Pincode;
+		document.getElementById("telephone1").value=Telephone1;
+		document.getElementById("telephone2").value=Telephone2;
+		document.getElementById("telephone3").value=Telephone3;
+		document.getElementById("email").value=ConsignorEmail;
+		document.getElementById("url").value=ConsignorWebsite;
+		document.getElementById("panno").value=Pancard;
+		// document.getElementById("product").value=
+		document.getElementById("remark").value=Remark;
+		// alert("ServiceTax :- " + ServiceTax);
+		if(ServiceTax==1) {
+			document.getElementById("servicetax").checked=true;
+		}
+		else{
+			document.getElementById("servicetax").checked=false;
 		}
 
-		document.getElementById("companyname").focus();
+		var productLength = $('select#product option').length
+		for (i = 0; i < productLength; i++) {
+			document.getElementById('product').options[i].selected = false;
+			var Consignor_Product=document.getElementById('product').options[i].text;
+			// alert("Option value :- " + document.getElementById('product').options[1].text);
+			Split_ConsignorProduct  = ConsignorProduct.split(",");
+
+			for (j = 0; j < Split_ConsignorProduct.length; j++) {
+				// alert("Consignor Product :- " + Split_ConsignorProduct[j]);
+				var Consignor_SelectedProduct=Split_ConsignorProduct[j];
+				if(Consignor_Product==Consignor_SelectedProduct){
+					// alert("Yes....");
+					// alert(document.getElementById('product').options[i].text);
+					document.getElementById('product').options[i].selected = true;
+				}
+			}
+
+
+		}
+
+
+		// if(edited_consignoraddressid!=consignoraddressid) {
+		// 	var oForm = document.forms["consignee_form"];
+		// 	$("#consignoraddressid option").eq(0).before($('<option>', {
+		// 		value: consignoraddressid,
+		// 		text: ConsignorName
+		// 	}));
+		// 	document.getElementById("consignoraddressid").selectedIndex = 0;
+		// }
+
+		document.getElementById("consignorname").focus();
 
 		// $('#div_merchantcontrols').addClass('animated swing');
 		document.getElementById('div_merchantcontrols').style.borderColor='#b8b894';
@@ -862,7 +894,7 @@ function editconsignee(cnid, companyname,url, cnaid, address, pincode, city, tel
 
 		// $("#div_merchantcontrols").css({ 'border-color': "#00c0ef" });
 		// $( "#div_merchantcontrols" ).css( "border-top", "3px solid red");
-		document.getElementById("span_pageName").innerHTML="Update - " +companyname;
+		document.getElementById("span_pageName").innerHTML="Update - " +ConsignorName;
 		document.getElementById("span_pageButton").innerHTML="Update";
 	}
 	else
@@ -1110,12 +1142,28 @@ function editrate(rmid, CreationDate, ModificationDate, Creator, ip, caid, cnid,
 			document.getElementById("consigneeid").selectedIndex = 0;
 		}
 
+		document.getElementById("consignorid").disabled=true;
+		document.getElementById("consigneeid").disabled=true;
+		document.getElementById("productid").disabled=true;
+
 
 		document.getElementById("minimumrate").value=MinimumRate;
 		document.getElementById("cartoonrate").value=CartoonRate;
 		document.getElementById("itemrate").value=ItemRate;
 
 		document.getElementById("consignorid").focus();
+
+
+		// $('#div_merchantcontrols').addClass('animated swing');
+		document.getElementById('div_merchantcontrols').style.borderColor='#b8b894';
+		document.getElementById('div_merchantcontrols').style.borderTopWidth='3px';
+		document.getElementById('div_panel').style.backgroundColor='#b8b894';
+
+		// $("#div_merchantcontrols").css({ 'border-color': "#00c0ef" });
+		// $( "#div_merchantcontrols" ).css( "border-top", "3px solid red");
+		document.getElementById("span_pageName").innerHTML="Update - " + ConsignorName + "(Rate)";
+		document.getElementById("span_pageButton").innerHTML="Update";
+
 
 	}
 	else
@@ -1152,14 +1200,31 @@ function editarea(amid, CreationDate, ModificationDate, Creator, ip, AreaName, A
 function editlrentry(lrid)
 {
 	// alert("LRID :- " + lrid);
+	edited_financialyear=document.getElementById("financialyear").value;
 	document.getElementById("AddEdit").value=lrid;
 	if(Number(lrid) > 0)
 	{
 		document.getElementById("additionalcharges").checked=false;
+		if(edited_financialyear!="") {
+			$("#financialyear").prepend("<option value=''></option>");
+			$("#financialyear option:first").attr("selected", "selected");
+		}
+		document.getElementById("lrdate").value="";
 		displayAdditionalCharges(6, '::1');
-		document.getElementById("div_pageheader").innerHTML = "Edit LREntry " + lrid;
+		// document.getElementById("div_pageheader").innerHTML = "Edit LREntry " + lrid;
 
 		document.getElementById("invoicenumber").focus();
+
+		// $('#div_merchantcontrols').addClass('animated swing');
+		document.getElementById('div_merchantcontrols').style.borderColor='#b8b894';
+		document.getElementById('div_merchantcontrols').style.borderTopWidth='3px';
+		document.getElementById('div_panel').style.backgroundColor='#b8b894';
+
+		// $("#div_merchantcontrols").css({ 'border-color': "#00c0ef" });
+		// $( "#div_merchantcontrols" ).css( "border-top", "3px solid red");
+		document.getElementById("span_pageName").innerHTML="Update - " + lrid;
+		document.getElementById("span_pageButton").innerHTML="Update";
+
 
 	}
 	else
@@ -3105,7 +3170,6 @@ function get_consignee(ConsignorID, Creator, ip)
 
 	if(Number(error_count) == 0)
 	{
-		document.getElementById("consignorid").disabled = true;
 		var div_name = "#div_consignee";
 		var page_name = "lrentry_1.php";
 		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");

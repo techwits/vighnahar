@@ -74,7 +74,7 @@ if(!isset($_REQUEST["session_userid"])) {
 		<div class="form-group form-group-material">
 			<label>Shiping Charges </label>
 			<div class="input-group">
-				<input type="text" class="form-control" name="shippingcharge" id="shippingcharge" value="<?php echo $ShippingCharges;?>">
+				<input type="text" class="form-control" name="shippingcharge" id="shippingcharge" disabled value="<?php echo $ShippingCharges;?>">
 				<span class="input-group-addon"><i class="icon-user"></i></span>
 			</div>
 		</div>
@@ -83,7 +83,7 @@ if(!isset($_REQUEST["session_userid"])) {
 		<div class="form-group form-group-material">
 			<label>Bilty Charges </label>
 			<div class="input-group">
-				<input type="text" class="form-control" name="biltycharge" id="biltycharge" value="<?php echo $BiltyCharge;?>">
+				<input type="text" class="form-control" name="biltycharge" id="biltycharge" disabled value="<?php echo $BiltyCharge;?>">
 				<span class="input-group-addon"><i class="icon-user"></i></span>
 			</div>
 		</div>
@@ -92,7 +92,7 @@ if(!isset($_REQUEST["session_userid"])) {
 		<div class="form-group form-group-material">
 			<label>Serice Tax </label>
 			<div class="input-group">
-				<input type="text" class="form-control" name="servicetax" id="servicetax" value="<?php echo $ServiceTaxAmount;?>">
+				<input type="text" class="form-control" name="servicetax" id="servicetax" disabled value="<?php echo $ServiceTaxAmount;?>">
 				<span class="input-group-addon"><i class="icon-user"></i></span>
 			</div>
 		</div>

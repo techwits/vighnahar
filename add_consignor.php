@@ -6,6 +6,13 @@
 		include('assets/inc/common-function.php');
 		include('assets/inc/functions.php');
 		sec_session_start();
+		$Area=Fill_AreaForJS($con);
+		//		echo("</br></br></br></br></br></br></br></br></br></br></br> Area :- $Area </br>");
+		$Area="[".$Area."]";
+		$vals=$Area;
+		mysqli_close($con);
+		include('assets/inc/db_connect.php');
+		//		echo("</br></br></br></br></br></br></br></br></br></br></br> Area :- $Area </br>");
 	?>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -42,9 +49,36 @@
 	<script type="text/javascript" src="assets/js/pages/form_select2.js"></script>
 
 	<script type="text/javascript" src="assets/js/plugins/tables/datatables/datatables.min.js"></script>
-	<script type="text/javascript" src="assets/js/pages/datatables_api.js"></script>
-	<script type="text/javascript" src="assets/js/pages/form_multiselect.js"></script>
+	<script type="text/javascript" src="assets/js/pages/datatables_api_2columns.js"></script>
+
 	<!-- /theme JS files -->
+
+	<!-- Javascript dropdown list functions-->
+	<script type="text/javascript">
+		var area=<?php echo $vals;?>;
+	</script>
+
+	<script type="text/javascript" src="assets/js/core/libraries/jasny_bootstrap.min.js"></script>
+	<script type="text/javascript" src="assets/js/plugins/forms/styling/uniform.min.js"></script>
+	<script type="text/javascript" src="assets/js/plugins/forms/inputs/autosize.min.js"></script>
+	<script type="text/javascript" src="assets/js/plugins/forms/inputs/formatter.min.js"></script>
+	<script type="text/javascript" src="assets/js/plugins/forms/inputs/typeahead/typeahead.bundle.min.js"></script>
+	<script type="text/javascript" src="assets/js/plugins/forms/inputs/typeahead/handlebars.js"></script>
+	<script type="text/javascript" src="assets/js/plugins/forms/inputs/passy.js"></script>
+	<script type="text/javascript" src="assets/js/plugins/forms/inputs/maxlength.min.js"></script>
+
+	<script type="text/javascript" src="assets/js/pages/form_controls_extended.js"></script>
+
+	<script type="text/javascript" src="assets/js/plugins/forms/styling/uniform.min.js"></script>
+	<script type="text/javascript" src="assets/js/plugins/notifications/pnotify.min.js"></script>
+	<script type="text/javascript" src="assets/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
+
+	<script type="text/javascript" src="assets/js/core/app.js"></script>
+	<script type="text/javascript" src="assets/js/pages/form_multiselect.js"></script>
+
+
+	<!-- Javascript dropdown list functions-->
+
 
 	<script type="text/JavaScript" src="assets/js/search/search.js"></script>
 	<script type="text/JavaScript" src="assets/js/sha512.js"></script>
@@ -97,7 +131,7 @@
 							<div id="<?php echo $div_merchantcontrols; ?>" class="panel panel-flat" style="border-color:<?php echo $Form_BorderColor; ?>; border-top-width:<?php echo $Form_BorderTopWidth; ?>;">
 
 								<div class="panel-heading" id="<?php echo $div_panel; ?>" style="background-color:<?php echo $FormHeadingColor; ?>;">
-									<h5 class="panel-title"><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold" id="<?php echo $span_pageName; ?>"><?php echo $PageHeaderName; ?></h5>
+									<h5 class="panel-title"><i class="icon-user-check position-left"></i> <span class="text-semibold" id="<?php echo $span_pageName; ?>"><?php echo $PageHeaderName; ?></h5>
 									<div class="heading-elements">
 										<ul class="icons-list">
 											<li><a data-action="collapse"></a></li>
@@ -106,7 +140,7 @@
 									</div>
 								</div>
 
-								<div class="panel-body">
+								<div class="panel-body" style="margin-top:15px;">
 									<div class="row">
 										<div class="col-lg-6">
 											<div class="form-group form-group-material">
@@ -114,8 +148,8 @@
 												<div class="input-group">
 													<input type="text" class="form-control" name="consignorname" id="consignorname"  required="required" autofocus onkeypress="return only_Alpha_Numeric_Apostrophy_Space(event);" ondrop="return false;" onpaste="return false;">
                                                         <span class="input-group-addon">
-                                                    <i class="icon-user"></i>
-                                                    </span>
+															<i class="icon-user-check"></i>
+                                                    	</span>
 												</div>
 											</div>
 										</div>
@@ -125,44 +159,43 @@
 												<div class="input-group">
 													<input type="text" class="form-control" name="address" id="address" required="required" onkeypress="return only_Alpha_Numeric_Apostrophy_Space(event);" ondrop="return false;" onpaste="return false;">
                                                         <span class="input-group-addon">
-                                                    <i class="icon-user"></i>
-                                                    </span>
-												</div>
-											</div>
-										</div>
-										<div class="col-lg-6">
-											<div class="form-group form-group-material">
-												<label>Area <span class="text-danger">*</span> </label>
-												<div class="input-group">
-													<input type="text" class="form-control" name="area" id="area" required="required" onkeypress="return only_Alpha_Numeric_Apostrophy_Space(event);" ondrop="return false;" onpaste="return false;">
-                                                        <span class="input-group-addon">
-                                                    <i class="icon-user"></i>
+                                                    <i class="icon-road"></i>
                                                     </span>
 												</div>
 											</div>
 										</div>
 									</div>
 
-
 									<div class="row">
-										<div class="col-md-6">
+										<div class="col-lg-4">
 											<div class="form-group form-group-material">
-												<label>Pincode <span class="text-danger">*</span> </label>
+												<label>Area <span class="text-danger">*</span> </label>
 												<div class="input-group">
-													<input type="text" class="form-control" name="pincode" id="pincode" required="required" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
+													<input type="text" class="form-control typeahead-basic" placeholder="Enter Area" name="area" id="area" required="required" onkeypress="return only_Alpha_Space(event);" ondrop="return false;" onpaste="return false;">
                                                         <span class="input-group-addon">
-                                                    <i class="icon-user"></i>
-                                                    </span>
+                                                    		<i class="icon-location4"></i>
+                                                    	</span>
 												</div>
 											</div>
 										</div>
-										<div class="col-md-6">
+										<div class="col-md-4">
 											<div class="form-group form-group-material">
 												<label>City <span class="text-danger">*</span> </label>
 												<div class="input-group">
 													<input type="text" class="form-control" name="city" id="city" required="required" onkeypress="return only_Alpha_Space(event);" ondrop="return false;" onpaste="return false;">
                                                         <span class="input-group-addon">
-                                                    <i class="icon-user"></i>
+                                                    		<i class="icon-city"></i>
+                                                    	</span>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group form-group-material">
+												<label>Pincode <span class="text-danger">*</span> </label>
+												<div class="input-group">
+													<input type="text" class="form-control" name="pincode" id="pincode" required="required" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
+                                                        <span class="input-group-addon">
+                                                    <i class="icon-location3"></i>
                                                     </span>
 												</div>
 											</div>
@@ -170,79 +203,76 @@
 									</div>
 
 									<div class="row">
-										<div class="col-md-6">
-											<div class="form-group form-group-material">
-												<label>Pancard No. <span class="text-danger">*</span> </label>
-												<div class="input-group">
-													<input type="text" class="form-control" name="panno" id="panno required="required" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
-                                                        <span class="input-group-addon">
-                                                    <i class="icon-user"></i>
-                                                    </span>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-6">
+										<div class="col-md-4">
 											<div class="form-group form-group-material">
 												<label>Telephone <span class="text-danger">*</span> </label>
 												<div class="input-group">
 
 													<input type="text" class="form-control" name="telephone1" id="telephone1" required="required" onkeypress="return only_Numeric_Comma(event);" ondrop="return false;" onpaste="return false;">
                                                         <span class="input-group-addon">
-                                                    <i class="icon-user"></i>
+                                                    <i class="icon-phone"></i>
                                                     </span>
 												</div>
 											</div>
 										</div>
-									</div>
-
-									<div class="row">
-
-										<div class="col-md-6">
+										<div class="col-md-4">
 											<div class="form-group form-group-material">
 												<label>Telephone </label>
 												<div class="input-group">
 
 													<input type="text" class="form-control" name="telephone2" id="telephone2" required="required" onkeypress="return only_Numeric_Comma(event);" ondrop="return false;" onpaste="return false;">
                                                         <span class="input-group-addon">
-                                                    <i class="icon-user"></i>
+                                                    <i class="icon-phone"></i>
                                                     </span>
 												</div>
 											</div>
 										</div>
-										<div class="col-md-6">
+										<div class="col-md-4">
 											<div class="form-group form-group-material">
 												<label>Telephone </label>
 												<div class="input-group">
-													
+
 													<input type="text" class="form-control" name="telephone3" id="telephone3" required="required" onkeypress="return only_Numeric_Comma(event);" ondrop="return false;" onpaste="return false;">
                                                         <span class="input-group-addon">
-                                                    <i class="icon-user"></i>
+                                                    <i class="icon-phone"></i>
                                                     </span>
 												</div>
 											</div>
 										</div>
 									</div>
 
+
 									<div class="row">
-										<div class="col-md-6">
+										<div class="col-md-4">
 											<div class="form-group form-group-material">
 												<label>Email <span class="text-danger">*</span> </label>
 												<div class="input-group">
 													<input type="email" class="form-control" name="email" id="email" required="required">
                                                         <span class="input-group-addon">
-                                                    <i class="icon-user"></i>
+                                                    <i class="icon-mail5"></i>
                                                     </span>
 												</div>
 											</div>
 										</div>
-										<div class="col-md-6">
+										<div class="col-md-4">
 											<div class="form-group form-group-material">
 												<label>Website <span class="text-danger">*</span> </label>
 												<div class="input-group">
 													<input type="text" class="form-control" name="url" id="url" required="required">
                                                         <span class="input-group-addon">
-                                                    <i class="icon-user"></i>
+                                                    <i class="icon-sphere"></i>
                                                     </span>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group form-group-material">
+												<label>Pancard No. <span class="text-danger">*</span> </label>
+												<div class="input-group">
+													<input type="text" class="form-control" name="panno" id="panno" required="required" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
+                                                        <span class="input-group-addon">
+                                                    		<i class="icon-credit-card"></i>
+                                                    	</span>
 												</div>
 											</div>
 										</div>
@@ -251,11 +281,11 @@
 									<div class="row">
 
 										<!-- Filtering options -->
-										<div class="col-md-6">
+										<div class="col-md-4">
 											<div class="multi-select-auto">
 												<label>Product <span class="text-danger">*</span> </label>
 												<div class="multi-select-full">
-													<select name="product" id="product" class="multiselect-select-all-filtering" multiple="multiple">
+													<select name="product" id="product" multiple="multiple">
 														<?php
 															$TableName="product_master";
 															$ColumnName="pmid, ProductName";
@@ -268,27 +298,29 @@
 										</div>
 										<!-- /filtering options -->
 										
-										<div class="col-md-6">
+										<div class="col-md-4">
 											<div class="form-group form-group-material">
 												<label>Remark </label>
 												<div class="input-group">
-													<textarea cols="50" rows="3" name="remark" id="remark"></textarea>
+													<textarea cols="40" rows="3" name="remark" id="remark"></textarea>
 												</div>
 											</div>
 										</div>
 
-									</div>
-
-									<div class="row">
-										<div class="col-lg-6">
-											<div class="form-group">
-												<label class="checkbox-inline">
-													<input type="checkbox" class="styled" name="servicetax" id="servicetax">
-													Service Tax
-												</label>
+										<div class="col-md-4">
+											<div class="form-group form-group-material">
+												<label>Service Tax </label>
+												<div class="input-group">
+													<label class="checkbox-inline">
+														<input type="checkbox" name="servicetax" id="servicetax">
+													</label>
+												</div>
 											</div>
 										</div>
+
+
 									</div>
+
 
 								</div>
 								<div class="panel-footer">
@@ -307,7 +339,7 @@
 						<!-- Search field -->
 						<div class="panel panel-flat" style="border-color:<?php echo $Search_BorderColor; ?>; border-top-width:<?php echo $Search_BorderTopWidth; ?>;">
 							<div class="panel-heading" style="background-color:<?php echo $SearchHeadingColor; ?>;">
-								<h5 class="panel-title"><i class="icon-search4 text-size-base"></i> <span class="text-semibold">Search</h5>
+								<h5 class="panel-title"><i class="icon-search4 text-size-base"></i> <span class="text-semibold"><?php echo $SearchPageHeading; ?></h5>
 								<div class="heading-elements">
 									<ul class="icons-list">
 										<li><a data-action="collapse"></a></li>

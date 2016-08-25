@@ -30,7 +30,7 @@
     $session_userid=$_REQUEST["session_userid"];
     $session_ip=$_REQUEST["session_ip"];
     $financialyear=$_REQUEST["financialyear"];
-    $lrdate=$_REQUEST["lrdate"];
+    $lrdate=$_REQUEST["ToDate"];
     $invoicenumber=$_REQUEST["invoicenumber"];
     $vehicleid=$_REQUEST["vehicleid"];
     $consignorid=$_REQUEST["consignorid"];
@@ -89,17 +89,17 @@
         {
             $Procedure = "Call Save_Inward('$CurrentDate', $session_userid, '$session_ip', $financialyear, '$lrdate', '$invoicenumber', $vehicleid, $consignorid, $consigneeid, $productid, '$packagetype', $productrate, $qauntity, $paidlramount, $shippingcharge, $biltycharge, $servicetax);";
         }
-//        else{
-//            $IDTableName="area_master";
-//            $IDColumnName="amid";
-//            $IDExist=Check_IDExist($con, $IDTableName, $IDColumnName, $AddEdit);
-//            if($IDExist>0) {
-//                $Procedure = "Call Update_Area($AddEdit, '$CurrentDate', $session_userid, '$session_ip', '$areaname');";
-//            }
-//            else{
-//                echo("Transporter ID is not getting. Please contact system administrator....");
-//            }
-//        }
+        else{
+            $IDTableName="inward";
+            $IDColumnName="iid";
+            $IDExist=Check_IDExist($con, $IDTableName, $IDColumnName, $AddEdit);
+            if($IDExist>0) {
+                $Procedure = "Call Update_Inward('$CurrentDate', $session_userid, '$session_ip', $AddEdit, $financialyear, '$lrdate', '$invoicenumber', $vehicleid, $consignorid, $consigneeid, $productid, '$packagetype', $productrate, $qauntity, $paidlramount, $shippingcharge, $biltycharge, $servicetax);";
+            }
+            else{
+                echo("Transporter ID is not getting. Please contact system administrator....");
+            }
+        }
 //        echo ("Procedure:- ".$Procedure."</br>");
 //        die();
         unset($con);
@@ -121,7 +121,7 @@
 //                    $Split_SingleAdditionalCharge[1];
 
                     $sqlQry="";
-                    $sqlQry= "insert into `inwardcharge`(CreationDate, Creator, ip, iid, acmid, Amount)";
+                    $sqlQry= "insert into `inwardcharge`(CreationDate, Creator, ip, LRID, acmid, Amount)";
                     $sqlQry.= " values ('$CurrentDate', $session_userid, '$session_ip', $LastInsertedID, $Split_SingleAdditionalCharge[0], $Split_SingleAdditionalCharge[1])";
 //        			echo ("Check sqlQry :- $sqlQry </br>");
 //        			die();
@@ -130,9 +130,7 @@
                     $rs = mysqli_query($con, $sqlQry);
                 }
             }
-
         }
-
 
         /* Log Ends*/
             Log_End($con, $searchColumn_Value, $LogStart_Value);
@@ -147,8 +145,8 @@
 ?>
 
 <script language="javascript">
-//    ClearAllControls(0);
-//    show_newlyaddedlist('add_area_2.php', 'div_searcharea');
+    ClearAllControls(0);
+    show_newlyaddedlist('lrentry_7.php', 'div_searchlrentry');
 </script>
 
 
