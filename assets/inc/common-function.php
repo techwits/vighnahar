@@ -836,8 +836,8 @@
 		$sqlQry= "select $IDColumnName from $IDTableName";
 		$sqlQry= $sqlQry." where $IDColumnName=$ID";
 		$sqlQry= $sqlQry." and Active=1";
-//		echo ("Check sqlQry :- $sqlQry </br>");
-//		die();
+		echo ("Check sqlQry :- $sqlQry </br>");
+		die();
 		unset($con);
 		include('db_connect.php');
 		$result = mysqli_query($con, $sqlQry);
