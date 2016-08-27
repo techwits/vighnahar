@@ -1278,8 +1278,8 @@ function editrmentry(oid, CreationDate, ModificationDate, Creator, ip, TransitDa
 
 		fill_rmtableEdit(RoadMemoLRList);
 
-		document.getElementById("bordered-tab1").className = "tab-pane has-padding active";
-		document.getElementById("bordered-tab2").className = "tab-pane has-padding";
+		$('a[href="#bordered-tab1"]').click();
+		// document.getElementById("bordered-tab2").className = "deactive";
 
 		// $("#bordered-tab1").attr("class", "tab-pane has-padding active");
 		// $("#bordered-tab2").attr("class", "tab-pane has-padding");
