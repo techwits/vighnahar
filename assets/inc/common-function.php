@@ -218,6 +218,108 @@
 		return $Getting_TableListID;
 	}
 
+
+	function Get_RoadMemoLR($con, $RMID)
+	{
+		$Getting_RoadMemoLR="";
+		$sqlQry= "";
+		$sqlQry= "select iid from  outwardlr ";
+		$sqlQry.= " where oid=$RMID";
+		$sqlQry.= " and Active=1";
+		//		echo ("$sqlQry");
+		//		die();
+		//		mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0)
+		{
+			$inc=0;
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$inc=$inc+1;
+				if($inc==1){
+					$Getting_RoadMemoLR=$row{0};
+				}
+				else{
+					$Getting_RoadMemoLR=$Getting_RoadMemoLR.",".$row{0};
+				}
+
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_RoadMemoLR;
+	}
+
+	function Get_TransporterName($con, $TransporterID)
+	{
+		$Getting_TransporterName="";
+		$sqlQry= "";
+		$sqlQry= "select TransporterName from  transporter_master ";
+		$sqlQry.= " where tmid=$TransporterID";
+		//		echo ("$sqlQry");
+		//		die();
+		//		mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0)
+		{
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$Getting_TransporterName=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_TransporterName;
+	}
+
+
+	function Get_VehicleNumber($con, $VehicleID)
+	{
+		$Getting_VehicleNumber="";
+		$sqlQry= "";
+		$sqlQry= "select VehicleNumber from vehicle_master ";
+		$sqlQry.= " where vmid=$VehicleID";
+		//		echo ("$sqlQry");
+		//		die();
+		//		mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0)
+		{
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$Getting_VehicleNumber=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_VehicleNumber;
+	}
+	function Get_FinancialYearOnID($con, $FinancialID)
+	{
+		$Getting_FinancialYearOnID="";
+		$sqlQry= "";
+		$sqlQry= "select FinancialYear from financialyear_master ";
+		$sqlQry.= " where fyid=$FinancialID";
+	//		echo ("$sqlQry");
+	//		die();
+	//		mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0)
+		{
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$Getting_FinancialYearOnID=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_FinancialYearOnID;
+	}
+
 	function Get_FinancialYear($con, $CYear)
 	{
 		$Getting_FinancialYearID=0;
@@ -524,6 +626,38 @@
 			echo "<option value=".$ID.">".$Name." </option>";
 		}
 		mysqli_free_result($result);
+	}
+
+	function Fill_LRForJS($con)
+	{
+		$Getting_LRForJS="";
+		$sqlQry= "";
+		$sqlQry= "select LRID from  inward ";
+		$sqlQry.= " where Active=1";
+		$sqlQry.= " group by LRID";
+		$sqlQry.= " order by LRID";
+		//echo ("$sqlQry");
+		mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0)
+		{
+			$inc=0;
+			$Getting_LRForJS="";
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$inc=$inc+1;
+				if($inc==1) {
+					$Getting_LRForJS = "'".$row{0}."'";
+				}
+				else{
+					$Getting_LRForJS = $Getting_LRForJS.", "."'".$row{0}."'";
+				}
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_LRForJS;
 	}
 
 	function Fill_AreaForJS($con)

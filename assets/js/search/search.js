@@ -1233,6 +1233,65 @@ function editlrentry(lrid)
 	}
 }
 
+function editrmentry(oid, CreationDate, ModificationDate, Creator, ip, TransitDate, fyid, vmid, tmid, Active, ChangeTransitDate, FinancialYear, VehicleName, TransporterName, RoadMemoLRList)
+{
+	// alert("ID :- " + id);
+	edited_financialyear=document.getElementById("financialyear").value;
+	edited_vehicleid=document.getElementById("vehicleid").value;
+	edited_transporterid=document.getElementById("transporterid").value;
+
+
+	document.getElementById("AddEdit").value=oid;
+	if(Number(oid) > 0)
+	{
+		if(edited_financialyear!=fyid) {
+			var oForm = document.forms["rmentry_form"];
+			$("#financialyear option").eq(0).before($('<option>', {
+				value: fyid,
+				text: FinancialYear
+			}));
+			document.getElementById("financialyear").selectedIndex = 0;
+		}
+
+		if(edited_vehicleid!=vmid) {
+			var oForm = document.forms["rmentry_form"];
+			$("#vehicleid option").eq(0).before($('<option>', {
+				value: vmid,
+				text: VehicleName
+			}));
+			document.getElementById("vehicleid").selectedIndex = 0;
+		}
+
+		if(edited_transporterid!=tmid) {
+			var oForm = document.forms["rmentry_form"];
+			$("#transporterid option").eq(0).before($('<option>', {
+				value: tmid,
+				text: TransporterName
+			}));
+			document.getElementById("transporterid").selectedIndex = 0;
+		}
+
+		document.getElementById("rmdate").value=ChangeTransitDate;
+		document.getElementById("lrid_list").value=RoadMemoLRList;
+
+		document.getElementById("transporterid").focus();
+
+		fill_rmtableEdit(RoadMemoLRList);
+
+		document.getElementById("bordered-tab1").className = "tab-pane has-padding active";
+		document.getElementById("bordered-tab2").className = "tab-pane has-padding";
+
+		// $("#bordered-tab1").attr("class", "tab-pane has-padding active");
+		// $("#bordered-tab2").attr("class", "tab-pane has-padding");
+
+
+	}
+	else
+	{
+		alert("Menu ID is Blank. Please check......");
+	}
+}
+
 function editmenu(menusub_id, CreationDate, ModificationDate, Creator, ip, url, urlDescription, Active)
 {
 	// alert("ID :- " + id);
@@ -1317,6 +1376,303 @@ function editpageaccess(id, CreationDate, ModificationDate, Creator, ip, menusub
 	else
 	{
 		alert("Merchant ID is Blank. Please check......");
+	}
+}
+
+function fill_rmtableEdit(lrnumber){
+
+	var frm=document.rmentry_form;
+	var error_count;
+	var error_msg;
+	error_msg="";
+	error_count=0;
+
+	var AddEdit=trim(frm.AddEdit.value);
+
+	var session_userid=trim(frm.session_userid.value);
+	if(session_userid.length <= 0 || session_userid == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter User ID" + "\n";
+		// frm.username.focus();
+	}
+	var session_ip=trim(frm.session_ip.value);
+	if(session_ip.length <= 0 || session_ip == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter IP address" + "\n";
+		// frm.username.focus();
+	}
+
+	var financialyear=trim(frm.financialyear.value);
+	if(financialyear.length <= 0 || financialyear == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Select Finanacial year" + "\n";
+		// frm.username.focus();
+	}
+	var rmdate=trim(frm.rmdate.value);
+	if(rmdate.length <= 0 || rmdate == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter RM Date" + "\n";
+		// frm.username.focus();
+	}
+	var vehicleid=trim(frm.vehicleid.value);
+	if(vehicleid.length <= 0 || vehicleid == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter Vehicle Number" + "\n";
+		// frm.username.focus();
+	}
+	var transporterid=trim(frm.transporterid.value);
+	if(transporterid.length <= 0 || transporterid == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter Driver Name" + "\n";
+		// frm.username.focus();
+	}
+
+	var Fill_LRIdList="";
+	var Get_LRId="";
+	if(lrnumber!="") {
+		Get_LRId=document.getElementById("lrno").value;
+		Fill_LRIdList=document.getElementById("lrid_list").value
+		// alert("Get_LRId :- " + Get_LRId);
+		// alert("Fill_LRIdList :- " + Fill_LRIdList);
+		if(Get_LRId!="") {
+			if (Fill_LRIdList == "" || Fill_LRIdList.length <= 0) {
+				Fill_LRIdList = Get_LRId;
+			}
+			else {
+				Fill_LRIdList = Get_LRId + "," + Fill_LRIdList;
+			}
+		}
+		// alert("Fill_LRIdList :- " + Fill_LRIdList);
+
+		if(Number(error_count) == 0)
+		{
+			document.getElementById("lrid_list").value=Fill_LRIdList;
+			document.getElementById("lrno").value="";
+			var div_name = "#div_lrlisttable";
+			var page_name = "rmentry_1.php";
+			$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+			$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, financialyear:financialyear, rmdate:rmdate, vehicleid:vehicleid, transporterid:transporterid, Fill_LRIdList:Fill_LRIdList},
+				function(data)
+				{
+					$(div_name).html(data);
+				}
+			);
+			return false;
+		}
+		else{
+			alert(error_msg);
+			document.getElementById("lrno").value="";
+			return false;
+		}
+	}
+}
+
+function fill_rmtable(e, lrnumber){
+
+	var frm=document.rmentry_form;
+	var error_count;
+	var error_msg;
+	error_msg="";
+	error_count=0;
+
+	var AddEdit=trim(frm.AddEdit.value);
+
+	var session_userid=trim(frm.session_userid.value);
+	if(session_userid.length <= 0 || session_userid == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter User ID" + "\n";
+		// frm.username.focus();
+	}
+	var session_ip=trim(frm.session_ip.value);
+	if(session_ip.length <= 0 || session_ip == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter IP address" + "\n";
+		// frm.username.focus();
+	}
+
+	var financialyear=trim(frm.financialyear.value);
+	if(financialyear.length <= 0 || financialyear == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Select Finanacial year" + "\n";
+		// frm.username.focus();
+	}
+	var rmdate=trim(frm.rmdate.value);
+	if(rmdate.length <= 0 || rmdate == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter RM Date" + "\n";
+		// frm.username.focus();
+	}
+	var vehicleid=trim(frm.vehicleid.value);
+	if(vehicleid.length <= 0 || vehicleid == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter Vehicle Number" + "\n";
+		// frm.username.focus();
+	}
+	var transporterid=trim(frm.transporterid.value);
+	if(transporterid.length <= 0 || transporterid == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter Driver Name" + "\n";
+		// frm.username.focus();
+	}
+
+	var Fill_LRIdList="";
+	var Get_LRId="";
+	if(e.which == 13) {
+		Get_LRId=document.getElementById("lrno").value;
+		Fill_LRIdList=document.getElementById("lrid_list").value
+		// alert("Get_LRId :- " + Get_LRId);
+		// alert("Fill_LRIdList :- " + Fill_LRIdList);
+		if(Get_LRId!="") {
+			if (Fill_LRIdList == "" || Fill_LRIdList.length <= 0) {
+				Fill_LRIdList = Get_LRId;
+			}
+			else {
+				Fill_LRIdList = Get_LRId + "," + Fill_LRIdList;
+			}
+		}
+		// alert("Fill_LRIdList :- " + Fill_LRIdList);
+
+		if(Number(error_count) == 0)
+		{
+			document.getElementById("lrid_list").value=Fill_LRIdList;
+			document.getElementById("lrno").value="";
+			var div_name = "#div_lrlisttable";
+			var page_name = "rmentry_1.php";
+			$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+			$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, financialyear:financialyear, rmdate:rmdate, vehicleid:vehicleid, transporterid:transporterid, Fill_LRIdList:Fill_LRIdList},
+				function(data)
+				{
+					$(div_name).html(data);
+				}
+			);
+			return false;
+		}
+		else{
+			alert(error_msg);
+			document.getElementById("lrno").value="";
+			return false;
+		}
+	}
+}
+
+function add_rmentry()
+{
+	// alert("Hi...");
+	
+	var error_count;
+	var error_msg;
+	error_msg="";
+	error_count=0;
+
+	var AddEdit=document.getElementById("AddEdit1").value;
+
+	session_userid=document.getElementById("session_userid1").value
+	if(session_userid.length <= 0 || session_userid == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter User ID" + "\n";
+		// frm.username.focus();
+	}
+	session_ip=document.getElementById("session_ip1").value
+	if(session_ip.length <= 0 || session_ip == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter IP address" + "\n";
+		// frm.username.focus();
+	}
+
+	financialyear=document.getElementById("financialyear1").value
+	if(financialyear.length <= 0 || financialyear == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Select Financial Year" + "\n";
+		// frm.username.focus();
+	}
+
+	rmdate=document.getElementById("rmdate1").value
+	if(rmdate.length <= 0 || rmdate == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter RM Date" + "\n";
+		// frm.username.focus();
+	}
+
+
+	vehicleid=document.getElementById("vehicleid1").value
+	if(vehicleid.length <= 0 || vehicleid == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Select Vehicle Number" + "\n";
+		// frm.username.focus();
+	}
+
+	transporterid=document.getElementById("transporterid1").value
+	if(transporterid.length <= 0 || transporterid == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Select Driver Name" + "\n";
+		// frm.username.focus();
+	}
+
+	lridlist=document.getElementById("lridlist1").value
+	if(lridlist.length <= 0 || lridlist == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Select LR ID" + "\n";
+		// frm.username.focus();
+	}
+
+	// alert("Selected LR :- " + lridlist);
+	var selected=0;
+	var SelectedLR="";
+	Split_lridlist  = lridlist.split(",");
+	for (j = 0; j < Split_lridlist.length; j++) {
+		// alert("Split LR :- " + Split_lridlist[j]);
+		if (document.getElementById(Split_lridlist[j])!=null) {
+			selected = document.getElementById(Split_lridlist[j]).checked;
+			// alert("Split_lridlist :- " + Split_lridlist[j]);
+			if (selected == 1) {
+				if (SelectedLR == "") {
+					SelectedLR = Split_lridlist[j];
+				}
+				else {
+					SelectedLR = SelectedLR + "," + Split_lridlist[j];
+				}
+			}
+		}
+	}
+
+	alert("SelectedLR :- " + SelectedLR);
+
+	if(Number(error_count) == 0)
+	{
+		var div_name = "#div_rmentry";
+		var page_name = "save_rmentry.php";
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, financialyear:financialyear, rmdate:rmdate, vehicleid:vehicleid, transporterid:transporterid, SelectedLR:SelectedLR},
+			function(data)
+			{
+				$(div_name).html(data);
+			}
+		);
+		return false;
+	}
+	else
+	{
+		alert(error_msg);
+		return false;
 	}
 }
 

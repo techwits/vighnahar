@@ -111,7 +111,7 @@ include('page_header.php');
 
 							<div class="panel-body" style="margin-top:15px;">
 								<div class="row extra-bottom-padding">
-                                	<div class="col-md-2 col-lg-offset-3">
+                                	<div class="col-md-2 col-lg-offset-4">
 										<div class="form-group form-group-material">
 											<label>Financial Year <span class="text-danger">*</span></label>
 											<div>
@@ -148,7 +148,7 @@ include('page_header.php');
 											</div>
 										</div>
 									</div>
-                                    <div class="col-md-2">
+                                    <!--<div class="col-md-2">
 										<div class="form-group form-group-material">
 											<label>LR Amount </label>
 											<div class="input-group">
@@ -159,7 +159,12 @@ include('page_header.php');
 												</span>
 											</div>
 										</div>
-									</div>
+									</div>-->
+                                    <div class="col-xs-2 text-center col-lg-offset-1">
+                                      <div class="label label-danger" style="padding: 15px; font-size:24px;">
+									 <span>25</span>
+								</div>
+	                    		</div>
                                 
                                 </div>
 								
