@@ -1,8 +1,7 @@
 <!-- Theme JS files -->
-<script type="text/javascript" src="assets/js/plugins/notifications/pnotify.min.js"></script>
-
-<script type="text/javascript" src="assets/js/core/app.js"></script>
-<script type="text/javascript" src="assets/js/pages/components_notifications_pnotify.js"></script>
+    <script type="text/javascript" src="assets/js/plugins/notifications/pnotify.min.js"></script>
+    <script type="text/javascript" src="assets/js/core/app.js"></script>
+    <script type="text/javascript" src="assets/js/pages/components_notifications_pnotify.js"></script>
 <!-- /theme JS files -->
 
 <?php
@@ -88,72 +87,61 @@
 
 
 
-if(trim($error_msg)=="") {
+    if(trim($error_msg)=="") {
 
-    if ($AddEdit==0) {
-        $Procedure = "Call Save_Consignee('$CurrentDate', $session_userid, '$session_ip', $consignoraddressid, '$companyname', '$address', '$area', $pincode, '$city', '$telephone', '$email', '$url');";
-    }
-    else{
-        
-        $IDExist=Check_ConsigneeIDExist($con, $AddEdit);
-        $IDExist1=Check_ConsigneeAddressIDExist($con, $AddEdit, $AddEdit1);
-
-        $IDTableName="area_master";
-        $IDColumnName="amid";
-        $IDExist2=Check_IDExist($con, $IDTableName, $IDColumnName, $AddEdit4);
-
-        if($IDExist>0 and $IDExist1>0) {
-            $Procedure = "Call Update_Consignee($IDExist, $IDExist1, $IDExist2, '$CurrentDate', $session_userid, '$session_ip', $consignoraddressid, '$companyname', '$address', '$area', $pincode, '$city', '$telephone', '$email', '$url');";
+        if ($AddEdit==0) {
+            $Procedure = "Call Save_Consignee('$CurrentDate', $session_userid, '$session_ip', $consignoraddressid, '$companyname', '$address', '$area', $pincode, '$city', '$telephone', '$email', '$url');";
         }
         else{
-            echo("Consignee ID is not getting. Please contact system administrator....");
+
+            $IDExist=Check_ConsigneeIDExist($con, $AddEdit);
+            $IDExist1=Check_ConsigneeAddressIDExist($con, $AddEdit, $AddEdit1);
+
+            $IDTableName="area_master";
+            $IDColumnName="amid";
+            $IDExist2=Check_IDExist($con, $IDTableName, $IDColumnName, $AddEdit4);
+
+            if($IDExist>0 and $IDExist1>0) {
+                $Procedure = "Call Update_Consignee($IDExist, $IDExist1, $IDExist2, '$CurrentDate', $session_userid, '$session_ip', $consignoraddressid, '$companyname', '$address', '$area', $pincode, '$city', '$telephone', '$email', '$url');";
+            }
+            else{
+                echo("Consignee ID is not getting. Please contact system administrator....");
+            }
         }
-    }
-//    echo ("Procedure:- ".$Procedure."</br>");
-//    die();
-    unset($con);
-    include('assets/inc/db_connect.php');
-
-    $result = mysqli_query($con, $Procedure) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
-    if (mysqli_num_rows($result) != 0) {
-        $row = mysqli_fetch_array($result, MYSQLI_NUM);
-        $LastInsertedID = $row{0};
-    }
-    mysqli_free_result($result);
-//        echo("Saved Successfully & LastInsertedID :- $LastInsertedID </br>");
-
-
-
-    /* Log Ends*/
-        Log_End($con, $searchColumn_Value, $LogStart_Value);
+    //    echo ("Procedure:- ".$Procedure."</br>");
+    //    die();
         unset($con);
-    /* Log Ends*/
-
-    /* Log Ends*/
         include('assets/inc/db_connect.php');
-        Log_End($con, $searchColumn_Value1, $LogStart_Value1);
-        unset($con);
-    /* Log Ends*/
 
-}
-else{
-    echo($error_msg);
-}
-?>
+        $result = mysqli_query($con, $Procedure) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
+        if (mysqli_num_rows($result) != 0) {
+            $row = mysqli_fetch_array($result, MYSQLI_NUM);
+            $LastInsertedID = $row{0};
 
-<script language="javascript">
-//    $('#consignoraddressid option').slice(1,2,3,4,5,6,7).remove();
-    var removefirst_selectedoption=<?php echo  $AddEdit;?>;
-    if (removefirst_selectedoption!=0) {
-        $("#consignoraddressid option:selected").remove();
+            /* Log Ends*/
+                Log_End($con, $searchColumn_Value, $LogStart_Value);
+                unset($con);
+            /* Log Ends*/
+
+            /* Log Ends*/
+                include('assets/inc/db_connect.php');
+                Log_End($con, $searchColumn_Value1, $LogStart_Value1);
+                unset($con);
+            /* Log Ends*/
+
+            ?>
+                <script language="javascript">
+                    var removefirst_selectedoption=<?php echo  $AddEdit;?>;
+                        if (removefirst_selectedoption!=0) {
+                            $("#consignoraddressid option:selected").remove();
+                        }
+                    ClearAllControls(0);
+                </script>
+            <?php
+        }
+        mysqli_free_result($result);
     }
-    ClearAllControls(0);
-    show_newlyaddedlist('add_consignee_2.php', 'div_searchconsignee');
-    // Solid primary
-    new PNotify({
-        title: 'Success notice',
-        text: 'Check me out! I\'m a notice.',
-        icon: 'icon-checkmark3',
-        type: 'success'
-    });
-</script>
+    else{
+        echo($error_msg);
+    }
+?>

@@ -120,7 +120,8 @@
                                             <select name="designation" id="designation" class="select-search select2-hidden-accessible" aria-hidden="true">
                                                 <option value=""></option>-->
                                                     <?php
-                                                        Fill_Designation($con)
+                                                        $UserID=$_SESSION['user_id'];
+                                                        Fill_Designation($con, $UserID);
                                                     ?>
                                             </select>
 

@@ -2,8 +2,6 @@
 <?php
     include('assets/inc/db_connect.php');
     include('assets/inc/common-function.php');
-
-
     $CurrentDate = date('Y-m-d h:i:s');
 
     $designation=trim($_REQUEST["designation"]);
@@ -34,5 +32,3 @@
     }
     mysqli_free_result($result);
     echo("Saved Successfully & LastInsertedID :- $LastInsertedID </br>");
-
-

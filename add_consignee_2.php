@@ -53,7 +53,7 @@
             <th>Consignee Name</th>
             <th>Consignor Name</th>
             <th>Area</th>
-            
+
         </tr>
         </thead>
         <tbody>

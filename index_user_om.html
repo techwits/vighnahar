@@ -83,8 +83,7 @@
 <div class="page-header">
 	<div class="page-header-content">
 		<div class="page-title">
-			<h4><i class="icon-user position-left"></i> <span class="text-semibold">User Dashboard</span> </h4>
-			<small class="display-block">Last Login : 02 August 2016 : 08:56:00</small>
+			<h4><i class="icon-display4 position-left"></i> <span class="text-semibold"> Dashboard</span> </h4>
 		</div>
 	</div>
 </div>
@@ -131,14 +130,8 @@
 									</div>
 								</div>
 								<div class="panel-footer">
-									<div class="col-xs-4">
-										<i class="icon-googleplus5 text-size-base"></i> <a href="task_manager_detailed.html">New Entry</a>
-									</div>
-									<div class="col-xs-4">
-										<i class="icon-compose text-size-base"></i> <a href="task_manager_detailed.html">Update</a>
-									</div>
-									<div class="col-xs-4">
-										<i class="icon-file-plus text-size-base"></i> <a href="task_manager_detailed.html">Print</a>
+									<div class="col-xs-12 text-center">
+										<i class="icon-hammer-wrench text-size-base"></i> <a href="lrentry.php"> Mangage / Update / Print : LR</a>
 									</div>
 									<div class="clearfix"></div>
 								</div>
@@ -169,14 +162,8 @@
 									</div>
 								</div>
 								<div class="panel-footer">
-									<div class="col-xs-4">
-										<i class="icon-googleplus5 text-size-base"></i> <a href="task_manager_detailed.html">New Entry</a>
-									</div>
-									<div class="col-xs-4">
-										<i class="icon-compose text-size-base"></i> <a href="task_manager_detailed.html">Update</a>
-									</div>
-									<div class="col-xs-4">
-										<i class="icon-file-plus text-size-base"></i> <a href="task_manager_detailed.html">Print</a>
+									<div class="col-xs-12 text-center">
+										<i class="icon-cogs text-size-base"></i> <a href="rmentry.php"> Mangage / Update / Print : RM</a>
 									</div>
 									<div class="clearfix"></div>
 								</div>
@@ -201,21 +188,15 @@
 												<div>last Bill Count </div>
 											</div>
 											<div class="col-xs-6 text-center">
-												<div class="huge1">01/09/2016</div>
-												<div>Forthcoming Bill Date </div>
+												<div class="huge1">250</div>
+												<div> Bills to be Generated </div>
 											</div>
 										</div>
 									</div>
 								</div>
 								<div class="panel-footer">
-									<div class="col-xs-4">
-										<i class="icon-googleplus5 text-size-base"></i> <a href="task_manager_detailed.html">Create</a>
-									</div>
-									<div class="col-xs-4">
-										<i class="icon-compose text-size-base"></i> <a href="task_manager_detailed.html">Update</a>
-									</div>
-									<div class="col-xs-4">
-										<i class="icon-file-plus text-size-base"></i> <a href="task_manager_detailed.html">Print</a>
+									<div class="col-xs-12 text-center">
+										<i class="icon-compose text-size-base"></i> <a href="rmentry.php"> Generate / Update / Print : Bills</a>
 									</div>
 									<div class="clearfix"></div>
 								</div>
@@ -229,11 +210,12 @@
                     <!-- Header and footer fixed -->
                     <div class="col-lg-12">
                       <div class="row">
-                        <div class="panel panel-flat">
-                            <div class="panel-heading">
-                                <h6 class="panel-title" style="text-align: center ">Update Delivery Status</h6>
+                        <div class="panel panel-flat" style="border-color: #F44336; border-top-width: 4px;">
+                            <div class="panel-heading" style="background-color:<?php echo $SearchHeadingColor; ?>;">
+                                <h6 class="panel-title" style="text-align: center;"> <span class="label label-danger" style="font-size:14px;" >Update Delivery Status</span></h6>
                                 <div class="heading-elements">
                                     <ul class="icons-list">
+                                        <li><i class="icon-spinner4 spinner no-edge-top"></i></li>
                                         <li><a data-action="collapse"></a></li>
                                     </ul>
                                 </div>
@@ -660,11 +642,12 @@
                         <div class="category-content">
 							<div class="row row-condensed">
 								<div class="col-xs-6">
-									<button type="button" class="btn bg-teal-400 btn-block btn-float btn-float-sm ">
-                                    <i class="icon-file-plus"></i> <span>Invoice</span></button>
+                                
+                                	<button href="add_vehicel.php" type="button" class="btn bg-teal-400 btn-block btn-float btn-float-sm">
+                                    <a href="index.html"><i class="icon-bus"></i> Archive</a></button>
 									<button type="button" class="btn bg-purple-300 btn-block btn-float btn-float-sm">
-                                    <i class="icon-archive"></i> <span>Archive</span></button>
-                                </div>
+                                     <i class="icon-archive"></i> <span>Archive</span></button>
+                                 </div>
                                 <div class="col-xs-6">
 									<button type="button" class="btn bg-warning-400 btn-block btn-float btn-float-sm ">
                                     <i class="icon-stats-bars"></i> <span>Statistics</span></button>

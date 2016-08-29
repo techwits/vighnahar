@@ -218,6 +218,32 @@
 		return $Getting_TableListID;
 	}
 
+	function Get_MinimumRate($con, $consignorid, $consigneeid, $productid)
+	{
+		$Getting_MinimumRate=0;
+		$sqlQry= "";
+		$sqlQry= "select MinimumRate from rate_master";
+		$sqlQry.= " where caid=$consignorid";
+		$sqlQry.= " and cnid=$consigneeid";
+		$sqlQry.= " and pmid=$productid";
+		$sqlQry.= " and Active=1";
+//		echo ("$sqlQry");
+//		die();
+		//		mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0)
+		{
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$Getting_MinimumRate=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_MinimumRate;
+	}
+
 
 	function Get_RoadMemoLR($con, $RMID)
 	{
@@ -376,6 +402,54 @@
 		}
 		mysqli_free_result($result);
 		return $Getting_ConsignorProduct;
+	}
+
+	function Get_ConsigneeName($con, $ConsigneeID)
+	{
+		$Getting_ConsigneeName="";
+		$sqlQry= "";
+		$sqlQry= "select ConsigneeName from  consignee_master ";
+		$sqlQry.= " where consignee_master.cnid=$ConsigneeID";
+		//		echo ("$sqlQry");
+		//		die();
+		mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0)
+		{
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$Getting_ConsigneeName=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_ConsigneeName;
+	}
+
+	function Get_ConsignorName($con, $ConsignorAddressID)
+	{
+		$Getting_ConsignorName="";
+		$sqlQry= "";
+		$sqlQry= "select ConsignorName from consignor_master ";
+		$sqlQry.= " inner join consignoraddress_master";
+		$sqlQry.= " on consignor_master.cid=consignoraddress_master.cid";
+		$sqlQry.= " where consignoraddress_master.caid=$ConsignorAddressID";
+	//		echo ("$sqlQry");
+	//		die();
+		mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0)
+		{
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$Getting_ConsignorName=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_ConsignorName;
 	}
 
 
@@ -544,11 +618,21 @@
 		mysqli_free_result($result);
 	}
 
-	function Fill_Designation($con)
+	function Fill_Designation($con, $UserID)
 		{
 			$sqlQry= "";
 			$sqlQry= "select designationid, Designation from designation_master ";
-			$sqlQry.= " where Active=1";
+			$sqlQry.= " where 1=1";
+			if($UserID==1) {
+				$sqlQry .= " and designationid>=1";
+			}
+			elseif($UserID==2) {
+				$sqlQry .= " and designationid>=2";
+			}
+			elseif($UserID==3) {
+				$sqlQry .= " and designationid>=3";
+			}
+			$sqlQry.= " and Active=1";
 			$sqlQry.= " order by designationid";
 			//echo ("$sqlQry");
 			mysqli_close($con);
@@ -838,6 +922,53 @@
 		return $Getting_BiltyCharge;
 	}
 
+
+	function Get_Count($con, $TableName, $ColumnName, $StartDate, $EndDate)
+	{
+		$Getting_TodaysLR=0;
+		$sqlQry= "";
+		$sqlQry= "select count(*) from `$TableName`";
+		$sqlQry.= " where 1=1";
+		$sqlQry.= " and ($ColumnName  BETWEEN  '$StartDate' AND '$EndDate')";
+//		echo ("Check sqlQry :- $sqlQry </br>");
+//		die();
+		unset($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		if (mysqli_num_rows($result)!=0)
+		{
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$Getting_TodaysLR = $row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_TodaysLR;
+	}
+
+
+	function Get_ProductName($con, $ProductID)
+	{
+		$Getting_ProductName="";
+		$sqlQry= "";
+		$sqlQry= "select ProductName from `product_master`";
+		$sqlQry= $sqlQry." where pmid=$ProductID";
+//		echo ("Check sqlQry :- $sqlQry </br>");
+//		die();
+		unset($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		if (mysqli_num_rows($result)!=0)
+		{
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$Getting_ProductName = $row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_ProductName;
+	}
+
 	function Get_ProductRate($con, $consignorid, $consigneeid, $productid, $packageType)
 	{
 		$Getting_ProductRate=0;
@@ -963,6 +1094,31 @@
 		return $Getting_AreaID;
 	}
 
+
+	function Check_PageAccess($con, $pagename, $username)
+	{
+		$Getting_PageAccess=0;
+		$sqlQry= "";
+		$sqlQry= "select id from pageaccess_member";
+		$sqlQry= $sqlQry." where menusub_id=$pagename";
+		$sqlQry= $sqlQry." and designation_id=$username";
+//		$sqlQry= $sqlQry." and Active=1";
+//		echo ("Check sqlQry :- $sqlQry </br>");
+//		die();
+		unset($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		if (mysqli_num_rows($result)!=0)
+		{
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$Getting_PageAccess=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_PageAccess;
+	}
+
 	function Check_IDExist($con, $IDTableName, $IDColumnName, $ID)
 	{
 		$Getting_IDExist=0;
@@ -970,8 +1126,8 @@
 		$sqlQry= "select $IDColumnName from $IDTableName";
 		$sqlQry= $sqlQry." where $IDColumnName=$ID";
 		$sqlQry= $sqlQry." and Active=1";
-		echo ("Check sqlQry :- $sqlQry </br>");
-		die();
+//		echo ("Check sqlQry :- $sqlQry </br>");
+//		die();
 		unset($con);
 		include('db_connect.php');
 		$result = mysqli_query($con, $sqlQry);
@@ -1160,6 +1316,109 @@
 		return $Getting_rmid;
 	}
 
+	function Set_OutwardDeactive($con, $CurrentDate, $session_userid, $session_ip, $OutwardID)
+		{
+			$sqlQry= "select olrid from `outwardlr`";
+			$sqlQry.= " where oid=$OutwardID ";
+			$sqlQry.= " and Active=1";
+//			echo ("Check sqlQry :- $sqlQry </br>");
+//			die();
+			mysqli_close($con);
+			include('db_connect.php');
+			$result = mysqli_query($con, $sqlQry);
+			if (mysqli_num_rows($result)!=0)
+			{
+				$OutwardlrID=0;
+				while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+				{
+					$OutwardlrID=$row{0};
+						$sqlQry1= "";
+						$sqlQry1= "update `outwardlr`";
+						$sqlQry1.=" set ModificationDate='$CurrentDate',";
+						$sqlQry1.=" Creator=$session_userid, ";
+						$sqlQry1.=" ip='$session_ip', ";
+						$sqlQry1.=" Active=0 ";
+						$sqlQry1.=" where olrid=$OutwardlrID ";
+//						echo ("Check sqlQry :- $sqlQry1 </br>");
+//						die();
+						mysqli_close($con);
+						include('db_connect.php');
+						$Updateresult = mysqli_query($con, $sqlQry1);
+
+				}
+			}
+			mysqli_free_result($result);
+		}
+
+	function Set_PageAccessActive($con, $CurrentDate, $session_userid, $session_ip, $UserID, $PageID)
+	{
+		$sqlQry= "select id from `pageaccess_member`";
+		$sqlQry= $sqlQry." where designation_id=$UserID ";
+		$sqlQry= $sqlQry." and menusub_id=$PageID ";
+		$sqlQry= $sqlQry." and Active=0";
+	//		echo ("Check sqlQry :- $sqlQry </br>");
+	//		die();
+//		mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		if (mysqli_num_rows($result)!=0)
+		{
+			$ConsignorProductID=0;
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$PageAccessID=$row{0};
+
+				$sqlQry1= "";
+				$sqlQry1= "update `pageaccess_member`";
+				$sqlQry1.=" set ModificationDate='$CurrentDate',";
+				$sqlQry1.=" Creator=$session_userid, ";
+				$sqlQry1.=" ip='$session_ip', ";
+				$sqlQry1.=" Active=1 ";
+				$sqlQry1.=" where id=$PageAccessID ";
+//				echo ("Check sqlQry :- $sqlQry1 </br>");
+//				die();
+//				mysqli_close($con);
+				include('db_connect.php');
+				$Updateresult = mysqli_query($con, $sqlQry1);
+			}
+		}
+		mysqli_free_result($result);
+	}
+
+	function Set_PageAccessDeactive($con, $CurrentDate, $session_userid, $session_ip, $UserID)
+	{
+		$sqlQry= "select id from `pageaccess_member`";
+		$sqlQry= $sqlQry." where designation_id=$UserID ";
+		$sqlQry= $sqlQry." and Active=1";
+//		echo ("Check sqlQry :- $sqlQry </br>");
+//		die();
+		mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		if (mysqli_num_rows($result)!=0)
+		{
+			$ConsignorProductID=0;
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$PageAccessID=$row{0};
+
+				$sqlQry1= "";
+				$sqlQry1= "update `pageaccess_member`";
+				$sqlQry1.=" set ModificationDate='$CurrentDate',";
+				$sqlQry1.=" Creator=$session_userid, ";
+				$sqlQry1.=" ip='$session_ip', ";
+				$sqlQry1.=" Active=0 ";
+				$sqlQry1.=" where id=$PageAccessID ";
+//				echo ("Check sqlQry :- $sqlQry1 </br>");
+//				die();
+				mysqli_close($con);
+				include('db_connect.php');
+				$Updateresult = mysqli_query($con, $sqlQry1);
+			}
+		}
+		mysqli_free_result($result);
+	}
+
 	function Set_ConsignorProductDeactive($con, $CurrentDate, $session_userid, $session_ip, $Consignorid)
 		{
 			$sqlQry= "select cpid from `consignorproduct_master`";
@@ -1193,8 +1452,8 @@
 
 				}
 			}
-			mysqli_free_result($result);
-		}
+		mysqli_free_result($result);
+	}
 
 	function Set_ConsignorProductActive($con, $CurrentDate, $session_userid, $session_ip, $Consignorid, $ProductID)
 	{
@@ -1231,6 +1490,28 @@
 		}
 		mysqli_free_result($result);
 	}
+
+	function Check_OutwardlrExist($con, $Outwardlr)
+		{
+			$Getting_olrid=0;
+			$sqlQry= "select olrid from `outwardlr`";
+			$sqlQry= $sqlQry." where olrid=$Outwardlr ";
+			$sqlQry= $sqlQry." and Active=1";
+//			echo ("Check sqlQry :- $sqlQry </br>");
+//			die();
+			mysqli_close($con);
+			include('db_connect.php');
+			$result = mysqli_query($con, $sqlQry);
+			if (mysqli_num_rows($result)!=0)
+			{
+				while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+				{
+					$Getting_olrid=$row{0};
+				}
+			}
+			mysqli_free_result($result);
+			return $Getting_olrid;
+		}
 
 	function Check_ConsignorProductExist($Consignorid, $SingleProduct)
 	{

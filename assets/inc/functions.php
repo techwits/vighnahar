@@ -261,6 +261,8 @@ function login($email, $password, $autologin, $con) {
                                         $_SESSION["pageid"] = $db_LoginID . date("YmdHis");
                                         $_SESSION["timestamp"] = time();
                                         $lock_cookietime = (3600 * 24 * 1); // 30 days
+
+                                        Update_LastLogin($con, $db_LoginID);
                                         if (!isset($_COOKIE[LOCKCOOKIE])) {
                                             setcookie(LOCKCOOKIE, 'lock=' . $email, time() + $lock_cookietime, "/");
                                         }
@@ -344,6 +346,20 @@ function login($email, $password, $autologin, $con) {
 //    }
 }
 
+
+
+    function Update_LastLogin($con, $LoginID)
+    {
+        $CurrentDate=date("Y/m/d h:i:s");
+        $sqlQrys= "";
+        $sqlQrys.= "update login_master";
+        $sqlQrys.= " set last_login='$CurrentDate'";
+        $sqlQrys.= " where loginid=$LoginID";
+//    	echo (" </br> $sqlQrys  </br>");
+//        die();
+        $results = mysqli_query($con, $sqlQrys);
+    }
+
 function Get_PrivilageID($con, $user_id)
 {
 	$Getting_PrivilageID=0;
@@ -368,6 +384,7 @@ function Get_PrivilageID($con, $user_id)
 	mysqli_free_result($result);
 	return $Getting_PrivilageID;	
 }
+
 function checkbrute($user_id, $con) {
     // Get timestamp of current time 
     $now = time();
@@ -471,81 +488,81 @@ function Get_SessionTimeout()
     }
 }
 
-function login_check_old($con, $php_page) {
-    // Check if all session variables are set
-    //echo("0 comes in ...");
-    //echo("user_id :- ".$_SESSION['user_id'] );
-    //die();
-    if (isset($_SESSION['user_id'], 
-                        $_SESSION['username'], 
-                        $_SESSION['login_string'])) {
- 
-        $user_id = $_SESSION['user_id'];
-        $login_string = $_SESSION['login_string'];
-        //$user = $_SESSION['username'];
-
-        // Get the user-agent string of the user.
-        $user_browser = $_SERVER['HTTP_USER_AGENT'];
- 
-        if ($stmt = $con->prepare("SELECT pwd
-                                      FROM users 
-                                      WHERE userid = ? LIMIT 1")) {
-            // Bind "$user_id" to parameter. 
-            $stmt->bind_param('i', $user_id);
-            $stmt->execute();   // Execute the prepared query.
-            $stmt->store_result();
- 
-            if ($stmt->num_rows == 1) {
-                // If the user exists get variables from result.
-                $stmt->bind_result($password);
-                $stmt->fetch();
-                $login_check = hash('sha512', $password . $user_browser);
-
-                if (hash_equals($login_check, $login_string) ){
-                    // Logged In!!!!
-                    echo("1 comes in ...</br>");
-                    //die();
-
-                    if (Get_PageAccess($con, $user_id, $php_page) != true) {
-                        echo("you don't have page access.....");
-                        die();
-                    }
-                    echo("2 comes in ...</br>");
-                    //die();
-
-                    if (Get_SessionTimeout() != true) {
-                        //echo("False comes");
-                        //die();
-                        return false;
-                    }
-                    else
-                    {
-                        //echo("True comes");
-                        //die();
-                        return true;
-                    }
-
-                    echo("3 comes in ...");
-                    //die();
-
-
-                } else {
-                    // Not logged in
-                    return false;
-                }
-            } else {
-                // Not logged in 
-                return false;
-            }
-        } else {
-            // Not logged in 
-            return false;
-        }
-    } else {
-        // Not logged in 
-        return false;
-    }
-}
+//function login_check_old($con, $php_page) {
+//    // Check if all session variables are set
+//    //echo("0 comes in ...");
+//    //echo("user_id :- ".$_SESSION['user_id'] );
+//    //die();
+//    if (isset($_SESSION['user_id'],
+//                        $_SESSION['username'],
+//                        $_SESSION['login_string'])) {
+//
+//        $user_id = $_SESSION['user_id'];
+//        $login_string = $_SESSION['login_string'];
+//        //$user = $_SESSION['username'];
+//
+//        // Get the user-agent string of the user.
+//        $user_browser = $_SERVER['HTTP_USER_AGENT'];
+//
+//        if ($stmt = $con->prepare("SELECT pwd
+//                                      FROM users
+//                                      WHERE userid = ? LIMIT 1")) {
+//            // Bind "$user_id" to parameter.
+//            $stmt->bind_param('i', $user_id);
+//            $stmt->execute();   // Execute the prepared query.
+//            $stmt->store_result();
+//
+//            if ($stmt->num_rows == 1) {
+//                // If the user exists get variables from result.
+//                $stmt->bind_result($password);
+//                $stmt->fetch();
+//                $login_check = hash('sha512', $password . $user_browser);
+//
+//                if (hash_equals($login_check, $login_string) ){
+//                    // Logged In!!!!
+//                    echo("1 comes in ...</br>");
+//                    //die();
+//
+//                    if (Get_PageAccess($con, $user_id, $php_page) != true) {
+//                        echo("you don't have page access.....");
+//                        die();
+//                    }
+//                    echo("2 comes in ...</br>");
+//                    //die();
+//
+//                    if (Get_SessionTimeout() != true) {
+//                        //echo("False comes");
+//                        //die();
+//                        return false;
+//                    }
+//                    else
+//                    {
+//                        //echo("True comes");
+//                        //die();
+//                        return true;
+//                    }
+//
+//                    echo("3 comes in ...");
+//                    //die();
+//
+//
+//                } else {
+//                    // Not logged in
+//                    return false;
+//                }
+//            } else {
+//                // Not logged in
+//                return false;
+//            }
+//        } else {
+//            // Not logged in
+//            return false;
+//        }
+//    } else {
+//        // Not logged in
+//        return false;
+//    }
+//}
 
 
 function Get_EmptyTimeOut_ID($con, $page_id)

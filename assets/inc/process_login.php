@@ -13,7 +13,7 @@ $autologin=$_POST['autologin'];
 //die();
 
     if (isset($_POST["userid"])) {
-            echo("Userid success.....");
+//            echo("Userid success.....");
 //            die();
             if (isset($_POST['userid'], $_POST['pwd'], $_POST['autologin'])) {
                 $userid = $_POST['userid'];
@@ -21,7 +21,7 @@ $autologin=$_POST['autologin'];
                 $autologin = $_POST['autologin']; // The hashed password.
                 $Login_ReturnValue=0;
                 $Login_ReturnValue=login($userid, $password, $autologin, $con);
-                echo " Login_ReturnValue :- $Login_ReturnValue ";
+//                echo " Login_ReturnValue :- $Login_ReturnValue ";
 //                die();
 
                 if ($Login_ReturnValue == 0) {

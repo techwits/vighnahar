@@ -26,7 +26,7 @@
     $session_userid=$_REQUEST["session_userid"];
     $session_ip=$_REQUEST["session_ip"];
 
-    $pagename=sanitize($con, $_REQUEST["pagename"]);
+    $pagename=sanitize($con, $_REQUEST["selectedvalue"]);
     $username=sanitize($con, $_REQUEST["username"]);
 
 //    echo ("AddEdit:- ".$AddEdit."</br>");
@@ -58,48 +58,87 @@
     if(trim($error_msg)=="") {
 
         if ($AddEdit==0) {
-            $Procedure = "Call Save_PageAccess('$CurrentDate', $session_userid, '$session_ip', $pagename, $username);";
+            Set_PageAccessDeactive($con, $CurrentDate, $session_userid, $session_ip, $username);
+//            echo("Deactivated.....");
+//            die();
+            $Split_PageName = explode(",", $pagename);
+            foreach ($Split_PageName as $SinglePage){
+                $PageAccess=0;
+                $PageAccess=Check_PageAccess($con, $SinglePage, $username);
+//                echo("PageAccess :- $PageAccess </br>");
+//                die();
+                if($PageAccess==0) {
+                    $Procedure = "Call Save_PageAccess('$CurrentDate', $session_userid, '$session_ip', $SinglePage, $username);";
+//                    echo ("Procedure:- ".$Procedure."</br>");
+//                    die();
+                    unset($con);
+                    include('assets/inc/db_connect.php');
+
+                    $result = mysqli_query($con, $Procedure) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
+                    if (mysqli_num_rows($result) != 0) {
+                        $row = mysqli_fetch_array($result, MYSQLI_NUM);
+                        $LastInsertedID = $row{0};
+                    }
+                    mysqli_free_result($result);
+//                  echo("Saved Successfully & LastInsertedID :- $LastInsertedID </br>");
+
+                }
+                else{
+                    Set_PageAccessActive($con, $CurrentDate, $session_userid, $session_ip, $username, $SinglePage);
+                }
+
+                /* Log Ends*/
+                    Log_End($con, $searchColumn_Value, $LogStart_Value);
+                    unset($con);
+//                        mysqli_close($con);
+                /* Log Ends*/
+
+                ?>
+                <script language="javascript">
+                    ClearAllControls(0);
+                </script>
+                <?php
+            }
         }
         else{
             $IDExist=Check_PageAccessIDExist($con, $AddEdit);
             if($IDExist>0) {
                 $Procedure = "Call Update_PageAccess($IDExist, '$CurrentDate', $session_userid, '$session_ip', $pagename, $username);";
+
+//                echo ("Procedure:- ".$Procedure."</br>");
+//                die();
+                unset($con);
+                include('assets/inc/db_connect.php');
+
+                $result = mysqli_query($con, $Procedure) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
+                if (mysqli_num_rows($result) != 0) {
+                    $row = mysqli_fetch_array($result, MYSQLI_NUM);
+                    $LastInsertedID = $row{0};
+                }
+                mysqli_free_result($result);
+//              echo("Saved Successfully & LastInsertedID :- $LastInsertedID </br>");
+
+
+                /* Log Ends*/
+                    Log_End($con, $searchColumn_Value, $LogStart_Value);
+                    unset($con);
+//                    mysqli_close($con);
+                /* Log Ends*/
+                ?>
+                    <script language="javascript">
+                        ClearAllControls(0);
+                    </script>
+                <?php
+
             }
             else{
                 echo("Page Access ID is not getting. Please contact system administrator....");
             }
         }
-//        echo ("Procedure:- ".$Procedure."</br>");
-//        die();
-        unset($con);
-        include('assets/inc/db_connect.php');
-
-        $result = mysqli_query($con, $Procedure) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
-        if (mysqli_num_rows($result) != 0) {
-            $row = mysqli_fetch_array($result, MYSQLI_NUM);
-            $LastInsertedID = $row{0};
-        }
-        mysqli_free_result($result);
-//        echo("Saved Successfully & LastInsertedID :- $LastInsertedID </br>");
-
-
-
-        /* Log Ends*/
-            Log_End($con, $searchColumn_Value, $LogStart_Value);
-            unset($con);
-//            mysqli_close($con);
-        /* Log Ends*/
-
     }
     else{
         echo($error_msg);
     }
-
 ?>
-
-<script language="javascript">
-    ClearAllControls(0);
-    show_newlyaddedlist('add_pageaccess_2.php', 'div_pageaccess2');
-</script>
 
 

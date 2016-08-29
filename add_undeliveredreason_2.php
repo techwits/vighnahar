@@ -29,7 +29,7 @@
     $pre_wildcharacter="";
     $post_wildcharacter="";
     if ($searchin==1){
-        $columnname="AreaName like";
+        $columnname="UndeliveredReason like";
         $pre_wildcharacter="";
         $post_wildcharacter="%";
     }
@@ -60,8 +60,8 @@
 
 
         <?php
-        $cols="amid, CreationDate, ModificationDate, Creator, ip, AreaName, Active ";
-        $sqlQry= "select $cols from `area_master`";
+        $cols="urid, CreationDate, ModificationDate, Creator, ip, UndeliveredReason, Active ";
+        $sqlQry= "select $cols from `undeliveredreason_master`";
         $sqlQry.= " where $columnname '$pre_wildcharacter$searchvalue$post_wildcharacter'";
         $sqlQry.= " and Active=1";
 //        echo ("Check sqlQry :- $sqlQry </br>");
@@ -73,18 +73,18 @@
         {
             while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
             {
-                    $amid=$row[0];
+                    $urid=$row[0];
                     $CreationDate=$row[1];
                     $CreationDate=substr($CreationDate,0,strpos($CreationDate," "));
                     $ModificationDate=$row[2];
                     $Creator=$row[3];
                     $ip=$row[4];
-                    $AreaName=$row[5];
+                    $UndeliveredReason=$row[5];
                     $Active=$row[6];
                
                 ?>
                 <tr>
-                    <td><a href="#" onclick="return editarea(<?php echo $amid; ?>, '<?php echo $CreationDate; ?>', '<?php echo $ModificationDate; ?>', '<?php echo $Creator; ?>', '<?php echo $ip; ?>', '<?php echo $AreaName; ?>', '<?php echo $Active; ?>');"><?php echo $AreaName; ?></a> </td>
+                    <td><a href="#" onclick="return editundeliveredreason(<?php echo $urid; ?>, '<?php echo $CreationDate; ?>', '<?php echo $ModificationDate; ?>', '<?php echo $Creator; ?>', '<?php echo $ip; ?>', '<?php echo $UndeliveredReason; ?>', '<?php echo $Active; ?>');"><?php echo $UndeliveredReason; ?></a> </td>
                     <td><?php echo $CreationDate; ?></td>
                 </tr>
                 <?php

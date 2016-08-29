@@ -5,7 +5,7 @@
     </ul>
     <div class="navbar-collapse collapse" id="navbar-second">
         <div class="navbar-text">
-            <a href="#"></a> &copy; 2016 Shree Vignhar Logistics. All right reserved. 
+            <a href="#"></a> &copy; 2016 Shree Vignhar Logistics. All right reserved.
         </div>
 
         <div class="navbar-right">

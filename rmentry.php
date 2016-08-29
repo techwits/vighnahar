@@ -191,7 +191,7 @@ include('page_header.php');
                                         <div class="form-group form-group-material">
                                             <label>Select Vehicle Number <span class="text-danger">*</span></label>
                                             <div class="input-group">
-                                                <select name="vehicleid" id="vehicleid" class="form-control" onblur="return lrentry_disabled(this.value, 'vehicleid');">
+                                                <select name="vehicleid" id="vehicleid" class="form-control">
                                                     <option></option>
                                                     <?php
                                                         $TableName="vehicle_master";
@@ -293,7 +293,7 @@ include('page_header.php');
 
                                     <!-- Search field -->
 
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-6">
                                         <div class="panel panel-flat" style="border-color:<?php echo $Search_BorderColor; ?>; border-top-width:<?php echo $Search_BorderTopWidth; ?>;">
                                             <div class="panel-heading" style="background-color:<?php echo $SearchHeadingColor; ?>;">
                                                 <h5 class="panel-title"><i class="icon-search4 text-size-base"></i> <span class="text-semibold"><?php echo $SearchPageHeading; ?></h5>

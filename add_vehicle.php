@@ -236,24 +236,24 @@
                     <div class="col-lg-4">
 						<!-- Search field -->
 						<div class="panel panel-flat" style="border-color:<?php echo $Search_BorderColor; ?>; border-top-width:<?php echo $Search_BorderTopWidth; ?>;">
-							<div class="panel-heading" style="background-color:<?php echo $SearchHeadingColor; ?>;">
-								<h5 class="panel-title"><i class="icon-search4 text-size-base"></i> <span class="text-semibold"><?php echo $SearchPageHeading; ?></h5>
-								<div class="heading-elements">
-									<ul class="icons-list">
-										<li><a data-action="collapse"></a></li>
-										<li><a data-action="reload" onclick="return ClearAllControls(0);"></a></li>
-									</ul>
+								<div class="panel-heading" style="background-color:<?php echo $SearchHeadingColor; ?>;">
+									<h5 class="panel-title"><i class="icon-search4 text-size-base"></i> <span class="text-semibold"><?php echo $SearchPageHeading; ?></h5>
+									<div class="heading-elements">
+										<ul class="icons-list">
+											<li><a data-action="collapse"></a></li>
+											<li><a data-action="reload" onclick="return ClearAllControls(0);"></a></li>
+										</ul>
+									</div>
 								</div>
-							</div>
 								<?php include('add_vehicle_1.php'); ?>
-							<!-- Basic datatable -->
-							<div class="panel-heading" id="div_searchvehicle">
-								<?php include('add_vehicle_2.php'); ?>
-							<div/>
-							<!-- /basic datatable -->
+								<!-- Basic datatable -->
+								<div class="panel-heading" id="div_searchvehicle">
+									<?php include('add_vehicle_2.php'); ?>
+								<div/>
+								<!-- /basic datatable -->
 						</div>
 						<!-- /search field -->
-                </div>
+                	</div>
              </div>
              </div>
 				<!-- /form actions -->

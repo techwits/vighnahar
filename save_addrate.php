@@ -48,7 +48,6 @@
     if(trim($error_msg)=="") {
 
 
-
                 if ($AddEdit==0) {
 
                     $sqlQry= "";
@@ -85,17 +84,17 @@
                                     $ip = $session_ip;
 
                                     /* Log Start*/
-                                    $LogStart_Value = Log_Start($con, $CurrentDate, $Creator, $ip, $PageName, $inTime, $tablename, $searchColumn, $searchColumn_Value);
-                                    //        echo("LogStart_Value :- $LogStart_Value </br>");
-                                    //        die();
-                                    mysqli_close($con);
-                                    include('assets/inc/db_connect.php');
+                                        $LogStart_Value = Log_Start($con, $CurrentDate, $Creator, $ip, $PageName, $inTime, $tablename, $searchColumn, $searchColumn_Value);
+    //                                    echo("LogStart_Value :- $LogStart_Value </br>");
+    //                                    die();
+                                        mysqli_close($con);
+                                        include('assets/inc/db_connect.php');
                                     /* Log Start*/
 
 
                                     $Procedure = "Call Save_Rate('$CurrentDate', $session_userid, '$session_ip', $consignorid, $db_consigneeID, $productid, $minimumrate, $cartoonrate, $itemrate);";
-                                    //                                echo ("Procedure:- ".$Procedure."</br>");
-                                    //                                die();
+//                                  echo ("Procedure:- ".$Procedure."</br>");
+//                                  die();
                                     mysqli_close($con);
                                     include('assets/inc/db_connect.php');
 
@@ -143,12 +142,12 @@
                         $ip=$session_ip;
 
                         /* Log Start*/
-                        $LogStart_Value=Log_Start($con, $CurrentDate, $Creator, $ip, $PageName, $inTime, $tablename, $searchColumn, $searchColumn_Value);
-                        //        echo("LogStart_Value :- $LogStart_Value </br>");
-                        //        die();
-                        unset($con);
-                        //        mysqli_close($con);
-                        include('assets/inc/db_connect.php');
+                            $LogStart_Value=Log_Start($con, $CurrentDate, $Creator, $ip, $PageName, $inTime, $tablename, $searchColumn, $searchColumn_Value);
+//                            echo("LogStart_Value :- $LogStart_Value </br>");
+//                            die();
+//                            unset($con);
+                            mysqli_close($con);
+                            include('assets/inc/db_connect.php');
                         /* Log Start*/
 
                         $IDTableName="rate_master";
@@ -158,7 +157,7 @@
                             $Procedure = "Call Update_Rate($AddEdit, '$CurrentDate', $session_userid, '$session_ip', $consignorid, $consigneeid, $productid, $minimumrate, $cartoonrate, $itemrate);";
 
     //                      echo ("Procedure:- ".$Procedure."</br>");
-    //                        die();
+    //                      die();
                             unset($con);
                             include('assets/inc/db_connect.php');
 
@@ -185,13 +184,10 @@
                         echo("Rate ID is not getting. Please contact system administrator....");
                     }
                 }
-
-
     }
     else{
         echo($error_msg);
     }
-
 
 ?>
 

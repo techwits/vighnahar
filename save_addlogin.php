@@ -69,13 +69,7 @@
     include('assets/inc/db_connect.php');
     /* Log Start*/
 
-
-
-
-
     if(trim($error_msg)=="") {
-
-
         if ($AddEdit==0) {
             $Procedure = "Call Save_Login('$CurrentDate', '$username', '$userid', '$pwd', '$DesignationPrivilage');";
         }
@@ -96,24 +90,22 @@
         if (mysqli_num_rows($result) != 0) {
             $row = mysqli_fetch_array($result, MYSQLI_NUM);
             $LastInsertedID = $row{0};
+//          echo("Saved Successfully & LastInsertedID :- $LastInsertedID </br>");
+
+            /* Log Ends*/
+                Log_End($con, $searchColumn_Value, $LogStart_Value);
+                unset($con);
+//            mysqli_close($con);
+            /* Log Ends*/
+            ?>
+                <script language="javascript">
+                    ClearAllControls(0);
+                </script>
+            <?php
         }
         mysqli_free_result($result);
-
-        /* Log Ends*/
-            Log_End($con, $searchColumn_Value, $LogStart_Value);
-            unset($con);
-//            mysqli_close($con);
-        /* Log Ends*/
-
     }
     else{
         echo($error_msg);
     }
 ?>
-
-<script language="javascript">
-    ClearAllControls(0);
-    show_newlyaddedlist('add_login_2.php', 'div_searchlogin');
-</script>
-
-

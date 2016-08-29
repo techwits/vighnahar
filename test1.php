@@ -1,3 +1,7 @@
+
+
+
+
 <div class="col-sm-10 col-md-10 col-lg-10 col-lg-10 col-lg-offset-1">
     <!-- Scrollable datatable -->
     <div class="panel panel-flat">

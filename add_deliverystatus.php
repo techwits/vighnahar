@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
 	<?php
-		include_once('assets/inc/db_connect.php');
-		include_once('assets/inc/common-function.php');
-		include_once('assets/inc/functions.php');
+		include('assets/inc/db_connect.php');
+		include('assets/inc/common-function.php');
+		include('assets/inc/functions.php');
 		sec_session_start();
 	?>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Page Access Entry</title>
+	<title>Delivery Status Entry</title>
 
 	<!-- Global stylesheets -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
@@ -49,13 +49,14 @@
 	<script type="text/JavaScript" src="assets/js/search/search.js"></script>
 	<script type="text/JavaScript" src="assets/js/sha512.js"></script>
 
+
 </head>
 
 <body class="navbar-top">
 
 	<!-- Main navbar -->
 	<?php
-		$PageHeaderName="Add Page Access";
+		$PageHeaderName="Add Delivery Status";
 		$icon="icon-address-book";
 
 		include('page_header.php');
@@ -64,11 +65,10 @@
 		$get_return_value=login_check($con, $php_page);
 		include_once("assets/inc/handle_error.php");
 
-//		mysqli_close($con);
+		//		mysqli_close($con);
 		log_pageaccess($con, $_SESSION["pageid"], basename(__FILE__));
-//		mysqli_close($con);
+		//		mysqli_close($con);
 		include_once('assets/inc/db_connect.php');
-
 	?>
 	<!-- /main navbar -->
 
@@ -81,14 +81,14 @@
 				<!-- Form actions -->
 				<div class="row">
 					<div class="col-sm-8 col-md-8 col-lg-8">
-						<form name="pageaccess_form" id="pageaccess_form" action="#">
+						<form name="menu_form" id="menu_form" action="#">
 							<input type="hidden" name="session_userid" id="session_userid" value="<?php echo $_SESSION['user_id']; ?>">
 							<input type="hidden" name="session_ip" id="session_ip" value="<?php echo $_SESSION['ip']; ?>">
 							<input type="hidden" name="AddEdit" id="AddEdit" value="0">
 							<div id="<?php echo $div_merchantcontrols; ?>" class="panel panel-flat" style="border-color:<?php echo $Form_BorderColor; ?>; border-top-width:<?php echo $Form_BorderTopWidth; ?>;">
 
 								<div class="panel-heading" id="<?php echo $div_panel; ?>" style="background-color:<?php echo $FormHeadingColor; ?>;">
-									<h5 class="panel-title"><i class="icon-file-check position-left"></i> <span class="text-semibold" id="<?php echo $span_pageName; ?>"><?php echo $PageHeaderName; ?></h5>
+									<h5 class="panel-title"><i class="icon-stack position-left"></i> <span class="text-semibold" id="<?php echo $span_pageName; ?>"><?php echo $PageHeaderName; ?></h5>
 									<div class="heading-elements">
 										<ul class="icons-list">
 											<li><a data-action="collapse"></a></li>
@@ -96,46 +96,47 @@
 										</ul>
 									</div>
 								</div>
-								<div class="panel-body" style="margin-top:15px;">
+
+								<div class="panel-body">
 									<div class="row">
-										
 										<div class="col-lg-6">
-											<div class="form-group">
-												<label>Select Page Name <span class="text-danger">*</span></label>
-												<select name="pagename" id="pagename" class="form-control" multiple>
-													<option></option>
-														<?php
-															Fill_PageName($con);
-														?>
-												</select>
+											<div class="form-group form-group-material">
+												<label>Page Name <span class="text-danger">*</span></label>
+												<div class="input-group">
+													<input type="text" class="form-control" name="menuname" id="menuname"  required="required" autofocus onkeypress="return only_Alpha_Numeric_underscore_dot(event);" ondrop="return false;" onpaste="return false;">
+                                                        <span class="input-group-addon">
+                                                    <i class="icon-libreoffice"></i>
+                                                    </span>
+												</div>
 											</div>
 										</div>
 										<div class="col-lg-6">
-											<div class="form-group">
-												<label>Select Designation <span class="text-danger">*</span></label>
-													<select name="username" id="username" class="form-control">
-														<option></option>
-															<?php
-																$UserID=$_SESSION['user_id'];
-																Fill_Designation($con, $UserID);
-															?>
-													</select>
+											<div class="form-group form-group-material">
+												<label>Page Name Description <span class="text-danger">*</span></label>
+												<div class="input-group">
+													<input type="text" class="form-control" name="pagedescription" id="pagedescription"  required="required" autofocus onkeypress="return only_Alpha_Numeric_Space(event);" ondrop="return false;" onpaste="return false;">
+                                                        <span class="input-group-addon">
+                                                    <i class="icon-file-text"></i>
+                                                    </span>
+												</div>
 											</div>
 										</div>
 									</div>
+
 								</div>
 								<div class="panel-footer">
 									<div class="col-md-12">
 										<div class="text-right">
-											<button type="submit" name="submit" id="submit" class="btn bg-grey-600" onclick="return add_pageaccess();"><span class="text-semibold" id="<?php echo $span_pageButton; ?>">Submit</span></button>
+											<button type="submit" name="submit" id="submit" class="btn bg-grey-600" onclick="return add_menu();"><span class="text-semibold" id="<?php echo $span_pageButton; ?>">Submit</span></button>
 										</div>
 									</div>
-									<div id="div_pageacess"></div>
+									<div id="div_menu"></div>
 								</div>
 							</div>
 						</form>
 					</div>
                     <div class="col-lg-4">
+
 						<!-- Search field -->
 						<div class="panel panel-flat" style="border-color:<?php echo $Search_BorderColor; ?>; border-top-width:<?php echo $Search_BorderTopWidth; ?>;">
 							<div class="panel-heading" style="background-color:<?php echo $SearchHeadingColor; ?>;">
@@ -147,23 +148,29 @@
 									</ul>
 								</div>
 							</div>
-								<?php include('add_pageaccess_1.php'); ?>
+								<?php include('add_pages_1.php'); ?>
 							<!-- Basic datatable -->
-							<div class="panel-heading" id="div_pageaccess2">
-								<?php include('add_pageaccess_2.php'); ?>
+							<div class="panel-heading" id="div_searchmenu">
+								<?php include('add_pages_2.php'); ?>
 							<div/>
 							<!-- /basic datatable -->
 						</div>
+
 						<!-- /search field -->
                 </div>
              </div>
-             </div>
+
 				<!-- /form actions -->
+
 			</div>
 			<!-- /content wrapper -->
+
 		</div>
 		<!-- /page content -->
+
+
 		<?php include('footer.php'); ?>
+
 	</div>
 	<!-- /page container -->
 

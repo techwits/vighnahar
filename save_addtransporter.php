@@ -26,11 +26,6 @@
     $session_userid=$_REQUEST["session_userid"];
     $session_ip=$_REQUEST["session_ip"];
 
-
-
-
-
-
     $transportername=sanitize($con, $_REQUEST["transportername"]);
     $address=sanitize($con, $_REQUEST["address"]);
     $mobilenumber=sanitize($con, $_REQUEST["mobilenumber"]);
@@ -92,27 +87,22 @@
         if (mysqli_num_rows($result) != 0) {
             $row = mysqli_fetch_array($result, MYSQLI_NUM);
             $LastInsertedID = $row{0};
-        }
-        mysqli_free_result($result);
-//        echo("Saved Successfully & LastInsertedID :- $LastInsertedID </br>");
+//          echo("Saved Successfully & LastInsertedID :- $LastInsertedID </br>");
 
-
-
-        /* Log Ends*/
+            /* Log Ends*/
             Log_End($con, $searchColumn_Value, $LogStart_Value);
             unset($con);
 //            mysqli_close($con);
-        /* Log Ends*/
-
+            /* Log Ends*/
+            ?>
+                <script language="javascript">
+                    ClearAllControls(0);
+                </script>
+            <?php
+        }
+        mysqli_free_result($result);
     }
     else{
         echo($error_msg);
     }
 ?>
-
-<script language="javascript">
-    ClearAllControls(0);
-    show_newlyaddedlist('add_transporter_2.php', 'div_searchtransporter');
-</script>
-
-

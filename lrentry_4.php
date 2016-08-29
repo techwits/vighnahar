@@ -29,6 +29,7 @@ if(!isset($_REQUEST["session_userid"])) {
 	$consigneeid=$_REQUEST["consigneeid"];
 	$productid=$_REQUEST["productid"];
 
+	$MinimumRate=Get_MinimumRate($con, $consignorid, $consigneeid, $productid);
 	$productrate=$_REQUEST["productrate"];
 	$productrate==""?$productrate=0:$productrate=$productrate;
 
@@ -44,6 +45,10 @@ if(!isset($_REQUEST["session_userid"])) {
 
 	$ShippingCharges=0;
 	$ShippingCharges=$productrate*$Quantity;
+	if ($ShippingCharges < $MinimumRate){
+		$ShippingCharges=$MinimumRate;
+		}
+
 //	echo("ShippingCharges :- $ShippingCharges </br>");
 //    die();
 
@@ -70,35 +75,36 @@ if(!isset($_REQUEST["session_userid"])) {
 
 ?>
 
-	<div class="col-md-2">
+	<div class="col-md-3">
 		<div class="form-group form-group-material">
 			<label>Shiping Charges </label>
 			<div class="input-group">
-				<input type="text" class="form-control" name="shippingcharge" id="shippingcharge" disabled value="<?php echo $ShippingCharges;?>">
+				<input type="text" class="form-control" name="shippingcharge" id="shippingcharge" disabled value="<?php echo $ShippingCharges;?>" onkeypress="return only_Numeric_Dot(event);" ondrop="return false;" onpaste="return false;">
 				<span class="input-group-addon"><i class="icon-user"></i></span>
 			</div>
 		</div>
 	</div>
-	<div class="col-md-2">
+	<div class="col-md-3">
 		<div class="form-group form-group-material">
 			<label>Bilty Charges </label>
 			<div class="input-group">
-				<input type="text" class="form-control" name="biltycharge" id="biltycharge" disabled value="<?php echo $BiltyCharge;?>">
+				<input type="text" class="form-control" name="biltycharge" id="biltycharge" disabled value="<?php echo $BiltyCharge;?>" onkeypress="return only_Numeric_Dot(event);" ondrop="return false;" onpaste="return false;">
 				<span class="input-group-addon"><i class="icon-user"></i></span>
 			</div>
 		</div>
 	</div>
-	<div class="col-md-2">
+	<div class="col-md-3">
 		<div class="form-group form-group-material">
 			<label>Serice Tax </label>
 			<div class="input-group">
-				<input type="text" class="form-control" name="servicetax" id="servicetax" disabled value="<?php echo $ServiceTaxAmount;?>">
+				<input type="text" class="form-control" name="servicetax" id="servicetax" disabled value="<?php echo $ServiceTaxAmount;?>" onkeypress="return only_Numeric_Dot(event);" ondrop="return false;" onpaste="return false;">
 				<span class="input-group-addon"><i class="icon-user"></i></span>
 			</div>
 		</div>
 	</div>
 
 	<script type="text/javascript">
-		document.getElementById("lramount").value=<?php echo $lramount;?>;
-		document.getElementById("paidlramount").value=<?php echo $lramount;?>;
+		document.getElementById("lramount").value="<?php echo $lramount;?>";
+		document.getElementById("paidlramount").value="<?php echo $lramount;?>";
+		document.getElementById("div_paidlramount").innerHTML="<?php echo $lramount;?>";
 	</script>

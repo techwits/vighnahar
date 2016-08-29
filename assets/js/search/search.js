@@ -534,16 +534,12 @@ function ClearAllControls(formno) {
 		icon: 'icon-checkmark3',
 		type: 'success'
 	});
+
+	setTimeout(function(){
+		window.location.reload(1);
+	}, 1000);
 }
 
-function clearText(PrvControlName, ControlName)
-{
-	PrvControlName=document.getElementById(PrvControlName).value;
-	if(PrvControlName.length <= 0 || PrvControlName == ""){
-		var ControlName="#"+ControlName;
-		$(ControlName).val("");
-	}
-}
 
 function searchlogin(searchvalue, searchin)
 {
@@ -1172,6 +1168,33 @@ function editrate(rmid, CreationDate, ModificationDate, Creator, ip, caid, cnid,
 	}
 }
 
+
+function editundeliveredreason(urid, CreationDate, ModificationDate, Creator, ip, UndeliveredReason, Active)
+{
+	 // alert("ID :- " + urid);
+	document.getElementById("AddEdit").value=urid;
+	if(Number(urid) > 0)
+	{
+		document.getElementById("reasonname").value=UndeliveredReason;
+		document.getElementById("reasonname").focus();
+
+		// $('#div_merchantcontrols').addClass('animated swing');
+		document.getElementById('div_merchantcontrols').style.borderColor='#b8b894';
+		document.getElementById('div_merchantcontrols').style.borderTopWidth='3px';
+		document.getElementById('div_panel').style.backgroundColor='#b8b894';
+
+		// $("#div_merchantcontrols").css({ 'border-color': "#00c0ef" });
+		// $( "#div_merchantcontrols" ).css( "border-top", "3px solid red");
+		document.getElementById("span_pageName").innerHTML="Update - " + UndeliveredReason;
+		document.getElementById("span_pageButton").innerHTML="Update";
+	}
+	else
+	{
+		alert("Area ID is Blank. Please check......");
+	}
+}
+
+
 function editarea(amid, CreationDate, ModificationDate, Creator, ip, AreaName, Active)
 {
 	// alert("ID :- " + id);
@@ -1654,7 +1677,7 @@ function add_rmentry()
 		}
 	}
 
-	alert("SelectedLR :- " + SelectedLR);
+	// alert("SelectedLR :- " + SelectedLR);
 
 	if(Number(error_count) == 0)
 	{
@@ -1702,13 +1725,41 @@ function add_pageaccess()
 		// frm.username.focus();
 	}
 
-	var pagename=trim(frm.pagename.value);
-	if(pagename.length <= 0 || pagename == "")
+	// var pagename=trim(frm.pagename.value);
+	// if(pagename.length <= 0 || pagename == "")
+	// {
+	// 	error_count = error_count + 1;
+	// 	error_msg  =  error_msg + error_count + ") " + " Please Select Page Name" + "\n";
+	// 	frm.pagename.focus();
+	// }
+
+
+
+
+	var j=0;
+	var selectedvalue="";
+	var pagename_len=document.getElementById("pagename").length;
+	for($i=0; $i<pagename_len; $i++)
+	{
+		var selected=document.getElementById("pagename").options[$i].selected;
+		if(selected==true){
+			j=j+1;
+			if(j==1) {
+				selectedvalue = document.getElementById("pagename").options[$i].value;
+			}
+			else{
+				selectedvalue = selectedvalue+","+document.getElementById("pagename").options[$i].value;
+			}
+		}
+	}
+
+	if(selectedvalue.length <= 0 || selectedvalue == "")
 	{
 		error_count = error_count + 1;
-		error_msg  =  error_msg + error_count + ") " + " Please Select Page Name" + "\n";
+		error_msg  =  error_msg + error_count + ") " + " Please Select PageName" + "\n";
 		frm.pagename.focus();
 	}
+	// alert("selectedvalue :- " + selectedvalue);
 
 	var username=trim(frm.username.value);
 	if(username.length <= 0 || username == "")
@@ -1723,7 +1774,7 @@ function add_pageaccess()
 		var div_name = "#div_pageacess";
 		var page_name = "save_pageaccess.php";
 		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
-		$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, pagename:pagename, username:username},
+		$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, selectedvalue:selectedvalue, username:username},
 			function(data)
 			{
 				$(div_name).html(data);
@@ -1967,6 +2018,55 @@ function add_additionalcharge()
 	}
 }
 
+
+function add_undeliveredreason()
+{
+	// alert("Hi...");
+	var frm=document.undeliveredreason_form;
+	var error_count;
+	var error_msg;
+	error_msg="";
+	error_count=0;
+
+	var AddEdit=trim(frm.AddEdit.value);
+
+	var session_userid=trim(frm.session_userid.value);
+	if(session_userid.length <= 0 || session_userid == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter User ID" + "\n";
+		// frm.username.focus();
+	}
+	var session_ip=trim(frm.session_ip.value);
+	if(session_ip.length <= 0 || session_ip == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter IP address" + "\n";
+		// frm.username.focus();
+	}
+
+	var reasonname=trim(frm.reasonname.value);
+	if(reasonname.length <= 0 || reasonname == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter Reason" + "\n";
+		frm.reasonname.focus();
+	}
+
+	if(Number(error_count) == 0)
+	{
+		var div_name = "#div_undeliveredreason";
+		var page_name = "save_addundeliveredreason.php";
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, reasonname:reasonname},
+			function(data)
+			{
+				$(div_name).html(data);
+			}
+		);
+		return false;
+	}
+}
 
 function add_area()
 {
@@ -3148,12 +3248,15 @@ function displayAdditionalCharges(session_userid, session_ip)
 	var additionalcharges_tick=0;
 	var additionalcharges_tick=frm.additionalcharges.checked;
 	// alert("additionalcharges_tick :- " + additionalcharges_tick);
+
+	var lramount=frm.lramount.value;
+
 	if(additionalcharges_tick==true)
 	{
 		var div_name = "#div_additionalcharges";
 		var page_name = "lrentry_5.php";
 		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
-		$.post(page_name, {session_userid:session_userid, session_ip:session_ip, additionalcharges_tick:additionalcharges_tick},
+		$.post(page_name, {session_userid:session_userid, session_ip:session_ip, additionalcharges_tick:additionalcharges_tick, lramount:lramount},
 			function(data)
 			{
 				$(div_name).html(data);
@@ -3169,6 +3272,8 @@ function displayAdditionalCharges(session_userid, session_ip)
 		frm.additionalcharges.checked=false;
 		document.getElementById("additionalchargesentry").value="";
 		document.getElementById("div_additionalcharges").innerHTML = "";
+		document.getElementById("div_paidlramount").innerHTML=lramount;
+		document.getElementById("paidlramount").value=lramount;
 		return false;
 	}
 	
@@ -3269,37 +3374,79 @@ function lradditionalcharge(cnt, Controlname)
 		alert("Please check. LR Amount is Blank");
 	}
 
+
 	// alert("Controlname :- " + Controlname);
 
 	var additionalchargevalueclub="";
 	var additionalchargevalue=0;
+
+	var additionalchargevalue_Percentage=0;
+	var additionalchargevalue_Fix=0;
+	var ControlAmount=0;
+	var lramount_ControlAmount=0;
+
+	var controlfix="";
+	var controlper="";
+	var control="";
+
+	// alert("Controlname :- " + Controlname);
+
 	var Controlname=Controlname.split(",");
 	for(i=0; i<cnt; i++)
 	{
+
 		Names=Controlname[i];
+		Names_Fix=Controlname[i]+"_fix";
+		Names_Per=Controlname[i]+"_percentage";
+
 		// alert("Names :- " + Names);
 		// alert("Control Value :- " + document.getElementById(Names).value);
-		additionalchargevalue=Number(additionalchargevalue)+Number(document.getElementById(Names).value);
+
+		controlfix=document.getElementById(Names_Fix).value;
+		// alert("Control name"+ Names_Fix + "controlfix :- " + controlfix);
+		controlper=document.getElementById(Names_Per).value;
+		// alert("Control name :- "+ Names_Per + "   ||||  controlper :- " + controlper);
+
+		if(Number(controlper)>0){
+			control=document.getElementById(Names).value;
+			// alert("Control "+ control );
+			// alert("lramount "+ lramount );
+			ControlAmount=Number((Number(lramount)*Number(control)))/100;
+			 // alert("ControlAmount :- " + ControlAmount);
+		}
+		else if(Number(controlfix)>0){
+			control=document.getElementById(Names).value;
+			// alert("Control "+ control );
+			ControlAmount=control;
+			// alert("ControlAmount :- " + ControlAmount);
+		}
+
+		lramount_ControlAmount=Number(lramount_ControlAmount)+Number(ControlAmount);
+
+		// alert("One By One :- " + ControlAmount);
+
+		// additionalchargevalue=Number(additionalchargevalue)+Number(lramount_ControlAmount);
 
 		if(i==0){
-			additionalchargevalueclub=Names+"~"+Number(document.getElementById(Names).value);
+			additionalchargevalueclub=Names+"~"+Number(ControlAmount);
 		}
 		else{
-			additionalchargevalueclub=additionalchargevalueclub+"||"+Names+"~"+Number(document.getElementById(Names).value);
+			additionalchargevalueclub=additionalchargevalueclub+"||"+Names+"~"+Number(ControlAmount);
 		}
 	}
 
 	document.getElementById("additionalchargesentry").value = additionalchargevalueclub;
 
-	// alert("additionalchargevalue :- " + additionalchargevalue);
+	// alert("lramount_ControlAmount :- " + lramount_ControlAmount);
 
 
 
 	// alert("lradditioncharge :- " + lradditioncharge);
 	// alert("lramount :- " + lramount);
-	additionamount=Number(lramount)+Number(additionalchargevalue);
+	additionamount=Number(lramount)+Number(lramount_ControlAmount);
 	// alert("additionamount :- " + additionamount);
-	frm.paidlramount.value=additionamount;
+	frm.paidlramount.value=additionamount.toFixed(2);
+	document.getElementById("div_paidlramount").innerHTML = additionamount.toFixed(2);
 }
 
 function get_productRate(packageType, Creator, ip)

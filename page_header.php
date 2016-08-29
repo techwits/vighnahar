@@ -26,7 +26,8 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <ul class="nav navbar-nav">
-                <li><a href="index.html"><i class="icon-display4 position-left"></i> Dashboard</a></li>
+					<li><small class="display-block">Last Login : 02 August 2016 : 08:56:00</small></li>
+		           <li><a href="index.html"><i class="icon-display4 position-left"></i> Dashboard</a></li>
             </ul>
         </ul>
     </div>

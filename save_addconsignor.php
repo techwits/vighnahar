@@ -193,42 +193,44 @@ if(trim($error_msg)=="") {
                 Update_ConsignorUrl($con, $AddEdit1, $url);
                 Update_ConsignorProduct($con, $CurrentDate, $session_userid, $session_ip, $AddEdit1, $product);
             }
+
+//          echo("Saved Successfully & LastInsertedID :- $LastInsertedID </br>");
+
+            /* Log Ends*/
+            Log_End($con, $searchColumn_Value, $LogStart_Value);
+            unset($con);
+            /* Log Ends*/
+
+            /* Log Ends*/
+            include('assets/inc/db_connect.php');
+            Log_End($con, $searchColumn_Value1, $LogStart_Value1);
+            unset($con);
+            /* Log Ends*/
+
+            /* Log Ends*/
+            include('assets/inc/db_connect.php');
+            Log_End($con, $searchColumn_Value2, $LogStart_Value2);
+            unset($con);
+            /* Log Ends*/
+
+            /* Log Ends*/
+            include('assets/inc/db_connect.php');
+            Log_End($con, $searchColumn_Value3, $LogStart_Value3);
+            unset($con);
+            /* Log Ends*/
+
+            ?>
+                <script language="javascript">
+                    //    ClearAllControls(0);
+                    //    show_newlyaddedlist('add_consignor_2.php', 'div_searchconsignor');
+                    window.location.reload(true);
+                </script>
+            <?php
         }
     }
     mysqli_free_result($result);
-//        echo("Saved Successfully & LastInsertedID :- $LastInsertedID </br>");
-    
-    /* Log Ends*/
-        Log_End($con, $searchColumn_Value, $LogStart_Value);
-        unset($con);
-    /* Log Ends*/
-
-    /* Log Ends*/
-        include('assets/inc/db_connect.php');
-        Log_End($con, $searchColumn_Value1, $LogStart_Value1);
-        unset($con);
-    /* Log Ends*/
-
-    /* Log Ends*/
-        include('assets/inc/db_connect.php');
-        Log_End($con, $searchColumn_Value2, $LogStart_Value2);
-        unset($con);
-    /* Log Ends*/
-
-    /* Log Ends*/
-        include('assets/inc/db_connect.php');
-        Log_End($con, $searchColumn_Value3, $LogStart_Value3);
-        unset($con);
-    /* Log Ends*/
-
 }
 else{
     echo($error_msg);
 }
 ?>
-
-<script language="javascript">
-//    ClearAllControls(0);
-//    show_newlyaddedlist('add_consignor_2.php', 'div_searchconsignor');
-    window.location.reload(true);
-</script>

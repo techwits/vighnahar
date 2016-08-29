@@ -1,10 +1,8 @@
 <!-- Theme JS files -->
-<script type="text/javascript" src="assets/js/plugins/notifications/pnotify.min.js"></script>
-
-<script type="text/javascript" src="assets/js/core/app.js"></script>
-<script type="text/javascript" src="assets/js/pages/components_notifications_pnotify.js"></script>
+    <script type="text/javascript" src="assets/js/plugins/notifications/pnotify.min.js"></script>
+    <script type="text/javascript" src="assets/js/core/app.js"></script>
+    <script type="text/javascript" src="assets/js/pages/components_notifications_pnotify.js"></script>
 <!-- /theme JS files -->
-
 
 <?php
     include('assets/inc/db_connect.php');
@@ -77,27 +75,26 @@
         if (mysqli_num_rows($result) != 0) {
             $row = mysqli_fetch_array($result, MYSQLI_NUM);
             $LastInsertedID = $row{0};
+
+//          echo("Saved Successfully & LastInsertedID :- $LastInsertedID </br>");
+
+            /* Log Ends*/
+                Log_End($con, $searchColumn_Value, $LogStart_Value);
+                unset($con);
+//            mysqli_close($con);
+            /* Log Ends*/
+            ?>
+                <script language="javascript">
+                    ClearAllControls(0);
+                </script>
+            <?php
         }
         mysqli_free_result($result);
 //        echo("Saved Successfully & LastInsertedID :- $LastInsertedID </br>");
-
-
-
-        /* Log Ends*/
-            Log_End($con, $searchColumn_Value, $LogStart_Value);
-            unset($con);
-//            mysqli_close($con);
-        /* Log Ends*/
-
     }
     else{
         echo($error_msg);
     }
 ?>
-
-<script language="javascript">
-    ClearAllControls(0);
-    show_newlyaddedlist('add_area_2.php', 'div_searcharea');
-</script>
 
 

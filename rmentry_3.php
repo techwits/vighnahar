@@ -59,7 +59,7 @@ if ($searchin==1){
 
 
     <?php
-    $cols=" oid, CreationDate, ModificationDate, Creator, ip, TransitDate, fyid, vmid, tmid, tmid ";
+    $cols=" oid, CreationDate, ModificationDate, Creator, ip, TransitDate, fyid, vmid, tmid, Active ";
 
     $sqlQry= "select $cols from `outward` where 1=1";
     if(strlen(trim($searchvalue))>0) {

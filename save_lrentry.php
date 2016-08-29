@@ -138,15 +138,15 @@
 //            mysqli_close($con);
         /* Log Ends*/
 
+        ?>
+            <script language="javascript">
+                ClearAllControls(0);
+            </script>
+        <?php
+
     }
     else{
         echo($error_msg);
     }
 ?>
-
-<script language="javascript">
-    ClearAllControls(0);
-    show_newlyaddedlist('lrentry_7.php', 'div_searchlrentry');
-</script>
-
 

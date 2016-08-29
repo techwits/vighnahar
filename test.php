@@ -55,7 +55,7 @@
 
 <!-- Main navbar -->
 <?php
-$PageHeaderName="Manage Merchant";
+$PageHeaderName="Road Receipt Entry";
 $icon="icon-address-book";
 
 include('page_header.php');

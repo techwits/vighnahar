@@ -37,7 +37,7 @@ $session_ip=$_REQUEST["session_ip"];
 	<div class="form-group form-group-material">
 		<label>Product</label>
 		<div class="input-group">
-			<select name="productid" id="productid"  class="form-control">
+			<select name="productid" id="productid"  class="form-control" onblur="return lrentry_disabled(this.value, 'productid');">
 				<option></option>
 				<?php
 					Fill_ProductOnConsignorConsignee($con, $ConsignorID, $ConsigneeID);

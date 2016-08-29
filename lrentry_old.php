@@ -113,7 +113,7 @@ include_once('assets/inc/db_connect.php');
 
 
 								<div class="row">
-									<div class="col-md-2 col-lg-offset-4">
+									<div class="col-md-2">
 										<div class="form-group form-group-material">
 											<label>Financial Year <span class="text-danger">*</span></label>
 											<div>
@@ -150,20 +150,7 @@ include_once('assets/inc/db_connect.php');
 											</div>
 										</div>
 									</div>
-
-									<div class="col-xs-2 text-center col-lg-offset-1">
-										<div class="label label-danger" style="padding: 15px; font-size:24px;">
-											<input type="hidden" class="form-control" name="lramount" id="lramount" value="">
-											<input type="hidden" class="form-control" name="paidlramount" id="paidlramount" disabled required="required" value="">
-											<span id="div_paidlramount">0</span>
-										</div>
-									</div>
-								</div>
-
-
-
-								<div class="row extra-bottom-padding">
-									<div class="col-md-3">
+									<div class="col-md-4">
 										<div class="form-group form-group-material">
 											<label>Invoice / Challan No. <span class="text-danger">*</span></label>
 											<div class="input-group">
@@ -174,18 +161,18 @@ include_once('assets/inc/db_connect.php');
 											</div>
 										</div>
 									</div>
-									<div class="col-md-3">
+									<div class="col-md-4">
 										<div class="form-group form-group-material">
 											<label>Truck Number </label>
 											<div class="input-group">
 												<select name="vehicleid" id="vehicleid" class="form-control" onblur="return lrentry_disabled(this.value, 'vehicleid');">
 													<option></option>
-													<?php
-													$TableName="vehicle_master";
-													$ColumnName="vmid, VehicleNumber";
-													$OrderBy="VehicleNumber";
-													Fill_Master($con, $TableName, $ColumnName, $OrderBy);
-													?>
+														<?php
+															$TableName="vehicle_master";
+															$ColumnName="vmid, VehicleNumber";
+															$OrderBy="VehicleNumber";
+															Fill_Master($con, $TableName, $ColumnName, $OrderBy);
+														?>
 												</select>
 												<span class="input-group-addon">
                                                     <i class="icon-truck"></i>
@@ -193,11 +180,13 @@ include_once('assets/inc/db_connect.php');
 											</div>
 										</div>
 									</div>
-									<div class="col-md-3">
+								</div>
+								<div class="row">
+									<div class="col-md-4">
 										<div class="form-group form-group-material">
 											<label>Consignor <span class="text-danger">*</span></label>
 											<div class="input-group">
-												<select name="consignorid" id="consignorid" required="required"  class="form-control" onblur="return get_consignee(this.value, <?php echo $_SESSION['user_id']; ?>, '<?php echo $_SESSION['ip']; ?>');" onblur="return lrentry_disabled(this.value, 'consignorid');">
+												<select name="consignorid" id="consignorid" required="required"  class="form-control" onchange="return get_consignee(this.value, <?php echo $_SESSION['user_id']; ?>, '<?php echo $_SESSION['ip']; ?>');" onblur="return lrentry_disabled(this.value, 'consignorid');">
 													<option></option>
 													<?php
 													Fill_Consignor($con);
@@ -209,39 +198,41 @@ include_once('assets/inc/db_connect.php');
 											</div>
 										</div>
 									</div>
-									<div class="col-md-3" id="div_consignee">
-										<div class="form-group form-group-material">
-											<label>Consignee <span class="text-danger">*</span></label>
-											<div class="input-group">
-												<select name="consigneeid" id="consigneeid" required="required"  class="form-control">
-													<option></option>
-												</select>
-												<span class="input-group-addon">
-													<i class="icon-users2"></i>
-												</span>
+
+											<div class="col-md-4" id="div_consignee">
+												<div class="form-group form-group-material">
+													<label>Consignee <span class="text-danger">*</span></label>
+													<div class="input-group">
+														<select name="consigneeid" id="consigneeid" required="required"  class="form-control">
+															<option></option>
+														</select>
+														<span class="input-group-addon">
+															<i class="icon-users2"></i>
+														</span>
+													</div>
+												</div>
 											</div>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-3" id="div_product">
-										<div class="form-group form-group-material">
-											<label>Product <span class="text-danger">*</span></label>
-											<div class="input-group">
-												<select name="productid" id="productid" required="required"  class="form-control" onblur="return lrentry_disabled(this.value, 'productid');">
-													<option></option>
-												</select>
+											<div class="col-md-4" id="div_product">
+												<div class="form-group form-group-material">
+													<label>Product <span class="text-danger">*</span></label>
+													<div class="input-group">
+														<select name="productid" id="productid" required="required"  class="form-control" onblur="return lrentry_disabled(this.value, 'productid');">
+															<option></option>
+														</select>
 														<span class="input-group-addon">
 															<i class="icon-cart-add2"></i>
 														</span>
+													</div>
+												</div>
 											</div>
-										</div>
-									</div>
-									<div class="col-md-3">
+
+								</div>
+								<div class="row">
+									<div class="col-md-4">
 										<div class="form-group form-group-material">
 											<label>Package Type <span class="text-danger">*</span></label>
 											<div class="input-group">
-												<select name="packagetype" id="packagetype" required="required" class="form-control" onblur="return get_productRate(this.value, <?php echo $_SESSION['user_id']; ?>, '<?php echo $_SESSION['ip']; ?>');" onblur="return lrentry_disabled(this.value, 'packagetype');">
+												<select name="packagetype" id="packagetype" required="required" class="form-control" onchange="return get_productRate(this.value, <?php echo $_SESSION['user_id']; ?>, '<?php echo $_SESSION['ip']; ?>');" onblur="return lrentry_disabled(this.value, 'packagetype');">
 													<option></option>
 														<option value="CartoonRate">CartoonRate</option>
 														<option value="ItemRate">ItemRate</option>
@@ -253,7 +244,7 @@ include_once('assets/inc/db_connect.php');
 										</div>
 									</div>
 
-									<div class="col-md-3" id="div_productrate">
+									<div class="col-md-4" id="div_productrate">
 										<div class="form-group form-group-material">
 											<label>Rate <span class="text-danger">*</span></label>
 											<div class="input-group">
@@ -264,11 +255,12 @@ include_once('assets/inc/db_connect.php');
 											</div>
 										</div>
 									</div>
-									<div class="col-md-3">
+
+									<div class="col-md-4">
 										<div class="form-group form-group-material">
 											<label>Quantity <span class="text-danger">*</span></label>
 											<div class="input-group">
-												<input type="text" class="form-control" required="required" name="qauntity" id="qauntity" onblur="return get_quantityRate(this.value, <?php echo $_SESSION['user_id']; ?>, '<?php echo $_SESSION['ip']; ?>');" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
+												<input type="text" class="form-control" required="required" name="qauntity" id="qauntity" onblur="return get_quantityRate(this.value, <?php echo $_SESSION['user_id']; ?>, '<?php echo $_SESSION['ip']; ?>');">
 												<span class="input-group-addon">
 													<i class="icon-seven-segment-8"></i>
 												</span>
@@ -276,38 +268,36 @@ include_once('assets/inc/db_connect.php');
 										</div>
 									</div>
 								</div>
-
-
-
 								<div class="row">
+
 									<div id="div_quantityrate">
-										<div class="col-md-3">
+										<div class="col-md-2">
 											<div class="form-group form-group-material">
 												<label>Shiping Charges <span class="text-danger">*</span></label>
 												<div class="input-group">
-													<input type="text" class="form-control" required="required" name="shippingcharge" id="shippingcharge" value="" onkeypress="return only_Numeric_Dot(event);" ondrop="return false;" onpaste="return false;">
+													<input type="text" class="form-control" required="required" name="shippingcharge" id="shippingcharge" value="">
 													<span class="input-group-addon">
 														<img src="assets/images/rupees-128.png" height="15" width="15">
 													</span>
 												</div>
 											</div>
 										</div>
-										<div class="col-md-3">
+										<div class="col-md-2">
 											<div class="form-group form-group-material">
 												<label>Bilty Charges </label>
 												<div class="input-group">
-													<input type="text" class="form-control" name="biltycharge" id="biltycharge" value="" onkeypress="return only_Numeric_Dot(event);" ondrop="return false;" onpaste="return false;">
+													<input type="text" class="form-control" name="biltycharge" id="biltycharge" value="">
 													<span class="input-group-addon">
 														<img src="assets/images/rupees-128.png" height="15" width="15">
 													</span>
 												</div>
 											</div>
 										</div>
-										<div class="col-md-3">
+										<div class="col-md-2">
 											<div class="form-group form-group-material">
 												<label>Serice Tax </label>
 												<div class="input-group">
-													<input type="text" class="form-control" name="servicetax" id="servicetax" value="" onkeypress="return only_Numeric_Dot(event);" ondrop="return false;" onpaste="return false;">
+													<input type="text" class="form-control" name="servicetax" id="servicetax" value="">
 													<span class="input-group-addon">
 														<img src="assets/images/rupees-128.png" height="15" width="15">
 													</span>
@@ -316,18 +306,15 @@ include_once('assets/inc/db_connect.php');
 										</div>
 									</div>
 
-									<div class="col-md-3" style=" margin-top:30px">
-										<label class="checkbox-inline">
-											<div class="checker">
-                                            <span class="checked">
-                                            	<input type="checkbox" class="styled" name="additionalcharges" id="additionalcharges" onchange="return displayAdditionalCharges(<?php echo $_SESSION['user_id']; ?>, '<?php echo $_SESSION['ip']; ?>');");>
-                                            </span>
-											</div>
-											Additional Charges
-										</label>
-										<input type="text" class="form-control" name="additionalchargesentry" id="additionalchargesentry" value="">
+									<div class="col-md-3">
+										<div class="form-group form-group-material">
+											<label class="checkbox-inline">
+												<input type="checkbox" class="styled" name="additionalcharges" id="additionalcharges" onchange="return displayAdditionalCharges(<?php echo $_SESSION['user_id']; ?>, '<?php echo $_SESSION['ip']; ?>');");">
+												Additional Charges
+											</label>
+											<input type="hidden" class="form-control" name="additionalchargesentry" id="additionalchargesentry" value="">
+										</div>
 									</div>
-
 								</div>
 
 
@@ -337,6 +324,20 @@ include_once('assets/inc/db_connect.php');
 									</div>
 								</div>
 
+								<div class="row">
+									<div class="col-md-2">
+										<div class="form-group form-group-material">
+											<label>LR Amount </label>
+											<div class="input-group">
+												<input type="hidden" class="form-control" name="lramount" id="lramount" value="">
+												<input type="text" class="form-control" name="paidlramount" id="paidlramount" disabled required="required" value="">
+												<span class="input-group-addon">
+													<img src="assets/images/rupees-128.png" height="15" width="15">
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
 
 								<div class="panel-footer">
 									<div class="col-md-12">

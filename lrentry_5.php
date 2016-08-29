@@ -23,7 +23,7 @@ if(!isset($_REQUEST["session_userid"])) {
 	$session_userid=$_REQUEST["session_userid"];
 	$session_ip=$_REQUEST["session_ip"];
 	$additionalcharges_tick=$_REQUEST["additionalcharges_tick"];
-
+	$lramount=$_REQUEST["lramount"];
 
 	$AdditionalChargeList=Get_AdditionalChargeList($con);
 	$Split_AdditionalChargeList = explode("||", $AdditionalChargeList);
@@ -31,13 +31,14 @@ if(!isset($_REQUEST["session_userid"])) {
 
 //    echo("session_userid :- $session_userid </br>");
 //    echo("session_ip :- $session_ip </br>");
+//    echo("lramount :- $lramount </br>");
 //	echo("additionalcharges_tick :- $additionalcharges_tick </br>");
 //	echo("Split_AdditionalChargeList0 :- $Split_AdditionalChargeList[0] </br>");
 //	echo("Split_AdditionalChargeList1 :- $Split_AdditionalChargeList[1] </br>");
 //	die();
 
 
-	$sqlQry= "select ChargeName, ChargeFix, acmid from additionalcharge_master ";
+	$sqlQry= "select ChargeName, ChargeFix, acmid, ChargePercentage from additionalcharge_master ";
 	$sqlQry= $sqlQry." where acmid>3";
 	$sqlQry= $sqlQry." and Active=1";
 	$sqlQry= $sqlQry." order by acmid";
@@ -50,23 +51,49 @@ if(!isset($_REQUEST["session_userid"])) {
 	{
 		$j=0;
 		$additionalchargesentry="";
+		$ControlDisplay=0;
+		$ControlAmount=0;
+		$TotalControlAmount=$lramount;
 		while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
 		{
 			$db_ChargeName=$row{0};
 			$db_ChargeFix=$row{1};
 			$db_acmid=$row{2};
+			$db_ChargePercentage=$row{3};
 			$controlname=$db_acmid;
-//			echo("controlname :- $controlname </br>");
+			$controlname1=$db_acmid."_fix";
+			$controlname2=$db_acmid."_percentage";
+
+			if($db_ChargePercentage>0){
+				$ControlAmount=($lramount*$db_ChargePercentage)/100;
+				$ControlDisplay=$db_ChargePercentage;
+			}
+			elseif($db_ChargeFix>0){
+				$ControlAmount=$db_ChargeFix;
+				$ControlDisplay=$db_ChargeFix;
+			}
+
+			$TotalControlAmount=$TotalControlAmount+$ControlAmount;
+
+
+//			echo("lramount :- $lramount </br>");
+//			echo("db_ChargePercentage :- $db_ChargePercentage </br>");
+//			echo("ControlAmount :- $ControlAmount </br>");
+//			echo("TotalControlAmount :- $TotalControlAmount </br></br></br></br>");
 //			echo("db_ChargeFix :- $db_ChargeFix </br>");
 			$j=$j+1;
-			$j==1?$additionalchargesentry=$db_acmid."~".$db_ChargeFix:$additionalchargesentry=$additionalchargesentry."||".$db_acmid."~".$db_ChargeFix;
+			$j==1?$additionalchargesentry=$db_acmid."~".$ControlAmount:$additionalchargesentry=$additionalchargesentry."||".$db_acmid."~".$ControlAmount;
 			?>
 				<div class="col-md-3">
 					<div class="form-group form-group-material">
 						<label><?php echo $db_ChargeName;?> </label>
 						<div class="input-group">
-							<input type="text" class="form-control" name="<?php echo $controlname;?>" id="<?php echo $controlname;?>" value="<?php echo $db_ChargeFix;?>" onblur="return lradditionalcharge('<?php echo $Split_AdditionalChargeList[0];?>', '<?php echo $Split_AdditionalChargeList[1];?>');">
-							<span class="input-group-addon"><i class="icon-user"></i></span>
+							<input type="hidden" class="form-control" name="<?php echo $controlname1;?>" id="<?php echo $controlname1;?>" value="<?php echo $db_ChargeFix;?>">
+							<input type="hidden" class="form-control" name="<?php echo $controlname2;?>" id="<?php echo $controlname2;?>" value="<?php echo $db_ChargePercentage;?>">
+							<input type="text" class="form-control" name="<?php echo $controlname;?>" id="<?php echo $controlname;?>" value="<?php echo $ControlDisplay;?>" onblur="return lradditionalcharge('<?php echo $Split_AdditionalChargeList[0];?>', '<?php echo $Split_AdditionalChargeList[1];?>');" onkeypress="return only_Numeric_Dot(event);" ondrop="return false;" onpaste="return false;">
+							<span class="input-group-addon">
+								<img src="assets/images/rupees-128.png" height="15" width="15">
+							</span>
 						</div>
 					</div>
 				</div>
@@ -78,4 +105,6 @@ if(!isset($_REQUEST["session_userid"])) {
 ?>
 <script type="text/javascript">
 		document.getElementById("additionalchargesentry").value = '<?php echo $additionalchargesentry; ?>';
+		document.getElementById("paidlramount").value="<?php echo $TotalControlAmount;?>";
+		document.getElementById("div_paidlramount").innerHTML="<?php echo $TotalControlAmount;?>";
 </script>

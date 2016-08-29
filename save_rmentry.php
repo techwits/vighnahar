@@ -80,7 +80,7 @@
         else{
             $IDExist=Check_MenuIDExist($con, $AddEdit);
             if($IDExist>0) {
-                $Procedure = "Call Update_Menu($IDExist, '$CurrentDate', $session_userid, '$session_ip', '$menuname', '$pagedescription');";
+                $Procedure = "Call Update_RoadMemo($IDExist, '$CurrentDate', $session_userid, '$session_ip', '$rmdate', $financialyear, $vehicleid, $transporterid);";
             }
             else{
                 echo("Menu ID is not getting. Please contact system administrator....");
@@ -95,6 +95,7 @@
         if (mysqli_num_rows($result) != 0) {
             $row = mysqli_fetch_array($result, MYSQLI_NUM);
             $LastInsertedID = $row{0};
+
             if ($AddEdit==0) {
 //                $SelectedLR
                     $Split_SelectedLR = explode(",", $SelectedLR);
@@ -109,31 +110,44 @@
                     }
             }
             else{
+                    Set_OutwardDeactive($con, $CurrentDate, $session_userid, $session_ip, $IDExist);
+//                    echo("Deactivated....");
+//                    die();
+                    $Split_SelectedLR = explode(",", $SelectedLR);
+                    $Split_SelectedLR=array_unique($Split_SelectedLR);
+                    foreach ($Split_SelectedLR as $SingleSelectedLR)
+                    {
+    //                  echo("SingleSelectedLR :- $SingleSelectedLR </br>");
+                        $OutwardlrExist=Check_OutwardlrExist($con, $SingleSelectedLR);
+                        if($OutwardlrExist==0) {
+                            $Proc = "Call Save_RoadMemoLR('$CurrentDate', $session_userid, '$session_ip', $IDExist, $SingleSelectedLR);";
+                            unset($con);
+                            include('assets/inc/db_connect.php');
+                            $rslr = mysqli_query($con, $Proc) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
+                        }
+                    }
 
             }
 
+//          echo("Saved Successfully & LastInsertedID :- $LastInsertedID </br>");
+
+            /* Log Ends*/
+                Log_End($con, $searchColumn_Value, $LogStart_Value);
+                unset($con);
+//            mysqli_close($con);
+            /* Log Ends*/
+            ?>
+                <script language="javascript">
+                    ClearAllControls(0);
+                </script>
+            <?php
+
         }
         mysqli_free_result($result);
-//        echo("Saved Successfully & LastInsertedID :- $LastInsertedID </br>");
-//        die();
-
-
-        /* Log Ends*/
-            Log_End($con, $searchColumn_Value, $LogStart_Value);
-            unset($con);
-//            mysqli_close($con);
-        /* Log Ends*/
-
     }
     else{
         echo($error_msg);
     }
-
 ?>
-
-<script language="javascript">
-//    ClearAllControls(0);
-//    show_newlyaddedlist('add_pages_2.php', 'div_searchmenu');
-</script>
 
 
