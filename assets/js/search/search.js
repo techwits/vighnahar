@@ -408,6 +408,132 @@ function show_newlyaddedlist(pagename, divname)
 	}
 }
 
+function changepassword_change()
+{
+    var frm=document.change_password;
+    var error_count;
+    var error_msg;
+    error_msg="";
+    error_count=0;
+
+    var AddEdit=trim(frm.AddEdit.value);
+    if(AddEdit.length <= 0 || AddEdit == "")
+    {
+        error_count = error_count + 1;
+        error_msg  =  error_msg + error_count + ") " + " User ID is not getting" + "\n";
+    }
+
+
+    var session_userid=trim(frm.session_userid1.value);
+    if(session_userid.length <= 0 || session_userid == "")
+    {
+        error_count = error_count + 1;
+        error_msg  =  error_msg + error_count + ") " + " Please Enter User ID" + "\n";
+        // frm.username.focus();
+    }
+    var session_ip=trim(frm.session_ip1.value);
+    if(session_ip.length <= 0 || session_ip == "")
+    {
+        error_count = error_count + 1;
+        error_msg  =  error_msg + error_count + ") " + " Please Enter IP address" + "\n";
+        // frm.username.focus();
+    }
+
+    var userid=trim(frm.userid1.value);
+    if(userid.length <= 0 || userid == "")
+    {
+        error_count = error_count + 1;
+        error_msg  =  error_msg + error_count + ") " + " Please Enter User ID" + "\n";
+        // frm.userid.focus();
+    }
+
+    var userpassword=trim(frm.userpassword.value);
+    if(userpassword.length <= 0 || userpassword == ""){
+        error_count = error_count + 1;
+        error_msg  =  error_msg + error_count + ") " + " Please Enter User Password" + "\n";
+        frm.userpassword.focus();
+    }
+    else{
+        var pwd = hex_sha512(frm.userpassword.value);
+        // alert("p :- " + p);
+        if(pwd.length <= 0 && userid.length <= 0)
+        {
+            error_msg  =  " Password is not generating...." + "\n";
+        }
+        frm.userpassword.value = "";
+    }
+
+    if(Number(error_count) == 0)
+    {
+        var div_name = "#div_userid";
+        var page_name = "save_changepassword.php";
+        $(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+        $.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, userid:userid, pwd:pwd, pwd:pwd},
+            function(data)
+            {
+                $(div_name).html(data);
+            }
+        );
+        return false;
+    }
+    else
+    {
+        alert(error_msg);
+        return false;
+    }
+}
+
+function changepassword_checkuserid()
+{
+	var frm=document.change_password;
+	var error_count;
+	var error_msg;
+	error_msg="";
+	error_count=0;
+
+    var session_userid=trim(frm.session_userid.value);
+    if(session_userid.length <= 0 || session_userid == "")
+    {
+        error_count = error_count + 1;
+        error_msg  =  error_msg + error_count + ") " + " Please Enter User ID" + "\n";
+        // frm.username.focus();
+    }
+    var session_ip=trim(frm.session_ip.value);
+    if(session_ip.length <= 0 || session_ip == "")
+    {
+        error_count = error_count + 1;
+        error_msg  =  error_msg + error_count + ") " + " Please Enter IP address" + "\n";
+        // frm.username.focus();
+    }
+
+	var userid=trim(frm.userid.value);
+	if(userid.length <= 0 || userid == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter User ID" + "\n";
+		frm.userid.focus();
+	}
+
+	if(Number(error_count) == 0)
+	{
+		var div_name = "#div_userid";
+		var page_name = "change_password_1.php";
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$.post(page_name, {session_userid:session_userid, session_ip:session_ip, userid:userid},
+			function(data)
+			{
+				$(div_name).html(data);
+			}
+		);
+		return false;
+	}
+    else
+    {
+        alert(error_msg);
+        return false;
+    }
+}
+
 function add_designation()
 {
 	//alert("Hi...");
@@ -1313,6 +1439,32 @@ function editrmentry(oid, CreationDate, ModificationDate, Creator, ip, TransitDa
 	{
 		alert("Menu ID is Blank. Please check......");
 	}
+}
+
+function editdeliverystatus(dsid, CreationDate, ModificationDate, Creator, ip, DeliveryStatus, Active)
+{
+    // alert("ID :- " + id);
+    document.getElementById("AddEdit").value=dsid;
+    if(Number(dsid) > 0)
+    {
+        document.getElementById("deliverystatus").value=DeliveryStatus;
+        document.getElementById("deliverystatus").focus();
+
+        // $('#div_merchantcontrols').addClass('animated swing');
+        document.getElementById('div_merchantcontrols').style.borderColor='#b8b894';
+        document.getElementById('div_merchantcontrols').style.borderTopWidth='3px';
+        document.getElementById('div_panel').style.backgroundColor='#b8b894';
+
+        // $("#div_merchantcontrols").css({ 'border-color': "#00c0ef" });
+        // $( "#div_merchantcontrols" ).css( "border-top", "3px solid red");
+        document.getElementById("span_pageName").innerHTML="Update - " + DeliveryStatus;
+        document.getElementById("span_pageButton").innerHTML="Update";
+
+    }
+    else
+    {
+        alert("Delivery Status ID is Blank. Please check......");
+    }
 }
 
 function editmenu(menusub_id, CreationDate, ModificationDate, Creator, ip, url, urlDescription, Active)
@@ -2675,6 +2827,117 @@ function add_rate()
 		);
 		return false;
 	}
+}
+
+function updateRMStatus(Inc, session_userid, session_ip, RMID, LRID, DeliveredID, UnDeliveredID)
+{
+    var error_count;
+    var error_msg;
+    error_msg="";
+    error_count=0;
+    
+    if(Inc.length <= 0 || Inc == "")
+    {
+        error_count = error_count + 1;
+        error_msg  =  error_msg + error_count + ") " + " Div Inc Blank" + "\n";
+    }
+
+    if(session_userid.length <= 0 || session_userid == "")
+    {
+        error_count = error_count + 1;
+        error_msg  =  error_msg + error_count + ") " + " User ID Blank" + "\n";
+    }
+
+    if(session_ip.length <= 0 || session_ip == "")
+    {
+        error_count = error_count + 1;
+        error_msg  =  error_msg + error_count + ") " + " IP Address Blank" + "\n";
+    }
+
+    if(RMID.length <= 0 || RMID == "")
+    {
+        error_count = error_count + 1;
+        error_msg  =  error_msg + error_count + ") " + " Road Memo ID Blank" + "\n";
+    }
+
+    if(LRID.length <= 0 || LRID == "")
+    {
+        error_count = error_count + 1;
+        error_msg  =  error_msg + error_count + ") " + " Lory Receipt ID Blank" + "\n";
+    }
+
+    if(Number(error_count) == 0)
+    {
+        // alert("RMID :- " + RMID);
+        // alert("LRID :- " + LRID);
+        // alert("DeliveredID :- " + DeliveredID);
+        // alert("UnDeliveredID :- " + UnDeliveredID);
+
+        var divname="div"+Inc;
+        var div_name = "#"+divname;
+        var page_name = "save_rmstatus.php";
+        $(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+        $.post(page_name, {session_userid:session_userid, session_ip:session_ip, RMID:RMID, LRID:LRID, DeliveredID:DeliveredID, UnDeliveredID:UnDeliveredID},
+            function(data)
+            {
+                $(div_name).html(data);
+            }
+        );
+        return false;
+    }
+    else{
+        alert(error_msg);
+        return false;
+    }
+    
+}
+function add_deliverystatus()
+{
+    // alert("Hi...");
+    var frm=document.deliverystatus_form;
+    var error_count;
+    var error_msg;
+    error_msg="";
+    error_count=0;
+
+    var AddEdit=trim(frm.AddEdit.value);
+
+    var session_userid=trim(frm.session_userid.value);
+    if(session_userid.length <= 0 || session_userid == "")
+    {
+        error_count = error_count + 1;
+        error_msg  =  error_msg + error_count + ") " + " Please Enter User ID" + "\n";
+        // frm.username.focus();
+    }
+    var session_ip=trim(frm.session_ip.value);
+    if(session_ip.length <= 0 || session_ip == "")
+    {
+        error_count = error_count + 1;
+        error_msg  =  error_msg + error_count + ") " + " Please Enter IP address" + "\n";
+        // frm.username.focus();
+    }
+
+    var deliverystatus=trim(frm.deliverystatus.value);
+    if(deliverystatus.length <= 0 || deliverystatus == "")
+    {
+        error_count = error_count + 1;
+        error_msg  =  error_msg + error_count + ") " + " Please Enter Delivery Status" + "\n";
+        frm.deliverystatus.focus();
+    }
+
+    if(Number(error_count) == 0)
+    {
+        var div_name = "#div_deliverystatus";
+        var page_name = "save_adddeliverystatus.php";
+        $(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+        $.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, deliverystatus:deliverystatus},
+            function(data)
+            {
+                $(div_name).html(data);
+            }
+        );
+        return false;
+    }
 }
 
 function add_menu()

@@ -81,7 +81,7 @@
 				<!-- Form actions -->
 				<div class="row">
 					<div class="col-sm-8 col-md-8 col-lg-8">
-						<form name="menu_form" id="menu_form" action="#">
+						<form name="deliverystatus_form" id="deliverystatus_form" action="#">
 							<input type="hidden" name="session_userid" id="session_userid" value="<?php echo $_SESSION['user_id']; ?>">
 							<input type="hidden" name="session_ip" id="session_ip" value="<?php echo $_SESSION['ip']; ?>">
 							<input type="hidden" name="AddEdit" id="AddEdit" value="0">
@@ -101,36 +101,24 @@
 									<div class="row">
 										<div class="col-lg-6">
 											<div class="form-group form-group-material">
-												<label>Page Name <span class="text-danger">*</span></label>
+												<label>Delivery Status <span class="text-danger">*</span></label>
 												<div class="input-group">
-													<input type="text" class="form-control" name="menuname" id="menuname"  required="required" autofocus onkeypress="return only_Alpha_Numeric_underscore_dot(event);" ondrop="return false;" onpaste="return false;">
+													<input type="text" class="form-control" name="deliverystatus" id="deliverystatus"  required="required" autofocus onkeypress="return only_Alpha_Space(event);" ondrop="return false;" onpaste="return false;">
                                                         <span class="input-group-addon">
                                                     <i class="icon-libreoffice"></i>
                                                     </span>
 												</div>
 											</div>
 										</div>
-										<div class="col-lg-6">
-											<div class="form-group form-group-material">
-												<label>Page Name Description <span class="text-danger">*</span></label>
-												<div class="input-group">
-													<input type="text" class="form-control" name="pagedescription" id="pagedescription"  required="required" autofocus onkeypress="return only_Alpha_Numeric_Space(event);" ondrop="return false;" onpaste="return false;">
-                                                        <span class="input-group-addon">
-                                                    <i class="icon-file-text"></i>
-                                                    </span>
-												</div>
-											</div>
-										</div>
 									</div>
-
 								</div>
 								<div class="panel-footer">
 									<div class="col-md-12">
 										<div class="text-right">
-											<button type="submit" name="submit" id="submit" class="btn bg-grey-600" onclick="return add_menu();"><span class="text-semibold" id="<?php echo $span_pageButton; ?>">Submit</span></button>
+											<button type="submit" name="submit" id="submit" class="btn bg-grey-600" onclick="return add_deliverystatus();"><span class="text-semibold" id="<?php echo $span_pageButton; ?>">Submit</span></button>
 										</div>
 									</div>
-									<div id="div_menu"></div>
+									<div id="div_deliverystatus"></div>
 								</div>
 							</div>
 						</form>
@@ -148,10 +136,10 @@
 									</ul>
 								</div>
 							</div>
-								<?php include('add_pages_1.php'); ?>
+								<?php include('add_deliverystatus_1.php'); ?>
 							<!-- Basic datatable -->
-							<div class="panel-heading" id="div_searchmenu">
-								<?php include('add_pages_2.php'); ?>
+							<div class="panel-heading" id="div_searchdeliverystatus">
+								<?php include('add_deliverystatus_2.php'); ?>
 							<div/>
 							<!-- /basic datatable -->
 						</div>

@@ -31,7 +31,7 @@ function formhash(email, password) {
             }
         }
 
-    // frm.userpassword.value = "";
+    frm.userpassword.value = "";
 
     var autologin=0;
     if(document.getElementById("autologin").checked == true){

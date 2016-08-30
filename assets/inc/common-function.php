@@ -597,6 +597,33 @@
 		mysqli_free_result($result);
 	}
 
+	function Fill_UndeliveryReason($con)
+	{
+		$UndeliveryReason="";
+		$sqlQry= "";
+		$sqlQry= "select urid, UndeliveredReason from undeliveredreason_master ";
+		$sqlQry.= " where Active=1";
+		$sqlQry.= " order by UndeliveredReason";
+		//echo ("$sqlQry");
+		mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0) {
+			$inc = 0;
+			$UndeliveryReason = "";
+			while ($row = mysqli_fetch_array($result, MYSQLI_NUM)) {
+				$inc = $inc + 1;
+				if ($inc == 1) {
+					$UndeliveryReason = $row{0} . "~" . $row{1};
+				} else {
+					$UndeliveryReason = $UndeliveryReason . "||" . $row{0} . "~" . $row{1};
+				}
+			}
+		}
+			mysqli_free_result($result);
+			return $UndeliveryReason;
+	}
 
 	function Fill_VehicleOwnership($con)
 	{
@@ -796,6 +823,28 @@
 			mysqli_free_result($result);
 		}
 
+
+	function Get_OutwardLRID($con, $OutwardID, $InwardID)
+	{
+		$Getting_OutwardLRID=0;
+		$sqlQry= "";
+		$sqlQry= "select olrid from outwardlr ";
+		$sqlQry= $sqlQry." where oid=$OutwardID";
+		$sqlQry= $sqlQry." and iid=$InwardID";
+		$sqlQry= $sqlQry." and Active=1";
+//		echo ("Check sqlQry :- $sqlQry </br>");
+//		die();
+		unset($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		if (mysqli_num_rows($result)!=0)		{
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))			{
+				$Getting_OutwardLRID=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_OutwardLRID;
+	}
 
 	function Get_AreaName($con, $amid)
 	{
@@ -1094,6 +1143,30 @@
 		return $Getting_AreaID;
 	}
 
+
+	function Check_UserID($con, $userid)
+	{
+		$Getting_UserID=0;
+		$sqlQry= "";
+		$sqlQry= "select loginid from login_master";
+		$sqlQry= $sqlQry." where UserID='$userid'";
+		$sqlQry= $sqlQry." and Active=1";
+//		$sqlQry= $sqlQry." and Active=1";
+//		echo ("Check sqlQry :- $sqlQry </br>");
+//		die();
+		unset($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		if (mysqli_num_rows($result)!=0)
+		{
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$Getting_UserID=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_UserID;
+	}
 
 	function Check_PageAccess($con, $pagename, $username)
 	{

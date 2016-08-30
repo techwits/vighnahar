@@ -57,7 +57,7 @@
                 <form action="#" class="form-validate" name="logincheck_form" id="logincheck_form">
                     <div class="panel panel-body login-form">
                         <div class="text-center">
-                            <div class="icon-object border-slate-300 text-slate-300"><i class="icon-reading"></i></div>
+                            <div class="icon-object border-slate-300 text-slate-300"><i class="icon-home5"></i></div>
                             <h5 class="content-group">Login to your account <small class="display-block">Your credentials</small></h5>
                         </div>
 
@@ -97,8 +97,6 @@
                                 <li><a href="#" class="btn border-slate-600 text-slate-600 btn-flat btn-icon btn-rounded"><i class="icon-github"></i></a></li>
                                 <li><a href="#" class="btn border-info text-info btn-flat btn-icon btn-rounded"><i class="icon-twitter"></i></a></li>
                             </ul>
-                            <div class="content-divider text-muted form-group"><span>Don't have an account?</span></div>
-                            <a href="login_registration.html" class="btn btn-default btn-block content-group">Sign up</a>
                             <span class="help-block text-center no-margin">By continuing, you're confirming that you've read our <a href="#">Terms &amp; Conditions</a> and <a href="#">Cookie Policy</a></span>
 
                 </form>
