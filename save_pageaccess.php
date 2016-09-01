@@ -67,38 +67,41 @@
                 $PageAccess=Check_PageAccess($con, $SinglePage, $username);
 //                echo("PageAccess :- $PageAccess </br>");
 //                die();
-                if($PageAccess==0) {
-                    $Procedure = "Call Save_PageAccess('$CurrentDate', $session_userid, '$session_ip', $SinglePage, $username);";
-//                    echo ("Procedure:- ".$Procedure."</br>");
-//                    die();
-                    unset($con);
-                    include('assets/inc/db_connect.php');
 
-                    $result = mysqli_query($con, $Procedure) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
-                    if (mysqli_num_rows($result) != 0) {
-                        $row = mysqli_fetch_array($result, MYSQLI_NUM);
-                        $LastInsertedID = $row{0};
-                    }
-                    mysqli_free_result($result);
-//                  echo("Saved Successfully & LastInsertedID :- $LastInsertedID </br>");
+                // ********************** Active - Deactive Pages **********************
+                        if($PageAccess==0) {
+                            $Procedure = "Call Save_PageAccess('$CurrentDate', $session_userid, '$session_ip', $SinglePage, $username);";
+        //                    echo ("Procedure:- ".$Procedure."</br>");
+        //                    die();
+                            unset($con);
+                            include('assets/inc/db_connect.php');
 
-                }
-                else{
-                    Set_PageAccessActive($con, $CurrentDate, $session_userid, $session_ip, $username, $SinglePage);
-                }
+                            $result = mysqli_query($con, $Procedure) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
+                            if (mysqli_num_rows($result) != 0) {
+                                $row = mysqli_fetch_array($result, MYSQLI_NUM);
+                                $LastInsertedID = $row{0};
+                            }
+                            mysqli_free_result($result);
+        //                  echo("Saved Successfully & LastInsertedID :- $LastInsertedID </br>");
+
+                        }
+                        else{
+                            Set_PageAccessActive($con, $CurrentDate, $session_userid, $session_ip, $username, $SinglePage);
+                        }
+                // ********************** Active - Deactive Pages **********************
+
 
                 /* Log Ends*/
                     Log_End($con, $searchColumn_Value, $LogStart_Value);
                     unset($con);
 //                        mysqli_close($con);
                 /* Log Ends*/
-
-                ?>
+            }
+            ?>
                 <script language="javascript">
                     ClearAllControls(0);
                 </script>
-                <?php
-            }
+            <?php
         }
         else{
             $IDExist=Check_PageAccessIDExist($con, $AddEdit);

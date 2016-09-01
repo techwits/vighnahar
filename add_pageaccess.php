@@ -105,7 +105,8 @@
 												<select name="pagename" id="pagename" class="form-control" multiple>
 													<option></option>
 														<?php
-															Fill_PageName($con);
+															$UserID=$_SESSION['user_id'];
+															Fill_PageName_Selected($con, $UserID);
 														?>
 												</select>
 											</div>
@@ -116,8 +117,8 @@
 													<select name="username" id="username" class="form-control">
 														<option></option>
 															<?php
-																$UserID=$_SESSION['user_id'];
-																Fill_Designation($con, $UserID);
+																$PrivilageID=$_SESSION['privilage'];
+																Fill_Designation_Selected($con, $PrivilageID);
 															?>
 													</select>
 											</div>

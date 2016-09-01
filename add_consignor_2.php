@@ -118,7 +118,7 @@
 
                 ?>
                 <tr>
-                    <td><a href="#" onclick="return editconsignee(<?php echo $cid; ?>, '<?php echo $ConsignorName; ?>', '<?php echo $Pancard; ?>', '<?php echo $ServiceTax; ?>', '<?php echo $Remark; ?>', '<?php echo $caid; ?>', '<?php echo $Address; ?>', '<?php echo $amid; ?>', '<?php echo $Pincode; ?>', '<?php echo $City; ?>', '<?php echo $AreaName; ?>', '<?php echo $Telephone1; ?>', '<?php echo $Telephone2; ?>', '<?php echo $Telephone3; ?>', '<?php echo $ConsignorEmail; ?>', '<?php echo $ConsignorWebsite; ?>', '<?php echo $ConsignorProduct; ?>');"><?php echo $ConsignorName; ?></a> </td>
+                    <td><a href="#" onclick="return editconsignor(<?php echo $cid; ?>, '<?php echo $ConsignorName; ?>', '<?php echo $Pancard; ?>', '<?php echo $ServiceTax; ?>', '<?php echo $Remark; ?>', '<?php echo $caid; ?>', '<?php echo $Address; ?>', '<?php echo $amid; ?>', '<?php echo $Pincode; ?>', '<?php echo $City; ?>', '<?php echo $AreaName; ?>', '<?php echo $Telephone1; ?>', '<?php echo $Telephone2; ?>', '<?php echo $Telephone3; ?>', '<?php echo $ConsignorEmail; ?>', '<?php echo $ConsignorWebsite; ?>', '<?php echo $ConsignorProduct; ?>');"><?php echo $ConsignorName; ?></a> </td>
                     <td><?php echo $Creationdate; ?></td>
                 </tr>
                 <?php

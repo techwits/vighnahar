@@ -65,12 +65,8 @@
 		$php_page=basename(__FILE__);
 		$get_return_value=login_check($con, $php_page);
 		include_once("assets/inc/handle_error.php");
-
-		//		mysqli_close($con);
 		log_pageaccess($con, $_SESSION["pageid"], basename(__FILE__));
-		//		mysqli_close($con);
 		include_once('assets/inc/db_connect.php');
-
 
 	?>
 	<!-- /main navbar -->
@@ -118,7 +114,7 @@
 								<div class="panel-footer">
 									<div class="col-md-12">
 										<div class="text-right">
-											<button type="submit" name="submit" id="submit" class="btn bg-grey-600" onclick="return add_undeliveredreason();"><span class="text-semibold" id="<?php echo $span_pageButton; ?>">Submit</span></button>
+											<button type="button" name="submit" id="submit" class="btn bg-grey-600" onclick="return add_undeliveredreason();"><span class="text-semibold" id="<?php echo $span_pageButton; ?>">Submit</span></button>
 										</div>
 									</div>
 									<div id="div_undeliveredreason"></div>
@@ -136,7 +132,6 @@
 								<div class="heading-elements">
 									<ul class="icons-list">
 										<li><a data-action="collapse"></a></li>
-										<li><a data-action="reload" onclick="return ClearAllControls(0);"></a></li>
 									</ul>
 								</div>
 							</div>

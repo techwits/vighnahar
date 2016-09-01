@@ -105,7 +105,7 @@
 											<div class="form-group form-group-material">
 												<label>Product Name <span class="text-danger">*</span></label>
 												<div class="input-group">
-													<input type="text" class="form-control" name="productname" id="productname"  required="required" onkeypress="return only_Alpha_Numeric_underscore_dot(event);" ondrop="return false;" onpaste="return false;">
+													<input type="text" class="form-control" name="productname" id="productname"  required="required" onkeypress="return only_Alpha_Space(event);" ondrop="return false;" onpaste="return false;">
                                                         <span class="input-group-addon">
                                                     <i class="icon-user"></i>
                                                     </span>

@@ -1,8 +1,7 @@
 <!-- Theme JS files -->
-<script type="text/javascript" src="assets/js/plugins/notifications/pnotify.min.js"></script>
-
-<script type="text/javascript" src="assets/js/core/app.js"></script>
-<script type="text/javascript" src="assets/js/pages/components_notifications_pnotify.js"></script>
+    <script type="text/javascript" src="assets/js/plugins/notifications/pnotify.min.js"></script>
+    <script type="text/javascript" src="assets/js/core/app.js"></script>
+    <script type="text/javascript" src="assets/js/pages/components_notifications_pnotify.js"></script>
 <!-- /theme JS files -->
 
 
@@ -47,9 +46,7 @@
 
     if(trim($error_msg)=="") {
 
-
                 if ($AddEdit==0) {
-
                     $sqlQry= "";
                     $sqlQry= "select cnid from `consignee_master` where 1=1";
                     $sqlQry.=" and caid=$consignorid ";
@@ -85,10 +82,7 @@
 
                                     /* Log Start*/
                                         $LogStart_Value = Log_Start($con, $CurrentDate, $Creator, $ip, $PageName, $inTime, $tablename, $searchColumn, $searchColumn_Value);
-    //                                    echo("LogStart_Value :- $LogStart_Value </br>");
-    //                                    die();
                                         mysqli_close($con);
-                                        include('assets/inc/db_connect.php');
                                     /* Log Start*/
 
 
@@ -97,7 +91,6 @@
 //                                  die();
                                     mysqli_close($con);
                                     include('assets/inc/db_connect.php');
-
                                     $result = mysqli_query($con, $Procedure) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
                                     if (mysqli_num_rows($result) != 0) {
                                         $row = mysqli_fetch_array($result, MYSQLI_NUM);
@@ -107,28 +100,21 @@
                                     include('assets/inc/db_connect.php');
 
                                     /* Log Ends*/
-                                    Log_End($con, $searchColumn_Value, $LogStart_Value);
-                                    unset($con);
+                                        Log_End($con, $searchColumn_Value, $LogStart_Value);
+                                        unset($con);
                                     /* Log Ends*/
                                 }
                             else{
                                 echo("For this consigee rate has been already added. Please check.........");
                                 die();
                             }
-
                         }
                     }
-
                     ?>
                         <script language="javascript">
                             ClearAllControls(0);
-                            show_newlyaddedlist('add_rate_2.php', 'div_searchrate');
                         </script>
                     <?php
-
-
-                    
-
                 }
                 else{
 
@@ -143,11 +129,7 @@
 
                         /* Log Start*/
                             $LogStart_Value=Log_Start($con, $CurrentDate, $Creator, $ip, $PageName, $inTime, $tablename, $searchColumn, $searchColumn_Value);
-//                            echo("LogStart_Value :- $LogStart_Value </br>");
-//                            die();
-//                            unset($con);
                             mysqli_close($con);
-                            include('assets/inc/db_connect.php');
                         /* Log Start*/
 
                         $IDTableName="rate_master";
@@ -167,7 +149,6 @@
                                 $LastInsertedID = $row{0};
                             }
                             mysqli_free_result($result);
-                            //        echo("Saved Successfully & LastInsertedID :- $LastInsertedID </br>");
 
                             /* Log Ends*/
                                 Log_End($con, $searchColumn_Value, $LogStart_Value);
@@ -176,7 +157,6 @@
                             ?>
                                 <script language="javascript">
                                     ClearAllControls(0);
-                                    show_newlyaddedlist('add_rate_2.php', 'div_searchrate');
                                 </script>
                             <?php
                     }

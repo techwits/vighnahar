@@ -78,16 +78,21 @@
         $sqlQry.=" on `consigneeaddress_master`.`amid`=`area_master`.`amid`";
 
         $sqlQry.= " where 1=1";
+        $sqlQry.= " and `consignee_master`.Active=1";
+
         if ($searchin==1) {
             $sqlQry.= " and consignee_master.ConsigneeName like '$searchvalue%'";
+            $sqlQry.= " order by consignee_master.ConsigneeName";
         }
         elseif ($searchin==2) {
             $sqlQry.= " and consignor_master.ConsignorName like '$searchvalue%'";
+            $sqlQry.= " order by consignor_master.ConsignorName";
         }
         elseif ($searchin==3) {
             $sqlQry.= " and area_master.AreaName like '$searchvalue%'";
+            $sqlQry.= " order by area_master.AreaName";
         }
-        $sqlQry.= " and `consignee_master`.Active=1";
+
 //        echo ("Check sqlQry :- $sqlQry </br>");
 //        die();
         unset($con);

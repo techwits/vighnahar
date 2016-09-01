@@ -112,6 +112,9 @@
     $Creator=$session_userid;
     $ip=$session_ip;
 
+
+if(trim($error_msg)=="") {
+
     $tablename="consignor_master";
     $searchColumn="cid";
     $searchColumn_Value=$AddEdit;
@@ -119,7 +122,6 @@
     /* Log Start*/
         $LogStart_Value=Log_Start($con, $CurrentDate, $Creator, $ip, $PageName, $inTime, $tablename, $searchColumn, $searchColumn_Value);
         unset($con);
-        include('assets/inc/db_connect.php');
     /* Log Start*/
 
     $tablename="consignoraddress_master";
@@ -129,7 +131,6 @@
     /* Log Start*/
         $LogStart_Value1=Log_Start($con, $CurrentDate, $Creator, $ip, $PageName, $inTime, $tablename, $searchColumn, $searchColumn_Value1);
         unset($con);
-        include('assets/inc/db_connect.php');
     /* Log Start*/
 
     $tablename="consignorcontact_master";
@@ -139,7 +140,6 @@
     /* Log Start*/
         $LogStart_Value2=Log_Start($con, $CurrentDate, $Creator, $ip, $PageName, $inTime, $tablename, $searchColumn, $searchColumn_Value2);
         unset($con);
-        include('assets/inc/db_connect.php');
     /* Log Start*/
 
     $tablename="consignorproduct_master";
@@ -147,31 +147,34 @@
     $searchColumn_Value3=$AddEdit3;
 
     /* Log Start*/
-    $LogStart_Value3=Log_Start($con, $CurrentDate, $Creator, $ip, $PageName, $inTime, $tablename, $searchColumn, $searchColumn_Value3);
-    unset($con);
-    include('assets/inc/db_connect.php');
+        $LogStart_Value3=Log_Start($con, $CurrentDate, $Creator, $ip, $PageName, $inTime, $tablename, $searchColumn, $searchColumn_Value3);
+        unset($con);
     /* Log Start*/
 
 
-
-
-if(trim($error_msg)=="") {
-
     if ($AddEdit==0) {
-        $Procedure = "Call Save_Consignor('$CurrentDate', $session_userid, '$session_ip', '$consignorname', '$panno', '$address', '$area', $pincode, '$city', $contacttype1, '$telephone1', $contacttype2, '$telephone2', $contacttype3, '$telephone3', $contacttype4, '$email', $contacttype5, '$url', '$remark', $servicetax);";
+        $Procedure = "Call Save_Consignor('$CurrentDate', $session_userid, '$session_ip', '$consignorname', '$panno', '$address', $AreaID, $pincode, '$city', $contacttype1, '$telephone1', $contacttype2, '$telephone2', $contacttype3, '$telephone3', $contacttype4, '$email', $contacttype5, '$url', '$remark', $servicetax);";
     }
     else{
 
-         
         $IDTableName="consignor_master";
         $IDColumnName="cid";
         $IDExist=Check_IDExist($con, $IDTableName, $IDColumnName, $AddEdit);
-        if($AddEdit>0 and $AddEdit1>0 and $AddEdit2>0) {
+
+        $IDTableName="consignoraddress_master";
+        $IDColumnName="caid";
+        $IDExist1=Check_IDExist($con, $IDTableName, $IDColumnName, $AddEdit1);
+
+        $IDTableName="area_master";
+        $IDColumnName="amid";
+        $IDExist2=Check_IDExist($con, $IDTableName, $IDColumnName, $AddEdit2);
+
+
+        if($IDExist>0 and $IDExist1>0 and $IDExist2>0) {
             $Procedure = "Call Update_Consignor($AddEdit, $AddEdit1, '$CurrentDate', $session_userid, '$session_ip', '$consignorname', '$panno', '$address', $AreaID, $pincode, '$city', '$remark', $servicetax);";
-            
         }
         else{
-            echo("Consignee ID is not getting. Please contact system administrator....");
+            echo("Consignor ID is not getting. Please contact system administrator....");
         }
     }
 //    echo ("Procedure:- ".$Procedure."</br>");
@@ -185,7 +188,7 @@ if(trim($error_msg)=="") {
         $LastInsertedID = $row{0};
         if($LastInsertedID>0){
             if ($AddEdit==0) {
-                Add_ConsignorProduct($con, '$CurrentDate', $session_userid, '$session_ip', $LastInsertedID, $product);
+                Add_ConsignorProduct($con, $CurrentDate, $session_userid, $session_ip, $LastInsertedID, $product);
             }
             else{
                 Update_ConsignorTelephone($con, $AddEdit1, $telephone1, $telephone2, $telephone3);
@@ -221,9 +224,7 @@ if(trim($error_msg)=="") {
 
             ?>
                 <script language="javascript">
-                    //    ClearAllControls(0);
-                    //    show_newlyaddedlist('add_consignor_2.php', 'div_searchconsignor');
-                    window.location.reload(true);
+                    ClearAllControls(0);
                 </script>
             <?php
         }

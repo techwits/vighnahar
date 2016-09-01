@@ -109,7 +109,7 @@
         if (mysqli_num_rows($result) != 0) {
             $row = mysqli_fetch_array($result, MYSQLI_NUM);
             $LastInsertedID = $row{0};
-            echo("Saved Successfully & LastInsertedID :- $LastInsertedID </br>");
+//            echo("Saved Successfully & LastInsertedID :- $LastInsertedID </br>");
 //            echo("additionalchargesentry :- $additionalchargesentry </br>");
 
             $Split_additionalchargesentry = explode("||", $additionalchargesentry);
@@ -139,8 +139,10 @@
         /* Log Ends*/
 
         ?>
+            
             <script language="javascript">
-                ClearAllControls(0);
+                PrintDiv();
+//                ClearAllControls(0);
             </script>
         <?php
 

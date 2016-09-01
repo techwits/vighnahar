@@ -24,40 +24,45 @@
 	<!-- /global stylesheets -->
 
 	<!-- Core JS files -->
-	<script type="text/javascript" data-pace-options='{"ajax": false}' src="assets/js/plugins/loaders/pace.min.js"></script>
-	<script type="text/javascript" src="assets/js/core/libraries/jquery.min.js"></script>
-	<script type="text/javascript" src="assets/js/core/libraries/bootstrap.min.js"></script>
-	<script type="text/javascript" src="assets/js/plugins/loaders/blockui.min.js"></script>
+			<script type="text/javascript" data-pace-options='{"ajax": false}' src="assets/js/plugins/loaders/pace.min.js"></script>
+			<script type="text/javascript" src="assets/js/core/libraries/jquery.min.js"></script>
+			<script type="text/javascript" src="assets/js/core/libraries/bootstrap.min.js"></script>
+			<script type="text/javascript" src="assets/js/plugins/loaders/blockui.min.js"></script>
 
-	<script type="text/javascript" src="assets/js/plugins/loaders/pace.min.js"></script>
-	<script type="text/javascript" src="assets/js/plugins/ui/nicescroll.min.js"></script>
-	<script type="text/javascript" src="assets/js/plugins/ui/drilldown.js"></script>
+			<script type="text/javascript" src="assets/js/plugins/loaders/pace.min.js"></script>
+			<script type="text/javascript" src="assets/js/plugins/ui/nicescroll.min.js"></script>
+			<script type="text/javascript" src="assets/js/plugins/ui/drilldown.js"></script>
 	<!-- /core JS files -->
 
 	<!-- Theme JS files -->
-	<script type="text/javascript" src="assets/js/core/libraries/jquery_ui/full.min.js"></script>
-	<script type="text/javascript" src="assets/js/plugins/forms/selects/select2.min.js"></script>
 
-	<script type="text/javascript" src="assets/js/core/app.js"></script>
-	<script type="text/javascript" src="assets/js/pages/form_select2.js"></script>
+			<script type="text/javascript" src="assets/js/plugins/tables/datatables/datatables.min.js"></script>
+			<script type="text/javascript" src="assets/js/pages/datatables_api_2columns.js"></script>
 
-	<script type="text/javascript" src="assets/js/plugins/tables/datatables/datatables.min.js"></script>
-	<script type="text/javascript" src="assets/js/pages/datatables_api_2columns.js"></script>
+
+			<script type="text/javascript" src="assets/js/core/libraries/jquery_ui/full.min.js"></script>
+			<script type="text/javascript" src="assets/js/plugins/forms/selects/select2.min.js"></script>
+
+			<script type="text/javascript" src="assets/js/core/app.js"></script>
+			<script type="text/javascript" src="assets/js/pages/form_select2.js"></script>
+
+			<script type="text/javascript" src="assets/js/plugins/tables/datatables/datatables.min.js"></script>
+			<script type="text/javascript" src="assets/js/pages/datatables_api_2columns.js"></script>
 
 	<!-- /theme JS files -->
 
 	<!-- Theme JS files -->
-		<script type="text/javascript" src="assets/js/plugins/notifications/jgrowl.min.js"></script>
-		<script type="text/javascript" src="assets/js/plugins/ui/moment/moment.min.js"></script>
-		<script type="text/javascript" src="assets/js/plugins/pickers/daterangepicker.js"></script>
-		<script type="text/javascript" src="assets/js/plugins/pickers/anytime.min.js"></script>
-		<script type="text/javascript" src="assets/js/plugins/pickers/pickadate/picker.js"></script>
-		<script type="text/javascript" src="assets/js/plugins/pickers/pickadate/picker.date.js"></script>
-		<script type="text/javascript" src="assets/js/plugins/pickers/pickadate/picker.time.js"></script>
-		<script type="text/javascript" src="assets/js/plugins/pickers/pickadate/legacy.js"></script>
+				<script type="text/javascript" src="assets/js/plugins/notifications/jgrowl.min.js"></script>
+				<script type="text/javascript" src="assets/js/plugins/ui/moment/moment.min.js"></script>
+				<script type="text/javascript" src="assets/js/plugins/pickers/daterangepicker.js"></script>
+				<script type="text/javascript" src="assets/js/plugins/pickers/anytime.min.js"></script>
+				<script type="text/javascript" src="assets/js/plugins/pickers/pickadate/picker.js"></script>
+				<script type="text/javascript" src="assets/js/plugins/pickers/pickadate/picker.date.js"></script>
+				<script type="text/javascript" src="assets/js/plugins/pickers/pickadate/picker.time.js"></script>
+				<script type="text/javascript" src="assets/js/plugins/pickers/pickadate/legacy.js"></script>
 
-		<script type="text/javascript" src="assets/js/core/app.js"></script>
-		<script type="text/javascript" src="assets/js/pages/picker_date.js"></script>
+
+				<script type="text/javascript" src="assets/js/pages/picker_date.js"></script>
 	<!-- /theme JS files -->
 
 
@@ -138,7 +143,6 @@
 											</div>
 										</div>
 									</div>
-
 									<div class="row">
 										<div class="col-lg-6">
 											<div class="form-group form-group-material">
@@ -151,7 +155,6 @@
 												</div>
 											</div>
 										</div>
-
 										<div class="col-lg-3">
 											<div class="form-group">
 												<label>Ownership Type <span class="text-danger">*</span></label>
@@ -175,9 +178,7 @@
 											</div>
 										</div>
 									</div>
-
 									<div class="row">
-
 										<div class="col-lg-3">
 											<div class="form-group form-group-material">
 												<label>Permit number </label>
@@ -220,12 +221,11 @@
 											</div>
 										</div>
 									</div>
-
 								</div>
 								<div class="panel-footer">
 									<div class="col-md-12">
 										<div class="text-right">
-											<button type="submit" name="submit" id="submit" class="btn bg-grey-600" onclick="return add_vehicle();"><span class="text-semibold" id="<?php echo $span_pageButton; ?>">Submit</span></button>
+											<button type="button" name="submit" id="submit" class="btn bg-grey-600" onclick="return add_vehicle();"><span class="text-semibold" id="<?php echo $span_pageButton; ?>">Submit</span></button>
 										</div>
 									</div>
 									<div id="div_vehicle"></div>
@@ -236,21 +236,21 @@
                     <div class="col-lg-4">
 						<!-- Search field -->
 						<div class="panel panel-flat" style="border-color:<?php echo $Search_BorderColor; ?>; border-top-width:<?php echo $Search_BorderTopWidth; ?>;">
-								<div class="panel-heading" style="background-color:<?php echo $SearchHeadingColor; ?>;">
-									<h5 class="panel-title"><i class="icon-search4 text-size-base"></i> <span class="text-semibold"><?php echo $SearchPageHeading; ?></h5>
-									<div class="heading-elements">
-										<ul class="icons-list">
-											<li><a data-action="collapse"></a></li>
-											<li><a data-action="reload" onclick="return ClearAllControls(0);"></a></li>
-										</ul>
+									<div class="panel-heading" style="background-color:<?php echo $SearchHeadingColor; ?>;">
+										<h5 class="panel-title"><i class="icon-search4 text-size-base"></i> <span class="text-semibold"><?php echo $SearchPageHeading; ?></h5>
+										<div class="heading-elements">
+											<ul class="icons-list">
+												<li><a data-action="collapse"></a></li>
+												<li><a data-action="reload" onclick="return ClearAllControls(0);"></a></li>
+											</ul>
+										</div>
 									</div>
-								</div>
-								<?php include('add_vehicle_1.php'); ?>
-								<!-- Basic datatable -->
-								<div class="panel-heading" id="div_searchvehicle">
-									<?php include('add_vehicle_2.php'); ?>
-								<div/>
-								<!-- /basic datatable -->
+									<?php include('add_vehicle_1.php'); ?>
+									<!-- Basic datatable -->
+									<div class="panel-heading" id="div_searchvehicle">
+										<?php include('add_vehicle_2.php'); ?>
+									<div/>
+									<!-- /basic datatable -->
 						</div>
 						<!-- /search field -->
                 	</div>

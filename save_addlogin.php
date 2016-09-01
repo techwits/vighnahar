@@ -31,6 +31,24 @@
     $designation=sanitize($con, $_REQUEST["designation"]);
     $DesignationPrivilage=Get_DesignationPrivilage($con, $designation);
 
+
+    if($AddEdit==0) {
+        $User_ID = Check_UserID(con, $userid);
+        if ($User_ID > 0) {
+            $error_msg = "User Login ID is already Exist. PLease check.....";
+        }
+
+        if (strlen($pwd) != 128) {
+            // The hashed pwd should be 128 characters long.
+            // If it's not, something really odd has happened
+            $error_msg .= '<p class="error">Invalid Password.</p>';
+        } else {
+            $pwd = password_hash($pwd, PASSWORD_BCRYPT);
+        }
+
+    }
+
+
 //    echo ("AddEdit:- ".$AddEdit."</br>");
 //    echo ("session_userid:- ".$session_userid."</br>");
 //    echo ("session_ip:- ".$session_ip."</br>");
@@ -41,15 +59,7 @@
 //    echo ("DesignationPrivilage:- ".$DesignationPrivilage."</br>");
 //    die();
 
-    if (strlen($pwd) != 128)
-    {
-        // The hashed pwd should be 128 characters long.
-        // If it's not, something really odd has happened
-        $error_msg .= '<p class="error">Invalid Code configuration.</p>';
-    }
-    else {
-        $pwd = password_hash($pwd, PASSWORD_BCRYPT);
-    }
+
 
     $tablename="login_master";
     $searchColumn="loginid";

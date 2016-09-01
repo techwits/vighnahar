@@ -59,11 +59,7 @@
 	<?php
 		$PageHeaderName="Manage Area";
 		$icon="icon-address-book";
-		$EntryToday=2345;
-		$EntryWeek=5364;
-		$EntryMonth=9546;
-		$EntryTillDate=9957;
-
+		
 		include('page_header.php');
 
 //		$php_page=basename(__FILE__);

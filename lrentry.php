@@ -48,6 +48,10 @@
 
 	<script type="text/javascript" src="assets/js/core/app.js"></script>
 	<script type="text/javascript" src="assets/js/pages/picker_date.js"></script>
+
+
+	<script type="text/javascript" src="assets/js/plugins/tables/datatables/datatables.min.js"></script>
+	<script type="text/javascript" src="assets/js/pages/datatables_basic.js"></script>
 	<!-- /theme JS files -->
 
 	<script type="text/JavaScript" src="assets/js/search/search.js"></script>
@@ -58,19 +62,19 @@
 
 <!-- Main navbar -->
 <?php
-$PageHeaderName="Add Lorry Receipt";
-$icon="icon-address-book";
+	$PageHeaderName="Add Lorry Receipt";
+	$icon="icon-address-book";
 
-include('page_header.php');
+	include('page_header.php');
 
-$php_page=basename(__FILE__);
-$get_return_value=login_check($con, $php_page);
-include_once("assets/inc/handle_error.php");
+	$php_page=basename(__FILE__);
+	$get_return_value=login_check($con, $php_page);
+	include_once("assets/inc/handle_error.php");
 
-//		mysqli_close($con);
-log_pageaccess($con, $_SESSION["pageid"], basename(__FILE__));
-//		mysqli_close($con);
-include_once('assets/inc/db_connect.php');
+	//		mysqli_close($con);
+	log_pageaccess($con, $_SESSION["pageid"], basename(__FILE__));
+	//		mysqli_close($con);
+	include_once('assets/inc/db_connect.php');
 
 
 ?>
@@ -87,8 +91,6 @@ include_once('assets/inc/db_connect.php');
 
 		<!-- Main content -->
 		<div class="content-wrapper">
-
-
 
 			<!-- Form actions -->
 			<div class="row">
@@ -119,7 +121,7 @@ include_once('assets/inc/db_connect.php');
 											<div>
 												<div class="input-group">
 													<?php
-													
+
 														$CYear=date("Y");
 														$CMonth=date("m");
 														if($CMonth<4){
@@ -197,7 +199,7 @@ include_once('assets/inc/db_connect.php');
 										<div class="form-group form-group-material">
 											<label>Consignor <span class="text-danger">*</span></label>
 											<div class="input-group">
-												<select name="consignorid" id="consignorid" required="required"  class="form-control" onblur="return get_consignee(this.value, <?php echo $_SESSION['user_id']; ?>, '<?php echo $_SESSION['ip']; ?>');" onblur="return lrentry_disabled(this.value, 'consignorid');">
+												<select name="consignorid" id="consignorid" required="required"  class="form-control" onblur="return get_consignee(this.value, <?php echo $_SESSION['user_id']; ?>, '<?php echo $_SESSION['ip']; ?>');">
 													<option></option>
 													<?php
 													Fill_Consignor($con);
@@ -241,7 +243,7 @@ include_once('assets/inc/db_connect.php');
 										<div class="form-group form-group-material">
 											<label>Package Type <span class="text-danger">*</span></label>
 											<div class="input-group">
-												<select name="packagetype" id="packagetype" required="required" class="form-control" onblur="return get_productRate(this.value, <?php echo $_SESSION['user_id']; ?>, '<?php echo $_SESSION['ip']; ?>');" onblur="return lrentry_disabled(this.value, 'packagetype');">
+												<select name="packagetype" id="packagetype" required="required" class="form-control" onblur="return get_productRate(this.value, <?php echo $_SESSION['user_id']; ?>, '<?php echo $_SESSION['ip']; ?>');">
 													<option></option>
 														<option value="CartoonRate">CartoonRate</option>
 														<option value="ItemRate">ItemRate</option>
@@ -325,7 +327,7 @@ include_once('assets/inc/db_connect.php');
 											</div>
 											Additional Charges
 										</label>
-										<input type="text" class="form-control" name="additionalchargesentry" id="additionalchargesentry" value="">
+										<input type="hidden" class="form-control" name="additionalchargesentry" id="additionalchargesentry" value="">
 									</div>
 
 								</div>
@@ -337,6 +339,9 @@ include_once('assets/inc/db_connect.php');
 									</div>
 								</div>
 
+								<div id="divToPrint" style="display:none;">
+									
+								</div>
 
 								<div class="panel-footer">
 									<div class="col-md-12">

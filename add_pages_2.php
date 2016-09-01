@@ -73,7 +73,7 @@
                 $Active=$row[6];
                 ?>
                 <tr>
-                    <td><a href="#" onclick="return editmenu(<?php echo $menusub_id; ?>, '<?php echo $CreationDate; ?>', '<?php echo $ModificationDate; ?>', '<?php echo $Creator; ?>', '<?php echo $ip; ?>', '<?php echo $url; ?>', '<?php echo $urlDescription; ?>', '<?php echo $Active; ?>');"><?php echo $url; ?></a> </td>
+                    <td><a href="#" onclick="return editmenu(<?php echo $menusub_id; ?>, '<?php echo $CreationDate; ?>', '<?php echo $ModificationDate; ?>', '<?php echo $Creator; ?>', '<?php echo $ip; ?>', '<?php echo $url; ?>', '<?php echo $urlDescription; ?>', '<?php echo $Active; ?>');"><?php echo $urlDescription; ?></a> </td>
                     <td><?php echo $CreationDate; ?></td>
                 </tr>
                 <?php

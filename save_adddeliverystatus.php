@@ -42,17 +42,12 @@
     $Creator=$session_userid;
     $ip=$session_ip;
 
-    /* Log Start*/
-        $LogStart_Value=Log_Start($con, $CurrentDate, $Creator, $ip, $PageName, $inTime, $tablename, $searchColumn, $searchColumn_Value);
-//        echo("LogStart_Value :- $LogStart_Value </br>");
-//        die();
-        unset($con);
-//        mysqli_close($con);
-        include('assets/inc/db_connect.php');
-    /* Log Start*/
-
-
     if(trim($error_msg)=="") {
+
+        /* Log Start*/
+            $LogStart_Value=Log_Start($con, $CurrentDate, $Creator, $ip, $PageName, $inTime, $tablename, $searchColumn, $searchColumn_Value);
+            unset($con);
+        /* Log Start*/
 
         if ($AddEdit==0) {
             $Procedure = "Call Save_DeliveryStatus('$CurrentDate', $session_userid, '$session_ip', '$deliverystatus');";
@@ -70,21 +65,16 @@
 //        die();
         unset($con);
         include('assets/inc/db_connect.php');
-
         $result = mysqli_query($con, $Procedure) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
         if (mysqli_num_rows($result) != 0) {
             $row = mysqli_fetch_array($result, MYSQLI_NUM);
             $LastInsertedID = $row{0};
         }
         mysqli_free_result($result);
-//        echo("Saved Successfully & LastInsertedID :- $LastInsertedID </br>");
-//        die();
-
 
         /* Log Ends*/
             Log_End($con, $searchColumn_Value, $LogStart_Value);
             unset($con);
-//            mysqli_close($con);
         /* Log Ends*/
         ?>
             <script language="javascript">

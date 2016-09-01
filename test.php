@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <?php
+    include('assets/inc/db_connect.php');
+    include('assets/inc/common-function.php');
+    include('assets/inc/functions.php');
+    sec_session_start();
+    ?>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Limitless - Responsive Web Application Kit by Eugene Kopyov</title>
+    <title>Vehicle Entry</title>
 
     <!-- Global stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
@@ -13,72 +19,229 @@
     <link href="assets/css/core.css" rel="stylesheet" type="text/css">
     <link href="assets/css/components.css" rel="stylesheet" type="text/css">
     <link href="assets/css/colors.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/icons/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/extras/animate.min.css" rel="stylesheet" type="text/css">
     <!-- /global stylesheets -->
 
     <!-- Core JS files -->
-    <script type="text/javascript" src="assets/js/plugins/loaders/pace.min.js"></script>
+    <script type="text/javascript" data-pace-options='{"ajax": false}' src="assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="assets/js/core/libraries/jquery.min.js"></script>
     <script type="text/javascript" src="assets/js/core/libraries/bootstrap.min.js"></script>
     <script type="text/javascript" src="assets/js/plugins/loaders/blockui.min.js"></script>
+
+    <script type="text/javascript" src="assets/js/plugins/loaders/pace.min.js"></script>
+    <script type="text/javascript" src="assets/js/plugins/ui/nicescroll.min.js"></script>
+    <script type="text/javascript" src="assets/js/plugins/ui/drilldown.js"></script>
     <!-- /core JS files -->
 
     <!-- Theme JS files -->
-    <script type="text/javascript" src="assets/js/core/libraries/jasny_bootstrap.min.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/forms/editable/editable.min.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/extensions/mockjax.min.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/forms/editable/address.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/ui/moment/moment.min.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/forms/styling/switchery.min.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/forms/styling/uniform.min.js"></script>
+    <script type="text/javascript" src="assets/js/core/libraries/jquery_ui/full.min.js"></script>
     <script type="text/javascript" src="assets/js/plugins/forms/selects/select2.min.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/forms/inputs/autosize.min.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/forms/inputs/typeahead/typeahead.bundle.min.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/forms/tags/tagsinput.min.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/forms/inputs/touchspin.min.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/forms/inputs/formatter.min.js"></script>
 
     <script type="text/javascript" src="assets/js/core/app.js"></script>
-    <script type="text/javascript" src="assets/js/pages/form_editable.js"></script>
+    <script type="text/javascript" src="assets/js/pages/form_select2.js"></script>
+
+    <script type="text/javascript" src="assets/js/plugins/tables/datatables/datatables.min.js"></script>
+    <script type="text/javascript" src="assets/js/pages/datatables_api_2columns.js"></script>
+
     <!-- /theme JS files -->
+
+    <script type="text/JavaScript" src="assets/js/search/search.js"></script>
+    <script type="text/JavaScript" src="assets/js/sha512.js"></script>
 
 </head>
 
-<body>
+<body class="navbar-top" onload="return ClearAllControls_Only(0);">
 
-            <div class="panel-body">
-                        X-editable - library, that allows you to create editable elements on your page. It can be used with any engine (bootstrap, jquery-ui, jquery only) and includes both popup and inline modes. By default, x-editable supports 13 input types, such as checkboxes, text fields, textareas, selects, dates etc. Also this library supports <code>Select2</code> and <code>Typeahead</code> integrations by default and some other examples with custom components built in.
-                    </div>
+<!-- Main navbar -->
+<?php
+$PageHeaderName="Manage Vehicle";
+$icon="icon-address-book";
 
-                    <div class="table-responsive">
-                        <table class="table table-lg">
+//include('page_header.php');
+//
+//$php_page=basename(__FILE__);
+//$get_return_value=login_check($con, $php_page);
+//include_once("assets/inc/handle_error.php");
+//
+////		mysqli_close($con);
+//log_pageaccess($con, $_SESSION["pageid"], basename(__FILE__));
+////		mysqli_close($con);
+//include_once('assets/inc/db_connect.php');
 
-                            <tr>
-                                <td>Select with remote source</td>
-                                <td><a href="#" id="select-default-remote" data-type="select" data-inputclass="form-control" data-pk="1" data-value="5" data-title="Select group">Admin</a></td>
-                                <td>Display popup with select box, that loads data from remote source</td>
-                            </tr>
 
-                        </table>
+?>
+<!-- /main navbar -->
+
+<!-- Page container -->
+<div class="page-container">
+    <!-- Page content -->
+    <div class="page-content">
+        <!-- Main content -->
+        <div class="content-wrapper">
+            <!-- Form actions -->
+            <div class="row">
+                <div class="col-sm-8 col-md-8 col-lg-8">
+                    <form name="vehicle_form" id="vehicle_form" action="#">
+                        <input type="hidden" name="session_userid" id="session_userid" value="<?php echo $_SESSION['user_id']; ?>">
+                        <input type="hidden" name="session_ip" id="session_ip" value="<?php echo $_SESSION['ip']; ?>">
+                        <input type="hidden" name="AddEdit" id="AddEdit" value="0">
+                        <div id="<?php echo $div_merchantcontrols; ?>" class="panel panel-flat" style="border-color:<?php echo $Form_BorderColor; ?>; border-top-width:<?php echo $Form_BorderTopWidth; ?>;">
+
+                            <div class="panel-heading" id="<?php echo $div_panel; ?>" style="background-color:<?php echo $FormHeadingColor; ?>;">
+                                <h5 class="panel-title"><i class="icon-bus position-left"></i> <span class="text-semibold" id="<?php echo $span_pageName; ?>"><?php echo $PageHeaderName; ?></h5>
+                                <div class="heading-elements">
+                                    <ul class="icons-list">
+                                        <li><a data-action="collapse"></a></li>
+                                        <li><a data-action="reload" onclick="return ClearAllControls(0);"></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="panel-body" style="margin-top:15px;">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group form-group-material">
+                                            <label>Vehicle Make <span class="text-danger">*</span></label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="vehiclename" id="vehiclename"  required="required" autofocus onkeypress="return only_Alpha_Space(event);" ondrop="return false;" onpaste="return false;">
+                                                        <span class="input-group-addon">
+                                                    		<i class="icon-bus"></i>
+                                                    	</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group form-group-material">
+                                            <label>Vehicle Number <span class="text-danger">*</span></label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="vehiclenumber" id="vehiclenumber"  required="required" autofocus onkeypress="return only_Alpha_Numeric_Hyphen_Space(event);" ondrop="return false;" onpaste="return false;">
+                                                        <span class="input-group-addon">
+                                                    		<i class="icon-list-numbered"></i>
+                                                    	</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group form-group-material">
+                                            <label>RCBook Number </label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="vehiclercbooknumber" id="vehiclercbooknumber" autofocus onkeypress="return only_Alpha_Numeric_Hyphen_Space(event);" ondrop="return false;" onpaste="return false;">
+                                                        <span class="input-group-addon">
+                                                    		<i class="icon-list-numbered"></i>
+                                                    	</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label>Ownership Type <span class="text-danger">*</span></label>
+                                            <select name="vehicleownershipname" id="vehicleownershipname" class="form-control" required="required">
+                                                <option value=""></option>-->
+                                                <?php
+                                                Fill_VehicleOwnership($con);
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group form-group-material">
+                                            <label>Registration Year </label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="registrationyear" id="registrationyear" maxlength="4" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
+													<span class="input-group-addon">
+														<i class="icon-calendar52"></i>
+													</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="form-group form-group-material">
+                                            <label>Permit number </label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="permitnumber" id="permitnumber" onkeypress="return only_Alpha_Numeric(event);" ondrop="return false;" onpaste="return false;">
+													<span class="input-group-addon">
+														<i class="icon-list-numbered"></i>
+													</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group form-group-material">
+                                            <label>Permit Expire date </label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control daterange-single"  name="vehiclepermitexpiredate" id="vehiclepermitexpiredate" onblur="return clearText('permitnumber', 'vehiclepermitexpiredate');">
+                                                <span class="input-group-addon"><i class="icon-calendar22"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group form-group-material">
+                                            <label>Insurance number </label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="insurancenumber" id="insurancenumber"  onkeypress="return only_Alpha_Numeric(event);" ondrop="return false;" onpaste="return false;">
+													<span class="input-group-addon">
+														<i class="icon-list-numbered"></i>
+													</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group form-group-material">
+                                            <label>Insurance Expire date </label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control daterange-single"  name="insuranceexpiredate" id="insuranceexpiredate" value="" onblur="return clearText('insurancenumber', 'insuranceexpiredate');">
+                                                <span class="input-group-addon"><i class="icon-calendar22"></i></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                                <div class="col-md-12">
+                                    <div class="text-right">
+                                        <button type="button" name="submit" id="submit" class="btn bg-grey-600" onclick="return add_vehicle();"><span class="text-semibold" id="<?php echo $span_pageButton; ?>">Submit</span></button>
+                                    </div>
+                                </div>
+                                <div id="div_vehicle"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-lg-4">
+                    <!-- Search field -->
+                    <div class="panel panel-flat" style="border-color:<?php echo $Search_BorderColor; ?>; border-top-width:<?php echo $Search_BorderTopWidth; ?>;">
+                        <div class="panel-heading" style="background-color:<?php echo $SearchHeadingColor; ?>;">
+                            <h5 class="panel-title"><i class="icon-search4 text-size-base"></i> <span class="text-semibold"><?php echo $SearchPageHeading; ?></h5>
+                            <div class="heading-elements">
+                                <ul class="icons-list">
+                                    <li><a data-action="collapse"></a></li>
+                                    <li><a data-action="reload" onclick="return ClearAllControls(0);"></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <?php include('add_vehicle_1.php'); ?>
+                        <!-- Basic datatable -->
+                        <div class="panel-heading" id="div_searchvehicle">
+                            <?php include('add_vehicle_2.php'); ?>
+                            <div/>
+                            <!-- /basic datatable -->
+                        </div>
+                        <!-- /search field -->
                     </div>
                 </div>
-                <!-- /editable inputs -->
-
-
-                <!-- Footer -->
-                <div class="footer text-muted">
-                    &copy; 2015. <a href="#">Limitless Web App Kit</a> by <a href="http://themeforest.net/user/Kopyov" target="_blank">Eugene Kopyov</a>
-                </div>
-                <!-- /footer -->
-
             </div>
-            <!-- /content area -->
-
+            <!-- /form actions -->
         </div>
-        <!-- /main content -->
-
+        <!-- /content wrapper -->
     </div>
     <!-- /page content -->
-
+    <?php include('footer.php'); ?>
 </div>
 <!-- /page container -->
 

@@ -67,7 +67,8 @@
 		{
 			$Procedure="";
 			$Procedure = "Call Save_ConsignorProduct('$CurrentDate', $session_userid, '$session_ip', $LastInsertedID, $SingleProduct);";
-			echo("Procedure :- $Procedure </br>");
+//			echo("Procedure :- $Procedure </br>");
+//			die();
 			unset($con);
 			include('db_connect.php');
 			$resultproduct = mysqli_query($con, $Procedure) or trigger_error("Query Failed(save consignor product)! Error: " . mysqli_error($con), E_USER_ERROR);
@@ -216,6 +217,86 @@
 			}
 		}
 		return $Getting_TableListID;
+	}
+
+
+
+
+	function Get_LRAdditionalCharge($con, $LRID, $acmid)
+	{
+		$Getting_LRAdditionalCharge=0;
+		$sqlQry= "";
+		$sqlQry= "select Amount from inwardcharge";
+		$sqlQry.= " where LRID=$LRID";
+		$sqlQry.= " and acmid=$acmid";
+//		echo ("$sqlQry");
+//		die();
+//		mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0)
+		{
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$Getting_LRAdditionalCharge=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_LRAdditionalCharge;
+	}
+
+	function Get_ConsigneeArea($con, $cnid)
+	{
+		$Getting_ConsigneeArea="";
+		$sqlQry= "";
+		$sqlQry= "select area_master.AreaName from consignee_master";
+
+		$sqlQry.= " inner join consigneeaddress_master";
+		$sqlQry.= " on consignee_master.cnid=consigneeaddress_master.cnid";
+
+		$sqlQry.= " inner join area_master";
+		$sqlQry.= " on consigneeaddress_master.amid=area_master.amid";
+
+		$sqlQry.= " where consignee_master.cnid=$cnid";
+	//		echo ("$sqlQry");
+	//		die();
+		//		mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0)
+		{
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$Getting_ConsigneeArea=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_ConsigneeArea;
+	}
+
+	function Get_previousolrid($con, $olrid)
+	{
+		$Getting_previousolrid=0;
+		$sqlQry= "";
+		$sqlQry= "select prv_olrid from outwardlr";
+		$sqlQry.= " where olrid=$olrid";
+//		echo ("$sqlQry");
+//		die();
+		//		mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0)
+		{
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$Getting_previousolrid=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_previousolrid;
 	}
 
 	function Get_MinimumRate($con, $consignorid, $consigneeid, $productid)
@@ -645,6 +726,47 @@
 		mysqli_free_result($result);
 	}
 
+	function Fill_Designation_Selected($con, $PrivilageID)
+	{
+		$sqlQry= "";
+		$sqlQry= "select designationid, Designation, Privilage from designation_master ";
+		$sqlQry.= " where 1=1";
+		if($UserID==1) {
+			$sqlQry .= " and designationid>=1";
+		}
+		elseif($UserID==2) {
+			$sqlQry .= " and designationid>=2";
+		}
+		elseif($UserID==3) {
+			$sqlQry .= " and designationid>=3";
+		}
+		$sqlQry.= " and Active=1";
+		$sqlQry.= " order by designationid";
+//		echo ("$sqlQry");
+
+		mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		while ($row = mysqli_fetch_array($result, MYSQLI_NUM))
+		{
+			$ID=$row{0};
+			$Name=$row{1};
+			$db_Privilage=$row{2};
+
+//			echo("db_Privilage :- $db_Privilage </br>");
+//			echo("PrivilageID :- $PrivilageID </br>");
+
+			if($ID==$PrivilageID){
+				echo "<option value=" . $ID . " selected>" . $Name . " </option>";
+			}
+			else {
+				echo "<option value=" . $ID . ">" . $Name . " </option>";
+			}
+		}
+		mysqli_free_result($result);
+	}
+
 	function Fill_Designation($con, $UserID)
 		{
 			$sqlQry= "";
@@ -662,6 +784,41 @@
 			$sqlQry.= " and Active=1";
 			$sqlQry.= " order by designationid";
 			//echo ("$sqlQry");
+			mysqli_close($con);
+			include('db_connect.php');
+			$result = mysqli_query($con, $sqlQry);
+			//fetch tha data from the database
+			while ($row = mysqli_fetch_array($result, MYSQLI_NUM))
+			{
+				$ID=$row{0};
+				$Name=$row{1};
+				echo "<option value=".$ID.">".$Name." </option>";
+			}
+			mysqli_free_result($result);
+		}
+
+	function Fill_LoginName_Selective($con, $UserID)
+		{
+			$sqlQry = "";
+			$sqlQry = " select loginid, UserName from login_master ";
+			$sqlQry.= " where Privilage in";
+			$sqlQry.= " ( ";
+				$sqlQry.= "select Privilage from designation_master ";
+				$sqlQry.= " where 1=1";
+				if($UserID==1) {
+					$sqlQry .= " and designationid>=1";
+				}
+				elseif($UserID==2) {
+					$sqlQry .= " and designationid>=2";
+				}
+				elseif($UserID==3) {
+					$sqlQry .= " and designationid>=3";
+				}
+			$sqlQry.= " ) ";
+			$sqlQry.= " and Active=1";
+			$sqlQry.= " order by UserName";
+//			echo ("SwlQuery :- $sqlQry </br> ");
+//			die();
 			mysqli_close($con);
 			include('db_connect.php');
 			$result = mysqli_query($con, $sqlQry);
@@ -801,6 +958,38 @@
 		}
 		mysqli_free_result($result);
 		return $Getting_AreaForJS;
+	}
+
+	function Fill_PageName_Selected($con, $UserID)
+	{
+		$sqlQry= "";
+		$sqlQry= "select 1menusub.menusub_id, 1menusub.urlDescription, pageaccess_member.Active from 1menusub ";
+
+		$sqlQry.= " left join pageaccess_member";
+		$sqlQry.= " on 1menusub.menusub_id=pageaccess_member.menusub_id";
+
+		$sqlQry.= " and 1menusub.Active=1";
+
+		$sqlQry.= " order by 1menusub.urlDescription";
+//		echo ("$sqlQry");
+//		die();
+		mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		while ($row = mysqli_fetch_array($result, MYSQLI_NUM))
+		{
+			$ID=$row{0};
+			$Name=$row{1};
+			$Active=$row{2};
+			if($Active==1) {
+				echo "<option value=" . $ID . " selected>" . $Name . " </option>";
+			}
+			else{
+				echo "<option value=" . $ID . ">" . $Name . " </option>";
+			}
+		}
+		mysqli_free_result($result);
 	}
 
 	function Fill_PageName($con)
@@ -1315,8 +1504,8 @@
 		$sqlQry= "select cnid from `consignee_master`";
 		$sqlQry= $sqlQry." where cnid=$ConsigneeID";
 		$sqlQry= $sqlQry." and Active=1";
-		//		echo ("Check sqlQry :- $sqlQry </br>");
-		//		die();
+//		echo ("Check sqlQry :- $sqlQry </br>");
+//		die();
 		unset($con);
 		include('db_connect.php');
 		$result = mysqli_query($con, $sqlQry);
@@ -1331,7 +1520,7 @@
 		return $Getting_ConsigneeID;
 	}
 
-	function Check_ConsigneeAddressIDExist($con, $ConsigneeID, $ConsigneeAddressID)
+	function Check_ConsigneeAddressIDExist($con, $ConsigneeAddressID)
 	{
 		$Getting_ConsigneeAddressID=0;
 		$sqlQry= "";

@@ -24,25 +24,25 @@
 	<!-- /global stylesheets -->
 
 	<!-- Core JS files -->
-	<script type="text/javascript" data-pace-options='{"ajax": false}' src="assets/js/plugins/loaders/pace.min.js"></script>
-	<script type="text/javascript" src="assets/js/core/libraries/jquery.min.js"></script>
-	<script type="text/javascript" src="assets/js/core/libraries/bootstrap.min.js"></script>
-	<script type="text/javascript" src="assets/js/plugins/loaders/blockui.min.js"></script>
+		<script type="text/javascript" data-pace-options='{"ajax": false}' src="assets/js/plugins/loaders/pace.min.js"></script>
+		<script type="text/javascript" src="assets/js/core/libraries/jquery.min.js"></script>
+		<script type="text/javascript" src="assets/js/core/libraries/bootstrap.min.js"></script>
+		<script type="text/javascript" src="assets/js/plugins/loaders/blockui.min.js"></script>
 
-	<script type="text/javascript" src="assets/js/plugins/loaders/pace.min.js"></script>
-	<script type="text/javascript" src="assets/js/plugins/ui/nicescroll.min.js"></script>
-	<script type="text/javascript" src="assets/js/plugins/ui/drilldown.js"></script>
+		<script type="text/javascript" src="assets/js/plugins/loaders/pace.min.js"></script>
+		<script type="text/javascript" src="assets/js/plugins/ui/nicescroll.min.js"></script>
+		<script type="text/javascript" src="assets/js/plugins/ui/drilldown.js"></script>
 	<!-- /core JS files -->
 
 	<!-- Theme JS files -->
-	<script type="text/javascript" src="assets/js/core/libraries/jquery_ui/full.min.js"></script>
-	<script type="text/javascript" src="assets/js/plugins/forms/selects/select2.min.js"></script>
+		<script type="text/javascript" src="assets/js/core/libraries/jquery_ui/full.min.js"></script>
+		<script type="text/javascript" src="assets/js/plugins/forms/selects/select2.min.js"></script>
 
-	<script type="text/javascript" src="assets/js/core/app.js"></script>
-	<script type="text/javascript" src="assets/js/pages/form_select2.js"></script>
+		<script type="text/javascript" src="assets/js/core/app.js"></script>
+		<script type="text/javascript" src="assets/js/pages/form_select2.js"></script>
 
-	<script type="text/javascript" src="assets/js/plugins/tables/datatables/datatables.min.js"></script>
-	<script type="text/javascript" src="assets/js/pages/datatables_api.js"></script>
+		<script type="text/javascript" src="assets/js/plugins/tables/datatables/datatables.min.js"></script>
+		<script type="text/javascript" src="assets/js/pages/datatables_api.js"></script>
 
 	<!-- /theme JS files -->
 
@@ -63,12 +63,8 @@
 		$php_page=basename(__FILE__);
 		$get_return_value=login_check($con, $php_page);
 		include_once("assets/inc/handle_error.php");
-
-		//		mysqli_close($con);
 		log_pageaccess($con, $_SESSION["pageid"], basename(__FILE__));
-		//		mysqli_close($con);
 		include_once('assets/inc/db_connect.php');
-
 
 	?>
 	<!-- /main navbar -->
@@ -104,7 +100,7 @@
 														<div class="col-lg-6">
 															<div class="form-group">
 																<label>Consignor Name <span class="text-danger">*</span></label>
-																<select name="consignorid" id="consignorid"  class="form-control" tabindex="-1" aria-hidden="true"  onblur="return get_rate_consignee(this.value, <?php echo $_SESSION['user_id']; ?>, '<?php echo $_SESSION['ip']; ?>');">
+																<select name="consignorid" id="consignorid"  class="form-control" autofocus  onblur="return get_rate_consignee(this.value, <?php echo $_SESSION['user_id']; ?>, '<?php echo $_SESSION['ip']; ?>');">
 																	<option></option>
 																	<?php
 																		Fill_Consignor($con);
@@ -175,7 +171,7 @@
 											<div class="panel-footer">
 												<div class="col-md-12">
 													<div class="text-right">
-														<button type="submit" name="submit" id="submit" class="btn bg-grey-600" onclick="return add_rate();"><span class="text-semibold" id="<?php echo $span_pageButton; ?>">Submit</span></button>
+														<button type="button" name="submit" id="submit" class="btn bg-grey-600" onclick="return add_rate();"><span class="text-semibold" id="<?php echo $span_pageButton; ?>">Submit</span></button>
 													</div>
 												</div>
 												<div id="div_rate"></div>

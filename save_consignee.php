@@ -24,7 +24,7 @@
     $CurrentDate = date('Y-m-d h:i:s');
     $AddEdit=$_REQUEST["AddEdit"];
     $AddEdit1=$_REQUEST["AddEdit1"];
-    $AddEdit4=$_REQUEST["AddEdit4"];
+    $AddEdit2=$_REQUEST["AddEdit2"];
     $session_userid=$_REQUEST["session_userid"];
     $session_ip=$_REQUEST["session_ip"];
 
@@ -33,9 +33,18 @@
     $address=sanitize($con, $_REQUEST["address"]);
     $area=sanitize($con, $_REQUEST["area"]);
     $AreaID=Check_AreaID($con, $AddEdit1, $area);
-    if($AreaID<>0){
-        echo("Area Name is already present in master table. Please check.....");
-        die();
+    if($AreaID==0){
+        $Procedure="";
+        $Procedure = "Call Save_Area('$CurrentDate', $session_userid, '$session_ip', '$area');";
+        mysqli_close($con);
+        include('assets/inc/db_connect.php');
+        $resultarea = mysqli_query($con, $Procedure) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
+        if (mysqli_num_rows($resultarea) != 0) {
+            $row = mysqli_fetch_array($resultarea, MYSQLI_NUM);
+            $AreaID = $row{0};
+        }
+        mysqli_free_result($result);
+        include('assets/inc/db_connect.php');
     }
     $pincode=sanitize($con, $_REQUEST["pincode"]);
     $city=sanitize($con, $_REQUEST["city"]);
@@ -44,7 +53,8 @@
     $url=sanitize($con, $_REQUEST["url"]);
 
 //    echo ("AddEdit:- ".$AddEdit."</br>");
-//    echo ("AddEdit4:- ".$AddEdit4."</br>");
+//    echo ("AddEdit1:- ".$AddEdit1."</br>");
+//    echo ("AddEdit2:- ".$AddEdit2."</br>");
 //    echo ("session_userid:- ".$session_userid."</br>");
 //    echo ("session_ip:- ".$session_ip."</br>");
 //    echo ("consignoraddressid:- ".$consignoraddressid."</br>");
@@ -65,51 +75,62 @@
     $Creator=$session_userid;
     $ip=$session_ip;
 
-    $tablename="consignee_master";
-    $searchColumn="cnid";
-    $searchColumn_Value=$AddEdit;
-
-    /* Log Start*/
-        $LogStart_Value=Log_Start($con, $CurrentDate, $Creator, $ip, $PageName, $inTime, $tablename, $searchColumn, $searchColumn_Value);
-        unset($con);
-        include('assets/inc/db_connect.php');
-    /* Log Start*/
-
-    $tablename="consigneeaddress_master";
-    $searchColumn="cnaid";
-    $searchColumn_Value1=$AddEdit1;
-
-    /* Log Start*/
-        $LogStart_Value1=Log_Start($con, $CurrentDate, $Creator, $ip, $PageName, $inTime, $tablename, $searchColumn, $searchColumn_Value1);
-        unset($con);
-        include('assets/inc/db_connect.php');
-    /* Log Start*/
-
-
 
     if(trim($error_msg)=="") {
 
         if ($AddEdit==0) {
-            $Procedure = "Call Save_Consignee('$CurrentDate', $session_userid, '$session_ip', $consignoraddressid, '$companyname', '$address', '$area', $pincode, '$city', '$telephone', '$email', '$url');";
+
+            $tablename="consignee_master";
+            $searchColumn="cnid";
+            $searchColumn_Value=$AddEdit;
+
+            /* Log Start*/
+                $LogStart_Value=Log_Start($con, $CurrentDate, $Creator, $ip, $PageName, $inTime, $tablename, $searchColumn, $searchColumn_Value);
+                unset($con);
+                include('assets/inc/db_connect.php');
+            /* Log Start*/
+
+            $tablename="consigneeaddress_master";
+            $searchColumn="cnaid";
+            $searchColumn_Value1=$AddEdit1;
+
+            /* Log Start*/
+                $LogStart_Value1=Log_Start($con, $CurrentDate, $Creator, $ip, $PageName, $inTime, $tablename, $searchColumn, $searchColumn_Value1);
+                unset($con);
+                include('assets/inc/db_connect.php');
+            /* Log Start*/
+
+            $Procedure = "Call Save_Consignee('$CurrentDate', $session_userid, '$session_ip', $consignoraddressid, '$companyname', '$address', $AreaID, $pincode, '$city', '$telephone', '$email', '$url');";
         }
         else{
 
-            $IDExist=Check_ConsigneeIDExist($con, $AddEdit);
-            $IDExist1=Check_ConsigneeAddressIDExist($con, $AddEdit, $AddEdit1);
+//            $IDExist=Check_ConsigneeIDExist($con, $AddEdit);
+            $IDTableName="consignee_master";
+            $IDColumnName="cnid";
+            $IDExist=Check_IDExist($con, $IDTableName, $IDColumnName, $AddEdit);
+//            echo ("IDExist:- ".$IDExist."</br>");
+            //die();
+            $IDTableName="consignor_master";
+            $IDColumnName="cid";
+            $IDExist1=Check_IDExist($con, $IDTableName, $IDColumnName, $AddEdit1);
+//            echo ("IDExist1:- ".$IDExist1."</br>");
+//            die();
 
             $IDTableName="area_master";
             $IDColumnName="amid";
-            $IDExist2=Check_IDExist($con, $IDTableName, $IDColumnName, $AddEdit4);
+            $IDExist2=Check_IDExist($con, $IDTableName, $IDColumnName, $AddEdit2);
+//            echo ("IDExist2:- ".$IDExist2."</br>");
+//            die();
 
-            if($IDExist>0 and $IDExist1>0) {
-                $Procedure = "Call Update_Consignee($IDExist, $IDExist1, $IDExist2, '$CurrentDate', $session_userid, '$session_ip', $consignoraddressid, '$companyname', '$address', '$area', $pincode, '$city', '$telephone', '$email', '$url');";
+            if($IDExist>0 and $IDExist1>0 and $IDExist2>0) {
+                $Procedure = "Call Update_Consignee($IDExist, $IDExist1, $IDExist2, '$CurrentDate', $session_userid, '$session_ip', $consignoraddressid, '$companyname', '$address', $pincode, '$city', '$telephone', '$email', '$url');";
             }
             else{
                 echo("Consignee ID is not getting. Please contact system administrator....");
             }
         }
-    //    echo ("Procedure:- ".$Procedure."</br>");
-    //    die();
+//        echo ("Procedure:- ".$Procedure."</br>");
+//        die();
         unset($con);
         include('assets/inc/db_connect.php');
 

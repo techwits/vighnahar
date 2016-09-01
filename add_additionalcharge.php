@@ -58,10 +58,6 @@
 	<?php
 		$PageHeaderName="Manage Additional Charge";
 		$icon="icon-address-book";
-		$EntryToday=2345;
-		$EntryWeek=5364;
-		$EntryMonth=9546;
-		$EntryTillDate=9957;
 
 		include('page_header.php');
 
@@ -142,7 +138,7 @@
 								<div class="panel-footer">
 									<div class="col-md-12">
 										<div class="text-right">
-											<button type="submit" name="submit" id="submit" class="btn bg-grey-600" onclick="return add_additionalcharge();"><span class="text-semibold" id="<?php echo $span_pageButton; ?>">Submit</span></button>
+											<button type="button" name="submit" id="submit" class="btn bg-grey-600" onclick="return add_additionalcharge();"><span class="text-semibold" id="<?php echo $span_pageButton; ?>">Submit</span></button>
 										</div>
 									</div>
 									<div id="div_additionalcharges"></div>

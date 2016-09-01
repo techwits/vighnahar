@@ -534,6 +534,68 @@ function changepassword_checkuserid()
     }
 }
 
+function delete_user()
+{
+	//alert("Hi...");
+	var frm=document.deleteuser_form;
+	var error_count;
+	var error_msg;
+	error_msg="";
+	error_count=0;
+
+	var session_userid=trim(frm.session_userid.value);
+	if(session_userid.length <= 0 || session_userid == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter User ID" + "\n";
+		// frm.username.focus();
+	}
+	var session_ip=trim(frm.session_ip.value);
+	if(session_ip.length <= 0 || session_ip == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter IP address" + "\n";
+		// frm.username.focus();
+	}
+
+	var userID=trim(frm.userID.value);
+	if(userID.length <= 0 || userID == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Select User" + "\n";
+		frm.userID.focus();
+	}
+
+
+	deleteuser_reason=trim(frm.deleteuser_reason.value);
+	if(deleteuser_reason.length <= 0 || deleteuser_reason == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter Reason" + "\n";
+		frm.deleteuser_reason.focus();
+	}
+
+
+	if(Number(error_count) == 0)
+	{
+		var div_name = "#div_deleteuser";
+		var page_name = "save_deleteuser.php";
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$.post(page_name, {session_userid:session_userid, session_ip:session_ip, userID:userID, deleteuser_reason:deleteuser_reason},
+			function(data)
+			{
+				$(div_name).html(data);
+			}
+		);
+		return false;
+	}
+	else
+	{
+		alert(error_msg);
+		return false;
+	}
+}
+
 function add_designation()
 {
 	//alert("Hi...");
@@ -576,6 +638,14 @@ function add_designation()
 			}
 		);
 		return false;
+	}
+}
+
+function clearText(FirstControl, SecondControl)
+{
+	var First=document.getElementById(FirstControl).value;
+	if(First==""){
+		document.getElementById(SecondControl).value=""
 	}
 }
 
@@ -926,6 +996,7 @@ function editlogin(loginid, CreationDate, ModificationDate, Creator, ip, UserNam
 		document.getElementById("userpassword").value="";
 		document.getElementById("designation").selectedIndex=0;
 		document.getElementById("designation").disabled=true;
+		document.getElementById("userpassword").disabled=true;
 
 		document.getElementById("username").focus();
 
@@ -947,7 +1018,57 @@ function editlogin(loginid, CreationDate, ModificationDate, Creator, ip, UserNam
 }
 
 
-function editconsignee(cid, ConsignorName, Pancard, ServiceTax, Remark, caid, Address, amid, Pincode, City, AreaName, Telephone1, Telephone2, Telephone3, ConsignorEmail, ConsignorWebsite, ConsignorProduct)
+function editconsignee(cnid, ConsigneeName, Website, cnaid, Address, Pincode, City, Telephone, Email, amid, AreaName, ConsignorID, ConsignorName)
+{
+	// alert("amid :- " + amid);
+	document.getElementById("AddEdit").value=cnid;
+	document.getElementById("AddEdit1").value=ConsignorID;
+	document.getElementById("AddEdit2").value=amid;
+
+
+	edited_consignorid=document.getElementById("consignoraddressid").value;
+	if(Number(cnid) > 0)
+	{
+		if(edited_consignorid!=ConsignorID) {
+			var oForm = document.forms["consignee_form"];
+			$("#consignoraddressid option").eq(0).before($('<option>', {
+				value: ConsignorID,
+				text: ConsignorName
+			}));
+			document.getElementById("consignoraddressid").selectedIndex = 0;
+		}
+
+		document.getElementById("companyname").value=ConsigneeName;
+		document.getElementById("address").value=Address;
+		document.getElementById("area").value=AreaName;
+		document.getElementById("city").value=City;
+		document.getElementById("pincode").value=Pincode;
+
+		document.getElementById("telephone").value=Telephone;
+
+
+		document.getElementById("email").value=Email;
+		document.getElementById("url").value=Website;
+
+		document.getElementById("consignoraddressid").focus();
+
+		// $('#div_merchantcontrols').addClass('animated swing');
+		document.getElementById('div_merchantcontrols').style.borderColor='#b8b894';
+		document.getElementById('div_merchantcontrols').style.borderTopWidth='3px';
+		document.getElementById('div_panel').style.backgroundColor='#b8b894';
+
+		// $("#div_merchantcontrols").css({ 'border-color': "#00c0ef" });
+		// $( "#div_merchantcontrols" ).css( "border-top", "3px solid red");
+		document.getElementById("span_pageName").innerHTML="Update - " + ConsigneeName;
+		document.getElementById("span_pageButton").innerHTML="Update";
+	}
+	else
+	{
+		alert("Consignee / Address ID is Blank. Please check......");
+	}
+}
+
+function editconsignor(cid, ConsignorName, Pancard, ServiceTax, Remark, caid, Address, amid, Pincode, City, AreaName, Telephone1, Telephone2, Telephone3, ConsignorEmail, ConsignorWebsite, ConsignorProduct)
 {
 	// alert("ConsignorName :- " + ConsignorName);
 	document.getElementById("AddEdit").value=cid;
@@ -993,8 +1114,6 @@ function editconsignee(cid, ConsignorName, Pancard, ServiceTax, Remark, caid, Ad
 					document.getElementById('product').options[i].selected = true;
 				}
 			}
-
-
 		}
 
 
@@ -1547,12 +1666,69 @@ function editpageaccess(id, CreationDate, ModificationDate, Creator, ip, menusub
 			document.getElementById("username").selectedIndex = 0;
 		}
 
+		document.getElementById("pagename").disabled=true;
+		document.getElementById("username").disabled=true;
+
 	}
 	else
 	{
 		alert("Merchant ID is Blank. Please check......");
 	}
 }
+
+
+function rmstatusreverse(session_userid, session_ip, divname, olrid, Del_UnDel)
+{
+	var error_count;
+	var error_msg;
+	error_msg="";
+	error_count=0;
+
+	if(session_userid.length <= 0 || session_userid == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter User ID" + "\n";
+		// frm.username.focus();
+	}
+
+	if(session_ip.length <= 0 || session_ip == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter IP address" + "\n";
+		// frm.username.focus();
+	}
+
+	if(divname.length <= 0 || divname == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Div ID blank" + "\n";
+	}
+	if(olrid.length <= 0 || olrid == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Outward LR ID blank" + "\n";
+	}
+
+	if(Number(error_count) == 0)
+	{
+		var div_name = "#"+divname;
+		var page_name = "rmstatus_reverse.php";
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$.post(page_name, {session_userid:session_userid, session_ip:session_ip, olrid:olrid, Del_UnDel:Del_UnDel},
+			function(data)
+			{
+				$(div_name).html(data);
+			}
+		);
+		return false;
+	}
+	else{
+		alert(error_msg);
+		return false;
+	}
+
+}
+
 
 function fill_rmtableEdit(lrnumber){
 
@@ -2037,6 +2213,10 @@ function add_contacttype()
 		);
 		return false;
 	}
+	else{
+		alert(error_msg);
+		return false;
+	}
 }
 
 function add_additionalcharge()
@@ -2216,6 +2396,10 @@ function add_undeliveredreason()
 				$(div_name).html(data);
 			}
 		);
+		return false;
+	}
+	else {
+		alert(error_msg);
 		return false;
 	}
 }
@@ -2827,6 +3011,10 @@ function add_rate()
 		);
 		return false;
 	}
+	else{
+		alert(error_msg);
+		return false;
+	}
 }
 
 function updateRMStatus(Inc, session_userid, session_ip, RMID, LRID, DeliveredID, UnDeliveredID)
@@ -2877,7 +3065,7 @@ function updateRMStatus(Inc, session_userid, session_ip, RMID, LRID, DeliveredID
         var div_name = "#"+divname;
         var page_name = "save_rmstatus.php";
         $(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
-        $.post(page_name, {session_userid:session_userid, session_ip:session_ip, RMID:RMID, LRID:LRID, DeliveredID:DeliveredID, UnDeliveredID:UnDeliveredID},
+        $.post(page_name, {divname:divname, session_userid:session_userid, session_ip:session_ip, RMID:RMID, LRID:LRID, DeliveredID:DeliveredID, UnDeliveredID:UnDeliveredID},
             function(data)
             {
                 $(div_name).html(data);
@@ -2938,6 +3126,10 @@ function add_deliverystatus()
         );
         return false;
     }
+	else{
+		alert(error_msg);
+		return false;
+	}
 }
 
 function add_menu()
@@ -3177,7 +3369,7 @@ function add_consignee()
 
 	var AddEdit=trim(frm.AddEdit.value);
 	var AddEdit1=trim(frm.AddEdit1.value);
-	var AddEdit4=trim(frm.AddEdit4.value);
+	var AddEdit2=trim(frm.AddEdit2.value);
 
 	var session_userid=trim(frm.session_userid.value);
 	if(session_userid.length <= 0 || session_userid == "")
@@ -3273,7 +3465,7 @@ function add_consignee()
 		var div_name = "#div_consignee";
 		var page_name = "save_consignee.php";
 		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
-		$.post(page_name, {AddEdit:AddEdit, AddEdit1:AddEdit1, AddEdit4:AddEdit4, session_userid:session_userid, session_ip:session_ip, consignoraddressid:consignoraddressid, companyname:companyname, address:address, area:area, pincode:pincode, city:city, telephone:telephone, email:email, url:url},
+		$.post(page_name, {AddEdit:AddEdit, AddEdit1:AddEdit1, AddEdit2:AddEdit2, session_userid:session_userid, session_ip:session_ip, consignoraddressid:consignoraddressid, companyname:companyname, address:address, area:area, pincode:pincode, city:city, telephone:telephone, email:email, url:url},
 			function(data)
 			{
 				$(div_name).html(data);
@@ -3445,26 +3637,27 @@ function add_login()
 	}
 
 
-	userpassword=trim(frm.userpassword.value);
-	if(userpassword.length <= 0 || userpassword == "")
-	{
-		error_count = error_count + 1;
-		error_msg  =  error_msg + error_count + ") " + " Please Enter User Password" + "\n";
-		frm.userpassword.focus();
+	var userpassword="";
+	if(Number(AddEdit)==0) {
+		userpassword = trim(frm.userpassword.value);
+		if (userpassword.length <= 0 || userpassword == "") {
+			error_count = error_count + 1;
+			error_msg = error_msg + error_count + ") " + " Please Enter User Password" + "\n";
+			frm.userpassword.focus();
+		}
+		else {
+			var pwd = hex_sha512(userpassword);
+		}
 	}
-	else
-	{
-		var pwd = hex_sha512(userpassword);
+	var designation=0;
+	if(Number(AddEdit)==0) {
+		var designation = trim(frm.designation.value);
+		if (designation.length <= 0 || designation == "") {
+			error_count = error_count + 1;
+			error_msg = error_msg + error_count + ") " + " Please Select Designation" + "\n";
+			frm.designation.focus();
+		}
 	}
-
-	var designation=trim(frm.designation.value);
-	if(designation.length <= 0 || designation == "")
-	{
-		error_count = error_count + 1;
-		error_msg  =  error_msg + error_count + ") " + " Please Select Designation" + "\n";
-		frm.designation.focus();
-	}
-
 
 	if(Number(error_count) == 0)
 	{
@@ -3623,7 +3816,7 @@ function get_quantityRate(Quantity, Creator, ip)
 	}
 	else
 	{
-		alert(error_msg);
+		// alert(error_msg);
 		return false;
 	}
 }
@@ -3785,7 +3978,7 @@ function get_productRate(packageType, Creator, ip)
 	}
 	else
 	{
-		alert(error_msg);
+		// alert(error_msg);
 		return false;
 	}
 }
@@ -3846,7 +4039,7 @@ function get_productOnConsignee(ConsigneeID, ConsignorID, Creator, ip)
 	}
 	else
 	{
-		alert("ID is Blank.");
+		// alert("ID is Blank.");
 		return false;
 	}
 }
@@ -3898,7 +4091,7 @@ function get_rate_consignee(ConsignorID, Creator, ip)
 	}
 	else
 	{
-		alert("ID is Blank.");
+		// alert("ID is Blank.");
 		return false;
 	}
 }
@@ -3936,6 +4129,7 @@ function get_consignee(ConsignorID, Creator, ip)
 
 	if(Number(error_count) == 0)
 	{
+		document.getElementById("consignorid").disabled = true;
 		var div_name = "#div_consignee";
 		var page_name = "lrentry_1.php";
 		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
@@ -3949,7 +4143,44 @@ function get_consignee(ConsignorID, Creator, ip)
 	}
 	else
 	{
-		alert("ID is Blank.");
+		// alert("ID is Blank.");
 		return false;
 	}
+}
+
+function printlr(LRID)
+{
+	if(LRID.length <= 0 || LRID == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " LRID is Blank " + "\n";
+		// frm.username.focus();
+	}
+	
+	if(Number(error_count) == 0)
+	{
+		var div_name = "#divToPrint";
+		var page_name = "lrprint.php";
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$.post(page_name, {LRID:LRID},
+			function(data)
+			{
+				$(div_name).html(data);
+			}
+		);
+		return false;
+	}
+	else
+	{
+		// alert("ID is Blank.");
+		return false;
+	}
+}
+
+function PrintDiv() {
+	var divToPrint = document.getElementById('divToPrint');
+	var popupWin = window.open('', '_blank');
+	popupWin.document.open();
+	popupWin.document.write('<html><body onload="window.print()">' + divToPrint.innerHTML + '</html>');
+	popupWin.document.close();
 }

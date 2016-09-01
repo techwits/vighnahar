@@ -73,7 +73,6 @@
 	<script type="text/javascript" src="assets/js/plugins/notifications/pnotify.min.js"></script>
 	<script type="text/javascript" src="assets/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
 
-	<script type="text/javascript" src="assets/js/core/app.js"></script>
 	<script type="text/javascript" src="assets/js/pages/form_multiselect.js"></script>
 
 
@@ -157,7 +156,7 @@
 											<div class="form-group form-group-material">
 												<label>Address <span class="text-danger">*</span> </label>
 												<div class="input-group">
-													<input type="text" class="form-control" name="address" id="address" required="required" onkeypress="return only_Alpha_Numeric_Apostrophy_Space(event);" ondrop="return false;" onpaste="return false;">
+													<input type="text" class="form-control" name="address" id="address" required="required" ondrop="return false;" onpaste="return false;">
                                                         <span class="input-group-addon">
                                                     <i class="icon-road"></i>
                                                     </span>
@@ -285,7 +284,7 @@
 											<div class="multi-select-auto">
 												<label>Product <span class="text-danger">*</span> </label>
 												<div class="multi-select-full">
-													<select name="product" id="product" multiple="multiple">
+													<select name="product" id="product" multiple="multiple" style="height: 100px;">
 														<?php
 															$TableName="product_master";
 															$ColumnName="pmid, ProductName";
@@ -302,7 +301,7 @@
 											<div class="form-group form-group-material">
 												<label>Remark </label>
 												<div class="input-group">
-													<textarea cols="40" rows="3" name="remark" id="remark"></textarea>
+													<textarea cols="40" rows="5" name="remark" id="remark"></textarea>
 												</div>
 											</div>
 										</div>

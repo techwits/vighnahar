@@ -41,16 +41,12 @@
     $Creator=$session_userid;
     $ip=$session_ip;
 
-    /* Log Start*/
-        $LogStart_Value=Log_Start($con, $CurrentDate, $Creator, $ip, $PageName, $inTime, $tablename, $searchColumn, $searchColumn_Value);
-//        echo("LogStart_Value :- $LogStart_Value </br>");
-//        die();
-        unset($con);
-//        mysqli_close($con);
-        include('assets/inc/db_connect.php');
-    /* Log Start*/
-
     if(trim($error_msg)=="") {
+
+        /* Log Start*/
+            $LogStart_Value=Log_Start($con, $CurrentDate, $Creator, $ip, $PageName, $inTime, $tablename, $searchColumn, $searchColumn_Value);
+            unset($con);
+        /* Log Start*/
 
         if ($AddEdit==0) {
             $Procedure = "Call Save_Area('$CurrentDate', $session_userid, '$session_ip', '$areaname');";
@@ -76,12 +72,9 @@
             $row = mysqli_fetch_array($result, MYSQLI_NUM);
             $LastInsertedID = $row{0};
 
-//          echo("Saved Successfully & LastInsertedID :- $LastInsertedID </br>");
-
             /* Log Ends*/
                 Log_End($con, $searchColumn_Value, $LogStart_Value);
                 unset($con);
-//            mysqli_close($con);
             /* Log Ends*/
             ?>
                 <script language="javascript">
