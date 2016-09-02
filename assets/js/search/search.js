@@ -1677,8 +1677,9 @@ function editpageaccess(id, CreationDate, ModificationDate, Creator, ip, menusub
 }
 
 
-function rmstatusreverse(session_userid, session_ip, divname, olrid, Del_UnDel)
+function rmstatusreverse(session_userid, session_ip, divname, olrid)
 {
+
 	var error_count;
 	var error_msg;
 	error_msg="";
@@ -1709,12 +1710,13 @@ function rmstatusreverse(session_userid, session_ip, divname, olrid, Del_UnDel)
 		error_msg  =  error_msg + error_count + ") " + " Outward LR ID blank" + "\n";
 	}
 
+	// alert("divname :- " + divname);
 	if(Number(error_count) == 0)
 	{
 		var div_name = "#"+divname;
 		var page_name = "rmstatus_reverse.php";
 		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
-		$.post(page_name, {session_userid:session_userid, session_ip:session_ip, olrid:olrid, Del_UnDel:Del_UnDel},
+		$.post(page_name, {session_userid:session_userid, session_ip:session_ip, olrid:olrid},
 			function(data)
 			{
 				$(div_name).html(data);
@@ -3017,7 +3019,7 @@ function add_rate()
 	}
 }
 
-function updateRMStatus(Inc, session_userid, session_ip, RMID, LRID, DeliveredID, UnDeliveredID)
+function updateRMStatus(Inc, session_userid, session_ip, RMID, LRID, DeliveredID, UnDeliveredID, LRRate, LRQuantityCount)
 {
     var error_count;
     var error_msg;
@@ -3054,6 +3056,26 @@ function updateRMStatus(Inc, session_userid, session_ip, RMID, LRID, DeliveredID
         error_msg  =  error_msg + error_count + ") " + " Lory Receipt ID Blank" + "\n";
     }
 
+	var returncount=0;
+	if(DeliveredID==3){
+		// alert("UnDeliveredID :- " + UnDeliveredID);
+		if(UnDeliveredID!=1) {
+			returncount = prompt("Please enter goods return count", "");
+			var regex = /^[0-9]+$/;
+			if (!returncount.match(regex)) {
+				error_count = error_count + 1;
+				error_msg = error_msg + error_count + ") " + " Please enter Proper Number (0-9)" + "\n";
+			}
+			else {
+				if (Number(returncount) > Number(LRQuantityCount)) {
+					error_count = error_count + 1;
+					error_msg = error_msg + error_count + ") " + " Entered Count is more than actual LR Qauntity Count." + "\n";
+				}
+			}
+		}
+	}
+
+
     if(Number(error_count) == 0)
     {
         // alert("RMID :- " + RMID);
@@ -3065,7 +3087,7 @@ function updateRMStatus(Inc, session_userid, session_ip, RMID, LRID, DeliveredID
         var div_name = "#"+divname;
         var page_name = "save_rmstatus.php";
         $(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
-        $.post(page_name, {divname:divname, session_userid:session_userid, session_ip:session_ip, RMID:RMID, LRID:LRID, DeliveredID:DeliveredID, UnDeliveredID:UnDeliveredID},
+        $.post(page_name, {divname:divname, session_userid:session_userid, session_ip:session_ip, RMID:RMID, LRID:LRID, DeliveredID:DeliveredID, UnDeliveredID:UnDeliveredID, returncount:returncount, LRRate:LRRate, LRQuantityCount:LRQuantityCount},
             function(data)
             {
                 $(div_name).html(data);

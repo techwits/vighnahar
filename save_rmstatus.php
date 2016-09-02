@@ -35,6 +35,16 @@
     }
     $DeliveredID=sanitize($con, $_REQUEST["DeliveredID"]);
     $UnDeliveredID=sanitize($con, $_REQUEST["UnDeliveredID"]);
+    $returncount=sanitize($con, $_REQUEST["returncount"]);
+
+    $LRRate=sanitize($con, $_REQUEST["LRRate"]);
+    $LRQuantityCount=sanitize($con, $_REQUEST["LRQuantityCount"]);
+
+    $ChargeName="Goods Return";
+    $acmid=Get_acmid($con, $ChargeName);
+    if($acmid==0){
+        $error_msg=" Return Goods Master ID is blank. Please check.......";
+    }
 
 //    echo ("session_userid:- ".$session_userid."</br>");
 //    echo ("session_ip:- ".$session_ip."</br>");
@@ -43,6 +53,10 @@
 //    echo ("OutwardLRID:- ".$OutwardLRID."</br>");
 //    echo ("DeliveredID:- ".$DeliveredID."</br>");
 //    echo ("UnDeliveredID:- ".$UnDeliveredID."</br>");
+//    echo ("returncount:- ".$returncount."</br>");
+//
+//    echo ("LRRate:- ".$LRRate."</br>");
+//    echo ("LRQuantityCount:- ".$LRQuantityCount."</br>");
 //    die();
 
     $tablename="outward";
@@ -67,81 +81,77 @@
     if(trim($error_msg)=="") {
         if ($AddEdit == 0) {
 
+
+            Update_OutwardLRBill($con, $CurrentDate, $session_userid, $session_ip, $OutwardLRID, $LRID);
             if ($DeliveredID == 2) {
-                $DlvrID=0;
-                $Procedure = "Call Update_Outward_Delivery('$CurrentDate', $session_userid, '$session_ip', $OutwardLRID, $DeliveredID, $UnDeliveredID);";
-//                echo("Procedure:- " . $Procedure . "</br>");
-//                die();
-                unset($con);
-                include('assets/inc/db_connect.php');
-
-                $result = mysqli_query($con, $Procedure) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
-                if (mysqli_num_rows($result) != 0) {
-                    $row = mysqli_fetch_array($result, MYSQLI_NUM);
-                    $DlvrID = $row{0};
-                    //          echo("Saved Successfully & LastInsertedID :- $LastInsertedID </br>");
-
-                    /* Log Ends*/
-                    Log_End($con, $searchColumn_Value, $LogStart_Value);
-                    unset($con);
-                    //              mysqli_close($con);
-                    /* Log Ends*/
-                }
+                $RMStatus=1;
+                Update_OutwardLRStatus($con, $CurrentDate, $session_userid, $session_ip, $OutwardLRID, $RMStatus);
             }
             elseif ($DeliveredID == 3) {
 
-                $LastInsertedID=0;
-                $dsid=5;
-                $urid=0;
-                $Procedure ="";
-                $Procedure = "Call Update_Outward_CarryForward('$CurrentDate', $session_userid, '$session_ip', $OutwardLRID, $dsid, $urid);";
-//                echo ("Procedure:- ".$Procedure."</br>");
-//                die();
-                unset($con);
-                include('assets/inc/db_connect.php');
-                $result = mysqli_query($con, $Procedure) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
-                if (mysqli_num_rows($result) != 0) {
-                    $row = mysqli_fetch_array($result, MYSQLI_NUM);
-                    $LastInsertedID = $row{0};
-                    /* Log Ends*/
-                    Log_End($con, $searchColumn_Value, $LogStart_Value);
-                    unset($con);
-                    //              mysqli_close($con);
-                    /* Log Ends*/
+                if($UnDeliveredID==1){
+                    $Return_Charge=$LRRate * $LRQuantityCount;
+                }
+                else{
+                    $Return_Charge=$LRRate * $returncount;
                 }
 
-
-                $UndlvrID=0;
-                $Procedure ="";
-                $Procedure = "Call Update_Outward_UnDelivery('$CurrentDate', $session_userid, '$session_ip', $OutwardLRID, $RMID, $LRID, $DeliveredID, $UnDeliveredID);";
-//                echo ("Procedure:- ".$Procedure."</br>");
-//                die();
-                unset($con);
-                include('assets/inc/db_connect.php');
-                $result = mysqli_query($con, $Procedure) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
-                if (mysqli_num_rows($result) != 0) {
-                    $row = mysqli_fetch_array($result, MYSQLI_NUM);
-                    $UndlvrID = $row{0};
-                    /* Log Ends*/
-                        Log_End($con, $searchColumn_Value, $LogStart_Value);
-                        unset($con);
-                    /* Log Ends*/
-                }
+                Update_OutwardLRBill_Return($con, $CurrentDate, $session_userid, $session_ip, $OutwardLRID, $acmid, $Return_Charge);
+                $RMStatus=2;
+                Update_OutwardLRStatus($con, $CurrentDate, $session_userid, $session_ip, $OutwardLRID, $RMStatus);
+//                $LastInsertedID=0;
+//                $dsid=5;
+//                $urid=0;
+//                $Procedure ="";
+//                $Procedure = "Call Update_Outward_CarryForward('$CurrentDate', $session_userid, '$session_ip', $OutwardLRID, $dsid, $urid);";
+////                echo ("Procedure:- ".$Procedure."</br>");
+////                die();
+//                unset($con);
+//                include('assets/inc/db_connect.php');
+//                $result = mysqli_query($con, $Procedure) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
+//                if (mysqli_num_rows($result) != 0) {
+//                    $row = mysqli_fetch_array($result, MYSQLI_NUM);
+//                    $LastInsertedID = $row{0};
+//                    /* Log Ends*/
+//                    Log_End($con, $searchColumn_Value, $LogStart_Value);
+//                    unset($con);
+//                    //              mysqli_close($con);
+//                    /* Log Ends*/
+//                }
+//
+//
+//                $UndlvrID=0;
+//                $Procedure ="";
+//                $Procedure = "Call Update_Outward_UnDelivery('$CurrentDate', $session_userid, '$session_ip', $OutwardLRID, $RMID, $LRID, $DeliveredID, $UnDeliveredID);";
+////                echo ("Procedure:- ".$Procedure."</br>");
+////                die();
+//                unset($con);
+//                include('assets/inc/db_connect.php');
+//                $result = mysqli_query($con, $Procedure) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
+//                if (mysqli_num_rows($result) != 0) {
+//                    $row = mysqli_fetch_array($result, MYSQLI_NUM);
+//                    $UndlvrID = $row{0};
+//                    /* Log Ends*/
+//                        Log_End($con, $searchColumn_Value, $LogStart_Value);
+//                        unset($con);
+//                    /* Log Ends*/
+//                }
 
             }
 
+
+
             if($UnDeliveredID>0){
                     ?>
-                        <a href="#" onclick="rmstatusreverse('<?php echo $session_userid; ?>', '<?php echo $session_ip; ?>', '<?php echo $divname; ?>', '<?php echo $UndlvrID; ?>', 2);"><span class="label label-danger">Undelivered</span></a>
+                        <a href="#" onclick="rmstatusreverse('<?php echo $session_userid; ?>', '<?php echo $session_ip; ?>', '<?php echo $divname; ?>', '<?php echo $OutwardLRID; ?>');"><span class="label label-danger">Undelivered</span></a>
                     <?php
                 }
                 else{
                     ?>
-                        <a href="#" onclick="rmstatusreverse('<?php echo $session_userid; ?>', '<?php echo $session_ip; ?>', '<?php echo $divname; ?>', '<?php echo $OutwardLRID; ?>', 1);"><span class="label label-success">Delivered</span></a>
+                        <a href="#" onclick="rmstatusreverse('<?php echo $session_userid; ?>', '<?php echo $session_ip; ?>', '<?php echo $divname; ?>', '<?php echo $OutwardLRID; ?>');"><span class="label label-success">Delivered</span></a>
                     <?php
                 }
         }
-        mysqli_free_result($result);
     }
     else{
         echo($error_msg);

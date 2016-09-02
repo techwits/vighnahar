@@ -26,11 +26,11 @@
     $session_userid=$_REQUEST["session_userid"];
     $session_ip=$_REQUEST["session_ip"];
     $olrid=sanitize($con, $_REQUEST["olrid"]);
-    $Del_UnDel=sanitize($con, $_REQUEST["Del_UnDel"]);
 
-    echo ("session_userid:- ".$session_userid."</br>");
-    echo ("session_ip:- ".$session_ip."</br>");
-    echo ("olrid:- ".$olrid."</br>");
+
+//    echo ("session_userid:- ".$session_userid."</br>");
+//    echo ("session_ip:- ".$session_ip."</br>");
+//    echo ("olrid:- ".$olrid."</br>");
 //    die();
 
     $tablename="outwardlr";
@@ -55,68 +55,15 @@
     if(trim($error_msg)=="") {
         if ($AddEdit == 0) {
 
-                if($Del_UnDel==2) {
+                    Update_OutwardLR_RMStatus($olrid);
+                    Update_OutwardLRBill_Deactive($olrid);
 
-                    $previousolrid = Get_previousolrid($con, $olrid);
-//                echo("previousolrid :- $previousolrid </br>");
-
-                    $Procedure = "";
-                    $Procedure = "Call Delete_Outward($olrid);";
-//                echo("Procedure:- " . $Procedure . "</br>");
-//                die();
-                    unset($con);
-                    include('assets/inc/db_connect.php');
-                    $result = mysqli_query($con, $Procedure) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
-                    if (mysqli_num_rows($result) != 0) {
-                        $row = mysqli_fetch_array($result, MYSQLI_NUM);
-                        $LastInsertedID = $row{0};
-                        //          echo("Saved Successfully & LastInsertedID :- $LastInsertedID </br>");
-
-                        /* Log Ends*/
+                    /* Log Ends*/
                         Log_End($con, $searchColumn_Value, $LogStart_Value);
                         unset($con);
-                        /* Log Ends*/
-                    }
+                    /* Log Ends*/
 
-                    $Procedure = "";
-                    $Procedure = "Call Update_Outward_DSID($previousolrid);";
-//                echo("Procedure:- " . $Procedure . "</br>");
-//                die();
-                    unset($con);
-                    include('assets/inc/db_connect.php');
-                    $result = mysqli_query($con, $Procedure) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
-                    if (mysqli_num_rows($result) != 0) {
-                        $row = mysqli_fetch_array($result, MYSQLI_NUM);
-                        $LastInsertedID = $row{0};
-                        //          echo("Saved Successfully & LastInsertedID :- $LastInsertedID </br>");
 
-                        /* Log Ends*/
-                        Log_End($con, $searchColumn_Value, $LogStart_Value);
-                        unset($con);
-                        /* Log Ends*/
-                    }
-                }
-                elseif($Del_UnDel==1) {
-
-                    $Procedure = "";
-                    $Procedure = "Call Update_Outward_DSID($olrid);";
-//                    echo("Procedure:- " . $Procedure . "</br>");
-//                    die();
-                    unset($con);
-                    include('assets/inc/db_connect.php');
-                    $result = mysqli_query($con, $Procedure) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
-                    if (mysqli_num_rows($result) != 0) {
-                        $row = mysqli_fetch_array($result, MYSQLI_NUM);
-                        $LastInsertedID = $row{0};
-                        //          echo("Saved Successfully & LastInsertedID :- $LastInsertedID </br>");
-
-                        /* Log Ends*/
-                        Log_End($con, $searchColumn_Value, $LogStart_Value);
-                        unset($con);
-                        /* Log Ends*/
-                    }
-
-                }
                 ?>
                     <script language="javascript">
                         new PNotify({

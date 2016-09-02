@@ -265,7 +265,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                                
+
                                         <?php
                                             define("_SessionUserID_", $_SESSION['user_id']);
                                             define("_SessionIP_", $_SESSION['ip']);

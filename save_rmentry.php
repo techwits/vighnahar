@@ -57,11 +57,7 @@
 
     /* Log Start*/
         $LogStart_Value=Log_Start($con, $CurrentDate, $Creator, $ip, $PageName, $inTime, $tablename, $searchColumn, $searchColumn_Value);
-//        echo("LogStart_Value :- $LogStart_Value </br>");
-//        die();
         unset($con);
-//        mysqli_close($con);
-        include('assets/inc/db_connect.php');
     /* Log Start*/
 
 

@@ -80,7 +80,7 @@ if(!isset($_REQUEST["session_userid"])) {
 			<label>Shiping Charges </label>
 			<div class="input-group">
 				<input type="text" class="form-control" name="shippingcharge" id="shippingcharge" disabled value="<?php echo $ShippingCharges;?>" onkeypress="return only_Numeric_Dot(event);" ondrop="return false;" onpaste="return false;">
-				<span class="input-group-addon"><i class="icon-user"></i></span>
+				<span class="input-group-addon"><img src="assets/images/rupees-128.png" height="15" width="15"></span>
 			</div>
 		</div>
 	</div>
@@ -89,7 +89,7 @@ if(!isset($_REQUEST["session_userid"])) {
 			<label>Bilty Charges </label>
 			<div class="input-group">
 				<input type="text" class="form-control" name="biltycharge" id="biltycharge" disabled value="<?php echo $BiltyCharge;?>" onkeypress="return only_Numeric_Dot(event);" ondrop="return false;" onpaste="return false;">
-				<span class="input-group-addon"><i class="icon-user"></i></span>
+				<span class="input-group-addon"><img src="assets/images/rupees-128.png" height="15" width="15"></span>
 			</div>
 		</div>
 	</div>
@@ -98,7 +98,7 @@ if(!isset($_REQUEST["session_userid"])) {
 			<label>Serice Tax </label>
 			<div class="input-group">
 				<input type="text" class="form-control" name="servicetax" id="servicetax" disabled value="<?php echo $ServiceTaxAmount;?>" onkeypress="return only_Numeric_Dot(event);" ondrop="return false;" onpaste="return false;">
-				<span class="input-group-addon"><i class="icon-user"></i></span>
+				<span class="input-group-addon"><img src="assets/images/rupees-128.png" height="15" width="15"></span>
 			</div>
 		</div>
 	</div>

@@ -40,6 +40,7 @@
                         $cols.=", `outwardlr`.iid";
                         $cols.=", `vehicle_master`.VehicleNumber";
                         $cols.=", `transporter_master`.TransporterName";
+                        $cols.=", `outwardlr`.RMStatus, `outwardlr`.olrid";
 
                         $sqlQry= "select $cols from `outward`";
 
@@ -84,7 +85,22 @@
                                 $VehicleNumber=$row[11];
                                 $TransporterName=$row[12];
 
+                                $RMStatus=$row[13];
+                                $olrid=$row[14];
+
+//                                echo("RMStatus :- $RMStatus </br>");
+//                                echo("olrid :- $olrid </br>");
+
+                                $LRRate_LRQuantityCount=Get_LRRate_LRQuantityCount($con, $LRID);
+                                $Split_LRRate_LRQuantityCount = explode(",", $LRRate_LRQuantityCount);
+                                $LRRate=$Split_LRRate_LRQuantityCount[0];
+                                $LRQuantityCount=$Split_LRRate_LRQuantityCount[1];
+
+                                
                                 $div_name="div".$i;
+
+
+
 
                                     ?>
                                     <tr>
@@ -93,58 +109,71 @@
                                         <td><?php echo $VehicleNumber; ?></td>
                                         <td><?php echo $TransporterName; ?></td>
                                         <td><span class="badge bg-danger"><?php echo $LRID; ?></span></td>
-<!---->
-<!--                                        <td class="text-center">-->
-<!--                                            <div id="--><?php //echo $div_name; ?><!--">-->
-<!--                                                <li class="dropdown">-->
-<!--                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">-->
-<!--                                                        <i class="icon-gear position-left"></i>-->
-<!--                                                        Settings-->
-<!--                                                        <span class="caret"></span>-->
-<!--                                                    </a>-->
-<!---->
-<!--                                                    <ul class="dropdown-menu dropdown-menu-right">-->
-<!--                                                        <li><a href="#"><i class="icon-user-lock"></i> Account security</a></li>-->
-<!--                                                        <li><a href="#"><i class="icon-statistics"></i> Analytics</a></li>-->
-<!--                                                        <li><a href="#"><i class="icon-accessibility"></i> Accessibility</a></li>-->
-<!--                                                        <li class="divider"></li>-->
-<!--                                                        <li><a href="#"><i class="icon-gear"></i> All settings</a></li>-->
-<!--                                                    </ul>-->
-<!--                                                </li>-->
-<!--                                            </div>-->
-<!--                                        </td>-->
 
-
-                                        <td class="text-center">
-                                            <div id="<?php echo $div_name; ?>">
-                                                <div class="input-group-btn">
-                                                    <button type="button" class="btn btn-primary dropdown-toggle btn-icon" data-toggle="dropdown" aria-expanded="true">
-                                                        <i class="icon-gear"></i>
-                                                        <span class="caret"></span>
-                                                    </button>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="#" onclick="return updateRMStatus('<?php echo $i;?>', '<?php echo _SessionUserID_;?>', '<?php echo _SessionIP_;?>' , '<?php echo $oid;?>', '<?php echo $LRID;?>', '2', '0');">Delivered</a></li>
-                                                        <li class="dropdown-submenu dropdown-submenu-left">
-                                                            <a href="#">UnDelivered</a>
-                                                            <ul class="dropdown-menu dropdown-menu-xs">
-                                                                <?php
-                                                                    $Split_UndeliveryReason = explode("||", $UndeliveryReason);
-                                                                    foreach ($Split_UndeliveryReason  as $SingleUndeliveryReason){
-                                                                        $Split_SingleUndeliveryReason = explode("~", $SingleUndeliveryReason);
-                                                                        ?>
-                                                                            <li><a href="#" onclick="return updateRMStatus('<?php echo $i;?>', '<?php echo _SessionUserID_;?>', '<?php echo _SessionIP_;?>', '<?php echo $oid;?>', '<?php echo $LRID;?>', '3', '<?php echo $Split_SingleUndeliveryReason[0];?>');"><?php echo $Split_SingleUndeliveryReason[1];?></a></li>
-                                                                        <?php
-                                                                    }
-                                                                ?>
-                                                            </ul>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </td>
-
+                                        <?php
+                                                if($RMStatus==0)
+                                                {
+                                        ?>
+                                                        <td class="text-center">
+                                                            <div id="<?php echo $div_name; ?>">
+                                                                <div class="input-group-btn">
+                                                                    <button type="button"
+                                                                            class="btn btn-primary dropdown-toggle btn-icon"
+                                                                            data-toggle="dropdown" aria-expanded="true">
+                                                                        <i class="icon-gear"></i>
+                                                                        <span class="caret"></span>
+                                                                    </button>
+                                                                    <ul class="dropdown-menu dropdown-menu-right">
+                                                                        <li><a href="#"
+                                                                               onclick="return updateRMStatus('<?php echo $i; ?>', '<?php echo _SessionUserID_; ?>', '<?php echo _SessionIP_; ?>' , '<?php echo $oid; ?>', '<?php echo $LRID; ?>', '2', '0', '<?php echo $LRRate; ?>', '<?php echo $LRQuantityCount; ?>');">Delivered</a>
+                                                                        </li>
+                                                                        <li class="dropdown-submenu dropdown-submenu-left">
+                                                                            <a href="#">UnDelivered</a>
+                                                                            <ul class="dropdown-menu dropdown-menu-xs">
+                                                                                <?php
+                                                                                $Split_UndeliveryReason = explode("||", $UndeliveryReason);
+                                                                                foreach ($Split_UndeliveryReason as $SingleUndeliveryReason) {
+                                                                                    $Split_SingleUndeliveryReason = explode("~", $SingleUndeliveryReason);
+                                                                                    ?>
+                                                                                    <li><a href="#"
+                                                                                           onclick="return updateRMStatus('<?php echo $i; ?>', '<?php echo _SessionUserID_; ?>', '<?php echo _SessionIP_; ?>', '<?php echo $oid; ?>', '<?php echo $LRID; ?>', '3', '<?php echo $Split_SingleUndeliveryReason[0]; ?>', '<?php echo $LRRate; ?>', '<?php echo $LRQuantityCount; ?>' );"><?php echo $Split_SingleUndeliveryReason[1]; ?></a>
+                                                                                    </li>
+                                                                                    <?php
+                                                                                }
+                                                                                ?>
+                                                                            </ul>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                            <?php
+                                                    }
+                                                    elseif($RMStatus==1){
+                                                        ?>
+                                                        <td class="text-center">
+                                                            <div id="<?php echo $div_name; ?>">
+                                                                <a href="#" onclick="rmstatusreverse('<?php echo _SessionUserID_; ?>', '<?php echo _SessionIP_; ?>', '<?php echo $div_name; ?>', '<?php echo $olrid; ?>');"><span class="label label-success">Delivered</span></a>
+                                                             </div>
+                                                        </td>
+                                                        <?php
+                                                    }
+                                                    elseif($RMStatus==2){
+                                                        ?>
+                                                        <td class="text-center">
+                                                            <div id="<?php echo $div_name; ?>">
+                                                                <a href="#" onclick="rmstatusreverse('<?php echo _SessionUserID_; ?>', '<?php echo _SessionIP_; ?>', '<?php echo $div_name; ?>', '<?php echo $olrid; ?>');"><span class="label label-danger">Undelivered</span></a>
+                                                            </div>
+                                                        </td>
+                                                        <?php
+                                                    }
+                                            ?>
                                     </tr>
                                     <?php
+
+
+
+
 
                             }
                         }

@@ -186,6 +186,57 @@
 	}
 
 
+
+	function Get_acmid($con, $ChargeName)
+	{
+		$Getting_acmid=0;
+		$sqlQry= "";
+		$sqlQry= "select acmid from `additionalcharge_master`";
+		$sqlQry.= " where ChargeName='$ChargeName'";
+		$sqlQry.= " and Active=1";
+//		echo ("$sqlQry");
+//		die();
+		mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0)
+		{
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$Getting_acmid=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_acmid;
+	}
+
+
+	function Get_LRRate_LRQuantityCount($con, $LRID)
+	{
+		$Getting_LRRate_LRQuantityCount="";
+		$sqlQry= "";
+		$sqlQry= "select Rate, Quantity from `inward`";
+		$sqlQry= $sqlQry." where LRID=$LRID";
+		$sqlQry= $sqlQry." and Active=1";
+//		echo ("$sqlQry");
+//		die();
+//		mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0)
+		{
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$Getting_LRRate_LRQuantityCount=$row{0}.",".$row{1};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_LRRate_LRQuantityCount;
+	}
+
+
 	function Get_TableListID($con, $TableName)
 	{
 		$Getting_TableListID=0;
@@ -1827,6 +1878,97 @@
 		}
 
 	}
+
+	function Update_OutwardLRBill_Deactive($olrid)
+	{
+		$sqlQry= "select olbid from `outwardlrbill`";
+		$sqlQry= $sqlQry." where olrid=$olrid ";
+		$sqlQry= $sqlQry." and Active=1";
+//		echo ("Check sqlQry :- $sqlQry </br>");
+//		die();
+		mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		if (mysqli_num_rows($result)!=0){
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+				$db_olbid=$row{0};
+				$ProcedureBIll = "Call Update_OutwardLRBill($db_olbid);";
+//				echo("ProcedureBIll:- " . $ProcedureBIll . "</br>");
+//				die();
+				mysqli_close($con);
+				include('db_connect.php');
+				$resultBill = mysqli_query($con, $ProcedureBIll) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
+				mysqli_free_result($resultBill);
+			}
+		}
+	}
+
+	function Update_OutwardLR_RMStatus($olrid)
+	{
+		$Procedure = "";
+		$Procedure = "Call Update_OutwardLR_RMStatus($olrid);";
+//		echo("Procedure:- " . $Procedure . "</br>");
+//		die();
+		unset($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $Procedure) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
+		mysqli_free_result($resultBill);
+	}
+
+
+	function Update_OutwardLRStatus($con, $CurrentDate, $session_userid, $session_ip, $OutwardLRID, $RMStatus)
+	{
+		$Procedure = "Call Save_OutwardLRStatus('$CurrentDate', $session_userid, '$session_ip', $OutwardLRID, $RMStatus);";
+//		echo("Procedure:- " . $Procedure . "</br>");
+//		die();
+		mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $Procedure) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
+		mysqli_free_result($resultBill);
+	}
+
+	function Update_OutwardLRBill_Return($con, $CurrentDate, $session_userid, $session_ip, $OutwardLRID, $acmid, $Return_Charge)
+	{
+		$ProcedureBIll = "Call Save_OutwardLRBill('$CurrentDate', $session_userid, '$session_ip', $OutwardLRID, $acmid, $Return_Charge);";
+//			echo("ProcedureBIll:- " . $ProcedureBIll . "</br>");
+//			die();
+		mysqli_close($con);
+		include('db_connect.php');
+		$resultBill = mysqli_query($con, $ProcedureBIll) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
+		mysqli_free_result($resultBill);
+	}
+
+
+	function Update_OutwardLRBill($con, $CurrentDate, $session_userid, $session_ip, $OutwardLRID, $LRID)
+	{
+		$sqlQry= "select acmid, Amount from `inwardcharge`";
+		$sqlQry= $sqlQry." where LRID=$LRID ";
+		$sqlQry= $sqlQry." and Active=1";
+//		echo ("Check sqlQry :- $sqlQry </br>");
+//		die();
+		mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		if (mysqli_num_rows($result)!=0)
+		{
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$db_acmid=$row{0};
+				$db_amount=$row{1};
+
+				$ProcedureBIll = "Call Save_OutwardLRBill('$CurrentDate', $session_userid, '$session_ip', $OutwardLRID, $db_acmid, $db_amount);";
+//				echo("ProcedureBIll:- " . $ProcedureBIll . "</br>");
+//				die();
+				mysqli_close($con);
+				include('db_connect.php');
+				$resultBill = mysqli_query($con, $ProcedureBIll) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
+				mysqli_free_result($resultBill);
+			}
+		}
+	}
+
+
+
 	function Update_ConsignorUrl($con, $Consignorid, $Url)
 	{
 		$sqlQry= "select ccid from `consignorcontact_master`";
