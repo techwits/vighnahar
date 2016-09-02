@@ -46,7 +46,6 @@
 	<script type="text/javascript" src="assets/js/plugins/pickers/pickadate/picker.time.js"></script>
 	<script type="text/javascript" src="assets/js/plugins/pickers/pickadate/legacy.js"></script>
 
-	<script type="text/javascript" src="assets/js/core/app.js"></script>
 	<script type="text/javascript" src="assets/js/pages/picker_date.js"></script>
 
 
@@ -199,7 +198,7 @@
 										<div class="form-group form-group-material">
 											<label>Consignor <span class="text-danger">*</span></label>
 											<div class="input-group">
-												<select name="consignorid" id="consignorid" required="required"  class="form-control" onblur="return get_consignee(this.value, <?php echo $_SESSION['user_id']; ?>, '<?php echo $_SESSION['ip']; ?>');">
+												<select name="consignorid" id="consignorid" required="required"  class="form-control" onchange="return get_consignee(this.value, <?php echo $_SESSION['user_id']; ?>, '<?php echo $_SESSION['ip']; ?>');" onblur="return lrentry_disabled(this.value, 'consignorid');">
 													<option></option>
 													<?php
 													Fill_Consignor($con);
@@ -243,7 +242,7 @@
 										<div class="form-group form-group-material">
 											<label>Package Type <span class="text-danger">*</span></label>
 											<div class="input-group">
-												<select name="packagetype" id="packagetype" required="required" class="form-control" onblur="return get_productRate(this.value, <?php echo $_SESSION['user_id']; ?>, '<?php echo $_SESSION['ip']; ?>');">
+												<select name="packagetype" id="packagetype" required="required" class="form-control" onchange="return get_productRate(this.value, <?php echo $_SESSION['user_id']; ?>, '<?php echo $_SESSION['ip']; ?>');" onblur="return lrentry_disabled(this.value, 'packagetype');">
 													<option></option>
 														<option value="CartoonRate">CartoonRate</option>
 														<option value="ItemRate">ItemRate</option>
@@ -366,6 +365,11 @@
 					<div class="panel panel-flat">
 						<div class="panel-heading">
 							<h6 class="panel-title"><i class="icon-search4 text-size-base"></i> Search</h6>
+							<div class="heading-elements">
+								<ul class="icons-list">
+									<li><a data-action="collapse"></a></li>
+								</ul>
+							</div>
 						</div>
 
 						<?php include('lrentry_6.php'); ?>

@@ -35,7 +35,7 @@ $session_ip=$_REQUEST["session_ip"];
 		<div class="form-group">
 			<label>Consignee</label>
 			<div class="input-group">
-				<select name="consigneeid" id="consigneeid" class="form-control" onblur="return get_productOnConsignee(this.value, <?php echo $ConsignorID; ?> , <?php echo $session_userid; ?>, '<?php echo $session_ip; ?>');">
+				<select name="consigneeid" id="consigneeid" class="form-control" onchange="return get_productOnConsignee(this.value, <?php echo $ConsignorID; ?> , <?php echo $session_userid; ?>, '<?php echo $session_ip; ?>');" onblur="return lrentry_disabled(this.value, 'consigneeid');">
 					<option></option>
 					<?php
 						Fill_Consignee($con, $ConsignorID);

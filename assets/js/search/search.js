@@ -3964,7 +3964,7 @@ function get_productRate(packageType, Creator, ip)
 
 	if(Number(error_count) == 0)
 	{
-		document.getElementById("packagetype").disabled = true;
+		//document.getElementById("packagetype").disabled = true;
 		var div_name = "#div_productrate";
 		var page_name = "lrentry_3.php";
 		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
@@ -4025,7 +4025,7 @@ function get_productOnConsignee(ConsigneeID, ConsignorID, Creator, ip)
 
 	if(Number(error_count) == 0)
 	{
-		document.getElementById("consigneeid").disabled = true;
+		// document.getElementById("consigneeid").disabled = true;
 		var div_name = "#div_product";
 		var page_name = "lrentry_2.php";
 		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
@@ -4129,7 +4129,7 @@ function get_consignee(ConsignorID, Creator, ip)
 
 	if(Number(error_count) == 0)
 	{
-		document.getElementById("consignorid").disabled = true;
+		// document.getElementById("consignorid").disabled = true;
 		var div_name = "#div_consignee";
 		var page_name = "lrentry_1.php";
 		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
