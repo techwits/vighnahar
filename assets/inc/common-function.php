@@ -186,6 +186,45 @@
 	}
 
 
+	function Get_LROnConsignor($con, $ConsignorID)
+	{
+		$Getting_LROnConsignor="";
+		$cols="`inward`.LRID";
+		$sqlQry= "";
+		$sqlQry.= "select $cols from `inward`";
+
+		$sqlQry.= "inner join `outwardlr`";
+		$sqlQry.= "on `inward`.LRID=`outwardlr`.`iid`";
+
+		$sqlQry.= " where `inward`.caid=$ConsignorID";
+		$sqlQry.= " and `outwardlr`.RMStatus>0";
+		$sqlQry.= " and `inward`.Active=1";
+		$sqlQry.= " and `outwardlr`.Active=1";
+
+//		echo ("$sqlQry");
+//		die();
+		mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0)
+		{
+			$i=0;
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$i=$i+1;
+				if($i==1){
+					$Getting_LROnConsignor=$row{0};
+				}
+				else{
+					$Getting_LROnConsignor=$Getting_LROnConsignor.",".$row{0};
+				}
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_LROnConsignor;
+	}
+
 
 	function Get_acmid($con, $ChargeName)
 	{
@@ -557,6 +596,45 @@
 		}
 		mysqli_free_result($result);
 		return $Getting_ConsigneeName;
+	}
+
+	function Get_LRGrandTotal($con, $LRID, $ReturnCharge, $ChargeBifurcation)
+	{
+		$Getting_LRGrandTotal=0;
+		$sqlQry= "";
+		$sqlQry= "select sum(Amount) from outwardlrbill ";
+		$sqlQry.= " inner join outwardlr";
+		$sqlQry.= " on outwardlrbill.olrid=outwardlr.olrid";
+		$sqlQry.= " where outwardlr.iid=$LRID";
+		if($ReturnCharge==2){
+
+			$ChargeName="Goods Return";
+			$acmid=Get_acmid($con, $ChargeName);
+			if($ChargeBifurcation==1){
+				$sqlQry.= " and outwardlrbill.acmid<>$acmid";
+			}
+			elseif($ChargeBifurcation==2){
+				$sqlQry.= " and outwardlrbill.acmid=$acmid";
+			}
+
+		}
+		$sqlQry.= " and outwardlr.Active=1";
+		$sqlQry.= " and outwardlrbill.Active=1";
+//		echo ("$sqlQry </br></br>");
+		//		die();
+		mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0)
+		{
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$Getting_LRGrandTotal=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_LRGrandTotal;
 	}
 
 	function Get_ConsignorName($con, $ConsignorAddressID)

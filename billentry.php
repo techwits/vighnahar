@@ -57,7 +57,6 @@
     <script type="text/javascript" src="assets/js/plugins/pickers/pickadate/picker.time.js"></script>
     <script type="text/javascript" src="assets/js/plugins/pickers/pickadate/legacy.js"></script>
 
-    <script type="text/javascript" src="assets/js/core/app.js"></script>
     <script type="text/javascript" src="assets/js/pages/picker_date.js"></script>
     <!-- /theme JS files -->
 
@@ -66,27 +65,16 @@
         <script type="text/javascript" src="assets/js/plugins/tables/datatables/datatables.min.js"></script>
         <script type="text/javascript" src="assets/js/plugins/forms/selects/select2.min.js"></script>
 
-        <script type="text/javascript" src="assets/js/core/app.js"></script>
-
     <!-- /theme JS files -->
 
 
-    <!-- Javascript dropdown list functions-->
-    <script type="text/javascript">
-        var area=<?php echo $vals;?>;
-    </script>
+    <!-- Javascript -->
+        <script type="text/javascript" src="assets/js/plugins/tables/datatables/datatables.min.js"></script>
+        <script type="text/javascript" src="assets/js/plugins/forms/selects/select2.min.js"></script>
 
-    <script type="text/javascript" src="assets/js/core/libraries/jasny_bootstrap.min.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/forms/styling/uniform.min.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/forms/inputs/autosize.min.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/forms/inputs/formatter.min.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/forms/inputs/typeahead/typeahead.bundle.min.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/forms/inputs/typeahead/handlebars.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/forms/inputs/passy.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/forms/inputs/maxlength.min.js"></script>
-
-    <script type="text/javascript" src="assets/js/pages/form_controls_extended.js"></script>
-    <!-- Javascript dropdown list functions-->
+        <script type="text/javascript" src="assets/js/core/app.js"></script>
+        <script type="text/javascript" src="assets/js/pages/datatables_basic.js"></script>
+    <!-- Javascript -->
 
     <script type="text/JavaScript" src="assets/js/search/search.js"></script>
     <script type="text/JavaScript" src="assets/js/sha512.js"></script>
@@ -97,20 +85,16 @@
 
 <!-- Main navbar -->
 <?php
-$PageHeaderName="Bill Entry";
-$icon="icon-address-book";
+    $PageHeaderName="Bill Entry";
+    $icon="icon-address-book";
 
-include('page_header.php');
+    include('page_header.php');
 
-//$php_page=basename(__FILE__);
-//$get_return_value=login_check($con, $php_page);
-//include_once("assets/inc/handle_error.php");
-//
-////		mysqli_close($con);
-//log_pageaccess($con, $_SESSION["pageid"], basename(__FILE__));
-////		mysqli_close($con);
-//include_once('assets/inc/db_connect.php');
-
+    $php_page=basename(__FILE__);
+    $get_return_value=login_check($con, $php_page);
+    include_once("assets/inc/handle_error.php");
+    log_pageaccess($con, $_SESSION["pageid"], basename(__FILE__));
+    include_once('assets/inc/db_connect.php');
 
 ?>
 <!-- /main navbar -->
@@ -154,14 +138,17 @@ include('page_header.php');
                                                 <ul class="nav nav-tabs nav-tabs-highlight">
                                                     <li class="active"><a href="#bordered-tab1" data-toggle="tab">Create</a></li>
                                                     <li><a href="#bordered-tab2" data-toggle="tab">Delete / Print</a></li>
-                                                    <li><a href="#bordered-tab3" data-toggle="tab">Payment Status</a></li>
                                                 </ul>
 
                                                 <div class="tab-content">
                                                     <div class="tab-pane has-padding active" id="bordered-tab1">
-                                                        <form name="search_menu" action="#" class="main-search">
+                                                        <form name="billentry_form" id="billentry_form" action="#" class="main-search">
                                                             <div class="row" id="div_lrlisttable">
-                                                                <?php include('billentry_1.php'); ?>
+                                                                <?php
+                                                                    define("_SESSIONUSERID_", $_SESSION['user_id']);
+                                                                    define("_SESSIONIP_", $_SESSION['ip']);
+                                                                    include('billentry_1.php');
+                                                                ?>
                                                             </div>
                                                         </form>
                                                     </div>
@@ -200,6 +187,7 @@ include('page_header.php');
                                                             </div>
                                                         </form>
                                                     </div>
+
                                                 </div>
                                             </div>
                                         </div>

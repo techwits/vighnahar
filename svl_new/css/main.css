@@ -70,7 +70,7 @@ a {
 }
 
 h1, h2, h3, h4, h5, h6 {
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Open Sans', sans-serif;
 }
 
 .slider-btn {
@@ -450,31 +450,30 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .title-one {
-	color: #666666;
+	color: #fc7700;
 	display: inline-block;
-	font-size: 32px;
-	font-weight: 600;
+	font-size: 30px;
+	font-weight: 500;
 	padding-bottom:10px;
 	text-align: center;
-	text-transform: uppercase;
 	position:relative
 }
 
-.title-one:after {
-	color: #fc7700;
-	content: "||";
-	position: absolute;
-	right: -40px;
-	top: -2px;
-}
-
-.title-one:before {
-	color: #fc7700;
-	content: "||";
-	left: -40px;
-	position: absolute;
-	top: 0;
-}
+/*'.title-one:after {
+'	color: #666666;
+'	content: "||";
+'	position: absolute;
+'	right: -40px;
+'	top: -2px;
+'}
+'
+'.title-one:before {
+'	color: #fc7700;
+'	content: "|";
+'	left: -40px;
+'	position: absolute;
+'	top: 0;
+'}*/
 
 
 #about-us h4 {
@@ -933,17 +932,20 @@ h1, h2, h3, h4, h5, h6 {
 ======================*/
 
 #clients{
-	background-image: url("../images/clients/client-bg.jpg");
-	background-color:#0A0A13;
+	/*background-image: url("../images/clients/client-bg.jpg");*/
+	background-color:#ffff;
+	text-align:center;
 }
 
 #clients h2 {
 	margin-bottom:30px;
-	color:#f6f6f6
+	color: #666666;
+	text-align:center;
 }
 
 #clients p {
-	color:#fff
+	color:#666666;
+	text-align:center;
 }
 
 #clients-carousel  {
@@ -1851,6 +1853,101 @@ h1, h2, h3, h4, h5, h6 {
     background-color: #e07e27;
     border-color: #cc7324;
 }
+
+/* <!-- Counter Section --> */
+
+.counter-section {
+ width: 100%;
+ padding-top: 100px;
+ padding-bottom: 50px;
+ background: #F6F6F6;
+ text-align:center;
+}
+
+.counter-section h3  {
+	font-family: 'Open Sans', sans-serif;
+	font-size: 28px;
+	font-weight: 400;
+	color: #303030;
+}
+
+.counter-icon {
+  padding: 15px;
+}
+
+.counter-icon i {
+  font-size: 42px;
+  color: #5924EC;
+}
+
+.counter-text {
+	margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.counter-text h4 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  padding: 0.5em;
+  color: #111111;
+}
+
+/* clients carousel */
+.media-carousel 
+{
+  margin-bottom: 0;
+  padding: 0 40px 30px 40px;
+  margin-top: 30px;
+}
+/* Previous button  */
+.media-carousel .carousel-control.left 
+{
+  left: -12px;
+  background-image: none;
+  background: none repeat scroll 0 0 #222222;
+  border: 4px solid #FFFFFF;
+  border-radius: 23px 23px 23px 23px;
+  height: 40px;
+  width : 40px;
+  margin-top: 30px
+}
+/* Next button  */
+.media-carousel .carousel-control.right 
+{
+  right: -12px !important;
+  background-image: none;
+  background: none repeat scroll 0 0 #222222;
+  border: 4px solid #FFFFFF;
+  border-radius: 23px 23px 23px 23px;
+  height: 40px;
+  width : 40px;
+  margin-top: 30px
+}
+/* Changes the position of the indicators */
+.media-carousel .carousel-indicators 
+{
+  right: 50%;
+  top: auto;
+  bottom: 0px;
+  margin-right: -19px;
+}
+/* Changes the colour of the indicators */
+.media-carousel .carousel-indicators li 
+{
+  background: #c0c0c0;
+}
+.media-carousel .carousel-indicators .active 
+{
+  background: #333333;
+}
+.media-carousel img
+{
+  width: 250px;
+  height: 100px
+}
+/* End carousel */
+
 
 /* Start Footer Section */
 

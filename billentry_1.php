@@ -3,35 +3,8 @@
 <!-- /theme JS files -->
 
 <?php
-$error_msg="";
-$CurrentDate = date('Y-m-d h:i:s');
-$lridlist="";
-$searchvalue="";
-if(isset($_REQUEST["Fill_LRIdList"])) {
-    include('assets/inc/db_connect.php');
-    include('assets/inc/common-function.php');
-
-    $AddEdit = sanitize($con, $_REQUEST["AddEdit"]);
-    $session_userid = sanitize($con, $_REQUEST["session_userid"]);
-    $session_ip = sanitize($con, $_REQUEST["session_ip"]);
-
-    $financialyear = sanitize($con, $_REQUEST["financialyear"]);
-    $rmdate = sanitize($con, $_REQUEST["rmdate"]);
-    $vehicleid = sanitize($con, $_REQUEST["vehicleid"]);
-    $transporterid = sanitize($con, $_REQUEST["transporterid"]);
-    $lridlist = sanitize($con, $_REQUEST["Fill_LRIdList"]);
-
-//    echo ("session_userid:- ".$session_userid."</br>");
-//    echo ("session_ip:- ".$session_ip."</br>");
-//    echo ("financialyear:- ".$financialyear."</br>");
-//    echo ("rmdate:- ".$rmdate."</br>");
-//    echo ("vehicleid:- ".$vehicleid."</br>");
-//    echo ("transporterid:- ".$transporterid."</br>");
-//    echo ("lridlist:- ".$lridlist."</br>");
-//    die();
-}
-
-
+//echo("SESSIONUSERID :- ". _SESSIONUSERID_ ."</br>");
+//echo("SESSIONIP :- "._SESSIONIP_ ."</br>");
 ?>
 
 
@@ -44,14 +17,12 @@ if(isset($_REQUEST["Fill_LRIdList"])) {
                 <ul class="icons-list">
                     <li><a data-action="collapse"></a></li>
                     <li><a data-action="reload"></a></li>
-                    <li><a data-action="close"></a></li>
                 </ul>
             </div>
         </div>
 
 
         <div class="row">
-
             <div class="col-md-3">
                 <div class="form-group form-group-material">
                     <label>Financial Year </label>
@@ -92,6 +63,23 @@ if(isset($_REQUEST["Fill_LRIdList"])) {
                 </div>
             </div>
 
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label>Select Consignor <span class="text-danger">*</span></label>
+
+                    <select name="consignoraddressid" id="consignoraddressid" class="select-size-xs" onchange="return get_LROnConsignor(this.value, '<?php echo _SESSIONUSERID_; ?>', '<?php echo _SESSIONIP_; ?>');">
+                        <option></option>
+                            <?php
+                                Fill_Consignor($con);
+                            ?>
+                    </select>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row" id="div_consignorlr">
 
         </div>
     </div>

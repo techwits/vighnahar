@@ -534,6 +534,129 @@ function changepassword_checkuserid()
     }
 }
 
+function delete_bill(BillID)
+{
+	//alert("Hi...");
+	var frm=document.deletebill_form;
+	var error_count;
+	var error_msg;
+	error_msg="";
+	error_count=0;
+
+	var session_userid=trim(frm.session_userid.value);
+	if(session_userid.length <= 0 || session_userid == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter User ID" + "\n";
+		// frm.username.focus();
+	}
+	var session_ip=trim(frm.session_ip.value);
+	if(session_ip.length <= 0 || session_ip == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter IP address" + "\n";
+		// frm.username.focus();
+	}
+
+	
+	if(BillID.length <= 0 || BillID == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Select Bill Number" + "\n";
+		frm.userID.focus();
+	}
+
+
+	deletereason = prompt("Please enter Bill Deletion Reason", "");
+	if(deletereason.length <= 0 || deletereason == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter Bill Deletion Reason" + "\n";
+	}
+
+
+	if(Number(error_count) == 0)
+	{
+		var div_name = "#"+BillID;
+		var page_name = "save_deletebill.php";
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$.post(page_name, {session_userid:session_userid, session_ip:session_ip, BillID:BillID, deletereason:deletereason},
+			function(data)
+			{
+				$(div_name).html(data);
+			}
+		);
+		return false;
+	}
+	else
+	{
+		alert(error_msg);
+		return false;
+	}
+}
+
+function delete_user()
+{
+	//alert("Hi...");
+	var frm=document.deleteuser_form;
+	var error_count;
+	var error_msg;
+	error_msg="";
+	error_count=0;
+
+	var session_userid=trim(frm.session_userid.value);
+	if(session_userid.length <= 0 || session_userid == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter User ID" + "\n";
+		// frm.username.focus();
+	}
+	var session_ip=trim(frm.session_ip.value);
+	if(session_ip.length <= 0 || session_ip == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter IP address" + "\n";
+		// frm.username.focus();
+	}
+
+	var userID=trim(frm.userID.value);
+	if(userID.length <= 0 || userID == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Select User" + "\n";
+		frm.userID.focus();
+	}
+
+
+	deleteuser_reason=trim(frm.deleteuser_reason.value);
+	if(deleteuser_reason.length <= 0 || deleteuser_reason == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter Reason" + "\n";
+		frm.deleteuser_reason.focus();
+	}
+
+
+	if(Number(error_count) == 0)
+	{
+		var div_name = "#div_deleteuser";
+		var page_name = "save_deleteuser.php";
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$.post(page_name, {session_userid:session_userid, session_ip:session_ip, userID:userID, deleteuser_reason:deleteuser_reason},
+			function(data)
+			{
+				$(div_name).html(data);
+			}
+		);
+		return false;
+	}
+	else
+	{
+		alert(error_msg);
+		return false;
+	}
+}
+
 function delete_user()
 {
 	//alert("Hi...");
@@ -1676,6 +1799,134 @@ function editpageaccess(id, CreationDate, ModificationDate, Creator, ip, menusub
 	}
 }
 
+function get_LROnConsignor(ConsignorID, session_userid, session_ip)
+{
+	var error_count;
+	var error_msg;
+	error_msg="";
+	error_count=0;
+
+	if(ConsignorID.length <= 0 || ConsignorID == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter User ID" + "\n";
+		// frm.username.focus();
+	}
+	
+	if(session_userid.length <= 0 || session_userid == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter User ID" + "\n";
+		// frm.username.focus();
+	}
+
+	if(session_ip.length <= 0 || session_ip == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter IP address" + "\n";
+		// frm.username.focus();
+	}
+
+
+
+	if(Number(error_count) == 0)
+	{
+		var div_name = "#div_consignorlr";
+		var page_name = "billentry_2.php";
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$.post(page_name, {session_userid:session_userid, session_ip:session_ip, ConsignorID:ConsignorID},
+			function(data)
+			{
+				$(div_name).html(data);
+			}
+		);
+		return false;
+	}
+	else{
+		alert(error_msg);
+		return false;
+	}
+}
+
+function billDiscount(DiscountAmount, GrandTotal, ServiceTaxAmount)
+{
+	var error_count;
+	var error_msg;
+	error_msg="";
+	error_count=0;
+
+	if(DiscountAmount.length <= 0 || DiscountAmount == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter Discount" + "\n";
+		// frm.username.focus();
+	}
+	// else {
+	// 	var regex = /^[0-9.]+$/;
+	// 	if (!DiscountAmount.match(regex)) {
+	// 		error_count = error_count + 1;
+	// 		error_msg = error_msg + error_count + ") " + " Please enter Discount amount in Number (0-9)" + "\n";
+	// 	}
+	// }
+
+	if(GrandTotal.length <= 0 || GrandTotal == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter Total Amount" + "\n";
+		// frm.username.focus();
+	}
+	// else {
+	// 	var regex = /^[0-9.]+$/;
+	// 	if (!GrandTotal.match(regex)) {
+	// 		error_count = error_count + 1;
+	// 		error_msg = error_msg + error_count + ") " + " Please enter Total amount in Number (0-9)" + "\n";
+	// 	}
+	// }
+
+	if(ServiceTaxAmount==""){
+		ServiceTaxAmount=0;
+	}
+
+
+	if(Number(DiscountAmount) > Number(GrandTotal))
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Discount amount can't be more than Total amount.." + "\n";
+	}
+
+	if(Number(error_count) == 0)
+	{
+		var BillAmount=0;
+		var ServiceTax=0;
+
+		// alert("GrandTotal :- " + GrandTotal);
+		// alert("DiscountAmount :- " + DiscountAmount);
+
+		var DiscountedAmount=GrandTotal-DiscountAmount;
+
+		// alert("DiscountedAmount :- " + DiscountedAmount);
+
+		if(Number(ServiceTaxAmount)>0){
+			ServiceTax=(Number(DiscountedAmount)*Number(ServiceTaxAmount))/100;
+			BillAmount=DiscountedAmount+ServiceTax;
+		}
+		else{
+			BillAmount=DiscountedAmount+ServiceTax;
+		}
+
+		// alert("ServiceTax :- " + ServiceTax);
+		// alert("BillAmount :- " + BillAmount);
+
+		document.getElementById("servicetax").value=ServiceTax;
+		document.getElementById("billtotal").value=BillAmount;
+
+		return false;
+	}
+	else{
+		alert(error_msg);
+		return false;
+	}
+}
 
 function rmstatusreverse(session_userid, session_ip, divname, olrid)
 {
@@ -1919,6 +2170,116 @@ function fill_rmtable(e, lrnumber){
 		}
 	}
 }
+
+function add_billentry()
+{
+	// alert("Hi...");
+	var frm=document.billentry_form;
+	var error_count;
+	var error_msg;
+	error_msg="";
+	error_count=0;
+
+
+
+	session_userid=document.getElementById("session_userid").value
+	if(session_userid.length <= 0 || session_userid == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter User ID" + "\n";
+		// frm.username.focus();
+	}
+	session_ip=document.getElementById("session_ip").value
+	if(session_ip.length <= 0 || session_ip == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter IP address" + "\n";
+		// frm.username.focus();
+	}
+
+	olrid_List=document.getElementById("olrid_List").value
+	if(olrid_List.length <= 0 || olrid_List == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Select OLRID" + "\n";
+		// frm.username.focus();
+	}
+
+	financialyear=document.getElementById("financialyear").value
+	if(financialyear.length <= 0 || financialyear == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Select Financial Year" + "\n";
+		// frm.username.focus();
+	}
+
+	rmdate=document.getElementById("rmdate").value
+	if(rmdate.length <= 0 || rmdate == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter RM Date" + "\n";
+		// frm.username.focus();
+	}
+
+
+	consignoraddressid=document.getElementById("consignoraddressid").value
+	if(consignoraddressid.length <= 0 || consignoraddressid == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Select Consignor" + "\n";
+		// frm.username.focus();
+	}
+
+
+	lrlist=document.getElementById("lrlist").value
+	if(lrlist.length <= 0 || lrlist == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Select LR" + "\n";
+		// frm.username.focus();
+	}
+
+	total=document.getElementById("total").value
+	if(total.length <= 0 || total == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter Total Amount" + "\n";
+		// frm.username.focus();
+	}
+
+	discount=document.getElementById("discount").value
+	servicetax=document.getElementById("servicetax").value
+
+	billtotal=document.getElementById("billtotal").value
+	if(billtotal.length <= 0 || billtotal == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter Bill Total Amount" + "\n";
+		// frm.username.focus();
+	}
+
+	// alert("SelectedLR :- " + SelectedLR);
+
+	if(Number(error_count) == 0)
+	{
+		var div_name = "#div_savebillentry";
+		var page_name = "save_billentry.php";
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$.post(page_name, {session_userid:session_userid, session_ip:session_ip, olrid_List:olrid_List, financialyear:financialyear, rmdate:rmdate, consignoraddressid:consignoraddressid, lrlist:lrlist, total:total, discount:discount, servicetax:servicetax, billtotal:billtotal},
+			function(data)
+			{
+				$(div_name).html(data);
+			}
+		);
+		return false;
+	}
+	else
+	{
+		alert(error_msg);
+		return false;
+	}
+}
+
 
 function add_rmentry()
 {
