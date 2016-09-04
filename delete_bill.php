@@ -157,8 +157,7 @@
                                             <?php
                                                 $cols="bid, CreationDate, ModificationDate, Creator, ip, fyid, BillingDate, caid, Amount, Discount, ServiceTax, BillAmount, Active ";
                                                 $sqlQry= "select $cols from `bill`";
-                                                $sqlQry.= " where BillStatus=0";
-                                                $sqlQry.= " and Active=1";
+                                                $sqlQry.= " where Active=1";
 //                                                echo ("Check sqlQry :- $sqlQry </br>");
 //                                                die();
                                                 unset($con);

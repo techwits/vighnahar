@@ -96,42 +96,45 @@
 //		echo ("searchColumn :- $searchColumn </br>");
 //		echo ("searchColumn_Value :- $searchColumn_Value </br>");
 //		die();
-		unset($con);
-//		mysqli_close($con);
+
+		mysqli_close($con);
 		include('db_connect.php');
 
 		$LogStart_Value="";
 		$LogTable_ID=Insert_LogTableStart($con, $CurrentDate, $Creator, $ip, $PageName, $inTime);
-	//				echo ("LogTable_ID:- ".$LogTable_ID."</br>");
-	//				die();
+//		echo ("LogTable_ID:- ".$LogTable_ID."</br>");
+//		die();
 
-		unset($con);
-//		mysqli_close($con);
+		mysqli_close($con);
 		include('db_connect.php');
 
 		$TableListID=Get_TableListID($con, $tablename);
-	//				echo ("TableListID :- $TableListID </br>");
+//		echo ("TableListID :- $TableListID </br>");
+//		echo ("tablename :- $tablename </br>");
+//		echo ("searchColumn :- $searchColumn </br>");
+//		echo ("searchColumn_Value :- $searchColumn_Value </br>");
+//		echo ("LogTable_ID :- $LogTable_ID </br>");
+//		echo ("TableListID :- $TableListID </br>");
+//		die();
 
-	//				echo ("tablename :- $tablename </br>");
-	//				echo ("searchColumn :- $searchColumn </br>");
-	//				echo ("searchColumn_Value :- $searchColumn_Value </br>");
-	//				echo ("LogTable_ID :- $LogTable_ID </br>");
-	//				echo ("TableListID :- $TableListID </br>");
-	//				die();
 
-		unset($con);
-//		mysqli_close($con);
+		mysqli_close($con);
 		include('db_connect.php');
-
 		$oldValue="";
 		if ( (strlen(trim($searchColumn))>0 and strlen(trim($searchColumn_Value))>0) ) {
 			$oldValue = Get_OldValue($con, $tablename, $searchColumn, $searchColumn_Value);
-	//								echo ("Old Value :- $oldValue </br></br></br>");
-	//								die();
+//			echo ("Old Value :- $oldValue </br></br></br>");
+//			die();
 		}
+
+//		echo ("LogTable_ID :- $LogTable_ID </br>");
+//		echo ("TableListID :- $TableListID </br>");
+//		echo ("oldValue :- $oldValue </br>");
+//		die();
+
 		$LogStart_Value=trim($LogTable_ID)."|<>|".trim($TableListID)."|<>|".trim($oldValue);
-		unset($con);
-//		mysqli_close($con);
+//		echo ("LogStart_Value :- $LogStart_Value </br>");
+//		die();
 		return $LogStart_Value;
 	}
 	function Log_End($con, $ColumnID, $LogStart_Value)
@@ -1705,6 +1708,65 @@
 		}
 		mysqli_free_result($result);
 		return $Getting_rmid;
+	}
+
+
+	function Set_BillDeactive($con, $CurrentDate, $session_userid, $session_ip, $BillID, $deletereason)
+	{
+		$Procedure="";
+		$Procedure = "Call Delete_bill('$CurrentDate', $session_userid, '$session_ip', $BillID, '$deletereason');";
+//		echo ("Procedure :- $Procedure </br>");
+//		die();
+//		mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $Procedure) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
+		if (mysqli_num_rows($result) != 0) {
+			$row = mysqli_fetch_array($result, MYSQLI_NUM);
+			$LastInsertedID = $row{0};
+			if($LastInsertedID>0){
+
+				$sqlQry= "select blrid, olrid from `billlr`";
+				$sqlQry.= " where bid=$BillID ";
+				$sqlQry.= " and Active=1";
+//				echo ("Check sqlQry :- $sqlQry </br>");
+//				die();
+				mysqli_close($con);
+				include('db_connect.php');
+				$resultBill = mysqli_query($con, $sqlQry);
+				if (mysqli_num_rows($resultBill)!=0)
+				{
+					$db_blrid=0;
+					$db_olrid=0;
+					while ($row = mysqli_fetch_array($resultBill,MYSQLI_NUM))
+					{
+						$db_blrid=$row{0};
+						$db_olrid=$row{1};
+
+						$ProcBilllr = "Call Delete_BillLR('$CurrentDate', $session_userid, '$session_ip', $db_blrid);";
+						unset($con);
+						include('db_connect.php');
+						$resultBilllr = mysqli_query($con, $ProcBilllr) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
+						mysqli_free_result($resultBilllr);
+
+						$ProcOutwardlrBillStatus = "Call Delete_OutwardLR_BillStatus('$CurrentDate', $session_userid, '$session_ip', $db_olrid);";
+						unset($con);
+						include('db_connect.php');
+						$resultOutwardlrBillStatus = mysqli_query($con, $ProcOutwardlrBillStatus) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
+						mysqli_free_result($resultOutwardlrBillStatus);
+
+					}
+				}
+				mysqli_free_result($resultBill);
+
+
+				//Deactivate
+			}
+			else{
+				echo("Bill Master :- Bill not deleted. Please contact administrator.....");
+				die();
+			}
+		}
+		mysqli_free_result($result);
 	}
 
 	function Set_OutwardDeactive($con, $CurrentDate, $session_userid, $session_ip, $OutwardID)

@@ -131,8 +131,14 @@ include('assets/inc/common-function.php');
                         $LRGrandTotal=Get_LRGrandTotal($con, $LRID, 1, 0);
                         ?>
                             <tr>
-                                <td><a href="#"
-                                       onclick="return editmenu();"><?php echo $LRID; ?></a>
+                                <td>
+
+<!--                                    <a href="#" onclick="return editmenu();">--><?php //echo $LRID; ?><!--</a>-->
+
+<!--                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_theme_primary">Launch <i class="icon-play3 position-right"></i></button>-->
+
+                                    <a href="#modal_theme_primary" data-toggle='modal' class='modalButton1' data-teacherid='<?php echo $LRID; ?>' >Click</a>
+
                                 </td>
                                 <td><?php echo $ReceivedDate; ?></td>
                                 <td><?php echo $InvoiceNumber; ?></td>
@@ -253,3 +259,58 @@ include('assets/inc/common-function.php');
             </div>
         </div>
 <!-- /single row selection -->
+
+
+<!-- Modal -->
+<div id="modal_theme_primary" class="modal fade" style="font-weight: normal;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <?php header("refresh:0; url=billentry_2.php"); ?>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+
+<script>
+    $('.modalButton1').click(function(){
+        var teacherid = $(this).attr('data-teacherid');
+        $.ajax({url:"display_LRDetails.php?LRID="+teacherid,cache:false,success:function(result){
+            $(".modal-content").html(result);
+        }});
+    });
+
+//    $('#myModal1').on('hidden.bs.modal', function () {
+//        Table_UpdateMember(<?php //echo $society; ?>//);
+//    })
+
+</script>
+
+<!---->
+<!--<!-- Primary modal -->-->
+<!--<div id="modal_theme_primary" class="modal fade">-->
+<!--    <div class="modal-dialog">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header bg-primary">-->
+<!--                <button type="button" class="close" data-dismiss="modal">&times;</button>-->
+<!--                <h6 class="modal-title">Primary header</h6>-->
+<!--            </div>-->
+<!---->
+<!--            <div class="modal-body">-->
+<!--                <h6 class="text-semibold">Text in a modal</h6>-->
+<!--                <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>-->
+<!---->
+<!--                <hr>-->
+<!---->
+<!--                <h6 class="text-semibold">Another paragraph</h6>-->
+<!--                <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>-->
+<!--                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>-->
+<!--            </div>-->
+<!---->
+<!--            <div class="modal-footer">-->
+<!--                <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>-->
+<!--                <button type="button" class="btn btn-primary">Save changes</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<!-- /primary modal -->-->
