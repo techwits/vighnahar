@@ -97,7 +97,7 @@
 //		echo ("searchColumn_Value :- $searchColumn_Value </br>");
 //		die();
 
-		mysqli_close($con);
+		// mysqli_close($con);
 		include('db_connect.php');
 
 		$LogStart_Value="";
@@ -105,7 +105,7 @@
 //		echo ("LogTable_ID:- ".$LogTable_ID."</br>");
 //		die();
 
-		mysqli_close($con);
+		// mysqli_close($con);
 		include('db_connect.php');
 
 		$TableListID=Get_TableListID($con, $tablename);
@@ -118,7 +118,7 @@
 //		die();
 
 
-		mysqli_close($con);
+		// mysqli_close($con);
 		include('db_connect.php');
 		$oldValue="";
 		if ( (strlen(trim($searchColumn))>0 and strlen(trim($searchColumn_Value))>0) ) {
@@ -206,7 +206,7 @@
 
 //		echo ("$sqlQry");
 //		die();
-		mysqli_close($con);
+		// mysqli_close($con);
 		include('db_connect.php');
 		$result = mysqli_query($con, $sqlQry);
 		//fetch tha data from the database
@@ -238,7 +238,7 @@
 		$sqlQry.= " and Active=1";
 //		echo ("$sqlQry");
 //		die();
-		mysqli_close($con);
+//		mysqli_close($con);
 		include('db_connect.php');
 		$result = mysqli_query($con, $sqlQry);
 		//fetch tha data from the database
@@ -253,6 +253,30 @@
 		return $Getting_acmid;
 	}
 
+
+	function Get_BillStatusOnLRID($con, $SingleLR)
+	{
+		$Getting_BillStatusOnLRID=0;
+		$sqlQry= "";
+		$sqlQry= "select Bill from `outwardlr`";
+		$sqlQry= $sqlQry." where iid=$LRID";
+		$sqlQry= $sqlQry." and Active=1";
+	//		echo ("$sqlQry");
+	//		die();
+	//		mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0)
+		{
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$Getting_BillStatusOnLRID=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_BillStatusOnLRID;
+	}
 
 	function Get_LRRate_LRQuantityCount($con, $LRID)
 	{
@@ -556,7 +580,7 @@
 		$sqlQry.= " order by consignorproduct_master.pmid";
 //			echo ("$sqlQry");
 //			die();
-		mysqli_close($con);
+		// mysqli_close($con);
 		include('db_connect.php');
 		$result = mysqli_query($con, $sqlQry);
 		//fetch tha data from the database
@@ -578,6 +602,96 @@
 		return $Getting_ConsignorProduct;
 	}
 
+	function Get_ConsigneeAreaOnLRID($con, $LRID)
+	{
+		$Getting_ConsigneeArea="";
+		$sqlQry= "";
+		$sqlQry= "select area_master.AreaName from  inward ";
+
+		$sqlQry.= " inner join consignee_master";
+		$sqlQry.= " on inward.cnid=consignee_master.cnid";
+
+		$sqlQry.= " inner join consigneeaddress_master";
+		$sqlQry.= " on consignee_master.cnid=consigneeaddress_master.cnid";
+
+		$sqlQry.= " inner join area_master";
+		$sqlQry.= " on area_master.amid=consigneeaddress_master.amid";
+
+		$sqlQry.= " where inward.LRID=$LRID";
+		//		echo ("$sqlQry");
+		//		die();
+		// mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0)
+		{
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$Getting_ConsigneeArea=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_ConsigneeArea;
+	}
+
+	function Get_ConsigneeNameOnLRID($con, $LRID)
+	{
+		$Getting_ConsigneeName="";
+		$sqlQry= "";
+		$sqlQry= "select consignee_master.ConsigneeName from  inward ";
+
+		$sqlQry.= " inner join consignee_master";
+		$sqlQry.= " on inward.cnid=consignee_master.cnid";
+
+		$sqlQry.= " where inward.LRID=$LRID";
+	//		echo ("$sqlQry");
+	//		die();
+		// mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0)
+		{
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$Getting_ConsigneeName=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_ConsigneeName;
+	}
+
+	function Get_ConsignorNameOnLRID($con, $LRID)
+	{
+		$Getting_ConsignorName="";
+		$sqlQry= "";
+		$sqlQry= "select consignor_master.ConsignorName from  inward ";
+
+		$sqlQry.= " inner join consignoraddress_master";
+		$sqlQry.= " on inward.caid=consignoraddress_master.caid";
+
+		$sqlQry.= " inner join consignor_master";
+		$sqlQry.= " on consignor_master.cid=consignoraddress_master.cid";
+
+		$sqlQry.= " where inward.LRID=$LRID";
+//		echo ("$sqlQry");
+//		die();
+		// mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0)
+		{
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$Getting_ConsignorName=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_ConsignorName;
+	}
+
 	function Get_ConsigneeName($con, $ConsigneeID)
 	{
 		$Getting_ConsigneeName="";
@@ -586,7 +700,7 @@
 		$sqlQry.= " where consignee_master.cnid=$ConsigneeID";
 		//		echo ("$sqlQry");
 		//		die();
-		mysqli_close($con);
+		// mysqli_close($con);
 		include('db_connect.php');
 		$result = mysqli_query($con, $sqlQry);
 		//fetch tha data from the database
@@ -625,7 +739,7 @@
 		$sqlQry.= " and outwardlrbill.Active=1";
 //		echo ("$sqlQry </br></br>");
 		//		die();
-		mysqli_close($con);
+		// mysqli_close($con);
 		include('db_connect.php');
 		$result = mysqli_query($con, $sqlQry);
 		//fetch tha data from the database
@@ -650,7 +764,7 @@
 		$sqlQry.= " where consignoraddress_master.caid=$ConsignorAddressID";
 	//		echo ("$sqlQry");
 	//		die();
-		mysqli_close($con);
+		// mysqli_close($con);
 		include('db_connect.php');
 		$result = mysqli_query($con, $sqlQry);
 		//fetch tha data from the database
@@ -677,7 +791,7 @@
 		$sqlQry.= " and Active=1";
 //		echo ("$sqlQry");
 //		die();
-		mysqli_close($con);
+		// mysqli_close($con);
 		include('db_connect.php');
 		$result = mysqli_query($con, $sqlQry);
 		//fetch tha data from the database
@@ -702,7 +816,7 @@
 		$sqlQry.= " and Active=1";
 	//			echo ("$sqlQry");
 	//			die();
-		mysqli_close($con);
+		// mysqli_close($con);
 		include('db_connect.php');
 		$result = mysqli_query($con, $sqlQry);
 		//fetch tha data from the database
@@ -731,7 +845,7 @@
 		$sqlQry.= " where (fyid=$Prv or fyid=$Nxt)";
 		$sqlQry.= " order by fyid";
 		//echo ("$sqlQry");
-		mysqli_close($con);
+		// mysqli_close($con);
 		include('db_connect.php');
 		$result = mysqli_query($con, $sqlQry);
 		//fetch tha data from the database
@@ -751,7 +865,7 @@
 		$sqlQry.= " where Active=1";
 		$sqlQry.= " order by $OrderBy";
 		//echo ("$sqlQry");
-		mysqli_close($con);
+		// mysqli_close($con);
 		include('db_connect.php');
 		$result = mysqli_query($con, $sqlQry);
 		//fetch tha data from the database
@@ -773,7 +887,7 @@
 		$sqlQry.= " order by ConsigneeName";
 //		echo ("$sqlQry");
 //		die();
-		mysqli_close($con);
+		// mysqli_close($con);
 		include('db_connect.php');
 		$result = mysqli_query($con, $sqlQry);
 		//fetch tha data from the database
@@ -797,7 +911,7 @@
 		$sqlQry.= " where consignor_master.Active=1";
 		$sqlQry.= " order by consignor_master.ConsignorName";
 		//echo ("$sqlQry");
-		mysqli_close($con);
+		// mysqli_close($con);
 		include('db_connect.php');
 		$result = mysqli_query($con, $sqlQry);
 		//fetch tha data from the database
@@ -818,7 +932,7 @@
 		$sqlQry.= " where Active=1";
 		$sqlQry.= " order by UndeliveredReason";
 		//echo ("$sqlQry");
-		mysqli_close($con);
+		// mysqli_close($con);
 		include('db_connect.php');
 		$result = mysqli_query($con, $sqlQry);
 		//fetch tha data from the database
@@ -845,7 +959,7 @@
 		$sqlQry.= " where Active=1";
 		$sqlQry.= " order by Ownership";
 		//echo ("$sqlQry");
-		mysqli_close($con);
+		// mysqli_close($con);
 		include('db_connect.php');
 		$result = mysqli_query($con, $sqlQry);
 		//fetch tha data from the database
@@ -876,7 +990,7 @@
 		$sqlQry.= " order by designationid";
 //		echo ("$sqlQry");
 
-		mysqli_close($con);
+		// mysqli_close($con);
 		include('db_connect.php');
 		$result = mysqli_query($con, $sqlQry);
 		//fetch tha data from the database
@@ -916,7 +1030,7 @@
 			$sqlQry.= " and Active=1";
 			$sqlQry.= " order by designationid";
 			//echo ("$sqlQry");
-			mysqli_close($con);
+			// mysqli_close($con);
 			include('db_connect.php');
 			$result = mysqli_query($con, $sqlQry);
 			//fetch tha data from the database
@@ -951,7 +1065,7 @@
 			$sqlQry.= " order by UserName";
 //			echo ("SwlQuery :- $sqlQry </br> ");
 //			die();
-			mysqli_close($con);
+			// mysqli_close($con);
 			include('db_connect.php');
 			$result = mysqli_query($con, $sqlQry);
 			//fetch tha data from the database
@@ -971,7 +1085,7 @@
 			$sqlQry.= " where Active=1";
 			$sqlQry.= " order by UserName";
 			//echo ("$sqlQry");
-			mysqli_close($con);
+			// mysqli_close($con);
 			include('db_connect.php');
 			$result = mysqli_query($con, $sqlQry);
 			//fetch tha data from the database
@@ -995,7 +1109,7 @@
 		$sqlQry.= " and rate_master.cnid=$ConsigneeID";
 		$sqlQry.= " order by product_master.ProductName";
 //		echo ("$sqlQry");
-		mysqli_close($con);
+		// mysqli_close($con);
 		include('db_connect.php');
 		$result = mysqli_query($con, $sqlQry);
 		//fetch tha data from the database
@@ -1015,7 +1129,7 @@
 		$sqlQry.= " where Active=1";
 		$sqlQry.= " order by ProductName";
 		//echo ("$sqlQry");
-		mysqli_close($con);
+		// mysqli_close($con);
 		include('db_connect.php');
 		$result = mysqli_query($con, $sqlQry);
 		//fetch tha data from the database
@@ -1028,16 +1142,52 @@
 		mysqli_free_result($result);
 	}
 
+
+	function Get_UnbillCount($con)
+	{
+		$Getting_UnbillCount=0;
+		$sqlQry= "";
+		$sqlQry= "select caid, count(*) from inward ";
+		$sqlQry.= " where LRID not in (select iid from outwardlr where Bill=0 and Active=1)";
+		$sqlQry.= " and inward.Active=1";
+		$sqlQry.= " group by caid";
+		$sqlQry.= " order by caid";
+//		echo ("$sqlQry");
+//		die();
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0)
+		{
+			$Getting_UnbillCount=0;
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$Getting_UnbillCount = $Getting_UnbillCount + 1;
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_UnbillCount;
+	}
+
 	function Fill_LRForJS($con)
 	{
 		$Getting_LRForJS="";
 		$sqlQry= "";
-		$sqlQry= "select LRID from  inward ";
-		$sqlQry.= " where Active=1";
-		$sqlQry.= " group by LRID";
-		$sqlQry.= " order by LRID";
-		//echo ("$sqlQry");
-		mysqli_close($con);
+		$sqlQry= "select inward.LRID from  inward ";
+		$sqlQry.= " left join outwardlr";
+		$sqlQry.= " on inward.LRID=outwardlr.iid";
+
+		$sqlQry.= " where 1=1";
+		$sqlQry.= " and outwardlr.iid IS NULL";
+
+
+		$sqlQry.= " and inward.Active=1";
+
+		$sqlQry.= " group by inward.LRID";
+		$sqlQry.= " order by inward.LRID";
+//		echo ("$sqlQry");
+//		die();
+
 		include('db_connect.php');
 		$result = mysqli_query($con, $sqlQry);
 		//fetch tha data from the database
@@ -1069,7 +1219,7 @@
 		$sqlQry.= " group by AreaName";
 		$sqlQry.= " order by AreaName";
 		//echo ("$sqlQry");
-		mysqli_close($con);
+		// mysqli_close($con);
 		include('db_connect.php');
 		$result = mysqli_query($con, $sqlQry);
 		//fetch tha data from the database
@@ -1105,7 +1255,7 @@
 		$sqlQry.= " order by 1menusub.urlDescription";
 //		echo ("$sqlQry");
 //		die();
-		mysqli_close($con);
+		// mysqli_close($con);
 		include('db_connect.php');
 		$result = mysqli_query($con, $sqlQry);
 		//fetch tha data from the database
@@ -1131,7 +1281,7 @@
 			$sqlQry.= " where Active=1";
 			$sqlQry.= " order by urlDescription";
 			//echo ("$sqlQry");
-			mysqli_close($con);
+			// mysqli_close($con);
 			include('db_connect.php');
 			$result = mysqli_query($con, $sqlQry);
 			//fetch tha data from the database
@@ -1582,6 +1732,57 @@
 		return $Getting_LoginID;
 	}
 
+	function Check_LRIDExist_ForRM($con, $LRID)
+	{
+		$Getting_LRID_ForRM=0;
+		
+		
+			$cols="outwardlr.olrid";
+			$sqlQry= "select $cols from  outwardlr ";
+			$sqlQry.= " where 1=1";
+			$sqlQry.= " and outwardlr.iid = $LRID";
+	//		$sqlQry.= " and outwardlr.RMStatus=0";
+			$sqlQry.= " and outwardlr.Active=1";
+	
+//			echo ("Check sqlQry :- $sqlQry </br>");
+	//		die();
+			unset($con);
+			include('db_connect.php');
+			$result = mysqli_query($con, $sqlQry);
+			if (mysqli_num_rows($result)!=0)
+			{
+				while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+				{
+					$Getting_LRID_ForRM=$row{0};
+				}
+			}
+			mysqli_free_result($result);
+		return $Getting_LRID_ForRM;
+	}
+
+
+	function Check_LRIDExist($con, $LRID)
+	{
+		$Getting_LRID=0;
+		$sqlQry= "";
+		$sqlQry= "select LRID from `inward`";
+		$sqlQry= $sqlQry." where LRID=$LRID";
+		$sqlQry= $sqlQry." and Active=1";
+	//		echo ("Check sqlQry :- $sqlQry </br>");
+	//		die();
+		unset($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		if (mysqli_num_rows($result)!=0)
+		{
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$Getting_LRID=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_LRID;
+	}
 
 	function Check_MenuIDExist($con, $MenuID)
 	{
@@ -1701,7 +1902,7 @@
 //				$sqlQry1.=" where rmid=$db_rmid ";
 ////				echo ("Check sqlQry :- $sqlQry1 </br>");
 ////				die();
-//				mysqli_close($con);
+//				// mysqli_close($con);
 //				include('db_connect.php');
 //				$Updateresult = mysqli_query($con, $sqlQry1);
 			}
@@ -1730,7 +1931,7 @@
 				$sqlQry.= " and Active=1";
 //				echo ("Check sqlQry :- $sqlQry </br>");
 //				die();
-				mysqli_close($con);
+				// mysqli_close($con);
 				include('db_connect.php');
 				$resultBill = mysqli_query($con, $sqlQry);
 				if (mysqli_num_rows($resultBill)!=0)
@@ -1776,7 +1977,7 @@
 			$sqlQry.= " and Active=1";
 //			echo ("Check sqlQry :- $sqlQry </br>");
 //			die();
-			mysqli_close($con);
+			// mysqli_close($con);
 			include('db_connect.php');
 			$result = mysqli_query($con, $sqlQry);
 			if (mysqli_num_rows($result)!=0)
@@ -1794,7 +1995,7 @@
 						$sqlQry1.=" where olrid=$OutwardlrID ";
 //						echo ("Check sqlQry :- $sqlQry1 </br>");
 //						die();
-						mysqli_close($con);
+						// mysqli_close($con);
 						include('db_connect.php');
 						$Updateresult = mysqli_query($con, $sqlQry1);
 
@@ -1845,7 +2046,7 @@
 		$sqlQry= $sqlQry." and Active=1";
 //		echo ("Check sqlQry :- $sqlQry </br>");
 //		die();
-		mysqli_close($con);
+		// mysqli_close($con);
 		include('db_connect.php');
 		$result = mysqli_query($con, $sqlQry);
 		if (mysqli_num_rows($result)!=0)
@@ -1864,7 +2065,7 @@
 				$sqlQry1.=" where id=$PageAccessID ";
 //				echo ("Check sqlQry :- $sqlQry1 </br>");
 //				die();
-				mysqli_close($con);
+				// mysqli_close($con);
 				include('db_connect.php');
 				$Updateresult = mysqli_query($con, $sqlQry1);
 			}
@@ -1879,7 +2080,7 @@
 			$sqlQry= $sqlQry." and Active=1";
 //			echo ("Check sqlQry :- $sqlQry </br>");
 //			die();
-			mysqli_close($con);
+			// mysqli_close($con);
 			include('db_connect.php');
 			$result = mysqli_query($con, $sqlQry);
 			if (mysqli_num_rows($result)!=0)
@@ -1899,7 +2100,7 @@
 						$sqlQry1.=" where cpid=$ConsignorProductID ";
 //						echo ("Check sqlQry :- $sqlQry1 </br>");
 //						die();
-						mysqli_close($con);
+						// mysqli_close($con);
 						include('db_connect.php');
 						$Updateresult = mysqli_query($con, $sqlQry1);
 
@@ -1915,7 +2116,7 @@
 		$sqlQry= $sqlQry." and pmid=$ProductID";
 	//			echo ("Check sqlQry :- $sqlQry </br>");
 	//			die();
-		mysqli_close($con);
+		// mysqli_close($con);
 		include('db_connect.php');
 		$result = mysqli_query($con, $sqlQry);
 		if (mysqli_num_rows($result)!=0)
@@ -1935,7 +2136,7 @@
 				$sqlQry1.=" where cpid=$ConsignorProductID ";
 //				echo ("Check sqlQry :- $sqlQry1 </br>");
 //				die();
-				mysqli_close($con);
+				// mysqli_close($con);
 				include('db_connect.php');
 				$Updateresult = mysqli_query($con, $sqlQry1);
 
@@ -1952,7 +2153,7 @@
 			$sqlQry= $sqlQry." and Active=1";
 //			echo ("Check sqlQry :- $sqlQry </br>");
 //			die();
-			mysqli_close($con);
+			// mysqli_close($con);
 			include('db_connect.php');
 			$result = mysqli_query($con, $sqlQry);
 			if (mysqli_num_rows($result)!=0)
@@ -1974,7 +2175,7 @@
 		$sqlQry= $sqlQry." and pmid=$SingleProduct";
 //			echo ("Check sqlQry :- $sqlQry </br>");
 //			die();
-		mysqli_close($con);
+		// mysqli_close($con);
 		include('db_connect.php');
 		$result = mysqli_query($con, $sqlQry);
 		if (mysqli_num_rows($result)!=0)
@@ -2011,7 +2212,7 @@
 				$Procedure = "Call Save_ConsignorProduct('$CurrentDate', $session_userid, '$session_ip', $Consignorid, $SingleProduct);";
 //				echo("Procedure :- $Procedure </br>");
 //				die();
-				mysqli_close($con);
+				// mysqli_close($con);
 				include('db_connect.php');
 				$resultproduct = mysqli_query($con, $Procedure) or trigger_error("Query Failed(save consignor product)! Error: " . mysqli_error($con), E_USER_ERROR);
 			}
@@ -2026,7 +2227,7 @@
 		$sqlQry= $sqlQry." and Active=1";
 //		echo ("Check sqlQry :- $sqlQry </br>");
 //		die();
-		mysqli_close($con);
+		// mysqli_close($con);
 		include('db_connect.php');
 		$result = mysqli_query($con, $sqlQry);
 		if (mysqli_num_rows($result)!=0){
@@ -2035,7 +2236,7 @@
 				$ProcedureBIll = "Call Update_OutwardLRBill($db_olbid);";
 //				echo("ProcedureBIll:- " . $ProcedureBIll . "</br>");
 //				die();
-				mysqli_close($con);
+				// mysqli_close($con);
 				include('db_connect.php');
 				$resultBill = mysqli_query($con, $ProcedureBIll) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
 				mysqli_free_result($resultBill);
@@ -2061,7 +2262,7 @@
 		$Procedure = "Call Save_OutwardLRStatus('$CurrentDate', $session_userid, '$session_ip', $OutwardLRID, $RMStatus);";
 //		echo("Procedure:- " . $Procedure . "</br>");
 //		die();
-		mysqli_close($con);
+		// mysqli_close($con);
 		include('db_connect.php');
 		$result = mysqli_query($con, $Procedure) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
 		mysqli_free_result($resultBill);
@@ -2072,7 +2273,7 @@
 		$ProcedureBIll = "Call Save_OutwardLRBill('$CurrentDate', $session_userid, '$session_ip', $OutwardLRID, $acmid, $Return_Charge);";
 //			echo("ProcedureBIll:- " . $ProcedureBIll . "</br>");
 //			die();
-		mysqli_close($con);
+		// mysqli_close($con);
 		include('db_connect.php');
 		$resultBill = mysqli_query($con, $ProcedureBIll) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
 		mysqli_free_result($resultBill);
@@ -2086,7 +2287,7 @@
 		$sqlQry= $sqlQry." and Active=1";
 //		echo ("Check sqlQry :- $sqlQry </br>");
 //		die();
-		mysqli_close($con);
+		// mysqli_close($con);
 		include('db_connect.php');
 		$result = mysqli_query($con, $sqlQry);
 		if (mysqli_num_rows($result)!=0)
@@ -2099,7 +2300,7 @@
 				$ProcedureBIll = "Call Save_OutwardLRBill('$CurrentDate', $session_userid, '$session_ip', $OutwardLRID, $db_acmid, $db_amount);";
 //				echo("ProcedureBIll:- " . $ProcedureBIll . "</br>");
 //				die();
-				mysqli_close($con);
+				// mysqli_close($con);
 				include('db_connect.php');
 				$resultBill = mysqli_query($con, $ProcedureBIll) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
 				mysqli_free_result($resultBill);
@@ -2117,7 +2318,7 @@
 		$sqlQry= $sqlQry." and Active=1";
 		//		echo ("Check sqlQry :- $sqlQry </br>");
 		//		die();
-		mysqli_close($con);
+		// mysqli_close($con);
 		include('db_connect.php');
 		$result = mysqli_query($con, $sqlQry);
 		if (mysqli_num_rows($result)!=0)
@@ -2136,7 +2337,7 @@
 					$sqlQry1.=" where ccid=$ConsignorContactID ";
 //					echo ("Check sqlQry :- $sqlQry1 </br>");
 //					die();
-					mysqli_close($con);
+					// mysqli_close($con);
 					include('db_connect.php');
 					$Updateresult = mysqli_query($con, $sqlQry1);
 				}
@@ -2153,7 +2354,7 @@
 		$sqlQry= $sqlQry." and Active=1";
 	//		echo ("Check sqlQry :- $sqlQry </br>");
 	//		die();
-		mysqli_close($con);
+		// mysqli_close($con);
 		include('db_connect.php');
 		$result = mysqli_query($con, $sqlQry);
 		if (mysqli_num_rows($result)!=0)
@@ -2172,7 +2373,7 @@
 					$sqlQry1.=" where ccid=$ConsignorContactID ";
 	//					echo ("Check sqlQry :- $sqlQry1 </br>");
 	//					die();
-					mysqli_close($con);
+					// mysqli_close($con);
 					include('db_connect.php');
 					$Updateresult = mysqli_query($con, $sqlQry1);
 				}
@@ -2189,7 +2390,7 @@
 		$sqlQry= $sqlQry." and Active=1";
 //		echo ("Check sqlQry :- $sqlQry </br>");
 //		die();
-		mysqli_close($con);
+		// mysqli_close($con);
 		include('db_connect.php');
 		$result = mysqli_query($con, $sqlQry);
 		if (mysqli_num_rows($result)!=0)
@@ -2208,7 +2409,7 @@
 					$sqlQry1.=" where ccid=$ConsignorContactID ";
 //					echo ("Check sqlQry :- $sqlQry1 </br>");
 //					die();
-					mysqli_close($con);
+					// mysqli_close($con);
 					include('db_connect.php');
 					$Updateresult = mysqli_query($con, $sqlQry1);
 				}
@@ -2220,7 +2421,7 @@
 					$sqlQry1.=" where ccid=$ConsignorContactID ";
 //					echo ("Check sqlQry :- $sqlQry1 </br>");
 //					die();
-					mysqli_close($con);
+					// mysqli_close($con);
 					include('db_connect.php');
 					$Updateresult = mysqli_query($con, $sqlQry1);
 				}
@@ -2232,7 +2433,7 @@
 					$sqlQry1.=" where ccid=$ConsignorContactID ";
 //					echo ("Check sqlQry :- $sqlQry1 </br>");
 //					die();
-					mysqli_close($con);
+					// mysqli_close($con);
 					include('db_connect.php');
 					$Updateresult = mysqli_query($con, $sqlQry1);
 				}

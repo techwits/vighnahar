@@ -1588,39 +1588,46 @@ function editarea(amid, CreationDate, ModificationDate, Creator, ip, AreaName, A
 	}
 }
 
-function editlrentry(lrid)
+function editlrentry(lrid, Status)
 {
-	// alert("LRID :- " + lrid);
-	edited_financialyear=document.getElementById("financialyear").value;
-	document.getElementById("AddEdit").value=lrid;
-	if(Number(lrid) > 0)
-	{
-		document.getElementById("additionalcharges").checked=false;
-		if(edited_financialyear!="") {
-			$("#financialyear").prepend("<option value=''></option>");
-			$("#financialyear option:first").attr("selected", "selected");
+	if(Number(Status)==0) {
+		// alert("LRID :- " + lrid);
+		edited_financialyear = document.getElementById("financialyear").value;
+		document.getElementById("AddEdit").value = lrid;
+		if (Number(lrid) > 0) {
+			document.getElementById("additionalcharges").checked = false;
+			if (edited_financialyear != "") {
+				$("#financialyear").prepend("<option value=''></option>");
+				$("#financialyear option:first").attr("selected", "selected");
+			}
+			document.getElementById("lrdate").value = "";
+			displayAdditionalCharges(6, '::1');
+			// document.getElementById("div_pageheader").innerHTML = "Edit LREntry " + lrid;
+
+			document.getElementById("invoicenumber").focus();
+
+			// $('#div_merchantcontrols').addClass('animated swing');
+			document.getElementById('div_merchantcontrols').style.borderColor = '#b8b894';
+			document.getElementById('div_merchantcontrols').style.borderTopWidth = '3px';
+			document.getElementById('div_panel').style.backgroundColor = '#b8b894';
+
+			// $("#div_merchantcontrols").css({ 'border-color': "#00c0ef" });
+			// $( "#div_merchantcontrols" ).css( "border-top", "3px solid red");
+			document.getElementById("span_pageName").innerHTML = "Update - " + lrid;
+			document.getElementById("span_pageButton").innerHTML = "Update";
+
+
 		}
-		document.getElementById("lrdate").value="";
-		displayAdditionalCharges(6, '::1');
-		// document.getElementById("div_pageheader").innerHTML = "Edit LREntry " + lrid;
-
-		document.getElementById("invoicenumber").focus();
-
-		// $('#div_merchantcontrols').addClass('animated swing');
-		document.getElementById('div_merchantcontrols').style.borderColor='#b8b894';
-		document.getElementById('div_merchantcontrols').style.borderTopWidth='3px';
-		document.getElementById('div_panel').style.backgroundColor='#b8b894';
-
-		// $("#div_merchantcontrols").css({ 'border-color': "#00c0ef" });
-		// $( "#div_merchantcontrols" ).css( "border-top", "3px solid red");
-		document.getElementById("span_pageName").innerHTML="Update - " + lrid;
-		document.getElementById("span_pageButton").innerHTML="Update";
-
-
+		else {
+			alert("Menu ID is Blank. Please check......");
+		}
 	}
-	else
-	{
-		alert("Menu ID is Blank. Please check......");
+	else{
+		alert("Can't update LR now as LR status is updated.....");
+		setTimeout(function(){
+			window.location.reload(1);
+		}, 0);
+		return false;
 	}
 }
 
@@ -1664,6 +1671,7 @@ function editrmentry(oid, CreationDate, ModificationDate, Creator, ip, TransitDa
 
 		document.getElementById("rmdate").value=ChangeTransitDate;
 		document.getElementById("lrid_list").value=RoadMemoLRList;
+		document.getElementById("lrid_list1").value=RoadMemoLRList;
 
 		document.getElementById("transporterid").focus();
 
@@ -2054,6 +2062,7 @@ function fill_rmtableEdit(lrnumber){
 		}
 		// alert("Fill_LRIdList :- " + Fill_LRIdList);
 
+		Valid_LRIDs=Fill_LRIdList;
 		if(Number(error_count) == 0)
 		{
 			document.getElementById("lrid_list").value=Fill_LRIdList;
@@ -2061,7 +2070,7 @@ function fill_rmtableEdit(lrnumber){
 			var div_name = "#div_lrlisttable";
 			var page_name = "rmentry_1.php";
 			$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
-			$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, financialyear:financialyear, rmdate:rmdate, vehicleid:vehicleid, transporterid:transporterid, Fill_LRIdList:Fill_LRIdList},
+			$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, financialyear:financialyear, rmdate:rmdate, vehicleid:vehicleid, transporterid:transporterid, Fill_LRIdList:Fill_LRIdList, Valid_LRIDs:Valid_LRIDs},
 				function(data)
 				{
 					$(div_name).html(data);
@@ -2074,6 +2083,85 @@ function fill_rmtableEdit(lrnumber){
 			document.getElementById("lrno").value="";
 			return false;
 		}
+	}
+}
+
+function display_LR(AddEdit, session_userid, session_ip, financialyear, rmdate, vehicleid, transporterid, lridlist, Get_LRId, LRIDExist, Valid_LRIDs) {
+	var error_count;
+	var error_msg;
+	error_msg = "";
+	error_count = 0;
+
+	// var AddEdit = trim(frm.AddEdit.value);
+
+	// var session_userid = trim(frm.session_userid.value);
+	if (session_userid.length <= 0 || session_userid == "") {
+		error_count = error_count + 1;
+		error_msg = error_msg + error_count + ") " + " Please Enter User ID" + "\n";
+		// frm.username.focus();
+	}
+	// var session_ip = trim(frm.session_ip.value);
+	if (session_ip.length <= 0 || session_ip == "") {
+		error_count = error_count + 1;
+		error_msg = error_msg + error_count + ") " + " Please Enter IP address" + "\n";
+		// frm.username.focus();
+	}
+
+	// var financialyear = trim(frm.financialyear.value);
+	if (financialyear.length <= 0 || financialyear == "") {
+		error_count = error_count + 1;
+		error_msg = error_msg + error_count + ") " + " Please Select Finanacial year" + "\n";
+		// frm.username.focus();
+	}
+	// var rmdate = trim(frm.rmdate.value);
+	if (rmdate.length <= 0 || rmdate == "") {
+		error_count = error_count + 1;
+		error_msg = error_msg + error_count + ") " + " Please Enter RM Date" + "\n";
+		// frm.username.focus();
+	}
+	// var vehicleid = trim(frm.vehicleid.value);
+	if (vehicleid.length <= 0 || vehicleid == "") {
+		error_count = error_count + 1;
+		error_msg = error_msg + error_count + ") " + " Please Enter Vehicle Number" + "\n";
+		// frm.username.focus();
+	}
+	// var transporterid = trim(frm.transporterid.value);
+	if (transporterid.length <= 0 || transporterid == "") {
+		error_count = error_count + 1;
+		error_msg = error_msg + error_count + ") " + " Please Enter Driver Name" + "\n";
+		// frm.username.focus();
+	}
+
+	if (Number(error_count) == 0) {
+		// document.getElementById("lrid_list").value = Fill_LRIdList;
+		// document.getElementById("lrno").value = "";
+		// alert("Comming....");
+		var div_name = "#div_lrlisttable";
+		var page_name = "rmentry_1.php";
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$.post(page_name, {
+				AddEdit: AddEdit,
+				session_userid: session_userid,
+				session_ip: session_ip,
+				financialyear: financialyear,
+				rmdate: rmdate,
+				vehicleid: vehicleid,
+				transporterid: transporterid,
+				lridlist: lridlist,
+				Get_LRId: Get_LRId,
+				LRIDExist: LRIDExist,
+				Valid_LRIDs: Valid_LRIDs
+			},
+			function (data) {
+				$(div_name).html(data);
+			}
+		);
+		return false;
+	}
+	else {
+		alert(error_msg);
+		document.getElementById("lrno").value = "";
+		return false;
 	}
 }
 
@@ -2153,9 +2241,9 @@ function fill_rmtable(e, lrnumber){
 			document.getElementById("lrid_list").value=Fill_LRIdList;
 			document.getElementById("lrno").value="";
 			var div_name = "#div_lrlisttable";
-			var page_name = "rmentry_1.php";
+			var page_name = "rmentry_05.php";
 			$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
-			$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, financialyear:financialyear, rmdate:rmdate, vehicleid:vehicleid, transporterid:transporterid, Fill_LRIdList:Fill_LRIdList},
+			$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, financialyear:financialyear, rmdate:rmdate, vehicleid:vehicleid, transporterid:transporterid, Fill_LRIdList:Fill_LRIdList, Get_LRId:Get_LRId},
 				function(data)
 				{
 					$(div_name).html(data);
@@ -2862,6 +2950,8 @@ function add_lrentry()
 
 
 
+	var FromDate_Valid=false;
+	var ToDate_Valid=false;
 
 	FromDate=trim(frm.todaysdate.value);
 	if(FromDate.length <= 0 || FromDate == "")
@@ -2877,6 +2967,7 @@ function add_lrentry()
 			error_msg = error_msg + error_count + ") " + " From Date is invalid. Please enter date in mm/dd/yyyy Format.";
 		}
 	}
+
 
 	ToDate=trim(frm.lrdate.value);
 	if(ToDate.length <= 0 || ToDate == "")
@@ -3011,6 +3102,103 @@ function add_lrentry()
 		return false;
 	}
 
+}
+
+function show_warai(LRNO)
+{
+	var error_count;
+	var error_msg;
+	error_msg="";
+	error_count=0;
+
+	if(LRNO.length <= 0 || LRNO == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter LR No." + "\n";
+		// frm.lrno.focus();
+	}
+
+	if(Number(error_count) == 0)
+	{
+		var div_name = "#div_showwarai";
+		var page_name = "show_warai.php";
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$.post(page_name, {LRNO:LRNO},
+			function(data)
+			{
+				$(div_name).html(data);
+			}
+		);
+		return false;
+	}
+	else{
+		alert(error_msg);
+		return false;
+	}
+}
+
+
+function add_warai()
+{
+	// alert("Hi...");
+	var frm=document.warai_form;
+	var error_count;
+	var error_msg;
+	error_msg="";
+	error_count=0;
+
+	var AddEdit=trim(frm.AddEdit.value);
+
+	var session_userid=trim(frm.session_userid.value);
+	if(session_userid.length <= 0 || session_userid == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter User ID" + "\n";
+		// frm.username.focus();
+	}
+	var session_ip=trim(frm.session_ip.value);
+	if(session_ip.length <= 0 || session_ip == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter IP address" + "\n";
+		// frm.username.focus();
+	}
+
+
+	var lrno=trim(frm.lrno.value);
+	if(lrno.length <= 0 || lrno == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter LR No." + "\n";
+		frm.lrno.focus();
+	}
+
+	var waraicharges=trim(frm.waraicharges.value);
+	if(waraicharges.length <= 0 || waraicharges == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter Warai Charges" + "\n";
+		frm.waraicharges.focus();
+	}
+
+
+	if(Number(error_count) == 0)
+	{
+		var div_name = "#div_warai";
+		var page_name = "save_warai.php";
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, lrno:lrno, waraicharges:waraicharges},
+			function(data)
+			{
+				$(div_name).html(data);
+			}
+		);
+		return false;
+	}
+	else{
+		alert(error_msg);
+		return false;
+	}
 }
 
 function add_transporter()
@@ -4084,13 +4272,22 @@ function displayAdditionalCharges(session_userid, session_ip)
 		// frm.username.focus();
 	}
 
+	var productrate=document.getElementById("productrate").value;
+	if(productrate.length <= 0 || productrate == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter Product Rate" + "\n";
+		// frm.username.focus();
+	}
+
+
 	var additionalcharges_tick=0;
 	var additionalcharges_tick=frm.additionalcharges.checked;
 	// alert("additionalcharges_tick :- " + additionalcharges_tick);
 
 	var lramount=frm.lramount.value;
 
-	if(additionalcharges_tick==true)
+	if(additionalcharges_tick==true && error_count==0)
 	{
 		var div_name = "#div_additionalcharges";
 		var page_name = "lrentry_5.php";
@@ -4106,7 +4303,7 @@ function displayAdditionalCharges(session_userid, session_ip)
 	else{
 		// alert("Else....");
 		if(error_msg!="") {
-			alert(error_msg);
+			// alert(error_msg);
 		}
 		frm.additionalcharges.checked=false;
 		document.getElementById("additionalchargesentry").value="";
@@ -4566,4 +4763,10 @@ function PrintDiv() {
 	popupWin.document.open();
 	popupWin.document.write('<html><body onload="window.print()">' + divToPrint.innerHTML + '</html>');
 	popupWin.document.close();
+}
+
+
+function open_vehicle()
+{
+	window.open("add_vehicle.php","_self")
 }

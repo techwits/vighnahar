@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
     <?php
-    include('assets/inc/db_connect.php');
-    include('assets/inc/common-function.php');
-    include('assets/inc/functions.php');
-    sec_session_start();
+        include('assets/inc/db_connect.php');
+        include('assets/inc/common-function.php');
+        include('assets/inc/functions.php');
+        sec_session_start();
     ?>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Rate Entry</title>
+    <title>User Dashboard</title>
 
     <!-- Global stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
@@ -224,11 +224,27 @@
                                     <div class="row">
                                         <div class="col-xs-12">
                                             <div class="col-xs-6 text-center border-right">
-                                                <div class="huge1">200</div>
+                                                <div class="huge1">
+                                                    <?php
+                                                        $first_day_this_month = date('Y-m-01'); // hard-coded '01' for first day
+                                                        $last_day_this_month  = date('Y-m-t');
+                                                        $StartDate=$first_day_this_month." 00:00:00";
+                                                        $EndDate=$last_day_this_month." 23:59:59";
+                                                        $TableName="bill";
+                                                        $ColumnName="CreationDate";
+                                                        $MonthsRM=Get_Count($con, $TableName, $ColumnName, $StartDate, $EndDate);
+                                                        echo("$MonthsRM");
+                                                    ?>
+                                                </div>
                                                 <div>last Bill Count </div>
                                             </div>
                                             <div class="col-xs-6 text-center">
-                                                <div class="huge1">250</div>
+                                                <div class="huge1">
+                                                    <?php
+                                                        $UnbillCount=Get_UnbillCount($con);
+                                                        echo("$UnbillCount </br>");
+                                                    ?>
+                                                </div>
                                                 <div> Bills to be Generated </div>
                                             </div>
                                         </div>
@@ -352,26 +368,19 @@
                                     <div class="category-content">
                                         <div class="row row-condensed">
                                             <div class="col-xs-6">
-
-                                                <button href="add_vehicel.php" type="button" class="btn bg-teal-400 btn-block btn-float btn-float-sm">
-                                                    <a href="index.html"><i class="icon-bus"></i> Archive</a></button>
-                                                <button type="button" class="btn bg-purple-300 btn-block btn-float btn-float-sm">
-                                                    <i class="icon-archive"></i> <span>Archive</span></button>
+                                                <button type="button" class="btn bg-teal-400 btn-block btn-float btn-float-sm" onclick="window.open('add_vehicle.php','_self');">
+                                                    <i class="icon-truck"></i> <span>Vehicle</span></button>
+                                                <button type="button" class="btn bg-purple-300 btn-block btn-float btn-float-sm" onclick="window.open('add_transporter.php','_self');">
+                                                    <i class="icon-steering-wheel"></i> <span>Driver</span></button>
                                             </div>
                                             <div class="col-xs-6">
                                                 <button type="button" class="btn bg-warning-400 btn-block btn-float btn-float-sm ">
-                                                    <i class="icon-stats-bars"></i> <span>Statistics</span></button>
+                                                    <i class="icon-stats-bars"></i> <span>XYZ</span></button>
                                                 <button type="button" class="btn bg-blue btn-block btn-float btn-float-sm">
-                                                    <i class="icon-cog3"></i> <span>Settings</span></button>
+                                                    <i class="icon-cog3"></i> <span>PQR</span></button>
                                             </div>
                                         </div>
                                     </div>
-                                    <ul class="navigation navigation-alt navigation-accordion">
-                                        <li class="navigation-divider"></li>
-                                        <li><a href="#"><i class="icon-googleplus5"></i> Create invoice</a></li>
-                                        <li><a href="#"><i class="icon-compose"></i> Edit invoice</a></li>
-                                        <li><a href="#"><i class="icon-archive"></i> Archive <span class="badge badge-default">190</span></a></li>
-                                    </ul>
                                 </div>
                                 <!-- /actions -->
                             </div>
@@ -380,20 +389,90 @@
 
                     </div>
 
-                    <div class="col-lg-2 col-sm-6">
-                        <div class="thumbnail">
-                            <div class="video-container">
-                                <iframe allowfullscreen="" frameborder="0" mozallowfullscreen="" src="https://player.vimeo.com/video/126580704?title=0&amp;byline=0&amp;portrait=0" webkitallowfullscreen=""></iframe>
-                            </div>
 
-                            <div class="caption">
-                                <h6 class="no-margin-top text-semibold"><a href="#" class="text-default">Two differed</a> <a href="#" class="text-muted"><i class="icon-cog5 pull-right"></i></a></h6>
-                                Welcomed stronger if steepest.
+                <div class="col-lg-2 col-sm-6">
+                    <div class="panel panel-flat">
+                        <div class="panel-heading">
+                            <h6 class="panel-title">View LR</h6>
+                            <div class="heading-elements">
+                                <ul class="icons-list">
+                                    <li><a data-action="collapse"></a></li>
+                                </ul>
                             </div>
                         </div>
+
+                        <div class="panel-body">
+                            <form action="#">
+                                <div class="form-group">
+                                    <input class="form-control input-micro" type="text" placeholder="View LR" name="show_lrno" id="show_lrno" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
+                                </div>
+                                <div class="col-sm-2 text-center">
+
+                                    <a href="#modal_full" data-toggle='modal' class='modalButton1' data-teacherid="1" >
+                                    <button type="button" class="btn btn-info btn-xs">Submit</button></a>
+                                </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-sm-6">
+                    <div class="panel panel-flat">
+                        <div class="panel-heading">
+                            <h6 class="panel-title">View RM</h6>
+                            <div class="heading-elements">
+                                <ul class="icons-list">
+                                    <li><a data-action="collapse"></a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="panel-body">
+                            <form action="#">
+                                <div class="form-group">
+                                    <input class="form-control input-micro" type="text" placeholder="View RM" name="show_rmno" id="show_rmno" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
+                                </div>
+                                <div class="col-sm-2 text-center">
+
+                                    <a href="#modal_full" data-toggle='modal' class='modalButton2' data-teacherid="1" >
+                                        <button type="button" class="btn btn-info btn-xs">Submit</button></a>
+                                </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-sm-6">
+                    <div class="panel panel-flat">
+                        <div class="panel-heading">
+                            <h6 class="panel-title">View Bill</h6>
+                            <div class="heading-elements">
+                                <ul class="icons-list">
+                                    <li><a data-action="collapse"></a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="panel-body">
+                            <form action="#">
+                                <div class="form-group">
+                                    <input class="form-control input-micro" type="text" placeholder="View Bill" name="show_billno" id="show_billno" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
+                                </div>
+                                <div class="col-sm-2 text-center">
+
+                                    <a href="#modal_full" data-toggle='modal' class='modalButton3' data-teacherid="1" >
+                                        <button type="button" class="btn btn-info btn-xs">Submit</button></a>
+                                </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+
+
+                    <div class="col-lg-2 col-sm-6">
                         <div class="panel panel-flat">
                             <div class="panel-heading">
-                                <h6 class="panel-title">Share your thoughts</h6>
+                                <h6 class="panel-title">Share your Problem</h6>
                                 <div class="heading-elements">
                                     <ul class="icons-list">
                                         <li><a data-action="close"></a></li>
@@ -404,23 +483,23 @@
                             <div class="panel-body">
                                 <form action="#">
                                     <div class="form-group">
-                                        <textarea name="enter-message" class="form-control mb-15" rows="3" cols="1" placeholder="What's on your mind?"></textarea>
+                                        <textarea name="enter-message" class="form-control mb-15" rows="3" cols="1" placeholder="Enter Details"></textarea>
                                     </div>
 
                                     <div class="row">
                                         <div class="col-sm-4">
                                             <ul class="icons-list icons-list-extended mt-10">
-                                                <li><a href="#" data-popup="tooltip" title="" data-container="body" data-original-title="Add photo"><i class="icon-images2"></i></a></li>
+                                                <li><a href="#" data-popup="tooltip" title="Attach Image" data-container="body" data-original-title="Add photo"><i class="icon-images2"></i></a></li>
                                             </ul>
                                         </div>
 
                                         <div class="col-sm-8 text-center">
-                                            <button type="button" class="btn btn-primary btn-labeled btn-labeled-right">Share <b><i class="icon-circle-right2"></i></b></button>
+                                            <button type="button" class="btn btn-primary btn-labeled btn-labeled-right">Email <b><i class="icon-circle-right2"></i></b></button>
                                         </div>
                                         <div class="col-sm-12">
                                             <hr>
 
-                                            <p>Add stairs admire all answer the nearer length.</p>
+                                            <p>Share Your problems with Admin</p>
                                         </div>
                                     </div>
 
@@ -439,3 +518,43 @@
 <!-- /page container -->
 </body>
 </html>
+
+<!-- Modal -->
+<div id="modal_full" class="modal fade" style="font-weight: normal;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <?php header("refresh:0; url=billentry_2.php"); ?>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+
+<script>
+    $('.modalButton1').click(function(){
+        var teacherid = $(this).attr('data-teacherid');
+        var LRNumber=document.getElementById("show_lrno").value;
+        $.ajax({url:"display_LRDetails.php?LRID="+LRNumber,cache:false,success:function(result){
+            $(".modal-content").html(result);
+        }});
+    });
+</script>
+
+<script>
+    $('.modalButton2').click(function(){
+        var teacherid = $(this).attr('data-teacherid');
+        var RMNumber=document.getElementById("show_rmno").value;
+        $.ajax({url:"display_RMDetails.php?RMID="+RMNumber,cache:false,success:function(result){
+            $(".modal-content").html(result);
+        }});
+    });
+</script>
+
+<script>
+    $('.modalButton3').click(function(){
+        var teacherid = $(this).attr('data-teacherid');
+        var BillNumber=document.getElementById("show_billno").value;
+        $.ajax({url:"display_BillDetails.php?BillID="+BillNumber,cache:false,success:function(result){
+            $(".modal-content").html(result);
+        }});
+    });
+</script>

@@ -1077,6 +1077,15 @@ select[multiple].form-group-xlg .form-control {
   line-height: 1.6666667;
   border-radius: 2px;
 }
+.input-micro {
+  height: 32px;
+  padding: 2px 5px;
+  font-size: 12px;
+  line-height: 1.6666667;
+  border-radius: 0px;
+  width:105px;
+  float: left;
+}
 select.input-xs {
   height: 32px;
   line-height: 32px;

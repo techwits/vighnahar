@@ -23,7 +23,7 @@ $(function () {
 
         // Define main variables
         var d3Container = d3.select(element),
-            margin = {top: 0, right: 0, bottom: 0, left: 40},
+            margin = {top: 0, right: 0, bottom: 0, left: 70},
             width = d3Container.node().getBoundingClientRect().width - margin.left - margin.right,
             height = height - margin.top - margin.bottom - 5,
             i = 0,
@@ -78,10 +78,16 @@ $(function () {
 
             // Initialize the display to show a few nodes
             root.children.forEach(toggleAll);
-            toggle(root.children[1]);
-            toggle(root.children[1].children[2]);
-            toggle(root.children[9]);
-            toggle(root.children[9].children[0]);
+            // toggle(root.children[1]);
+            // toggle(root.children[1].children[2]);
+
+            //TodaysRM
+            var RM = TodaysRM;
+            for (i = 0; i < RM; i++) {
+                toggle(root.children[i]);
+            }
+
+            // toggle(root.children[0].children[1]);
 
             update(root);
         });
@@ -128,7 +134,7 @@ $(function () {
 
             // Add nodes text
             nodeEnter.append("text")
-                .attr("x", function(d) { return d.children || d._children ? -10 : 10; })
+                .attr("x", function(d) { return d.children || d._children ? -5 : 5; })
                 .attr("dy", ".35em")
                 .style("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
                 .style("font-size", 12)

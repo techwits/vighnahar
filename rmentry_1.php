@@ -7,7 +7,7 @@ $error_msg="";
 $CurrentDate = date('Y-m-d h:i:s');
 $lridlist="";
 $searchvalue="";
-if(isset($_REQUEST["Fill_LRIdList"])) {
+if(isset($_REQUEST["Valid_LRIDs"])) {
     include('assets/inc/db_connect.php');
     include('assets/inc/common-function.php');
 
@@ -20,6 +20,9 @@ if(isset($_REQUEST["Fill_LRIdList"])) {
     $vehicleid = sanitize($con, $_REQUEST["vehicleid"]);
     $transporterid = sanitize($con, $_REQUEST["transporterid"]);
     $lridlist = sanitize($con, $_REQUEST["Fill_LRIdList"]);
+    $Get_LRId = sanitize($con, $_REQUEST["Get_LRId"]);
+    $LRIDExist = sanitize($con, $_REQUEST["LRIDExist"]);
+    $Valid_LRIDs = sanitize($con, $_REQUEST["Valid_LRIDs"]);
 
 //    echo ("session_userid:- ".$session_userid."</br>");
 //    echo ("session_ip:- ".$session_ip."</br>");
@@ -28,7 +31,13 @@ if(isset($_REQUEST["Fill_LRIdList"])) {
 //    echo ("vehicleid:- ".$vehicleid."</br>");
 //    echo ("transporterid:- ".$transporterid."</br>");
 //    echo ("lridlist:- ".$lridlist."</br>");
+//    echo ("Get_LRId:- ".$Get_LRId."</br>");
+//    echo ("LRIDExist:- ".$LRIDExist."</br>");
+//    echo ("Valid_LRIDs:- ".$Valid_LRIDs."</br>");
 //    die();
+//
+    
+    
 }
 
 
@@ -57,7 +66,7 @@ if(isset($_REQUEST["Fill_LRIdList"])) {
         <input type="hidden" name="rmdate1" id="rmdate1" value="<?php echo $rmdate; ?>">
         <input type="hidden" name="vehicleid1" id="vehicleid1" value="<?php echo $vehicleid; ?>">
         <input type="hidden" name="transporterid1" id="transporterid1" value="<?php echo $transporterid; ?>">
-        <input type="hidden" name="lridlist1" id="lridlist1" value="<?php echo $lridlist; ?>">
+        <input type="hidden" name="lridlist1" id="lridlist1" value="<?php echo $Valid_LRIDs; ?>">
 
         <table class="table datatable-scroll-y" width="100%">
             <thead>
@@ -74,13 +83,28 @@ if(isset($_REQUEST["Fill_LRIdList"])) {
             <tbody>
 
             <?php
-                $cols="iid, CreationDate, ModificationDate, Creator, ip, LRID, fyid, ReceivedDate, InvoiceNumber, vmid, caid, cnid, pmid, PakageType, Rate, Quantity, Amount, Active";
+                $cols="inward.iid, inward.CreationDate, inward.ModificationDate, inward.Creator, inward.ip, inward.LRID, inward.fyid, inward.ReceivedDate, inward.InvoiceNumber, inward.vmid, inward.caid, inward.cnid, inward.pmid, inward.PakageType, inward.Rate, inward.Quantity, inward.Amount, inward.Active";
                 $sqlQry="";
-                if(strlen(trim($lridlist))>0) {
+                if(strlen(trim($Valid_LRIDs))>0) {
                 $sqlQry = "select $cols from `inward`";
-                $sqlQry .= " where LRID in ($lridlist)";
+                $sqlQry .= " where LRID in ($Valid_LRIDs)";
                 $sqlQry .= " and Active=1";
                 $sqlQry .= " order by LRID";
+
+//                $sqlQry= "select $cols from  inward ";
+//                $sqlQry.= " left join outwardlr";
+//                $sqlQry.= " on inward.LRID=outwardlr.iid";
+//
+//                $sqlQry.= " where 1=1";
+//                $sqlQry.= " and outwardlr.RMStatus=0";
+//                $sqlQry.= " and inward.LRID in ($lridlist)";
+//
+//
+//                $sqlQry.= " and inward.Active=1";
+//                $sqlQry.= " and outwardlr.Active=1";
+//
+//                $sqlQry.= " order by inward.LRID";
+
 //                echo ("Check sqlQry :- $sqlQry </br>");
 //                die();
 //                unset($con);
@@ -88,6 +112,8 @@ if(isset($_REQUEST["Fill_LRIdList"])) {
                 $result = mysqli_query($con, $sqlQry);
                 if (mysqli_num_rows($result) != 0) {
                     while ($row = mysqli_fetch_array($result, MYSQLI_NUM)) {
+                        
+                        
                         $iid = $row[0];
                         $CreationDate = $row[1];
                         $CreationDate = substr($CreationDate, 0, strpos($CreationDate, " "));

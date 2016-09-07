@@ -77,7 +77,6 @@
     <!-- Javascript -->
 
     <script type="text/JavaScript" src="assets/js/search/search.js"></script>
-    <script type="text/JavaScript" src="assets/js/sha512.js"></script>
 
 </head>
 

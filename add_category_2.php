@@ -7,40 +7,7 @@
     $error_msg="";
     $CurrentDate = date('Y-m-d h:i:s');
 
-    $searchvalue="";
-    if(isset($_REQUEST["searchvalue"])) {
-        include('assets/inc/db_connect.php');
-        include('assets/inc/common-function.php');
-
-        $searchvalue = sanitize($con, $_REQUEST["searchvalue"]);
-        $searchin = sanitize($con, $_REQUEST["searchin"]);
-    }
-
-    if (strlen($searchvalue)==0){
-        $searchvalue="";
-        $searchin=1;
-        $TableHeading="Last Top 5 Records..";
-    }
-    else{
-        $TableHeading=$searchvalue." Results..";
-    }
-
-    $columnname="";
-    $pre_wildcharacter="";
-    $post_wildcharacter="";
-    if ($searchin==1){
-        $columnname="CategoryName like";
-        $pre_wildcharacter="";
-        $post_wildcharacter="%";
-    }
-//    elseif ($searchin==2){
-//        $columnname="Telephone like";
-//        $pre_wildcharacter="%";
-//        $post_wildcharacter="%";
-//    }
-    //    echo ("CurrentDate:- ".$CurrentDate."</br>");
-    //    echo ("searchvalue:- ".$searchvalue."</br>");
-    //    die();
+    
 ?>
 
 

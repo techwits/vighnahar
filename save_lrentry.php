@@ -31,6 +31,7 @@
     $session_ip=$_REQUEST["session_ip"];
     $financialyear=$_REQUEST["financialyear"];
     $lrdate=$_REQUEST["ToDate"];
+    $lrdate = implode("-", array_reverse(explode("/", $lrdate)));
     $invoicenumber=$_REQUEST["invoicenumber"];
     $vehicleid=$_REQUEST["vehicleid"];
     $consignorid=$_REQUEST["consignorid"];
@@ -139,10 +140,11 @@
         /* Log Ends*/
 
         ?>
-            
+
             <script language="javascript">
-                PrintDiv();
-//                ClearAllControls(0);
+//                    printlr(<?php //echo $LastInsertedID; ?>//);
+//                PrintDiv();
+                ClearAllControls(0);
             </script>
         <?php
 

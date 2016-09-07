@@ -11,7 +11,7 @@
         include_once('assets/inc/common-function.php');
 
         $searchvalue = sanitize($con, $_REQUEST["searchvalue"]);
-        $searchin = sanitize($con, $_REQUEST["searchin"]);
+        $searchin = sanitize($con, $_REQUEST["searchin"]); 
     }
 
     if (strlen($searchvalue)==0){

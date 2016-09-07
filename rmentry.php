@@ -97,19 +97,16 @@
 
 <!-- Main navbar -->
 <?php
-$PageHeaderName="Road Receipt Entry";
-$icon="icon-address-book";
+    $PageHeaderName="Road Receipt Entry";
+    $icon="icon-address-book";
 
-include('page_header.php');
+    include('page_header.php');
 
-//$php_page=basename(__FILE__);
-//$get_return_value=login_check($con, $php_page);
-//include_once("assets/inc/handle_error.php");
-//
-////		mysqli_close($con);
-//log_pageaccess($con, $_SESSION["pageid"], basename(__FILE__));
-////		mysqli_close($con);
-//include_once('assets/inc/db_connect.php');
+    $php_page=basename(__FILE__);
+    $get_return_value=login_check($con, $php_page);
+    include_once("assets/inc/handle_error.php");
+    log_pageaccess($con, $_SESSION["pageid"], basename(__FILE__));
+    include_once('assets/inc/db_connect.php');
 
 
 ?>
@@ -191,7 +188,7 @@ include('page_header.php');
                                         <div class="form-group form-group-material">
                                             <label>Select Vehicle Number <span class="text-danger">*</span></label>
                                             <div class="input-group">
-                                                <select name="vehicleid" id="vehicleid" class="form-control">
+                                                <select name="vehicleid" id="vehicleid" class="form-control" autofocus onblur="return lrentry_disabled(this.value, 'vehicleid');">
                                                     <option></option>
                                                     <?php
                                                         $TableName="vehicle_master";
@@ -211,7 +208,7 @@ include('page_header.php');
                                         <div class="form-group form-group-material">
                                             <label>Select Driver <span class="text-danger">*</span></label>
                                             <div class="input-group">
-                                                <select name="transporterid" id="transporterid" class="form-control" onblur="return lrentry_disabled(this.value, 'vehicleid');">
+                                                <select name="transporterid" id="transporterid" class="form-control" onblur="return lrentry_disabled(this.value, 'transporterid');">
                                                     <option></option>
                                                     <?php
                                                         $TableName=" transporter_master";
@@ -235,7 +232,7 @@ include('page_header.php');
                                             <div class="form-group form-group-material">
                                                 <label class="col-sm-3 control-label" style=" font-size:18px;">LR No.</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" autofocus class="form-control typeahead-basic" name="lrno" id="lrno" onkeyup="return fill_rmtable(event, this.value);" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;" style="border: 1px solid black; float: left; border-top: 0px; border-left: 0px; border-right: 0px; margin: 0; padding: 0; font-size:24px;">
+                                                    <input type="text" class="form-control typeahead-basic" name="lrno" id="lrno" onkeyup="return fill_rmtable(event, this.value);" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;" style="border: 1px solid black; float: left; border-top: 0px; border-left: 0px; border-right: 0px; margin: 0; padding: 0; font-size:24px;">
                                                 </div>
                                             </div>
                                         </form>
@@ -245,6 +242,7 @@ include('page_header.php');
                                             <div class="form-group form-group-material">
                                                 <div class="col-sm-9">
                                                     <input type="hidden" name="lrid_list" id="lrid_list">
+                                                    <input type="hidden" name="lrid_list1" id="lrid_list1">
                                                 </div>
                                             </div>
                                         </form>

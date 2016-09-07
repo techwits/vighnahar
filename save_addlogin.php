@@ -45,7 +45,6 @@
         } else {
             $pwd = password_hash($pwd, PASSWORD_BCRYPT);
         }
-
     }
 
 

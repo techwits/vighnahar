@@ -3,7 +3,7 @@
 <!-- /theme JS files -->
 
 <?php
-    sec_session_start();
+//    sec_session_start();
 ?>
 
 <?php

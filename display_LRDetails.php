@@ -17,8 +17,9 @@
     $cols.=" , `consignee_master`.`ConsigneeName`";
     $cols.=" , `product_master`.`ProductName`";
     $cols.=" , `inward`.fyid, `inward`.Rate, `inward`.Quantity";
-
-
+    $cols.=" , `inward`.CreationDate, `inward`.Creator, `inward`.ip, `inward`.vmid, `inward`.caid, `inward`.cnid, `inward`.pmid";
+    $cols.=" , `login_master`.UserName";
+    $cols.=" , `financialyear_master`.FinancialYear";
 
     $sqlQry= "select $cols from `inward`";
 
@@ -35,6 +36,13 @@
 
     $sqlQry.= "inner join `product_master`";
     $sqlQry.= "on `inward`.`pmid` = `product_master`.`pmid`";
+
+    $sqlQry.= "inner join `login_master`";
+    $sqlQry.= "on `inward`.`Creator` = `login_master`.`loginid`";
+
+    $sqlQry.= "inner join `financialyear_master`";
+    $sqlQry.= "on `inward`.`fyid` = `financialyear_master`.`fyid`";
+
 
     $sqlQry.= " where 1=1";
 
@@ -64,55 +72,166 @@
             $ConsigneeName=$row[7];
             $ProductName=$row[8];
 
-            $FinancialYear=$row[9];
+            $fyid=$row[9];
             $Rate=$row[10];
             $Quantity=$row[11];
+
+            $CreationDate=$row[12];
+            $Creator=$row[13];
+            $ip=$row[14];
+            $vmid=$row[15];
+            $caid=$row[16];
+            $cnid=$row[17];
+            $pmid=$row[18];
+
+            $UserName=$row[19];
+            $FinancialYear=$row[20];
+
             ?>
 
             <!-- Modal -->
             <div class="modal-dialog">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-full">
                     <div class="modal-content">
-                        <div class="modal-header bg-primary">
+                        <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h6 class="modal-title">Primary header</h6>
+                            <h5 class="modal-title"><i class="icon-menu7"></i> Lorry Receipt No. - <?php echo $lrid; ?></h5>
                         </div>
 
                         <div class="modal-body">
+                            <div class="alert alert-info alert-styled-left text-blue-800 content-group">
+                                Creation Date - <span class="text-semibold"><?php echo $CreationDate; ?></span>  Creator  <span class="text-semibold"><?php echo $UserName; ?></span>
+<!--                                <button type="button" class="close" data-dismiss="alert">×</button>-->
+                            </div>
+
+
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group form-group-material">
-                                        <label>LR Number</label>
+                                        <h6 class="text-semibold">Financial year</h6>
                                         <div class="input-group">
-                                            <?php echo $lrid; ?>
+                                            <?php echo $FinancialYear; ?>
                                         </div>
                                     </div>
                                 </div>
 
 
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group form-group-material">
-                                        <label>LR Date</label>
+                                        <h6 class="text-semibold">LR Date</h6>
                                         <div class="input-group">
                                             <?php echo $TransitDate; ?>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group form-group-material">
-                                        <label>Invoice No.</label>
+                                        <h6 class="text-semibold">Invoice Number</h6>
                                         <div class="input-group">
                                             <?php echo $InvoiceNo; ?>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group form-group-material">
+                                        <h6 class="text-semibold">Vehicle Number</h6>
+                                        <div class="input-group">
+                                            <?php echo $VehicleNumber; ?>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-4">
+                                    <div class="form-group form-group-material">
+                                        <h6 class="text-semibold">Consignor Name</h6>
+                                        <div class="input-group">
+                                            <?php echo $ConsignorName; ?>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group form-group-material">
+                                        <h6 class="text-semibold">Consignee Name</h6>
+                                        <div class="input-group">
+                                            <?php echo $ConsigneeName; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group form-group-material">
+                                        <h6 class="text-semibold">Product Name</h6>
+                                        <div class="input-group">
+                                            <?php echo $ProductName; ?>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-4">
+                                    <div class="form-group form-group-material">
+                                        <h6 class="text-semibold">Package Type</h6>
+                                        <div class="input-group">
+                                            <?php echo $PakageType; ?>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group form-group-material">
+                                        <h6 class="text-semibold">Rate</h6>
+                                        <div class="input-group">
+                                            <?php echo $Rate; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group form-group-material">
+                                        <h6 class="text-semibold">Quantity</h6>
+                                        <div class="input-group">
+                                            <?php echo $Quantity; ?>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-4">
+                                    <div class="form-group form-group-material">
+                                        <h6 class="text-semibold">Amount</h6>
+                                        <div class="input-group">
+                                            <?php echo $Amount; ?>
+                                        </div>
+                                    </div>
+                                </div>
+
+<!--                                <div class="col-md-4">-->
+<!--                                    <div class="form-group form-group-material">-->
+<!--                                        <h6 class="text-semibold">Rate</h6>-->
+<!--                                        <div class="input-group">-->
+<!--                                            --><?php //echo $Rate; ?>
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+                            </div>
+
+
+
+
+
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                            <button class="btn btn-link" data-dismiss="modal"><i class="icon-cross"></i> Close</button>
                         </div>
                     </div>
                 </div>

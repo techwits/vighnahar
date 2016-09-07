@@ -129,10 +129,13 @@
                             $FinancialYear=$row[9];
                             $Rate=$row[10];
                             $Quantity=$row[11];
+
+                            $LRIDExist_ForRM=Check_LRIDExist_ForRM($con, $lrid);
+//                            echo("$lrid) LRIDExist_ForRM :- $LRIDExist_ForRM </br>");
                         ?>
 
                         <tr>
-                            <td><a href="#" onclick="return editlrentry(<?php echo $lrid; ?>);"><?php echo $lrid; ?></a> </td>
+                            <td><a href="#" onclick="return editlrentry(<?php echo $lrid; ?>, <?php echo $LRIDExist_ForRM; ?>);"><?php echo $lrid; ?></a> </td>
                             <td><?php echo $FinancialYear; ?></td>
                             <td><?php echo $TransitDate; ?></td>
                             <td><?php echo $InvoiceNo; ?></td>

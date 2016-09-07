@@ -139,8 +139,6 @@
 
             }
 
-
-
             if($UnDeliveredID>0){
                     ?>
                         <a href="#" onclick="rmstatusreverse('<?php echo $session_userid; ?>', '<?php echo $session_ip; ?>', '<?php echo $divname; ?>', '<?php echo $OutwardLRID; ?>');"><span class="label label-danger">Undelivered</span></a>

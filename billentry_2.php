@@ -137,7 +137,7 @@ include('assets/inc/common-function.php');
 
 <!--                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_theme_primary">Launch <i class="icon-play3 position-right"></i></button>-->
 
-                                    <a href="#modal_theme_primary" data-toggle='modal' class='modalButton1' data-teacherid='<?php echo $LRID; ?>' >Click</a>
+                                    <a href="#modal_full" data-toggle='modal' class='modalButton1' data-teacherid='<?php echo $LRID; ?>' >Click</a>
 
                                 </td>
                                 <td><?php echo $ReceivedDate; ?></td>
@@ -262,7 +262,7 @@ include('assets/inc/common-function.php');
 
 
 <!-- Modal -->
-<div id="modal_theme_primary" class="modal fade" style="font-weight: normal;">
+<div id="modal_full" class="modal fade" style="font-weight: normal;">
     <div class="modal-dialog">
         <div class="modal-content">
             <?php header("refresh:0; url=billentry_2.php"); ?>
@@ -287,7 +287,7 @@ include('assets/inc/common-function.php');
 
 <!---->
 <!--<!-- Primary modal -->-->
-<!--<div id="modal_theme_primary" class="modal fade">-->
+<!--<div id="modal_full" class="modal fade">-->
 <!--    <div class="modal-dialog">-->
 <!--        <div class="modal-content">-->
 <!--            <div class="modal-header bg-primary">-->

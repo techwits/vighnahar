@@ -59,7 +59,7 @@
 	<?php
 		$PageHeaderName="Manage Area";
 		$icon="icon-address-book";
-		
+
 		include('page_header.php');
 
 //		$php_page=basename(__FILE__);

@@ -188,7 +188,6 @@
                             <?php include('add_login_2.php'); ?>
                             <!-- /basic datatable -->
                         </div>
-
                         <!-- /search field -->
                     </div>
                 </div>
