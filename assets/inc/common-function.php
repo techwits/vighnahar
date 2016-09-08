@@ -602,6 +602,109 @@
 		return $Getting_ConsignorProduct;
 	}
 
+	function Get_LRBillAmount($con, $LRID)
+	{
+		$Getting_LRBillAmount=0;
+		$sqlQry= "";
+		$sqlQry= "select sum(outwardlrbill.Amount) from outwardlr ";
+		$sqlQry.= " inner join outwardlrbill";
+		$sqlQry.= " on outwardlr.olrid=outwardlrbill.olrid";
+
+		$sqlQry.= " where outwardlr.iid=$LRID";
+		$sqlQry.= " and outwardlr.Active=1";
+		$sqlQry.= " and outwardlrbill.Active=1";
+
+//		echo ("$sqlQry");
+//		die();
+		// mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0)
+		{
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$Getting_LRBillAmount=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_LRBillAmount;
+	}
+
+	function Get_LRDetails($con, $LRID)
+	{
+		$Getting_LRDetails="";
+
+//		$cols=" financialyear_master.FinancialYear ";
+//		$cols.=" ,inward.ReceivedDate, inward.InvoiceNumber ";
+//		$cols.=" ,vehicle_master.VehicleNumber ";
+//		$cols.=" ,consignoraddress_master.Address, area_master.AreaName, consignoraddress_master.Pincode, consignoraddress_master.City ";
+//		$cols.=" ,consignor_master.ConsignorName, consignor_master.Pancard ";
+//		$cols.=" ,consignee_master.ConsigneeName ";
+//		$cols.=" ,consigneeaddress_master.Address, a.AreaName, consigneeaddress_master.Pincode, consigneeaddress_master.City ";
+//		$cols.=" ,product_master.ProductName ";
+//		$cols.=" ,inward.PakageType, inward.Rate,inward.Quantity, inward.Amount,inward.Active ";
+// 		financialyear_master.FinancialYear ,inward.ReceivedDate, inward.InvoiceNumber ,vehicle_master.VehicleNumber ,consignoraddress_master.Address, area_master.AreaName, consignoraddress_master.Pincode, consignoraddress_master.City ,consignor_master.ConsignorName, consignor_master.Pancard ,consignee_master.ConsigneeName ,consigneeaddress_master.Address, a.AreaName, consigneeaddress_master.Pincode, consigneeaddress_master.City ,product_master.ProductName ,inward.PakageType, inward.Rate,inward.Quantity, inward.Amount,inward.Active
+
+//		$sqlQry= "";
+//		$sqlQry= "select $cols from inward ";
+//
+//		$sqlQry.= " inner join financialyear_master";
+//		$sqlQry.= " on inward.fyid=financialyear_master.fyid";
+//
+//		$sqlQry.= " inner join vehicle_master";
+//		$sqlQry.= " on inward.vmid=vehicle_master.vmid";
+//
+//		$sqlQry.= " inner join consignoraddress_master";
+//		$sqlQry.= " on inward.caid=consignoraddress_master.caid";
+//
+//		$sqlQry.= " inner join area_master";
+//		$sqlQry.= " on area_master.amid=consignoraddress_master.amid";
+//
+//		$sqlQry.= " inner join consignor_master";
+//		$sqlQry.= " on consignor_master.cid=consignoraddress_master.cid";
+//
+//		$sqlQry.= " inner join consignee_master";
+//		$sqlQry.= " on inward.cnid=consignee_master.cnid";
+//
+//		$sqlQry.= " inner join consigneeaddress_master";
+//		$sqlQry.= " on consignee_master.cnid=consigneeaddress_master.cnid";
+//
+//		$sqlQry.= " inner join area_master as a";
+//		$sqlQry.= " on a.amid=consigneeaddress_master.amid";
+//
+//		$sqlQry.= " inner join product_master";
+//		$sqlQry.= " on inward.pmid=product_master.pmid";
+//
+//		$sqlQry.= " where inward.LRID=$LRID";
+//
+//		$sqlQry.= " and financialyear_master.Active=1";
+//		$sqlQry.= " and vehicle_master.Active=1";
+//		$sqlQry.= " and consignoraddress_master.Active=1";
+//		$sqlQry.= " and area_master.Active=1";
+//		$sqlQry.= " and consignor_master.Active=1";
+//		$sqlQry.= " and consignee_master.Active=1";
+//		$sqlQry.= " and consigneeaddress_master.Active=1";
+//		$sqlQry.= " and product_master.Active=1";
+
+		$sqlQry= "Call Select_LRDetails($LRID);";
+//		echo ("$sqlQry");
+//		die();
+		// mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0)
+		{
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$Getting_LRDetails=$row{0}."|/|~|/|".$row{1}."|/|~|/|".$row{2}."|/|~|/|".$row{3}."|/|~|/|".$row{4}."|/|~|/|".$row{5}."|/|~|/|".$row{6}."|/|~|/|".$row{7}."|/|~|/|".$row{8}."|/|~|/|".$row{9}."|/|~|/|".$row{10}."|/|~|/|".$row{11}."|/|~|/|".$row{12}."|/|~|/|".$row{13}."|/|~|/|".$row{14}."|/|~|/|".$row{15}."|/|~|/|".$row{16}."|/|~|/|".$row{17}."|/|~|/|".$row{18}."|/|~|/|".$row{19}."|/|~|/|".$row{20}."|/|~|/|".$row{21};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_LRDetails;
+	}
+
 	function Get_ConsigneeAreaOnLRID($con, $LRID)
 	{
 		$Getting_ConsigneeArea="";
@@ -660,6 +763,36 @@
 		}
 		mysqli_free_result($result);
 		return $Getting_ConsigneeName;
+	}
+
+	function Get_ConsignorAddressOnLRID($con, $LRID)
+	{
+		$Getting_ConsignorAddress="";
+		$sqlQry= "";
+		$sqlQry= "select consignoraddress_master.Address, area_master.AreaName, consignoraddress_master.Pincode, consignoraddress_master.City from  inward ";
+
+		$sqlQry.= " inner join consignoraddress_master";
+		$sqlQry.= " on inward.caid=consignoraddress_master.caid";
+
+		$sqlQry.= " inner join area_master";
+		$sqlQry.= " on consignoraddress_master.amid=area_master.amid";
+
+		$sqlQry.= " where inward.LRID=$LRID";
+//		echo ("$sqlQry");
+//		die();
+		// mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0)
+		{
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$Getting_ConsignorAddress=$row{0}."||".$row{1}.", ".$row{2}.", ".$row{3};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_ConsignorAddress;
 	}
 
 	function Get_ConsignorNameOnLRID($con, $LRID)

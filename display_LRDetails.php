@@ -93,7 +93,7 @@
             <div class="modal-dialog">
                 <div class="modal-dialog modal-full">
                     <div class="modal-content">
-                        <div class="modal-header">
+                        <div class="modal-header bg-primary">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <h5 class="modal-title"><i class="icon-menu7"></i> Lorry Receipt No. - <?php echo $lrid; ?></h5>
                         </div>
@@ -243,36 +243,10 @@
             <?php
         }
     }
+    else{
+        echo("LR No. does not exit. Please check......");
+        die();
+    }
 
 ?>
-
-
-<!-- Primary modal -->
-<div id="modal_theme_primary" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header bg-primary">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h6 class="modal-title">Primary header</h6>
-            </div>
-
-            <div class="modal-body">
-                <h6 class="text-semibold">Text in a modal</h6>
-                <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-
-                <hr>
-
-                <h6 class="text-semibold">Another paragraph</h6>
-                <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- /primary modal -->
 

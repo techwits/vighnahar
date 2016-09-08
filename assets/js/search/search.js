@@ -543,14 +543,16 @@ function delete_bill(BillID)
 	error_msg="";
 	error_count=0;
 
-	var session_userid=trim(frm.session_userid.value);
+
+
+	var session_userid=document.getElementById("session_userid").value;
 	if(session_userid.length <= 0 || session_userid == "")
 	{
 		error_count = error_count + 1;
 		error_msg  =  error_msg + error_count + ") " + " Please Enter User ID" + "\n";
 		// frm.username.focus();
 	}
-	var session_ip=trim(frm.session_ip.value);
+	var session_ip=document.getElementById("session_ip").value;
 	if(session_ip.length <= 0 || session_ip == "")
 	{
 		error_count = error_count + 1;
@@ -933,6 +935,59 @@ function searchconsignee(searchvalue, searchin)
 		var page_name = "add_consignee_2.php";
 		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
 		$.post(page_name, {searchvalue:searchvalue, searchin:searchin},
+			function(data)
+			{
+				$(div_name).html(data);
+			}
+		);
+		return false;
+	}
+}
+
+function searchform1_session(searchvalue, searchin, divName, formName, session_userid, session_ip)
+{
+	// alert("Hi...");
+	var error_count;
+	var error_msg;
+	error_msg="";
+	error_count=0;
+
+	// var searchvalue=trim(frm.searchvalue_company.value);
+	// alert("searchvalue :- " + searchvalue);
+	if(searchvalue.length <= 0 || searchvalue == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter Search Value" + "\n";
+		// frm.searchvalue.focus();
+	}
+
+	if(searchin.length <= 0 || searchin == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter Where to Search In " + "\n";
+		// frm.searchvalue.focus();
+	}
+
+	if(session_userid.length <= 0 || session_userid == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter UserID " + "\n";
+		// frm.searchvalue.focus();
+	}
+
+	if(session_ip.length <= 0 || session_ip == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter IP Address " + "\n";
+		// frm.searchvalue.focus();
+	}
+
+	if(Number(error_count) == 0)
+	{
+		var div_name = "#"+divName;
+		var page_name = formName;
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$.post(page_name, {searchvalue:searchvalue, searchin:searchin, session_userid:session_userid, session_ip:session_ip},
 			function(data)
 			{
 				$(div_name).html(data);
@@ -4766,7 +4821,7 @@ function PrintDiv() {
 }
 
 
-function open_vehicle()
+function open_vehicle(pageName)
 {
 	window.open("add_vehicle.php","_self")
 }

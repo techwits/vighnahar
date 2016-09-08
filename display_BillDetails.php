@@ -30,13 +30,13 @@
 
     $sqlQry.= " where 1=1";
 
-    $sqlQry.= " and bill.oid = $RMID";
+    $sqlQry.= " and bill.bid = $BillID";
 
     $sqlQry.= " and `bill`.Active=1";
     $sqlQry.= " and `billlr`.Active=1";
     $sqlQry.= " and `outwardlr`.Active=1";
 
-    echo ("Check sqlQry :- $sqlQry </br>");
+//    echo ("Check sqlQry :- $sqlQry </br>");
 //    die();
 
 
@@ -66,12 +66,21 @@
             $olrid=$row[13];
             $LRID=$row[14];
 
-
-
             $inc=$inc+1;
-            $inc==1?$LRID_List=$row[10]:$LRID_List=$LRID_List.",".$row[10];
+            $inc==1?$LRID_List=$row[14]:$LRID_List=$LRID_List.",".$row[14];
         }
+        $ConsignorName=Get_ConsignorNameOnLRID($con, $caid);
+        $ConsignorAddress=Get_ConsignorAddressOnLRID($con, $caid);
+//    echo("ConsignorAddress :- $ConsignorAddress </br>");
+        $Split_Address = explode("||" , $ConsignorAddress);
     }
+    else{
+        echo("Bill No. does not exit. Please check......");
+        die();
+    }
+
+
+//    echo("LRID_List :- $LRID_List </br>");
 
 ?>
 
@@ -89,9 +98,9 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group form-group-material">
-                                <h6 class="text-semibold">Road Memo No.</h6>
+                                <h6 class="text-semibold">Consignor Name</h6>
                                 <div class="input-group">
-                                    <?php echo $oid; ?>
+                                    <?php echo $ConsignorName; ?>
                                 </div>
                             </div>
                         </div>
@@ -99,7 +108,16 @@
 
                         <div class="col-md-4">
                             <div class="form-group form-group-material">
-                                <h6 class="text-semibold">RM Date</h6>
+                                <h6 class="text-semibold">Address</h6>
+                                <div class="input-group">
+                                    <?php echo $Split_Address[0]." - ".  $Split_Address[1]; ?>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group form-group-material">
+                                <h6 class="text-semibold">Bill Date</h6>
                                 <div class="input-group">
                                     <?php echo $BillingDate; ?>
                                 </div>
@@ -116,53 +134,110 @@
                             <thead>
                             <tr>
                                 <th>Sr No.</th>
-                                <th>LRNumber</th>
+                                <th>LR No</th>
+                                <th>LR Date</th>
+                                <th>Invoice No</th>
                                 <th>Consignor Name</th>
                                 <th>Consignee Name</th>
-                                <th>Destination</th>
-                                <th>Cases</th>
-                                <th>Bill</th>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Amount</th>
                             </tr>
                             </thead>
                             <tbody>
 
 
                             <?php
-
+                                $Total_LRBillAmount=0;
                                 $j=0;
                                 $Split_LIList = explode(",", $LRID_List);
                                 foreach ($Split_LIList as $SingleLR)
                                 {
-                                    $j=$j+1;
-                                    $ConsignorName=Get_ConsignorNameOnLRID($con, $SingleLR);
-                                    $ConsigneeName=Get_ConsigneeNameOnLRID($con, $SingleLR);
-                                    $ConsigneeArea=Get_ConsigneeAreaOnLRID($con, $SingleLR);
-                                    $LR_RateQuantity=Get_LRRate_LRQuantityCount($con, $SingleLR);
-                                    $Split_RateQuantity = explode(",", $LR_RateQuantity);
-                                    $Rate=$Split_RateQuantity[0];
-                                    $Quantity=$Split_RateQuantity[1];
+                                    $LRDetails=Get_LRDetails($con, $SingleLR);
+                                    $Split_LRDetails = explode("|/|~|/|", $LRDetails);
+                                    // 0 FinancialYear
+                                    // 1 ReceivedDate
+                                    // 2 InvoiceNumber
+                                    // 3 VehicleNumber
+                                    // 4 Address
+                                    // 5 AreaName
+                                    // 6 Pincode
+                                    // 7 City
+                                    // 8 ConsignorName
+                                    // 9 Pancard
+                                    // 10 ConsigneeName
+                                    // 11 Address
+                                    // 12 AreaName
+                                    // 13 Pincode
+                                    // 14 City
+                                    // 15 ProductName
+                                    // 16 PakageType
+                                    // 17 Rate
+                                    // 18 Quantity
+                                    // 19 Amount
+                                    // 20 Active
 
-                                    $BillStat="";
-                                    $BillStatus=Get_BillStatusOnLRID($con, $SingleLR);
-//                                    echo("BillStatus :- $BillStatus </br>");
-                                    $BillStatus==0?$BillStat="No":$BillStat="Yes";
+//                                    echo("LRDetails :- $Split_LRDetails[19] </br>");
+//                                    die();
+                                    $j=$j+1;
+                                    $LRBillAmount=Get_LRBillAmount($con, $SingleLR);
+//                                    echo("LRBillAmount :- $LRBillAmount </br>");
+
+                                    $Total_LRBillAmount=$Total_LRBillAmount+$LRBillAmount;
 
                              ?>
+
                                     <tr>
                                         <td><?php echo $j; ?></td>
                                         <td><?php echo $SingleLR; ?></td>
-                                        <td><?php echo $ConsignorName; ?></td>
-                                        <td><?php echo $ConsigneeName; ?></td>
-                                        <td><?php echo $ConsigneeArea; ?></td>
-                                        <td><?php echo $Quantity; ?></td>
-                                        <td><?php echo $BillStat; ?></td>
+                                        <td><?php echo $Split_LRDetails[1]; ?></td>
+                                        <td><?php echo $Split_LRDetails[2]; ?></td>
+                                        <td><?php echo $Split_LRDetails[8]; ?></td>
+                                        <td><?php echo $Split_LRDetails[10]; ?></td>
+                                        <td><?php echo $Split_LRDetails[15]; ?></td>
+                                        <td><?php echo $Split_LRDetails[18]; ?></td>
+                                        <td><?php echo $LRBillAmount; ?></td>
                                     </tr>
                                     <?php
                                 }
                             ?>
-
                             </tbody>
                         </table>
+
+                        <div class="modal-body">
+                            <div class="alert alert-info alert-styled-left text-blue-800 content-group">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group form-group-material">
+                                            <h6 class="text-semibold">Amount</h6>
+                                            <div class="input-group">
+                                                <?php echo $Amount; ?>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-4">
+                                        <div class="form-group form-group-material">
+                                            <h6 class="text-semibold">Service tax</h6>
+                                            <div class="input-group">
+                                                <?php echo $ServiceTax; ?>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group form-group-material">
+                                            <h6 class="text-semibold">Bill Amount</h6>
+                                            <div class="input-group">
+                                                <?php echo $BillAmount; ?>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
             </div>

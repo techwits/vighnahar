@@ -1,12 +1,8 @@
 <script type="text/JavaScript" src="assets/js/search/search.js"></script>
 <div class="panel-body">
-    <div class="tabbable tab-content-bordered">
-        <ul class="nav nav-tabs nav-tabs-highlight">
-            <li class="active"><a href="#bordered-tab1" data-toggle="tab">Road Memo Number</a></li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane has-padding active" id="bordered-justified-tab1">
-                <form name="search_menu" action="#" class="main-search">
+<div class="row">
+<div class="col-sm-4 col-md-4 col-lg-4 col-lg-offset-4">
+ <form name="search_menu" action="#" class="main-search">
                     <div class="input-group content-group">
                         <div class="has-feedback has-feedback-left">
                             <input type="text" class="form-control input-xlg" name="searchvalue_roadmemo" id="searchvalue_roadmemo" required="required" onkeypress="return only_Alpha_Numeric_Apostrophy_Space(event);" ondrop="return false;" onpaste="return false;" >
@@ -19,8 +15,7 @@
                         </div>
                     </div>
                 </form>
-            </div>
+</div>
+</div>
 
-        </div>
-    </div>
 </div>

@@ -60,6 +60,10 @@
             $inc==1?$LRID_List=$row[10]:$LRID_List=$LRID_List.",".$row[10];
         }
     }
+    else{
+        echo("RM No. does not exit. Please check......");
+        die();
+    }
 
 ?>
 

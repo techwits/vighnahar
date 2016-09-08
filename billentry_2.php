@@ -33,9 +33,9 @@ include('assets/inc/common-function.php');
 
 
 <!-- Single row selection -->
-
-
-        <table class="table datatable-scroll-y" width="100%">
+<div class="col-sm-12 col-md-12 col-lg-12 col-lg-12">
+	<div class="panel panel-flat">
+    <table class="table datatable-scroll-y" width="100%">
             <thead>
             <tr>
                 <th>LR Number</th>
@@ -61,7 +61,10 @@ include('assets/inc/common-function.php');
             $sqlQry.= "on `inward`.LRID=`outwardlr`.`iid`";
 
             $sqlQry.= " where `inward`.LRID IN ($LRList)";
+
             $sqlQry.= " and `outwardlr`.RMStatus>0";
+            $sqlQry.= " and `outwardlr`.Bill=0";
+
             $sqlQry.= " and `inward`.Active=1";
             $sqlQry.= " and `outwardlr`.Active=1";
 
@@ -78,7 +81,7 @@ include('assets/inc/common-function.php');
                 $BillAmount=0;
                 $GrandTotal=0;
                 ?>
-                    <input type="text" class="form-control daterange-single" name="lrlist" id="lrlist" value="<?php echo $LRList;?>">
+                    <input type="hidden" class="form-control daterange-single" name="lrlist" id="lrlist" value="<?php echo $LRList;?>">
                 <?php
                 while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
                 {
@@ -137,7 +140,7 @@ include('assets/inc/common-function.php');
 
 <!--                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_theme_primary">Launch <i class="icon-play3 position-right"></i></button>-->
 
-                                    <a href="#modal_full" data-toggle='modal' class='modalButton1' data-teacherid='<?php echo $LRID; ?>' >Click</a>
+                                    <a href="#modal_full" data-toggle='modal' class='modalButton1' data-teacherid='<?php echo $LRID; ?>' ><?php echo $LRID; ?></a>
 
                                 </td>
                                 <td><?php echo $ReceivedDate; ?></td>
@@ -181,6 +184,8 @@ include('assets/inc/common-function.php');
 
             </tbody>
         </table>
+        </div>
+        </div>
         <?php
 //            echo("GrandTotal :- $GrandTotal </br>");
             $ServiceTaxAmount=0;
@@ -190,74 +195,77 @@ include('assets/inc/common-function.php');
             $BillAmount=$GrandTotal+$ServiceTaxAmount; //$olrid_List
         ?>
 
-        <div class="row">
-            <div class="col-sm-8 col-md-8 col-lg-8">
-                    <div id="<?php echo $div_merchantcontrols; ?>" class="panel panel-flat" style="border-color:<?php echo $Form_BorderColor; ?>; border-top-width:<?php echo $Form_BorderTopWidth; ?>;">
-                        <input type="text" class="form-control" name="olrid_List" id="olrid_List" value="<?php echo $olrid_List;?>">
-                        <div class="panel-body" style="margin-top:15px;">
-                            <div class="row">
-                                <div class="col-lg-3">
-                                    <div class="form-group form-group-material">
-                                        <label>Total <span class="text-danger">*</span></label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" name="total" id="total" required="required" value="<?php echo $GrandTotal;?>" onkeypress="return only_Numeric_Dot(event);" ondrop="return false;" onpaste="return false;">
+        <div class="col-sm-12 col-md-12 col-lg-12 col-lg-12">
+        <div class="panel-body">
+            <div class="row">
+                <div id="<?php echo $div_merchantcontrols; ?>" class="panel panel-flat" style="border-color:<?php echo $Form_BorderColor; ?>; border-top-width:<?php echo $Form_BorderTopWidth; ?>;">
+                            <input type="hidden" class="form-control" name="olrid_List" id="olrid_List" value="<?php echo $olrid_List;?>">
+                            <input type="hidden" class="form-control" name="lrlist" id="lrlist" value="<?php echo $LRList;?>">
+                            <div class="panel-body" style="margin-top:15px;">
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="form-group form-group-material">
+                                            <label>Total <span class="text-danger">*</span></label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="total" id="total" disabled required="required" value="<?php echo $GrandTotal;?>" onkeypress="return only_Numeric_Dot(event);" ondrop="return false;" onpaste="return false;">
+                                                        <span class="input-group-addon">
+                                                            <img src="assets/images/rupees-128.png" height="15" width="15">
+                                                        </span>
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                    <div class="col-lg-3">
+                                        <div class="form-group form-group-material">
+                                            <label>Discount <span class="text-danger">*</span></label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="discount" id="discount" autofocus required="required" value="0" onblur="return billDiscount(this.value, <?php echo $GrandTotal; ?>, <?php echo $ServiceTax; ?>);" onkeypress="return only_Numeric_Dot(event);" ondrop="return false;" onpaste="return false;">
                                                     <span class="input-group-addon">
-                                                        <i class="icon-location4"></i>
+                                                        <img src="assets/images/rupees-128.png" height="15" width="15">
                                                     </span>
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                    <div class="col-lg-3">
+                                        <div class="form-group form-group-material">
+                                            <label>Service Tax <span class="text-danger">*</span></label>
+                                            <div class="input-group">
+                                                  <input type="text" class="form-control" name="servicetax" id="servicetax" disabled value="<?php echo $ServiceTaxAmount; ?>" onkeypress="return only_Numeric_Dot(event);" ondrop="return false;" onpaste="return false;">
+                                                    <span class="input-group-addon">
+                                                        <img src="assets/images/rupees-128.png" height="15" width="15">
+                                                    </span>
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                    <div class="col-lg-3">
+                                        <div class="form-group form-group-material">
+                                            <label>Grand Total <span class="text-danger">*</span></label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="billtotal" id="billtotal" disabled value="<?php echo $BillAmount; ?>" onkeypress="return only_Numeric_Dot(event);" ondrop="return false;" onpaste="return false;">
+                                                    <span class="input-group-addon">
+                                                        <img src="assets/images/rupees-128.png" height="15" width="15">
+                                                    </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="col-lg-3">
-                                    <div class="form-group form-group-material">
-                                        <label>Discount <span class="text-danger">*</span></label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" name="discount" id="discount" autofocus required="required" value="0" onblur="return billDiscount(this.value, <?php echo $GrandTotal; ?>, <?php echo $ServiceTax; ?>);" onkeypress="return only_Numeric_Dot(event);" ondrop="return false;" onpaste="return false;">
-                                                <span class="input-group-addon">
-                                                    <i class="icon-location4"></i>
-                                                </span>
+    
+                                <div class="panel-footer">
+                                    <div class="col-md-12">
+                                        <div class="text-right">
+                                            <button type="button" name="submit" id="submit" class="btn bg-grey-600" onclick="return add_billentry();"><span class="text-semibold" id="<?php echo $span_pageButton; ?>">Submit</span></button>
                                         </div>
                                     </div>
-                                </div>
-
-                                <div class="col-lg-3">
-                                    <div class="form-group form-group-material">
-                                        <label>Service Tax <span class="text-danger">*</span></label>
-                                        <div class="input-group">
-                                              <input type="text" class="form-control" name="servicetax" id="servicetax" value="<?php echo $ServiceTaxAmount; ?>" onkeypress="return only_Numeric_Dot(event);" ondrop="return false;" onpaste="return false;">
-                                                <span class="input-group-addon">
-                                                    <i class="icon-location4"></i>
-                                                </span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-3">
-                                    <div class="form-group form-group-material">
-                                        <label>Grand Total <span class="text-danger">*</span></label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" name="billtotal" id="billtotal"value="<?php echo $BillAmount; ?>" onkeypress="return only_Numeric_Dot(event);" ondrop="return false;" onpaste="return false;">
-                                                <span class="input-group-addon">
-                                                    <i class="icon-location4"></i>
-                                                </span>
-                                        </div>
-                                    </div>
+                                    <div id="div_savebillentry"></div>
                                 </div>
                             </div>
-
-                            <div class="panel-footer">
-                                <div class="col-md-12">
-                                    <div class="text-right">
-                                        <button type="button" name="submit" id="submit" class="btn bg-grey-600" onclick="return add_billentry();"><span class="text-semibold" id="<?php echo $span_pageButton; ?>">Submit</span></button>
-                                    </div>
-                                </div>
-                                <div id="div_savebillentry"></div>
-                            </div>
+    
                         </div>
-
-                    </div>
+                </div>
             </div>
-        </div>
+          </div>
 <!-- /single row selection -->
 
 
@@ -284,33 +292,3 @@ include('assets/inc/common-function.php');
 //    })
 
 </script>
-
-<!---->
-<!--<!-- Primary modal -->-->
-<!--<div id="modal_full" class="modal fade">-->
-<!--    <div class="modal-dialog">-->
-<!--        <div class="modal-content">-->
-<!--            <div class="modal-header bg-primary">-->
-<!--                <button type="button" class="close" data-dismiss="modal">&times;</button>-->
-<!--                <h6 class="modal-title">Primary header</h6>-->
-<!--            </div>-->
-<!---->
-<!--            <div class="modal-body">-->
-<!--                <h6 class="text-semibold">Text in a modal</h6>-->
-<!--                <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>-->
-<!---->
-<!--                <hr>-->
-<!---->
-<!--                <h6 class="text-semibold">Another paragraph</h6>-->
-<!--                <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>-->
-<!--                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>-->
-<!--            </div>-->
-<!---->
-<!--            <div class="modal-footer">-->
-<!--                <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>-->
-<!--                <button type="button" class="btn btn-primary">Save changes</button>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-<!--<!-- /primary modal -->-->

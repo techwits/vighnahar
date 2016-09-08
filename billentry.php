@@ -62,19 +62,20 @@
 
 
     <!-- Theme JS files -->
-        <script type="text/javascript" src="assets/js/plugins/tables/datatables/datatables.min.js"></script>
-        <script type="text/javascript" src="assets/js/plugins/forms/selects/select2.min.js"></script>
+    <script type="text/javascript" src="assets/js/core/libraries/jquery_ui/interactions.min.js"></script>
+    <script type="text/javascript" src="assets/js/plugins/forms/selects/select2.min.js"></script>
 
+    <script type="text/javascript" src="assets/js/core/app.js"></script>
+    <script type="text/javascript" src="assets/js/pages/form_select2.js"></script>
     <!-- /theme JS files -->
 
+    <!-- Theme JS files -->
+    <script type="text/javascript" src="assets/js/plugins/tables/datatables/datatables.min.js"></script>
+    <script type="text/javascript" src="assets/js/plugins/forms/selects/select2.min.js"></script>
 
-    <!-- Javascript -->
-        <script type="text/javascript" src="assets/js/plugins/tables/datatables/datatables.min.js"></script>
-        <script type="text/javascript" src="assets/js/plugins/forms/selects/select2.min.js"></script>
-
-        <script type="text/javascript" src="assets/js/core/app.js"></script>
-        <script type="text/javascript" src="assets/js/pages/datatables_basic.js"></script>
-    <!-- Javascript -->
+    <script type="text/javascript" src="assets/js/core/app.js"></script>
+    <script type="text/javascript" src="assets/js/pages/datatables_basic.js"></script>
+    <!-- /theme JS files -->
 
     <script type="text/JavaScript" src="assets/js/search/search.js"></script>
 
@@ -159,7 +160,7 @@
 
                                                                 <!-- Search field -->
 
-                                                                <div class="col-lg-6">
+                                                                <div class="col-sm-12 col-md-12 col-lg-12 col-lg-12">
                                                                     <div class="panel panel-flat" style="border-color:<?php echo $Search_BorderColor; ?>; border-top-width:<?php echo $Search_BorderTopWidth; ?>;">
                                                                         <div class="panel-heading" style="background-color:<?php echo $SearchHeadingColor; ?>;">
                                                                             <h5 class="panel-title"><i class="icon-search4 text-size-base"></i> <span class="text-semibold"><?php echo $SearchPageHeading; ?></h5>
@@ -170,10 +171,10 @@
                                                                                 </ul>
                                                                             </div>
                                                                         </div>
-                                                                        <?php include('rmentry_2.php'); ?>
+                                                                        <?php include('billentry_3.php'); ?>
                                                                         <!-- Basic datatable -->
-                                                                        <div class="panel-heading" id="div_searchroadmemo">
-                                                                            <?php include('rmentry_3.php'); ?>
+                                                                        <div class="panel-heading" id="div_searchbillno">
+                                                                            <?php include('billentry_4.php'); ?>
                                                                             <div/>
                                                                             <!-- /basic datatable -->
                                                                         </div>

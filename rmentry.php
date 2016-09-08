@@ -158,7 +158,7 @@
                                                     //														echo("FinancialYear :- $FinancialYear </br>");
                                                     $FinancialYear_P=$FinancialYear_C-1;
                                                 ?>
-                                                    <select name="financialyear" id="financialyear" class="form-control" required="required">
+                                                    <select name="financialyear" id="financialyear" class="form-control" required>
                                                         <?php
                                                             Fill_FinancialYear($con, $FinancialYear_P, $FinancialYear_C);
                                                         ?>
@@ -265,58 +265,58 @@
 
 
 
-    <div class="row">
-        <div class="col-sm-10 col-md-10 col-lg-10 col-lg-10 col-lg-offset-1">
-
-            <div class="panel-body">
-                <div class="tabbable tab-content-bordered">
-                    <ul class="nav nav-tabs nav-tabs-highlight">
-                        <li class="active"><a href="#bordered-tab1" data-toggle="tab">Lorry Receipt</a></li>
-                        <li><a href="#bordered-tab2" data-toggle="tab">Search / Update Road Memo</a></li>
-                    </ul>
-
-                    <div class="tab-content">
-                        <div class="tab-pane has-padding active" id="bordered-tab1">
-                            <form name="search_menu" action="#" class="main-search">
-                                <div class="row" id="div_lrlisttable">
-                                    <?php include('rmentry_1.php'); ?>
+		<div class="row">
+            <div class="col-sm-10 col-md-10 col-lg-10 col-lg-10 col-lg-offset-1">
+                <div class="panel panel-flat">
+                    <div class="panel-body">
+                        <div class="tabbable tab-content-bordered">
+                            <ul class="nav nav-tabs nav-tabs-highlight">
+                                <li class="active"><a href="#bordered-tab1" data-toggle="tab">Lorry Receipt</a></li>
+                                <li><a href="#bordered-tab2" data-toggle="tab">Search / Update Road Memo</a></li>
+                            </ul>
+        
+                            <div class="tab-content">
+                                <div class="tab-pane has-padding active" id="bordered-tab1">
+                                    <form name="search_menu" action="#" class="main-search">
+                                        <div class="row" id="div_lrlisttable">
+                                            <?php include('rmentry_1.php'); ?>
+                                        </div>
+                                    </form>
                                 </div>
-                            </form>
-                        </div>
-
-                        <div class="tab-pane has-padding" id="bordered-tab2">
-                            <form name="search_menu" action="#" class="main-search">
-                                <div class="row" id="div_lrlisttable">
-
-
-                                    <!-- Search field -->
-
-                                    <div class="col-lg-6">
-                                        <div class="panel panel-flat" style="border-color:<?php echo $Search_BorderColor; ?>; border-top-width:<?php echo $Search_BorderTopWidth; ?>;">
-                                            <div class="panel-heading" style="background-color:<?php echo $SearchHeadingColor; ?>;">
-                                                <h5 class="panel-title"><i class="icon-search4 text-size-base"></i> <span class="text-semibold"><?php echo $SearchPageHeading; ?></h5>
-                                                <div class="heading-elements">
-                                                    <ul class="icons-list">
-                                                        <li><a data-action="collapse"></a></li>
-                                                        <li><a data-action="reload" onclick="return ClearAllControls(0);"></a></li>
-                                                    </ul>
+        
+                                <div class="tab-pane has-padding" id="bordered-tab2">
+                                    <form name="search_menu" action="#" class="main-search">
+                                        <div class="row" id="div_lrlisttable">
+        
+        
+                                            <!-- Search field -->
+        
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-lg-12">
+                                                <div class="panel panel-flat" style="border-color:<?php echo $Search_BorderColor; ?>; border-top-width:<?php echo $Search_BorderTopWidth; ?>;">
+                                                    <div class="panel-heading" style="background-color:<?php echo $SearchHeadingColor; ?>;">
+                                                        <h5 class="panel-title"><i class="icon-search4 text-size-base"></i> <span class="text-semibold"><?php echo $SearchPageHeading; ?></h5>
+                                                        <div class="heading-elements">
+                                                            <ul class="icons-list">
+                                                                <li><a data-action="collapse"></a></li>
+                                                                <li><a data-action="reload" onclick="return ClearAllControls(0);"></a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                            <?php include('rmentry_2.php'); ?>
+                                                    <!-- Basic datatable -->
+                                                         <div class="panel-heading" id="div_searchroadmemo">
+                                                                <?php include('rmentry_3.php'); ?>
+                                                         <div/>
+                                                        <!-- /basic datatable -->
+                                                    </div>
                                                 </div>
                                             </div>
-                                                    <?php include('rmentry_2.php'); ?>
-                                            <!-- Basic datatable -->
-                                                <div class="panel-heading" id="div_searchroadmemo">
-                                                    <?php include('rmentry_3.php'); ?>
-                                                <div/>
-                                                <!-- /basic datatable -->
-                                            </div>
+        
+                                            <!-- /search field -->
                                         </div>
-                                    </div>
-
-                                    <!-- /search field -->
-
-
+                                    </form>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -327,7 +327,7 @@
 
 
             <!-- /form actions -->
-        </div>
+        
         <!-- /content wrapper -->
     </div>
     <!-- /page content -->
