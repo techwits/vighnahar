@@ -24,35 +24,24 @@ function drawExploded3d() {
     // Data
     var data = google.visualization.arrayToDataTable([
         ['Language', 'Speakers (in millions)'],
-        ['Assamese', 13],
-        ['Bengali', 83],
-        ['Gujarati', 46],
-        ['Hindi', 90],
-        ['Kannada', 38],
-        ['Maithili', 20],
-        ['Malayalam', 33],
-        ['Marathi', 72],
-        ['Oriya', 33],
-        ['Punjabi', 29],
-        ['Tamil', 61],
-        ['Telugu', 74],
-        ['Urdu', 52]
+        ['Assamese', 1103],
+        ['Bengali', 83]
     ]);
 
 
     // Options
     var options = {
         fontName: 'Roboto',
-        height: 300,
-        width: 540,
+        height: 200,
+        width: 240,
         chartArea: {
             left: 50,
-            width: '95%',
-            height: '95%'
+            width: '100%',
+            height: '100%'
         },
         is3D: true,
         pieSliceText: 'label',
-        slices: {  
+        slices: {
             2: {offset: 0.15},
             8: {offset: 0.1},
             10: {offset: 0.15},
@@ -63,5 +52,8 @@ function drawExploded3d() {
 
     // Instantiate and draw our chart, passing in some options.
     var pie_3d_exploded = new google.visualization.PieChart($('#google-3d-exploded')[0]);
+    pie_3d_exploded.draw(data, options);
+
+    var pie_3d_exploded = new google.visualization.PieChart($('#google-3d-exploded_1')[0]);
     pie_3d_exploded.draw(data, options);
 }

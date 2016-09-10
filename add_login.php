@@ -116,7 +116,7 @@
 
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label>Select Designation</label>
+                                            <label>Select Designation <span class="text-danger">*</span></label>
                                             <select name="designation" id="designation" class="select-search select2-hidden-accessible" aria-hidden="true">
                                                 <option value=""></option>-->
                                                     <?php

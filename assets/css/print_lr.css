@@ -1,0 +1,176 @@
+body {
+  background: rgb(204,204,204);
+  -webkit-print-color-adjust: exact;
+}
+page {
+  background: white;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 0.5cm;
+  box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+}
+page[size="A4"] {  
+  width: 21cm;
+  height: 29.7cm; 
+}
+page[size="A4"][layout="portrait"] {
+  width: 29.7cm;
+  height: 21cm;  
+}
+page[size="A3"] {
+  width: 29.7cm;
+  height: 42cm;
+}
+page[size="A3"][layout="portrait"] {
+  width: 42cm;
+  height: 29.7cm;  
+}
+page[size="A5"] {
+  width: 14.8cm;
+  height: 21cm;
+}
+page[size="A5"][layout="portrait"] {
+  width: 21cm;
+  height: 14.8cm;  
+}
+@media print, {
+  body, page {
+    margin: 0;
+    box-shadow: 0;
+	background-image: none;
+  }
+}
+
+.top-headername{
+	border: 1px solid black;
+	margin-top: 0cm;
+	height: 2.4cm;
+	background-color: #c7c7c7;
+}
+.top-headername h2{
+	font-family: Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;
+	font-size: 16px;
+	margin-top: 10px;
+	text-transform: uppercase;
+	font-weight:800;
+}
+.top-headername h1{
+	font-family: Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;
+	font-size: 16px;
+	margin-top: 10px;
+	text-transform: uppercase;
+	font-weight:800;
+}
+.top-headername p{
+	font-family: Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;
+	font-size: 12px;
+	margin-top: 10px;
+}
+.top-headerdetails{
+	border: 1px solid black;
+	margin-top: 0cm;
+	height: 2.7cm;
+	background-color: #e0e0e0;
+	vertical-align:central;
+}
+.Chalan-details1{
+	width: 3cm;
+	font-family: Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;
+	font-size: 14px;
+	text-transform: uppercase;
+	line-height: 1.7;
+	display: inline-block;
+	text-align: Leff;
+	background-color: transparent;
+	margin-top: 7px;
+	margin-left: 15px;
+}
+.Chalan-details2{
+	width: 3cm;
+	font-family: Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;
+	font-size: 14px;
+	text-transform: uppercase;
+	line-height: 1.7;
+	display: inline-block;
+	text-align: Leff;
+	background-color: transparent;
+	margin-top: 7px;
+	margin-left: 15px;
+}
+.Chalan-details3{
+	width: 6.6cm;
+	display: inline-block;
+}
+.Chalan-details4{
+	width: 3cm;
+	font-family: Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;
+	font-size: 14px;
+	text-transform: uppercase;
+	line-height: 1.7;
+	display: inline-block;
+	text-align: Leff;
+	background-color: transparent;
+	margin-top: 7px;
+	margin-left: 7px;
+	
+}
+.Chalan-details5{
+	width: 3.5cm;
+	font-family: Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;
+	font-size: 14px;
+	text-transform: uppercase;
+	line-height: 1.7;
+	display: inline-block;
+	text-align: Leff;
+	background-color: transparent;
+	margin-top: 7px;
+	margin-left: 10px;
+	float:right;
+}
+
+table {
+	width: 100%;
+}
+
+th {
+    height: .8cm;
+	text-align: center;
+	border: 1px solid black;
+	padding-top: 3px;
+}
+tr {
+    height: .65cm;
+	text-align: left;
+	vertical-align:top;
+	border: 1px solid black;
+	padding-left: 7px;
+}
+td {
+    padding-left: 10px;
+	padding-top: 2px;
+	border: 1px solid black;
+}
+
+.footerdetails{
+	height: 2.3cm;
+	border: 1px solid black;
+	margin-bottom: 0px;
+	background:#ccc;
+	margin-top:0px;
+}
+.footertext{
+	width: 13cm;
+	display: inline-block;
+	font-family: Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;
+	font-size: 12px;
+	margin-top:0px;
+	padding:8px;
+}
+.footersign{
+	width: 7.5cm;
+	display: inline-block;
+	text-transform: uppercase;
+	margin-top:0px;
+	float:right;
+	padding-top: 7px;
+}

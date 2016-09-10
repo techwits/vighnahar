@@ -6,7 +6,7 @@
 $error_msg="";
 $CurrentDate = date('Y-m-d h:i:s');
 
-$searchvalue="";
+$searchvalue=0;
 $searchin=1;
 if(isset($_REQUEST["searchvalue"])) {
     include('assets/inc/db_connect.php');
@@ -70,8 +70,10 @@ if ($searchin==1){
 
             <?php
                 $cols="bid, CreationDate, ModificationDate, Creator, ip, fyid, BillingDate, caid, Amount, Discount, ServiceTax, BillAmount, Active ";
-                $sqlQry= "select $cols from `bill`";
-                $sqlQry.= " where $columnname '$pre_wildcharacter$searchvalue$post_wildcharacter'";
+                $sqlQry= "select $cols from `bill` where 1=1";
+                if($searchvalue>0) {
+                    $sqlQry .= " and $columnname '$pre_wildcharacter$searchvalue$post_wildcharacter'";
+                }
                 $sqlQry.= " and Active=1";
 //                echo ("Check sqlQry :- $sqlQry </br>");
 //                die();

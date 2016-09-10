@@ -70,7 +70,22 @@
   <body class="navbar-top">
 
       <!-- Main navbar -->
-      
+      <?php
+        $PageHeaderName="Dashboard";
+        $icon="icon-address-book";
+
+        include('page_header.php');
+
+    //    $php_page=basename(__FILE__);
+    //    $get_return_value=login_check($con, $php_page);
+    //    include_once("assets/inc/handle_error.php");
+    //
+    //    //		mysqli_close($con);
+    //    log_pageaccess($con, $_SESSION["pageid"], basename(__FILE__));
+    //    //		mysqli_close($con);
+    //    include_once('assets/inc/db_connect.php');
+
+    ?>
       <!-- /main navbar -->
 
   <!-- Page header -->
@@ -1578,29 +1593,7 @@
 
 
           <!-- Footer -->
-          <div class="navbar navbar-inverse navbar-sm navbar-fixed-bottom">
-              <ul class="nav navbar-nav no-border visible-xs-block">
-                  <li><a class="text-center collapsed" data-toggle="collapse" data-target="#navbar-second"><i class="icon-circle-up2"></i></a></li>
-              </ul>
-              <div class="navbar-collapse collapse" id="navbar-second">
-              <div class="navbar-text">
-                  &copy; 2015.
-                 <a href="#">Limitless Web App Kit</a> by <a href="http://themeforest.net/user/Kopyov" target="_blank">Eugene Kopyov</a>
-              </div>
-
-                  <div class="navbar-right">
-                      <ul class="nav navbar-nav">
-                          <li><a href="#">Help center</a></li>
-                          <li><a href="#">Policy</a></li>
-                          <li><a href="#" class="text-semibold">Upgrade your account</a></li>
-
-                      </ul>
-                  </div>
-              </div>
-          </div>
-
-
-
+              <?php include('footer.php'); ?>
           <!-- /footer -->
 
       </div>

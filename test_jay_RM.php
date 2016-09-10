@@ -36,7 +36,6 @@
 	<script type="text/javascript" src="assets/js/plugins/tables/datatables/extensions/col_reorder.min.js"></script>
 	<script type="text/javascript" src="assets/js/plugins/forms/styling/switchery.min.js"></script>
 
-	<script type="text/javascript" src="assets/js/core/app.js"></script>
 	<script type="text/javascript" src="assets/js/pages/datatables_extension_fixed_header.js"></script>
     <script type="text/javascript" src="assets/js/layout_sidebar_sticky.js"></script>
 	<!-- /theme JS files -->
@@ -47,7 +46,6 @@
     <!-- Theme JS files -->
 	<script type="text/javascript" src="ckeditor/ckeditor.js"></script>
 
-	<script type="text/javascript" src="assets/js/core/app.js"></script>
 	<script type="text/javascript" src="assets/js/pages/invoice_template.js"></script>
 	<!-- /theme JS files -->
 
@@ -57,9 +55,6 @@
 <body class="print-mode print-paper-a4">
         <div class="print-papers print-preview">
             <div class="print-paper">
-            
-            
-            
             
 				<!-- Invoice template -->
                 
@@ -156,6 +151,7 @@
 							</table>
 						</div>
 				</div>
-				<!-- /invoice template -->            </div>
+				<!-- /invoice template -->            
+             </div>
         </div>
   </body>

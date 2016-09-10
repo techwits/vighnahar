@@ -53,12 +53,11 @@ body.print-paper-a4 .print-paper {
 
 
 .print-paper {
-    margin: auto;
+    margin: .6cm auto;
     background: white;
     border: 1px dotted black;
     box-sizing: border-box;
-    margin: 1cm auto;
-    padding: .8cm;
+    padding: 0cm .6cm 0cm .6cm;
     overflow: hidden;   
 }
 
@@ -69,4 +68,60 @@ body.print-mode .no-print-preview {
 
 body.print-mode .print-preview {
     display: block;
+}
+.top-header{
+	border-bottom: 1px dotted black;
+	margin-top: 0px;
+}
+.Chalan-details1{
+	width: 80px;
+	font-family: Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;
+	font-size: 11px;
+	text-transform: uppercase;
+	line-height: 1;
+	display: inline-block;
+	text-align: Leff;
+	background-color: transparent;
+	margin-top: 10px;
+	margin-left: 20px;
+}
+.Chalan-details2{
+	width: 80px;
+	font-family: Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;
+	font-size: 11px;
+	text-transform: uppercase;
+	line-height: 1;
+	display: inline-block;
+	text-align: Leff;
+	background-color: transparent;
+	margin-top: 10px;
+	margin-left: 10px;
+}
+.Chalan-details3{
+	width: 325px;
+	display: inline-block;
+}
+.Chalan-details4{
+	width: 80px;
+	font-family: Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;
+	font-size: 11px;
+	text-transform: uppercase;
+	line-height: 1;
+	display: inline-block;
+	text-align: Leff;
+	background-color: transparent;
+	margin-top: 10px;
+	margin-left: 20px;
+}
+.Chalan-details5{
+	width: 80px;
+	font-family: Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;
+	font-size: 11px;
+	text-transform: uppercase;
+	line-height: 1;
+	display: inline-block;
+	text-align: Leff;
+	background-color: transparent;
+	margin-top: 10px;
+	margin-left: 10px;
 }

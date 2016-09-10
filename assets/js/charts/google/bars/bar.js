@@ -23,28 +23,27 @@ function drawBar() {
 
     // Data
     var data = google.visualization.arrayToDataTable([
-        ['Year', 'Sales', 'Expenses'],
-        ['2004',  1000,      400],
-        ['2005',  1170,      460],
-        ['2006',  660,       1120],
-        ['2007',  1030,      540]
+        ['Year', 'Sales', {role: 'annotation'}, 'Expenses', 'Sachin', 'Om', {role: 'annotation'}],
+        ['2004',  1000, 'asjkas',      400,      500,      800, 'test']
     ]);
 
 
     // Options
     var options_bar = {
         fontName: 'Roboto',
-        height: 400,
+        height: 200,
+        width: 500,
         fontSize: 12,
+        Label: true,
         chartArea: {
-            left: '5%',
-            width: '90%',
-            height: 350
+            left: '10%',
+            width: '100%',
+            height: 150
         },
         tooltip: {
             textStyle: {
                 fontName: 'Roboto',
-                fontSize: 13
+                fontSize: 10
             }
         },
         vAxis: {
@@ -54,13 +53,13 @@ function drawBar() {
             },
             minValue: 0
         },
-        legend: {
-            position: 'top',
-            alignment: 'center',
-            textStyle: {
-                fontSize: 12
-            }
-        }
+        // legend: {
+        //     position: 'top',
+        //     alignment: 'center',
+        //     textStyle: {
+        //         fontSize: 10
+        //     }
+        // }
     };
 
     // Draw chart

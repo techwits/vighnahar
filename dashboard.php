@@ -393,7 +393,7 @@
                 <div class="col-lg-2 col-sm-6">
                     <div class="panel panel-flat">
                         <div class="panel-heading">
-                            <h6 class="panel-title">View LR</h6>
+                            <h6 class="panel-title">View LR / Rm / Bill</h6>
                             <div class="heading-elements">
                                 <ul class="icons-list">
                                     <li><a data-action="collapse"></a></li>
@@ -411,23 +411,11 @@
                                     <a href="#modal_full" data-toggle='modal' class='modalButton1' data-teacherid="1" >
                                     <button type="button" class="btn btn-info btn-xs">Submit</button></a>
                                 </div>
-                        </div>
-                        </form>
-                    </div>
-                </div>
-
-                <div class="col-lg-2 col-sm-6">
-                    <div class="panel panel-flat">
-                        <div class="panel-heading">
-                            <h6 class="panel-title">View RM</h6>
-                            <div class="heading-elements">
-                                <ul class="icons-list">
-                                    <li><a data-action="collapse"></a></li>
-                                </ul>
-                            </div>
+                            </form>
                         </div>
 
-                        <div class="panel-body">
+
+                        <div class="panel-body" style="background-color: #00FF00;">
                             <form action="#">
                                 <div class="form-group">
                                     <input class="form-control input-micro" type="text" placeholder="View RM" name="show_rmno" id="show_rmno" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
@@ -437,21 +425,9 @@
                                     <a href="#modal_full" data-toggle='modal' class='modalButton2' data-teacherid="1" >
                                         <button type="button" class="btn btn-info btn-xs">Submit</button></a>
                                 </div>
+                            </form>
                         </div>
-                        </form>
-                    </div>
-                </div>
 
-                <div class="col-lg-2 col-sm-6">
-                    <div class="panel panel-flat">
-                        <div class="panel-heading">
-                            <h6 class="panel-title">View Bill</h6>
-                            <div class="heading-elements">
-                                <ul class="icons-list">
-                                    <li><a data-action="collapse"></a></li>
-                                </ul>
-                            </div>
-                        </div>
 
                         <div class="panel-body">
                             <form action="#">
@@ -463,8 +439,10 @@
                                     <a href="#modal_full" data-toggle='modal' class='modalButton3' data-teacherid="1" >
                                         <button type="button" class="btn btn-info btn-xs">Submit</button></a>
                                 </div>
+                            </form>
                         </div>
-                        </form>
+
+
                     </div>
                 </div>
 

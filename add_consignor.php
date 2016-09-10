@@ -192,7 +192,7 @@
 											<div class="form-group form-group-material">
 												<label>Pincode <span class="text-danger">*</span> </label>
 												<div class="input-group">
-													<input type="text" class="form-control" name="pincode" id="pincode" required="required" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
+													<input type="text" class="form-control" name="pincode" id="pincode" maxlength="6" required="required" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
                                                         <span class="input-group-addon">
                                                     <i class="icon-location3"></i>
                                                     </span>
