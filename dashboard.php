@@ -415,7 +415,7 @@
                         </div>
 
 
-                        <div class="panel-body" style="background-color: #00FF00;">
+                        <div class="panel-body">
                             <form action="#">
                                 <div class="form-group">
                                     <input class="form-control input-micro" type="text" placeholder="View RM" name="show_rmno" id="show_rmno" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
@@ -423,7 +423,7 @@
                                 <div class="col-sm-2 text-center">
 
                                     <a href="#modal_full" data-toggle='modal' class='modalButton2' data-teacherid="1" >
-                                        <button type="button" class="btn btn-info btn-xs">Submit</button></a>
+                                        <button type="button" class="btn btn-success btn-xs">Submit</button></a>
                                 </div>
                             </form>
                         </div>
@@ -437,7 +437,7 @@
                                 <div class="col-sm-2 text-center">
 
                                     <a href="#modal_full" data-toggle='modal' class='modalButton3' data-teacherid="1" >
-                                        <button type="button" class="btn btn-info btn-xs">Submit</button></a>
+                                        <button type="button" class="btn btn-danger btn-xs">Submit</button></a>
                                 </div>
                             </form>
                         </div>
