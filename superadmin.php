@@ -52,7 +52,6 @@
     <!-- Google - Theme JS files -->
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
-        <script type="text/javascript" src="assets/js/core/app.js"></script>
         <script type="text/javascript" src="assets/js/charts/google/bars/column.js"></script>
         <script type="text/javascript" src="assets/js/charts/google/bars/column_stacked.js"></script>
         <script type="text/javascript" src="assets/js/charts/google/bars/bar.js"></script>
@@ -128,15 +127,24 @@ include('page_header.php');
                             <!-- Members online -->
                             <div class="panel bg-teal-400">
                                 <div class="panel-body">
-                                    <div class="heading-elements">
-                                        <div class="text-muted text-size-small">Month</div>
-                                        <span class="heading-text badge bg-teal-800">9999</span>
-
+                                	<div class="row">
+                                      <div class="col-xs-12">
+                                        <div class="col-xs-4 text-left border-right ">
+                                            <h3 class="no-margin">54,800</h3>
+                                            Year
+                                            <div class="text-muted text-size-small">489 avg</div>
+                                        </div>
+                                        <div class="col-xs-4 text-left border-right">
+                                            <h3 class="no-margin">3,450</h3>
+                                            Month
+                                            <div class="text-muted text-size-small">489 avg</div>
+                                        </div>
+                                        <div class="col-xs-4 text-right">
+                                        <span class="heading-text badge bg-teal-800"> 53 </span>
+                                           <div class="text-muted text-size-small">In Transit</div>
+                                        </div>
                                     </div>
-
-                                    <h3 class="no-margin">3,45000</h3>
-                                    Members online
-                                    <div class="text-muted text-size-small">489 avg</div>
+                                   </div>                                  
                                 </div>
 
                                 <div class="container-fluid">
@@ -152,23 +160,36 @@ include('page_header.php');
                             <!-- Current server load -->
                             <div class="panel bg-pink-400">
                                 <div class="panel-body">
-                                    <div class="heading-elements">
-                                        <ul class="icons-list">
-                                            <li class="dropdown">
-                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">More.. &nbsp;<i class="icon-cog3"></i> <span class="caret"></span></a>
-                                                <ul class="dropdown-menu dropdown-menu-right">
-                                                    <li><a href="#"><i class="icon-sync"></i> Update data</a></li>
-                                                    <li><a href="#"><i class="icon-list-unordered"></i> Detailed log</a></li>
-                                                    <li><a href="#"><i class="icon-pie5"></i> Statistics</a></li>
-                                                    <li><a href="#"><i class="icon-cross3"></i> Clear list</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                    <h3 class="no-margin">49.4%</h3>
-                                    Current server load
-                                    <div class="text-muted text-size-small">34.6% avg</div>
+                                	<div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="col-xs-4 text-left border-right">
+                                                 <h3 class="no-margin">3400</h3>
+                                                Year
+                                                <div class="text-muted text-size-small">34.6% avg</div>
+                                            </div>
+                                            <div class="col-xs-4 text-left border-right">
+                                                <h3 class="no-margin">300</h3>
+                                                Month
+                                                <div class="text-muted text-size-small">34.6% avg</div>
+                                            </div>
+                                            <div class="col-xs-4 text-right">
+                                                <div class="heading-text">
+                                                  <ul class="icons-list">
+                                                      <li class="dropdown">
+                                                          <a href="#" class="dropdown-toggle" data-toggle="dropdown">More..
+                                                          <i class="icon-cog3"></i> <span class="caret"></span></a>
+                                                          <ul class="dropdown-menu dropdown-menu-right">
+                                                              <li><a href="#"><i class="icon-sync"></i> Update data</a></li>
+                                                              <li><a href="#"><i class="icon-list-unordered"></i> Detailed log</a></li>
+                                                              <li><a href="#"><i class="icon-pie5"></i> Statistics</a></li>
+                                                              <li><a href="#"><i class="icon-cross3"></i> Clear list</a></li>
+                                                          </ul>
+                                                      </li>
+                                                  </ul>
+                                              </div>
+                                            </div>
+                                        </div>
+                                     </div>
                                 </div>
 
                                 <div id="members-lr"></div>
@@ -200,17 +221,70 @@ include('page_header.php');
                         </div>
                     </div>
                     <!-- /quick stats boxes -->
+                    <div class="row">
+                      <div class="col-md-6">
+                      	<div class="panel panel-flat border-top-xlg border-top-warning border-grey">
+							<div class="panel-heading">
+								<h6 class="panel-title">Custom panel border</h6>
+								<div class="heading-elements">
+									<ul class="icons-list">
+				                		<li><a data-action="collapse" class=""></a></li>
+				                		<li><a data-action="reload"></a></li>
+				                	</ul>
+			                	</div>
+							<a class="heading-elements-toggle"><i class="icon-menu"></i></a>
+                            </div>
+
+							<div class="panel-body" style="display: block;">
+								<!-- Members online -->
+                                        <div id="google-bar"></div>
+                                <!-- /members online -->
+							</div>
+						</div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="panel panel-flat border-left-xlg border-left-info">
+                            <div class="panel-heading">
+								<h6 class="panel-title">H6 title</h6>
+								<div class="heading-elements">
+									<ul class="icons-list">
+				                		<li><a data-action="collapse"></a></li>
+				                		<li><a data-action="reload"></a></li>
+				                	</ul>
+			                	</div>
+							<a class="heading-elements-toggle"><i class="icon-menu"></i></a></div>
+                            
+                            <div class="panel-body">
+                                Extra large border size using <code>.border-*-xlg</code> class
+                            </div>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="panel panel-flat border-left-xlg border-left-info">
+                            <div class="panel-heading">
+								<h6 class="panel-title">H6 title</h6>
+								<div class="heading-elements">
+									<ul class="icons-list">
+				                		<li><a data-action="collapse"></a></li>
+				                		<li><a data-action="reload"></a></li>
+				                	</ul>
+			                	</div>
+							<a class="heading-elements-toggle"><i class="icon-menu"></i></a></div>
+                            
+                            <div class="panel-body">
+                                Extra large border size using <code>.border-*-xlg</code> class
+                            </div>
+                        </div>
+                      </div>
+                      
+                    </div>
+               
 
 
 
                     <!-- Google Graph -->
                     <div class="row">
-                        <div class="col-md-6">
-                            <!-- Members online -->
-                                    <div id="google-bar"></div>
-                            <!-- /members online -->
-                        </div>
-
+                        
                         <div class="col-md-3" style="background-color: white">
                             <!-- Members online -->
                             <div class="chart has-fixed-height has-minimum-width" id="basic_pie"></div>
@@ -1461,7 +1535,7 @@ include('page_header.php');
 
                                 <ul class="navigation navigation-alt navigation-accordion">
                                     <li><a href="#" onclick="window.open('add_login.php','_self');"><i class="icon-user-lock"></i> User <span class="badge badge-info">8</span></a></li>
-                                    <li><a href="#" onclick="window.open('add_consignor.php','_self');"><i class="icon-user-check"></i> Consignor <span class="badge badge-info">74</span></a></li>
+                                    <li><a href="#" onclick="window.open('add_consignor.php','_self');"><i class="icon-user-check"></i> Consignor <span class="badge badge-danger">74</span></a></li>
                                     <li><a href="#" onclick="window.open('add_product.php','_self');"><i class="icon-cart-add2"></i> Products <span class="badge badge-info">180</span></a></li>
                                     <li><a href="#" onclick="window.open('add_rate.php','_self');"><img src="assets/images/rupee_bag-512.png" height="20" width="20"> &nbsp;&nbsp;Rate </a></li>
                                     <li><a href="#" onclick="window.open('add_additionalcharge.php','_self');"><i class="icon-coin-dollar"></i> Additional Charges</a></li>
@@ -1503,7 +1577,7 @@ include('page_header.php');
                 <div class="col-lg-2 col-sm-6">
                     <div class="panel panel-flat">
                         <div class="panel-heading">
-                            <h6 class="content-group text-semibold">View LR</h6>
+                            <h6 class="panel-title">View LR / Rm / Bill</h6>
                             <div class="heading-elements">
                                 <ul class="icons-list">
                                     <li><a data-action="collapse"></a></li>
@@ -1518,64 +1592,52 @@ include('page_header.php');
                                 </div>
                                 <div class="col-sm-2 text-center">
 
-                                    <a href="#modal_full" data-toggle="modal" class="modalButton1">
-                                        <button type="button" class="btn btn-info btn-xs">Submit</button></a>
+                                    <a href="#modal_full" data-toggle='modal' class='modalButton1' data-teacherid="1" >
+                                    <button type="button" class="btn btn-info btn-xs">Submit</button></a>
+                                </div>
+                            </form>
+                            <form action="#">
+                                <div class="form-group">
+                                    <input class="form-control input-micro" type="text" placeholder="View RM" name="show_rmno" id="show_rmno" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
+                                </div>
+                                <div class="col-sm-2 text-center">
+
+                                    <a href="#modal_full" data-toggle='modal' class='modalButton2' data-teacherid="1" >
+                                        <button type="button" class="btn btn-success btn-xs">Submit</button></a>
                                 </div>
                             </form>
                         </div>
-                    </div>
-                </div>
 
-                <div class="col-lg-2 col-sm-6">
-                    <div class="panel panel-flat">
-                        <div class="panel-heading">
-                            <h6 class="panel-title">View RM</h6>
-                            <div class="heading-elements">
-                                <ul class="icons-list">
-                                    <li><a data-action="collapse"></a></li>
-                                </ul>
-                            </div>
-                        </div>
 
                         <div class="panel-body">
                             <form action="#">
                                 <div class="form-group">
-                                    <input class="form-control input-micro" type="text" placeholder="View LR" name="show_lrno" id="show_lrno" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
+                                    <input class="form-control input-micro" type="text" placeholder="View RM" name="show_rmno" id="show_rmno" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
                                 </div>
                                 <div class="col-sm-2 text-center">
 
-                                    <a href="#modal_full" data-toggle="modal" class="modalButton1">
-                                        <button type="button" class="btn btn-info btn-xs">Submit</button></a>
+                                    <a href="#modal_full" data-toggle='modal' class='modalButton2' data-teacherid="1" >
+                                        <button type="button" class="btn btn-success btn-xs">Submit</button></a>
                                 </div>
                             </form>
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-sm-6">
-                    <div class="panel panel-flat">
-                        <div class="panel-heading">
-                            <h6 class="panel-title">View Bill</h6>
-                            <div class="heading-elements">
-                                <ul class="icons-list">
-                                    <li><a data-action="collapse"></a></li>
-                                </ul>
-                            </div>
-                        </div>
+
 
                         <div class="panel-body">
                             <form action="#">
                                 <div class="form-group">
-                                    <input class="form-control input-micro" type="text" placeholder="View LR" name="show_lrno" id="show_lrno" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
+                                    <input class="form-control input-micro" type="text" placeholder="View Bill" name="show_billno" id="show_billno" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
                                 </div>
                                 <div class="col-sm-2 text-center">
 
-                                    <a href="#modal_full" data-toggle="modal" class="modalButton1">
-                                        <button type="button" class="btn btn-info btn-xs">Submit</button></a>
+                                    <a href="#modal_full" data-toggle='modal' class='modalButton3' data-teacherid="1" >
+                                        <button type="button" class="btn btn-danger btn-xs">Submit</button></a>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
+
 
             </div>
             <!-- /dashboard content -->
