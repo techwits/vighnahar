@@ -30,12 +30,15 @@ $session_ip=$_REQUEST["session_ip"];
 //    echo("session_ip :- $session_ip </br>");
 //    die();
 
+//onchange="return get_productOnConsignee(this.value, < ? p h pecho $ConsignorID; ? > , < ? p h pecho $session_userid; ? >, '< ? p h p echo $session_ip; ? >');">
+
 ?>
+
 
 <div class="form-group">
 	<label>Consignee</label>
 	<div class="input-group">
-		<select name="consigneeid" id="consigneeid" class="form-control" onblur="return get_productOnConsignee(this.value, <?php echo $ConsignorID; ?> , <?php echo $session_userid; ?>, '<?php echo $session_ip; ?>');">
+		<select name="consigneeid" id="consigneeid" class="form-control" onblur="return control_disabled(this.value, 'consigneeid');">
 			<option value="0">All</option>
 				<?php
 					Fill_Consignee($con, $ConsignorID);

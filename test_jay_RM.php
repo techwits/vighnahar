@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Limitless - Responsive Web Application Kit by Eugene Kopyov</title>
+	<title>SVL RM Print</title>
 
 	<!-- Global stylesheets -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
@@ -63,14 +63,14 @@
                     	<h2>Road Memo</h2>
                         <h4 class="no-margin-top text-semibold">Shree Vighnahar Logistics</h4>
                           <p>Shed No.1, Gala No.1, Arihant Complex, Kopar Bus Stop, Purna Village, Bhiwandi, Dist:-Thane-421302.</p>
-                          <p>Tel. No. : 9987032373 / 9272217794 / 9272217795 Fax No. Email ID : chetan@shreevighnaharlogistics.com</p>
+                          <p>Tel. No. : 9987032373 / 9272217794 / 9272217795   Email ID : chetan@shreevighnaharlogistics.com</p>
                     </div>
                 </div>
-                <div class="top-header">
+                <div class="top-headerdetails">
                 	<div class="table-responsive">
                 			<div class="Chalan-details1">
-                            	<P>Chalan No.:</P>
-                                <P>Invoice</P>
+                            	<P>Chalan No.</P>
+                                <P>Vehicle No.</P>
                                 <P>Through</P>
                             </div>
                             <div class="Chalan-details2">
@@ -98,9 +98,9 @@
 							<table class="table">
 								<thead>
 									<tr>
-										<th>#</th>
+										<th>S.No.</th>
 										<th>CN No</th>
-										<th>Consignor Name</th>
+										<th>Consignor's Name</th>
 										<th>Consignee's Name</th>
                                         <th>Detination</th>
                                         <th>Cases</th>
@@ -109,27 +109,27 @@
 								<tbody>
 									<tr>
 										<td>1</td>
-										<td>Eugene</td>
-										<td>Kopyov</td>
-										<td>@Kopyov</td>
-                                        <td>@Kopyov</td>
-                                        <td>@Kopyov</td>
+										<td>bwd-0001357</td>
+										<td>Mcleods Pharmaceticals Ltd.</td>
+										<td>Chimanlal Sons</td>
+                                        <td>Borivali</td>
+                                        <td>2</td>
 									</tr>
 									<tr>
 										<td>2</td>
-										<td>Victoria</td>
-										<td>Baker</td>
-										<td>@Vicky</td>
-                                        <td>@Vicky</td>
-                                        <td>@Vicky</td>
+										<td>bwd-0001369</td>
+										<td>Mcleods Pharmaceticals Ltd.</td>
+										<td>Chimanlal Sons</td>
+                                        <td>Borivali</td>
+                                        <td>4</td>
 									</tr>
 									<tr>
 										<td>3</td>
-										<td>James</td>
-										<td>Alexander Alexander Alexander Alexander Alexander Alexander</td>
-										<td>Alexander Alexander Alexander Alexander Alexander Alexander</td>
-                                        <td>@Alex</td>
-                                        <td>@Alex</td>
+										<td>bwd-0001374</td>
+										<td>Mcleods Pharmaceticals Ltd.</td>
+										<td>Chimanlal Sons</td>
+                                        <td>Borivali</td>
+                                        <td>1</td>
 									</tr>
 									<tr>
 										<td>4</td>
@@ -150,6 +150,17 @@
 								</tbody>
 							</table>
 						</div>
+                        <div class="table-responsive">
+                        	<div class="footerdetails">
+                            	<div class="driversign">
+                                	<p> Driver's Signature</p>
+                                </div>
+                                <div class="despatchsign">
+                                	<p> Dispatch Incharge</p>
+                                </div>
+                            </div>
+                        
+                        </div>
 				</div>
 				<!-- /invoice template -->            
              </div>

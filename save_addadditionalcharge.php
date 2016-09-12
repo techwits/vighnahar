@@ -30,13 +30,13 @@
     $chargepercentage=sanitize($con, $_REQUEST["chargepercentage"]);
     $chargefix=sanitize($con, $_REQUEST["chargefix"]);
 
-//    echo ("AddEdit:- ".$AddEdit."</br>");
-//    echo ("session_userid:- ".$session_userid."</br>");
-//    echo ("session_ip:- ".$session_ip."</br>");
-//    echo ("additionalchargename:- ".$additionalchargename."</br>");
-//    echo ("chargepercentage:- ".$chargepercentage."</br>");
-//    echo ("chargefix:- ".$chargefix."</br>");
-//    die();
+    echo ("AddEdit:- ".$AddEdit."</br>");
+    echo ("session_userid:- ".$session_userid."</br>");
+    echo ("session_ip:- ".$session_ip."</br>");
+    echo ("additionalchargename:- ".$additionalchargename."</br>");
+    echo ("chargepercentage:- ".$chargepercentage."</br>");
+    echo ("chargefix:- ".$chargefix."</br>");
+    die();
 
     $tablename="additionalcharge_master";
     $searchColumn="acmid";

@@ -56,6 +56,7 @@
     $pincode=sanitize($con, $_REQUEST["pincode"]);
     $city=sanitize($con, $_REQUEST["city"]);
     $panno=sanitize($con, $_REQUEST["panno"]);
+    $person=sanitize($con, $_REQUEST["person"]);
 
     $contacttype1=1;
     $telephone1=sanitize($con, $_REQUEST["telephone1"]);
@@ -92,6 +93,7 @@
 //    echo ("area :- ".$area ."</br>");
 //    echo ("pincode :- ".$pincode ."</br>");
 //    echo ("city :- ".$city ."</br>");
+//    echo ("person :- ".$person ."</br>");
 //    echo ("contacttype1 :- ".$contacttype1 ."</br>");
 //    echo ("telephone1 :- ".$telephone1 ."</br>");
 //    echo ("contacttype2 :- ".$contacttype2 ."</br>");
@@ -153,7 +155,7 @@ if(trim($error_msg)=="") {
 
 
     if ($AddEdit==0) {
-        $Procedure = "Call Save_Consignor('$CurrentDate', $session_userid, '$session_ip', '$consignorname', '$panno', '$address', $AreaID, $pincode, '$city', $contacttype1, '$telephone1', $contacttype2, '$telephone2', $contacttype3, '$telephone3', $contacttype4, '$email', $contacttype5, '$url', '$remark', $servicetax);";
+        $Procedure = "Call Save_Consignor('$CurrentDate', $session_userid, '$session_ip', '$consignorname', '$panno', '$person' , '$address', $AreaID, $pincode, '$city', $contacttype1, '$telephone1', $contacttype2, '$telephone2', $contacttype3, '$telephone3', $contacttype4, '$email', $contacttype5, '$url', '$remark', $servicetax);";
     }
     else{
 
@@ -171,7 +173,7 @@ if(trim($error_msg)=="") {
 
 
         if($IDExist>0 and $IDExist1>0 and $IDExist2>0) {
-            $Procedure = "Call Update_Consignor($AddEdit, $AddEdit1, '$CurrentDate', $session_userid, '$session_ip', '$consignorname', '$panno', '$address', $AreaID, $pincode, '$city', '$remark', $servicetax);";
+            $Procedure = "Call Update_Consignor($AddEdit, $AddEdit1, '$CurrentDate', $session_userid, '$session_ip', '$consignorname', '$panno', '$person', '$address', $AreaID, $pincode, '$city', '$remark', $servicetax);";
         }
         else{
             echo("Consignor ID is not getting. Please contact system administrator....");

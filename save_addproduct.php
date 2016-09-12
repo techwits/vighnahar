@@ -26,6 +26,20 @@
     $session_ip=$_REQUEST["session_ip"];
 
     $productname=sanitize($con, $_REQUEST["productname"]);
+//    echo ("productname:- ".$productname."</br>");
+//    echo ("AddEdit:- ".$AddEdit."</br>");
+//    die();
+    if($AddEdit==0){
+        $ProductExist=0;
+        $ProductExist=Check_ProductExist($con, $productname);
+//        echo ("productname:- ".$productname."</br>");
+//        die();
+        if($ProductExist>0){
+            $error_msg="Product is already exist in master. Please check....";
+        }
+    }
+//    echo ("ProductExist:- ".$ProductExist."</br>");
+//    die();
 
 //    echo ("AddEdit:- ".$AddEdit."</br>");
 //    echo ("session_userid:- ".$session_userid."</br>");
@@ -50,7 +64,7 @@
             $LogStart_Value=Log_Start($con, $CurrentDate, $Creator, $ip, $PageName, $inTime, $tablename, $searchColumn, $searchColumn_Value);
             unset($con);
         /* Log Start*/
-
+        
         if ($AddEdit==0) {
             $Procedure = "Call Save_Product('$CurrentDate', $session_userid, '$session_ip', '$productname');";
         }
@@ -90,6 +104,10 @@
         mysqli_free_result($result);
     }
     else{
-        echo($error_msg);
+        ?>
+            <script type="text/javascript">
+                show_error('<?php echo $error_msg; ?>');
+            </script>
+        <?php
     }
 ?>

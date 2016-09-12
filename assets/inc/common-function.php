@@ -1070,7 +1070,7 @@
 		while ($row = mysqli_fetch_array($result, MYSQLI_NUM))
 		{
 			$ID=$row{0};
-			$Name=$row{0};
+			$Name=$row{1};
 			echo "<option value=".$ID.">".$Name." </option>";
 		}
 		mysqli_free_result($result);
@@ -1858,6 +1858,113 @@
 		}
 		mysqli_free_result($result);
 		return $Getting_UserID;
+	}
+
+	function Check_DeliveryStatusID($con, $DeliveryStatusID)
+	{
+		$Getting_DeliveryStatusID=0;
+		$sqlQry= "";
+		$sqlQry= "select dsid from deliverystatus_master";
+		$sqlQry= $sqlQry." where dsid=$DeliveryStatusID";
+		$sqlQry= $sqlQry." and active=1";
+		//		echo ("Check sqlQry :- $sqlQry </br>");
+		//		die();
+		unset($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		if (mysqli_num_rows($result)!=0){
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+				$Getting_DeliveryStatusID=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_DeliveryStatusID;
+	}
+
+	function Check_DuplicateEntry($con, $TableName, $ColumnName, $Searchin, $SearchValue, $AddEdit)
+	{
+		$Getting_DuplicateEntry=0;
+		$sqlQry= "";
+		$sqlQry= "select $ColumnName from $TableName where 1=1";
+		$sqlQry.= " and $Searchin='$SearchValue'";
+		if($AddEdit > 0){
+			$sqlQry.= " and $ColumnName<>$AddEdit";
+		}
+		$sqlQry.=" and active=1";
+		echo ("Check sqlQry :- $sqlQry </br>");
+		die();
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		if (mysqli_num_rows($result)!=0){
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+				$Getting_MerchantExist=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_MerchantExist;
+	}
+
+	function Check_ContactTypeExist($con, $Contactname)
+	{
+		$Getting_ContactTypeExist=0;
+		$sqlQry= "";
+		$sqlQry= "select ctmid from contacttype_master";
+		$sqlQry= $sqlQry." where Contactname='$Contactname'";
+		$sqlQry= $sqlQry." and active=1";
+//		echo ("Check sqlQry :- $sqlQry </br>");
+//		die();
+		unset($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		if (mysqli_num_rows($result)!=0){
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+				$Getting_ContactTypeExist=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_ContactTypeExist;
+	}
+
+	function Check_DeliveryStatusExist($con, $DeliveryStatus)
+	{
+		$Getting_DeliveryStatusExist=0;
+		$sqlQry= "";
+		$sqlQry= "select dsid from deliverystatus_master";
+		$sqlQry= $sqlQry." where DeliveryStatus='$DeliveryStatus'";
+		$sqlQry= $sqlQry." and active=1";
+	//		echo ("Check sqlQry :- $sqlQry </br>");
+	//		die();
+		unset($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		if (mysqli_num_rows($result)!=0){
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+				$Getting_DeliveryStatusExist=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_DeliveryStatusExist;
+	}
+
+	function Check_ProductExist($con, $ProductName)
+	{
+		$Getting_ProductExist=0;
+		$sqlQry= "";
+		$sqlQry= "select pmid from product_master";
+		$sqlQry= $sqlQry." where ProductName='$ProductName'";
+		$sqlQry= $sqlQry." and active=1";
+//		echo ("Check sqlQry :- $sqlQry </br>");
+//		die();
+		unset($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		if (mysqli_num_rows($result)!=0){
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+				$Getting_ProductExist=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_ProductExist;
 	}
 
 	function Check_PageAccess($con, $pagename, $username)

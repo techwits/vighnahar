@@ -93,7 +93,7 @@
             $sqlQry.= " and product_master.ProductName like '$searchvalue%'";
         }
         
-        $sqlQry.= " order by `consignor_master`.`ConsignorName` ";
+        $sqlQry.= " order by rmid desc ";
 //        echo ("Check sqlQry :- $sqlQry </br>");
 //        die();
         unset($con);

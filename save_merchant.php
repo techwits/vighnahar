@@ -46,10 +46,25 @@
     }
     $pincode=sanitize($con, $_REQUEST["pincode"]);
     $city=sanitize($con, $_REQUEST["city"]);
+    $person=sanitize($con, $_REQUEST["person"]);
     $panno=sanitize($con, $_REQUEST["panno"]);
     $telephone=sanitize($con, $_REQUEST["telephone"]);
     $email=sanitize($con, $_REQUEST["email"]);
     $url=sanitize($con, $_REQUEST["url"]);
+
+
+    $DuplicateEntry=0;
+    $TableName="merchant_master";
+    $ColumnName="mmid";
+    $Searchin="Company";
+    $SearchValue="$companyname";
+    $DuplicateEntry=Check_DuplicateEntry($con, $TableName, $ColumnName, $Searchin, $SearchValue, $AddEdit);
+//    echo ("DuplicateEntry:- ".$DuplicateEntry."</br>");
+//    die();
+    if($DuplicateEntry>0){
+        $error_msg="Merchant already exist.";
+    }
+
 
 //    echo ("AddEdit:- ".$AddEdit."</br>");
 //    echo ("AddEdit1:- ".$AddEdit1."</br>");
@@ -60,6 +75,7 @@
 //    echo ("AreaID:- ".$AreaID."</br>");
 //    echo ("pincode:- ".$pincode."</br>");
 //    echo ("city:- ".$city."</br>");
+//    echo ("person :- ".$person."</br>");
 //    echo ("panno:- ".$panno."</br>");
 //    echo ("telephone:- ".$telephone."</br>");
 //    echo ("email:- ".$email."</br>");
@@ -88,15 +104,20 @@
     if(trim($error_msg)=="") {
 
         if ($AddEdit==0) {
-            $Procedure = "Call Save_Merchant('$CurrentDate', $session_userid, '$session_ip', '$companyname', '$address', $AreaID, $pincode, '$city', '$telephone', '$email', '$url', '$panno');";
+            $Procedure = "Call Save_Merchant('$CurrentDate', $session_userid, '$session_ip', '$companyname', '$address', $AreaID, $pincode, '$city', '$person', '$telephone', '$email', '$url', '$panno');";
         }
         else{
             $IDExist=Check_MerchantIDExist($con, $AddEdit);
             if($IDExist>0) {
-                $Procedure = "Call Update_Merchant($IDExist, '$CurrentDate', $session_userid, '$session_ip', '$companyname', '$address', $AreaID, $pincode, '$city', '$telephone', '$email', '$url', '$panno');";
+                $Procedure = "Call Update_Merchant($IDExist, '$CurrentDate', $session_userid, '$session_ip', '$companyname', '$address', $AreaID, $pincode, '$city', '$person', '$telephone', '$email', '$url', '$panno');";
             }
             else{
-                echo("Merchant ID is not getting. Please contact system administrator....");
+                $error_msg="Merchant ID is not getting. Please contact system administrator....";
+                ?>
+                    <script type="text/javascript">
+                        show_error('<?php echo $error_msg; ?>');
+                    </script>
+                <?php
             }
         }
 //        echo ("Procedure:- ".$Procedure."</br>");
@@ -124,7 +145,11 @@
         mysqli_free_result($result);
     }
     else{
-        echo($error_msg);
+        ?>
+            <script type="text/javascript">
+                show_error('<?php echo $error_msg; ?>');
+            </script>
+        <?php
     }
 
 ?>

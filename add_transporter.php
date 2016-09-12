@@ -99,7 +99,7 @@
 									<div class="heading-elements">
 										<ul class="icons-list">
 											<li><a data-action="collapse"></a></li>
-											<li><a data-action="reload" onclick="return ClearAllControls(0);"></a></li>
+											<li><a data-action="reload" onclick="return refreshpage(0);"></a></li>
 										</ul>
 									</div>
 								</div>
@@ -135,7 +135,7 @@
 											<div class="form-group form-group-material">
 												<label>Mobile Number <span class="text-danger">*</span></label>
 												<div class="input-group">
-													<input type="text" class="form-control" name="mobilenumber" id="mobilenumber"  required="required" onkeypress="return only_Numeric_Comma(event);" ondrop="return false;" onpaste="return false;">
+													<input type="text" class="form-control" name="mobilenumber" id="mobilenumber" maxlength="10"  required="required" onkeypress="return only_Numeric_Comma(event);" ondrop="return false;" onpaste="return false;">
 															<span class="input-group-addon">
 																<i class="icon-phone"></i>
 															</span>
@@ -175,7 +175,7 @@
 								<div class="heading-elements">
 									<ul class="icons-list">
 										<li><a data-action="collapse"></a></li>
-										<li><a data-action="reload" onclick="return ClearAllControls(0);"></a></li>
+										<li><a data-action="reload" onclick="return refreshpage(0);"></a></li>
 									</ul>
 								</div>
 							</div>

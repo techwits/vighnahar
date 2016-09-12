@@ -26,7 +26,15 @@
     $session_ip=$_REQUEST["session_ip"];
 
     $contacttypename=sanitize($con, $_REQUEST["contacttypename"]);
-
+    if($AddEdit==0){
+        $ContactTypeExist=0;
+        $ContactTypeExist=Check_ContactTypeExist($con, $contacttypename);
+//        echo ("ContactTypeExist:- ".$ContactTypeExist."</br>");
+//        die();
+        if($ContactTypeExist>0){
+            $error_msg="Contact type already exist.";
+        }
+    }
 //    echo ("AddEdit:- ".$AddEdit."</br>");
 //    echo ("session_userid:- ".$session_userid."</br>");
 //    echo ("session_ip:- ".$session_ip."</br>");
@@ -88,6 +96,10 @@
         mysqli_free_result($result);
     }
     else{
-        echo($error_msg);
+        ?>
+            <script type="text/javascript">
+                show_error('<?php echo $error_msg; ?>');
+            </script>
+        <?php
     }
 ?>

@@ -89,13 +89,11 @@
 		$php_page=basename(__FILE__);
 		$get_return_value=login_check($con, $php_page);
 		include_once("assets/inc/handle_error.php");
-
-		//		mysqli_close($con);
 		log_pageaccess($con, $_SESSION["pageid"], basename(__FILE__));
-		//		mysqli_close($con);
 		include_once('assets/inc/db_connect.php');
 
-
+		$CYear=date('Y');
+//		echo "asass :- ".$CYear;
 	?>
 	<!-- /main navbar -->
 
@@ -112,6 +110,8 @@
 							<input type="hidden" name="session_userid" id="session_userid" value="<?php echo $_SESSION['user_id']; ?>">
 							<input type="hidden" name="session_ip" id="session_ip" value="<?php echo $_SESSION['ip']; ?>">
 							<input type="hidden" name="AddEdit" id="AddEdit" value="0">
+							<input type="hidden" name="cyear" id="cyear" value="<?php echo $CYear; ?>">
+
 							<div id="<?php echo $div_merchantcontrols; ?>" class="panel panel-flat" style="border-color:<?php echo $Form_BorderColor; ?>; border-top-width:<?php echo $Form_BorderTopWidth; ?>;">
 
 								<div class="panel-heading" id="<?php echo $div_panel; ?>" style="background-color:<?php echo $FormHeadingColor; ?>;">
@@ -119,7 +119,7 @@
 									<div class="heading-elements">
 										<ul class="icons-list">
 											<li><a data-action="collapse"></a></li>
-											<li><a data-action="reload" onclick="return ClearAllControls(0);"></a></li>
+											<li><a data-action="reload" onclick="return refreshpage(0);"></a></li>
 										</ul>
 									</div>
 								</div>
@@ -247,7 +247,7 @@
 										<div class="heading-elements">
 											<ul class="icons-list">
 												<li><a data-action="collapse"></a></li>
-												<li><a data-action="reload" onclick="return ClearAllControls(0);"></a></li>
+												<li><a data-action="reload" onclick="return refreshpage(0);"></a></li>
 											</ul>
 										</div>
 									</div>

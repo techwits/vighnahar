@@ -96,7 +96,7 @@
 									<div class="heading-elements">
 										<ul class="icons-list">
 											<li><a data-action="collapse"></a></li>
-											<li><a data-action="reload" onclick="return ClearAllControls(0);"></a></li>
+											<li><a data-action="reload" onclick="return refreshpage(0);"></a></li>
 										</ul>
 									</div>
 								</div>
@@ -138,6 +138,7 @@
 								<div class="heading-elements">
 									<ul class="icons-list">
 										<li><a data-action="collapse"></a></li>
+										<li><a data-action="reload" onclick="return refreshpage(0);"></a></li>
 									</ul>
 								</div>
 							</div>

@@ -65,21 +65,21 @@
     <page size="A5" layout="portrait">
     
         <div class="top-headername text-center">
-            <h2 class="no-margin-top">Time To Time</h2>
-            <h1 class="no-margin-top">Shree Vighnahar Logistics</h1>
-            <p> Shed No.1, Gala No.1, Arihant Complex, Kopar Bus Stop, Purna Village, Bhiwandi, Dist:-Thane-421302.</p>
+            <h2 class="no-margin-top"></h2>
+            <h1 class="no-margin-top"></h1>
+            <p> </p>
         </div>
         <div class="top-headerdetails">
             <div class="table-responsive">
                     <div class="Chalan-details1">
-                        <P>L.R.NO.</P>
-                        <P>L.R. type</P>
-                        <P>party bill no</P>
+                        <P></P>
+                        <P></P>
+                        <P></P>
                     </div>
                     <div class="Chalan-details2">
-                        <P>: 0000121</P>
-                        <P>: Mh04bg4261</P>
-                        <P>: SVL</P>
+                        <P> 0000121</P>
+                        <P> Mh04bg4261</P>
+                        <P> SVL</P>
                     </div>
                     <div class="Chalan-details3"> </div>
                     <div class="Chalan-details4">
@@ -105,13 +105,13 @@
                     <col style="width:15%">
                       <thead>
                           <tr>
-                              <th >Consignor</th>
-                              <th >Consignee</th>
-                              <th >Products</th>
-                              <th >Weight</th>
-                              <th >Qty</th>
-                              <th >Rate</th>
-                              <th >Amount</th>
+                              <th ></th>
+                              <th ></th>
+                              <th ></th>
+                              <th ></th>
+                              <th ></th>
+                              <th ></th>
+                              <th ></th>
                           </tr>
                       </thead>
                           <tbody>
@@ -129,31 +129,31 @@
                                 <td></td>
                             </tr>
                             <tr>
-                                <td>B.C.</td>
+                                <td></td>
                                 <td align="right">10.00 </td>
                             </tr>
                             <tr>
-                                <td>Xerox</td>
+                                <td></td>
                                 <td align="right">10.00</td>
                             </tr>
                             <tr>
-                                <td>Road Exp.</td>
+                                <td></td>
                                 <td align="right">10.00</td>
                             </tr>
                             <tr>
-                                <td>Warai</td>
+                                <td></td>
                                 <td align="right">10.00</td>
                             </tr>
                             <tr>
-                                <td>Lb./Misc.</td>
+                                <td></td>
                                 <td align="right">10.00</td>
                             </tr>
                             <tr>
-                                <td>Sub Total</td>
+                                <td></td>
                                 <td align="right">10.00</td>
                             </tr>
                             <tr>
-                                <td>Total Amt.</td>
+                                <td></td>
                                 <td align="right">1200.00</td>
                             </tr>
                         </tbody>
@@ -162,10 +162,10 @@
                
                <div class="footerdetails">
                   <div class="footertext">
-                              <P>All Disputes equiries and complaintsor the receipt to be paid refunded to above office within seven days no claim shall be entertained after that No claim shall be entertained due to loss in accident or any natural calamity and Liquied material glass chinware paper and plastic packing goods. Goods are booked at owners risk only Please insure your goods.</P>
+                              <P></P>
                           </div>
                           <div class="footersign">
-                              <P>For shree vignahar logistics</P>
+                              <P></P>
                           </div>
              </div>
     </page>

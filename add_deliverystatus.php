@@ -62,7 +62,7 @@
 
 	<!-- Main navbar -->
 	<?php
-		$PageHeaderName="Add Delivery Status";
+		$PageHeaderName="Manage Delivery Status";
 		$icon="icon-address-book";
 
 		include('page_header.php');
@@ -95,7 +95,7 @@
 									<div class="heading-elements">
 										<ul class="icons-list">
 											<li><a data-action="collapse"></a></li>
-											<li><a data-action="reload" onclick="return ClearAllControls(0);"></a></li>
+											<li><a data-action="reload" onclick="return refreshpage(0);"></a></li>
 										</ul>
 									</div>
 								</div>
@@ -135,6 +135,7 @@
 								<div class="heading-elements">
 									<ul class="icons-list">
 										<li><a data-action="collapse"></a></li>
+										<li><a data-action="reload" onclick="return refreshpage(0);"></a></li>
 									</ul>
 								</div>
 							</div>

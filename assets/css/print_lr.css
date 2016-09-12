@@ -6,7 +6,7 @@ page {
   background: white;
   display: block;
   margin: 0 auto;
-  margin-bottom: 0.5cm;
+  margin-top: 0.5cm;
   box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
 }
 page[size="A4"] {  
@@ -35,7 +35,7 @@ page[size="A5"][layout="portrait"] {
 }
 @media print, {
   body, page {
-    margin: 0;
+    margin-top: 0.5cm;
     box-shadow: 0;
 	background-image: none;
   }
@@ -69,8 +69,7 @@ page[size="A5"][layout="portrait"] {
 .top-headerdetails{
 	border: 1px solid black;
 	margin-top: 0cm;
-	height: 2.7cm;
-	background-color: #e0e0e0;
+	height: 2.0cm;
 	vertical-align:central;
 }
 .Chalan-details1{
@@ -147,6 +146,7 @@ tr {
 }
 td {
     padding-left: 10px;
+	padding-right: 20px;
 	padding-top: 2px;
 	border: 1px solid black;
 }
@@ -164,7 +164,9 @@ td {
 	font-family: Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;
 	font-size: 12px;
 	margin-top:0px;
-	padding:8px;
+	padding:3px;
+	text-align: justify;
+    text-justify: inter-word;
 }
 .footersign{
 	width: 7.5cm;
@@ -173,4 +175,8 @@ td {
 	margin-top:0px;
 	float:right;
 	padding-top: 7px;
+	padding-left: 15px;
+	font-family: Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;
+	font-size: 14px;
+	font-weight:800;
 }

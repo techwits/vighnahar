@@ -105,8 +105,13 @@
                                     /* Log Ends*/
                                 }
                             else{
-                                echo("For this consigee rate has been already added. Please check.........");
-                                die();
+                                    $error_msg= "For this consigee rate has been already added. Please check.........";
+                                    ?>
+                                        <script type="text/javascript">
+                                            show_error('<?php echo $error_msg; ?>');
+                                        </script>
+                                    <?php
+                                    die();
                             }
                         }
                     }
@@ -161,16 +166,23 @@
                             <?php
                     }
                     else{
-                        echo("Rate ID is not getting. Please contact system administrator....");
+
+                            $error_msg= "Rate ID is not getting. Please contact system administrator....";
+                            ?>
+                                <script type="text/javascript">
+                                    show_error('<?php echo $error_msg; ?>');
+                                </script>
+                            <?php
+
                     }
                 }
     }
     else{
-        echo($error_msg);
+        ?>
+            <script type="text/javascript">
+                show_error('<?php echo $error_msg; ?>');
+            </script>
+        <?php
     }
 
 ?>
-
-
-
-

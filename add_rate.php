@@ -96,7 +96,7 @@
 											<div class="heading-elements">
 												<ul class="icons-list">
 													<li><a data-action="collapse"></a></li>
-													<li><a data-action="reload" onclick="return ClearAllControls(0);"></a></li>
+													<li><a data-action="reload" onclick="return refreshpage(0);"></a></li>
 												</ul>
 											</div>
 										</div>
@@ -106,7 +106,7 @@
 														<div class="col-lg-6">
 															<div class="form-group">
 																<label>Consignor Name <span class="text-danger">*</span></label>
-																<select name="consignorid" id="consignorid"  class="form-control" autofocus  onblur="return get_rate_consignee(this.value, <?php echo $_SESSION['user_id']; ?>, '<?php echo $_SESSION['ip']; ?>');">
+																<select name="consignorid" id="consignorid"  class="form-control" autofocus onblur="return control_disabled(this.value, 'consignorid');"  onchange="return get_rate_consignee(this.value, <?php echo $_SESSION['user_id']; ?>, '<?php echo $_SESSION['ip']; ?>');">
 																	<option></option>
 																	<?php
 																		Fill_Consignor($con);
@@ -118,7 +118,7 @@
 														<div class="col-md-6" id="div_consignee">
 															<div class="form-group">
 																<label>Consignee <span class="text-danger">*</span></label>
-																	<select name="consigneeid" id="consigneeid"  class="form-control" tabindex="-1" aria-hidden="true">
+																	<select name="consigneeid" id="consigneeid"  class="form-control">
 																		<option></option>
 																	</select>
 															</div>
@@ -128,7 +128,7 @@
 														<div class="col-lg-3">
 															<div class="form-group">
 																<label>Select Product <span class="text-danger">*</span></label>
-																<select name="productid" id="productid" class="form-control" tabindex="-1" aria-hidden="true" >
+																<select name="productid" id="productid" class="form-control" onblur="return control_disabled(this.value, 'productid');">
 																	<option></option>
 																		<?php
 																			$TableName="product_master";
@@ -197,7 +197,7 @@
 												<div class="heading-elements">
 													<ul class="icons-list">
 														<li><a data-action="collapse"></a></li>
-														<li><a data-action="reload" onclick="return ClearAllControls(0);"></a></li>
+														<li><a data-action="reload" onclick="return refreshpage(0);"></a></li>
 													</ul>
 												</div>
 											</div>

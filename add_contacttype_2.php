@@ -50,7 +50,7 @@
     <table class="table datatable-selection-single">
         <thead>
         <tr>
-            <th>Name</th>
+            <th>Contact Type</th>
             <th>Creation Date</th>
         </tr>
         </thead>

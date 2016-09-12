@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <?php
-        include('assets/inc/db_connect.php');
-        include('assets/inc/common-function.php');
-        include('assets/inc/functions.php');
-        sec_session_start();
+    include('assets/inc/db_connect.php');
+    include('assets/inc/common-function.php');
+    include('assets/inc/functions.php');
+    sec_session_start();
     ?>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -64,11 +64,9 @@
 
 <!-- Main navbar -->
 <?php
-    $PageHeaderName="Manage Rate";
-    $icon="icon-address-book";
-
-    include('page_header.php');
-
+$PageHeaderName="Manage Rate";
+$icon="icon-address-book";
+include('page_header.php');
 //    $php_page=basename(__FILE__);
 //    $get_return_value=login_check($con, $php_page);
 //    include_once("assets/inc/handle_error.php");
@@ -77,8 +75,6 @@
 //    log_pageaccess($con, $_SESSION["pageid"], basename(__FILE__));
 //    //		mysqli_close($con);
 //    include_once('assets/inc/db_connect.php');
-
-
 ?>
 <!-- /main navbar -->
 
@@ -121,12 +117,12 @@
                                             <div class="col-xs-6 text-center border-right">
                                                 <div class="huge1">
                                                     <?php
-                                                        $StartDate=date("Y-m-d")." 00:00:00";
-                                                        $EndDate=date("Y-m-d")." 23:59:59";
-                                                        $TableName="inward";
-                                                        $ColumnName="CreationDate";
-                                                        $TodaysLR=Get_Count($con, $TableName, $ColumnName, $StartDate, $EndDate);
-                                                        echo("$TodaysLR");
+                                                    $StartDate=date("Y-m-d")." 00:00:00";
+                                                    $EndDate=date("Y-m-d")." 23:59:59";
+                                                    $TableName="inward";
+                                                    $ColumnName="CreationDate";
+                                                    $TodaysLR=Get_Count($con, $TableName, $ColumnName, $StartDate, $EndDate);
+                                                    echo("$TodaysLR");
                                                     ?>
                                                 </div>
                                                 <div>Today's LR </div>
@@ -134,14 +130,14 @@
                                             <div class="col-xs-6 text-center">
                                                 <div class="huge1">
                                                     <?php
-                                                        $first_day_this_month = date('Y-m-01'); // hard-coded '01' for first day
-                                                        $last_day_this_month  = date('Y-m-t');
-                                                        $StartDate=$first_day_this_month." 00:00:00";
-                                                        $EndDate=$last_day_this_month." 23:59:59";
-                                                        $TableName="inward";
-                                                        $ColumnName="CreationDate";
-                                                        $MonthsLR=Get_Count($con, $TableName, $ColumnName, $StartDate, $EndDate);
-                                                        echo("$MonthsLR");
+                                                    $first_day_this_month = date('Y-m-01'); // hard-coded '01' for first day
+                                                    $last_day_this_month  = date('Y-m-t');
+                                                    $StartDate=$first_day_this_month." 00:00:00";
+                                                    $EndDate=$last_day_this_month." 23:59:59";
+                                                    $TableName="inward";
+                                                    $ColumnName="CreationDate";
+                                                    $MonthsLR=Get_Count($con, $TableName, $ColumnName, $StartDate, $EndDate);
+                                                    echo("$MonthsLR");
                                                     ?>
                                                 </div>
                                                 <div>Month's LR </div>
@@ -173,12 +169,12 @@
                                             <div class="col-xs-6 text-center border-right">
                                                 <div class="huge1">
                                                     <?php
-                                                        $StartDate=date("Y-m-d")." 00:00:00";
-                                                        $EndDate=date("Y-m-d")." 23:59:59";
-                                                        $TableName="outward";
-                                                        $ColumnName="CreationDate";
-                                                        $TodaysRM=Get_Count($con, $TableName, $ColumnName, $StartDate, $EndDate);
-                                                        echo("$TodaysRM");
+                                                    $StartDate=date("Y-m-d")." 00:00:00";
+                                                    $EndDate=date("Y-m-d")." 23:59:59";
+                                                    $TableName="outward";
+                                                    $ColumnName="CreationDate";
+                                                    $TodaysRM=Get_Count($con, $TableName, $ColumnName, $StartDate, $EndDate);
+                                                    echo("$TodaysRM");
                                                     ?>
                                                 </div>
                                                 <div>Today's RM </div>
@@ -186,14 +182,14 @@
                                             <div class="col-xs-6 text-center">
                                                 <div class="huge1">
                                                     <?php
-                                                        $first_day_this_month = date('Y-m-01'); // hard-coded '01' for first day
-                                                        $last_day_this_month  = date('Y-m-t');
-                                                        $StartDate=$first_day_this_month." 00:00:00";
-                                                        $EndDate=$last_day_this_month." 23:59:59";
-                                                        $TableName="outward";
-                                                        $ColumnName="CreationDate";
-                                                        $MonthsRM=Get_Count($con, $TableName, $ColumnName, $StartDate, $EndDate);
-                                                        echo("$MonthsRM");
+                                                    $first_day_this_month = date('Y-m-01'); // hard-coded '01' for first day
+                                                    $last_day_this_month  = date('Y-m-t');
+                                                    $StartDate=$first_day_this_month." 00:00:00";
+                                                    $EndDate=$last_day_this_month." 23:59:59";
+                                                    $TableName="outward";
+                                                    $ColumnName="CreationDate";
+                                                    $MonthsRM=Get_Count($con, $TableName, $ColumnName, $StartDate, $EndDate);
+                                                    echo("$MonthsRM");
                                                     ?>
                                                 </div>
                                                 <div>Month's RM </div>
@@ -226,14 +222,14 @@
                                             <div class="col-xs-6 text-center border-right">
                                                 <div class="huge1">
                                                     <?php
-                                                        $first_day_this_month = date('Y-m-01'); // hard-coded '01' for first day
-                                                        $last_day_this_month  = date('Y-m-t');
-                                                        $StartDate=$first_day_this_month." 00:00:00";
-                                                        $EndDate=$last_day_this_month." 23:59:59";
-                                                        $TableName="bill";
-                                                        $ColumnName="CreationDate";
-                                                        $MonthsRM=Get_Count($con, $TableName, $ColumnName, $StartDate, $EndDate);
-                                                        echo("$MonthsRM");
+                                                    $first_day_this_month = date('Y-m-01'); // hard-coded '01' for first day
+                                                    $last_day_this_month  = date('Y-m-t');
+                                                    $StartDate=$first_day_this_month." 00:00:00";
+                                                    $EndDate=$last_day_this_month." 23:59:59";
+                                                    $TableName="bill";
+                                                    $ColumnName="CreationDate";
+                                                    $MonthsRM=Get_Count($con, $TableName, $ColumnName, $StartDate, $EndDate);
+                                                    echo("$MonthsRM");
                                                     ?>
                                                 </div>
                                                 <div>last Bill Count </div>
@@ -241,8 +237,8 @@
                                             <div class="col-xs-6 text-center">
                                                 <div class="huge1">
                                                     <?php
-                                                        $UnbillCount=Get_UnbillCount($con);
-                                                        echo("$UnbillCount </br>");
+                                                    $UnbillCount=Get_UnbillCount($con);
+                                                    echo("$UnbillCount </br>");
                                                     ?>
                                                 </div>
                                                 <div> Bills to be Generated </div>
@@ -263,11 +259,6 @@
 
 
                     <!-- Trail COntent Om  ... ->
-
-
-
-
-
                     <!-- Road Memo table -->
                     <div class="col-lg-12">
                         <div class="row">
@@ -282,14 +273,14 @@
                                     </div>
                                 </div>
 
-                                        <?php
-                                            define("_SessionUserID_", $_SESSION['user_id']);
-                                            define("_SessionIP_", $_SESSION['ip']);
-                                            include('rmstatus.php');
-                                        ?>
-                                </div>
+                                <?php
+                                define("_SessionUserID_", $_SESSION['user_id']);
+                                define("_SessionIP_", $_SESSION['ip']);
+                                include('rmstatus.php');
+                                ?>
                             </div>
                         </div>
+                    </div>
                     <!-- Road Memo table -->
 
 
@@ -344,50 +335,50 @@
 
 
 
-        </div>
-        <!-- /content wrapper -->
+                </div>
+                <!-- /content wrapper -->
 
 
 
 
                 <!-- Side Bar -->
 
-                    <div class="col-lg-2">
-                        <!-- Secondary sidebar -->
-                        <div class="sidebar sidebar-secondary sidebar-default">
-                            <div class="sidebar-content">
+                <div class="col-lg-2">
+                    <!-- Secondary sidebar -->
+                    <div class="sidebar sidebar-secondary sidebar-default">
+                        <div class="sidebar-content">
 
-                                <!-- Actions -->
-                                <div class="sidebar-category sidebar-category-visible">
-                                    <div class="category-title">
-                                        <span>Masters Entry</span>
-                                        <ul class="icons-list">
-                                            <li><a href="#" data-action="collapse"></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="category-content">
-                                        <div class="row row-condensed">
-                                            <div class="col-xs-6">
-                                                <button type="button" class="btn bg-teal-400 btn-block btn-float btn-float-sm" onclick="window.open('add_vehicle.php','_self');">
-                                                    <i class="icon-truck"></i> <span>Vehicle</span></button>
-                                                <button type="button" class="btn bg-purple-300 btn-block btn-float btn-float-sm" onclick="window.open('add_transporter.php','_self');">
-                                                    <i class="icon-steering-wheel"></i> <span>Driver</span></button>
-                                            </div>
-                                            <div class="col-xs-6">
-                                                <button type="button" class="btn bg-warning-400 btn-block btn-float btn-float-sm ">
-                                                    <i class="icon-stats-bars"></i> <span>XYZ</span></button>
-                                                <button type="button" class="btn bg-blue btn-block btn-float btn-float-sm">
-                                                    <i class="icon-cog3"></i> <span>PQR</span></button>
-                                            </div>
+                            <!-- Actions -->
+                            <div class="sidebar-category sidebar-category-visible">
+                                <div class="category-title">
+                                    <span>Masters Entry</span>
+                                    <ul class="icons-list">
+                                        <li><a href="#" data-action="collapse"></a></li>
+                                    </ul>
+                                </div>
+                                <div class="category-content">
+                                    <div class="row row-condensed">
+                                        <div class="col-xs-6">
+                                            <button type="button" class="btn bg-teal-400 btn-block btn-float btn-float-sm" onclick="window.open('add_vehicle.php','_self');">
+                                                <i class="icon-truck"></i> <span>Vehicle</span></button>
+                                            <button type="button" class="btn bg-purple-300 btn-block btn-float btn-float-sm" onclick="window.open('add_transporter.php','_self');">
+                                                <i class="icon-steering-wheel"></i> <span>Driver</span></button>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <button type="button" class="btn bg-warning-400 btn-block btn-float btn-float-sm ">
+                                                <i class="icon-stats-bars"></i> <span>XYZ</span></button>
+                                            <button type="button" class="btn bg-blue btn-block btn-float btn-float-sm">
+                                                <i class="icon-cog3"></i> <span>PQR</span></button>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- /actions -->
                             </div>
+                            <!-- /actions -->
                         </div>
-                        <!-- /secondary sidebar -->
-
                     </div>
+                    <!-- /secondary sidebar -->
+
+                </div>
 
 
                 <div class="col-lg-2 col-sm-6">
@@ -409,13 +400,13 @@
                                 <div class="col-sm-2 text-center">
 
                                     <a href="#modal_full" data-toggle='modal' class='modalButton1' data-teacherid="1" >
-                                    <button type="button" class="btn btn-info btn-xs">Submit</button></a>
+                                        <button type="button" class="btn btn-info btn-xs">Submit</button></a>
                                 </div>
                             </form>
                         </div>
 
 
-                        <div class="panel-body" style="background-color: #00FF00;">
+                        <div class="panel-body">
                             <form action="#">
                                 <div class="form-group">
                                     <input class="form-control input-micro" type="text" placeholder="View RM" name="show_rmno" id="show_rmno" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
@@ -423,7 +414,7 @@
                                 <div class="col-sm-2 text-center">
 
                                     <a href="#modal_full" data-toggle='modal' class='modalButton2' data-teacherid="1" >
-                                        <button type="button" class="btn btn-info btn-xs">Submit</button></a>
+                                        <button type="button" class="btn btn-success btn-xs">Submit</button></a>
                                 </div>
                             </form>
                         </div>
@@ -437,7 +428,7 @@
                                 <div class="col-sm-2 text-center">
 
                                     <a href="#modal_full" data-toggle='modal' class='modalButton3' data-teacherid="1" >
-                                        <button type="button" class="btn btn-info btn-xs">Submit</button></a>
+                                        <button type="button" class="btn btn-danger btn-xs">Submit</button></a>
                                 </div>
                             </form>
                         </div>
@@ -447,53 +438,53 @@
                 </div>
 
 
-                    <div class="col-lg-2 col-sm-6">
-                        <div class="panel panel-flat">
-                            <div class="panel-heading">
-                                <h6 class="panel-title">Share your Problem</h6>
-                                <div class="heading-elements">
-                                    <ul class="icons-list">
-                                        <li><a data-action="close"></a></li>
-                                    </ul>
-                                </div>
-                                <a class="heading-elements-toggle"><i class="icon-menu"></i></a></div>
-
-                            <div class="panel-body">
-                                <form action="#">
-                                    <div class="form-group">
-                                        <textarea name="enter-message" class="form-control mb-15" rows="3" cols="1" placeholder="Enter Details"></textarea>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-sm-4">
-                                            <ul class="icons-list icons-list-extended mt-10">
-                                                <li><a href="#" data-popup="tooltip" title="Attach Image" data-container="body" data-original-title="Add photo"><i class="icon-images2"></i></a></li>
-                                            </ul>
-                                        </div>
-
-                                        <div class="col-sm-8 text-center">
-                                            <button type="button" class="btn btn-primary btn-labeled btn-labeled-right">Email <b><i class="icon-circle-right2"></i></b></button>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <hr>
-
-                                            <p>Share Your problems with Admin</p>
-                                        </div>
-                                    </div>
-
+                <div class="col-lg-2 col-sm-6">
+                    <div class="panel panel-flat">
+                        <div class="panel-heading">
+                            <h6 class="panel-title">Share your Problem</h6>
+                            <div class="heading-elements">
+                                <ul class="icons-list">
+                                    <li><a data-action="close"></a></li>
+                                </ul>
                             </div>
-                            </form>
+                            <a class="heading-elements-toggle"><i class="icon-menu"></i></a></div>
+
+                        <div class="panel-body">
+                            <form action="#">
+                                <div class="form-group">
+                                    <textarea name="enter-message" class="form-control mb-15" rows="3" cols="1" placeholder="Enter Details"></textarea>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <ul class="icons-list icons-list-extended mt-10">
+                                            <li><a href="#" data-popup="tooltip" title="Attach Image" data-container="body" data-original-title="Add photo"><i class="icon-images2"></i></a></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="col-sm-8 text-center">
+                                        <button type="button" class="btn btn-primary btn-labeled btn-labeled-right">Email <b><i class="icon-circle-right2"></i></b></button>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <hr>
+
+                                        <p>Share Your problems with Admin</p>
+                                    </div>
+                                </div>
+
                         </div>
+                        </form>
                     </div>
                 </div>
+            </div>
 
-                <!-- Side Bar -->
+            <!-- Side Bar -->
 
+        </div>
+        <!-- /page content -->
+        <?php include('footer.php'); ?>
     </div>
-    <!-- /page content -->
-    <?php include('footer.php'); ?>
-</div>
-<!-- /page container -->
+    <!-- /page container -->
 </body>
 </html>
 

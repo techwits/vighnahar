@@ -290,7 +290,7 @@ function only_Numeric(evt) {
 	//	if (theEvent.preventDefault) theEvent.preventDefault();
 	//}
 	var charCode = (evt.which) ? evt.which : event.keyCode
-	if (charCode > 31 && (charCode < 48 || charCode > 57))
+	if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode > 9)
 		return false;
 	return true;
 }
@@ -851,6 +851,12 @@ function clearText(FirstControl, SecondControl)
 	if(First==""){
 		document.getElementById(SecondControl).value=""
 	}
+}
+
+function refreshpage(formno) {
+	setTimeout(function(){
+		window.location.reload(1);
+	}, 1000);
 }
 
 function ClearAllControls_Only(formno) {
@@ -2888,18 +2894,33 @@ function add_additionalcharge()
 	}
 
 	var chargepercentage=trim(frm.chargepercentage.value);
-	if(chargepercentage.length <= 0 || chargepercentage == "")
+	// if(chargepercentage.length <= 0 || chargepercentage == "")
+	// {
+	// 	error_count = error_count + 1;
+	// 	error_msg  =  error_msg + error_count + ") " + " Please Enter Additional Charge in Percentage" + "\n";
+	// 	frm.chargepercentage.focus();
+	// }
+
+	var chargefix=trim(frm.chargefix.value);
+	// if(chargefix.length <= 0 || chargefix == "")
+	// {
+	// 	error_count = error_count + 1;
+	// 	error_msg  =  error_msg + error_count + ") " + " Please Enter Additional Charge in Fix" + "\n";
+	// 	frm.chargefix.focus();
+	// }
+
+
+	if ( (chargepercentage.length <= 0 || chargepercentage == "") && (chargefix.length <= 0 || chargefix == "") )
 	{
 		error_count = error_count + 1;
-		error_msg  =  error_msg + error_count + ") " + " Please Enter Additional Charge in Percentage" + "\n";
+		error_msg  =  error_msg + error_count + ") " + " Please Enter Charges Percentage or Fix" + "\n";
 		frm.chargepercentage.focus();
 	}
 
-	var chargefix=trim(frm.chargefix.value);
-	if(chargefix.length <= 0 || chargefix == "")
+	if ( (chargepercentage.length > 0 ) && (chargefix.length > 0) )
 	{
 		error_count = error_count + 1;
-		error_msg  =  error_msg + error_count + ") " + " Please Enter Additional Charge in Fix" + "\n";
+		error_msg  =  error_msg + error_count + ") " + " Please Enter any one Charges Percentage or Fix" + "\n";
 		frm.chargefix.focus();
 	}
 
@@ -2917,72 +2938,76 @@ function add_additionalcharge()
 		);
 		return false;
 	}
-}
-
-function add_additionalcharge()
-{
-	// alert("Hi...");
-	var frm=document.additionalcharge_form;
-	var error_count;
-	var error_msg;
-	error_msg="";
-	error_count=0;
-
-	var AddEdit=trim(frm.AddEdit.value);
-
-	var session_userid=trim(frm.session_userid.value);
-	if(session_userid.length <= 0 || session_userid == "")
-	{
-		error_count = error_count + 1;
-		error_msg  =  error_msg + error_count + ") " + " Please Enter User ID" + "\n";
-		// frm.username.focus();
-	}
-	var session_ip=trim(frm.session_ip.value);
-	if(session_ip.length <= 0 || session_ip == "")
-	{
-		error_count = error_count + 1;
-		error_msg  =  error_msg + error_count + ") " + " Please Enter IP address" + "\n";
-		// frm.username.focus();
-	}
-
-	var additionalchargename=trim(frm.additionalchargename.value);
-	if(additionalchargename.length <= 0 || additionalchargename == "")
-	{
-		error_count = error_count + 1;
-		error_msg  =  error_msg + error_count + ") " + " Please Enter Additional Charge Name" + "\n";
-		frm.additionalchargename.focus();
-	}
-
-	var chargepercentage=trim(frm.chargepercentage.value);
-	if(chargepercentage.length <= 0 || chargepercentage == "")
-	{
-		error_count = error_count + 1;
-		error_msg  =  error_msg + error_count + ") " + " Please Enter Charges in Percentage" + "\n";
-		frm.chargepercentage.focus();
-	}
-
-	var chargefix=trim(frm.chargefix.value);
-	if(chargefix.length <= 0 || chargefix == "")
-	{
-		error_count = error_count + 1;
-		error_msg  =  error_msg + error_count + ") " + " Please Enter Charges in Fix" + "\n";
-		frm.chargefix.focus();
-	}
-
-	if(Number(error_count) == 0)
-	{
-		var div_name = "#div_additionalcharges";
-		var page_name = "save_addadditionalcharge.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
-		$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, additionalchargename:additionalchargename, chargepercentage:chargepercentage, chargefix:chargefix},
-			function(data)
-			{
-				$(div_name).html(data);
-			}
-		);
+	else {
+		show_error(error_msg); //alert(error_msg);
 		return false;
 	}
 }
+
+// function add_additionalcharge()
+// {
+// 	// alert("Hi...");
+// 	var frm=document.additionalcharge_form;
+// 	var error_count;
+// 	var error_msg;
+// 	error_msg="";
+// 	error_count=0;
+//
+// 	var AddEdit=trim(frm.AddEdit.value);
+//
+// 	var session_userid=trim(frm.session_userid.value);
+// 	if(session_userid.length <= 0 || session_userid == "")
+// 	{
+// 		error_count = error_count + 1;
+// 		error_msg  =  error_msg + error_count + ") " + " Please Enter User ID" + "\n";
+// 		// frm.username.focus();
+// 	}
+// 	var session_ip=trim(frm.session_ip.value);
+// 	if(session_ip.length <= 0 || session_ip == "")
+// 	{
+// 		error_count = error_count + 1;
+// 		error_msg  =  error_msg + error_count + ") " + " Please Enter IP address" + "\n";
+// 		// frm.username.focus();
+// 	}
+//
+// 	var additionalchargename=trim(frm.additionalchargename.value);
+// 	if(additionalchargename.length <= 0 || additionalchargename == "")
+// 	{
+// 		error_count = error_count + 1;
+// 		error_msg  =  error_msg + error_count + ") " + " Please Enter Additional Charge Name" + "\n";
+// 		frm.additionalchargename.focus();
+// 	}
+//
+// 	var chargepercentage=trim(frm.chargepercentage.value);
+// 	if(chargepercentage.length <= 0 || chargepercentage == "")
+// 	{
+// 		error_count = error_count + 1;
+// 		error_msg  =  error_msg + error_count + ") " + " Please Enter Charges in Percentage" + "\n";
+// 		frm.chargepercentage.focus();
+// 	}
+//
+// 	var chargefix=trim(frm.chargefix.value);
+// 	if(chargefix.length <= 0 || chargefix == "")
+// 	{
+// 		error_count = error_count + 1;
+// 		error_msg  =  error_msg + error_count + ") " + " Please Enter Charges in Fix" + "\n";
+// 		frm.chargefix.focus();
+// 	}
+//
+// 	if(Number(error_count) == 0)
+// 	{
+// 		var div_name = "#div_additionalcharges";
+// 		var page_name = "save_addadditionalcharge.php";
+// 		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+// 		$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, additionalchargename:additionalchargename, chargepercentage:chargepercentage, chargefix:chargefix},
+// 			function(data)
+// 			{
+// 				$(div_name).html(data);
+// 			}
+// 		);
+// 		return false;
+// 	}
+// }
 
 
 function add_undeliveredreason()
@@ -3087,6 +3112,13 @@ function add_area()
 	}
 }
 
+function control_disabled(Values, ControlName)
+{
+	if(Values.length > 0 || Values != "")
+	{
+		document.getElementById(ControlName).disabled=true;
+	}
+}
 
 function lrentry_disabled(Values, ControlName)
 {
@@ -3504,7 +3536,17 @@ function add_vehicle()
 		frm.vehicleownershipname.focus();
 	}
 
+	var cyear=trim(frm.cyear.value);
 	var registrationyear=trim(frm.registrationyear.value);
+	if(registrationyear.length > 0)
+	{
+		if(Number(registrationyear) > Number(cyear))
+		{
+			error_count = error_count + 1;
+			error_msg  =  error_msg + error_count + ") " + " Problem in registration year." + "\n";
+			frm.registrationyear.focus();
+		}
+	}
 
 	var permitnumber=trim(frm.permitnumber.value);
 	var vehiclepermitexpiredate=trim(frm.vehiclepermitexpiredate.value);
@@ -3708,26 +3750,56 @@ function add_rate()
 	}
 
 	var minimumrate=trim(frm.minimumrate.value);
-	if(minimumrate.length <= 0 || minimumrate == "")
-	{
-		error_count = error_count + 1;
-		error_msg  =  error_msg + error_count + ") " + " Please Enter Minimum Rate" + "\n";
-		frm.minimumrate.focus();
-	}
+	// if(minimumrate.length <= 0 || minimumrate == "")
+	// {
+	// 	error_count = error_count + 1;
+	// 	error_msg  =  error_msg + error_count + ") " + " Please Enter Minimum Rate" + "\n";
+	// 	frm.minimumrate.focus();
+	// }
 
 	var cartoonrate=trim(frm.cartoonrate.value);
-	if(cartoonrate.length <= 0 || cartoonrate == "")
-	{
-		error_count = error_count + 1;
-		error_msg  =  error_msg + error_count + ") " + " Please Enter Cartoon Rate" + "\n";
-		frm.cartoonrate.focus();
-	}
+	// if(cartoonrate.length <= 0 || cartoonrate == "")
+	// {
+	// 	error_count = error_count + 1;
+	// 	error_msg  =  error_msg + error_count + ") " + " Please Enter Cartoon Rate" + "\n";
+	// 	frm.cartoonrate.focus();
+	// }
 
 	var itemrate=trim(frm.itemrate.value);
-	if(itemrate.length <= 0 || itemrate == "")
+	// if(itemrate.length <= 0 || itemrate == "")
+	// {
+	// 	error_count = error_count + 1;
+	// 	error_msg  =  error_msg + error_count + ") " + " Please Enter Item Rate" + "\n";
+	// 	frm.itemrate.focus();
+	// }
+
+
+	if ( (cartoonrate.length <= 0 || cartoonrate == "") && (itemrate.length <= 0 || itemrate == "") )
 	{
 		error_count = error_count + 1;
-		error_msg  =  error_msg + error_count + ") " + " Please Enter Item Rate" + "\n";
+		error_msg  =  error_msg + error_count + ") " + " Please Enter Item Rate or Cartoon Rate" + "\n";
+		frm.itemrate.focus();
+	}
+
+	if ( (cartoonrate.length > 0 ) && (itemrate.length > 0) )
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter Either Item Rate or Cartoon Rate" + "\n";
+		frm.itemrate.focus();
+	}
+
+	if (cartoonrate.length > 0  && cartoonrate =="0")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter Cartoon Rate More than zero" + "\n";
+		frm.itemrate.focus();
+	}
+
+
+	if (itemrate.length > 0  && itemrate =="0")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter Item Rate More than zero" + "\n";
 		frm.itemrate.focus();
 	}
 
@@ -4023,6 +4095,14 @@ function add_consignor()
 	}
 
 
+	var person=trim(frm.person.value);
+	if(person.length <= 0 || person == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter Person Name" + "\n";
+		frm.panno.focus();
+	}
+
 
 	var telephone1=trim(frm.telephone1.value);
 	if(telephone1.length <= 0 || telephone1 == "")
@@ -4091,7 +4171,7 @@ function add_consignor()
 		var div_name = "#div_consignor";
 		var page_name = "save_addconsignor.php";
 		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
-		$.post(page_name, {AddEdit:AddEdit, AddEdit1:AddEdit1, AddEdit2:AddEdit2, AddEdit3:AddEdit3, session_userid:session_userid, session_ip:session_ip, consignorname:consignorname, address:address, area:area, pincode:pincode, city:city, panno:panno, telephone1:telephone1, telephone2:telephone2, telephone3:telephone3, email:email, url:url, selectedvalue:selectedvalue, remark:remark, servicetax:servicetax},
+		$.post(page_name, {AddEdit:AddEdit, AddEdit1:AddEdit1, AddEdit2:AddEdit2, AddEdit3:AddEdit3, session_userid:session_userid, session_ip:session_ip, consignorname:consignorname, address:address, area:area, pincode:pincode, city:city, panno:panno, person:person, telephone1:telephone1, telephone2:telephone2, telephone3:telephone3, email:email, url:url, selectedvalue:selectedvalue, remark:remark, servicetax:servicetax},
 			function(data)
 			{
 				$(div_name).html(data);
@@ -4262,7 +4342,7 @@ function add_merchant()
 	{
 		error_count = error_count + 1;
 		error_msg  =  error_msg + error_count + ") " + " Please Enter Company Name" + "\n";
-		frm.username.focus();
+		frm.companyname.focus();
 	}
 
 	var address=trim(frm.address.value);
@@ -4270,7 +4350,7 @@ function add_merchant()
 	{
 		error_count = error_count + 1;
 		error_msg  =  error_msg + error_count + ") " + " Please Enter Address" + "\n";
-		frm.userid.focus();
+		frm.address.focus();
 	}
 
 	var area=trim(frm.area.value);
@@ -4295,6 +4375,14 @@ function add_merchant()
 		error_count = error_count + 1;
 		error_msg  =  error_msg + error_count + ") " + " Please Enter City" + "\n";
 		frm.city.focus();
+	}
+
+	var person=trim(frm.person.value);
+	if(person.length <= 0 || person == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter Person Name" + "\n";
+		frm.person.focus();
 	}
 
 	var panno=trim(frm.panno.value);
@@ -4336,12 +4424,16 @@ function add_merchant()
 		var div_name = "#div_merchant";
 		var page_name = "save_merchant.php";
 		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
-		$.post(page_name, {AddEdit:AddEdit, AddEdit1:AddEdit1, session_userid:session_userid, session_ip:session_ip, companyname:companyname, address:address, area:area, pincode:pincode, city:city, panno:panno, telephone:telephone, email:email, url:url},
+		$.post(page_name, {AddEdit:AddEdit, AddEdit1:AddEdit1, session_userid:session_userid, session_ip:session_ip, companyname:companyname, address:address, area:area, pincode:pincode, city:city, person:person, panno:panno, telephone:telephone, email:email, url:url},
 			function(data)
 			{
 				$(div_name).html(data);
 			}
 		);
+		return false;
+	}
+	else{
+		show_error(error_msg); //alert(error_msg);
 		return false;
 	}
 }
@@ -4840,7 +4932,7 @@ function get_rate_consignee(ConsignorID, Creator, ip)
 
 	if(Number(error_count) == 0)
 	{
-		document.getElementById("consignorid").disabled = true;
+		// document.getElementById("consignorid").disabled = true;
 		var div_name = "#div_consignee";
 		var page_name = "add_rate_3.php";
 		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");

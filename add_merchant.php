@@ -95,10 +95,7 @@
 		$php_page=basename(__FILE__);
 		$get_return_value=login_check($con, $php_page);
 		include_once("assets/inc/handle_error.php");
-
-		//		mysqli_close($con);
 		log_pageaccess($con, $_SESSION["pageid"], basename(__FILE__));
-		//		mysqli_close($con);
 		include_once('assets/inc/db_connect.php');
 
 
@@ -126,7 +123,7 @@
 									<div class="heading-elements">
 										<ul class="icons-list">
 											<li><a data-action="collapse"></a></li>
-											<li><a data-action="reload" onclick="return ClearAllControls(0);"></a></li>
+											<li><a data-action="reload" onclick="return refreshpage(0);"></a></li>
 										</ul>
 									</div>
 								</div>
@@ -174,7 +171,7 @@
 											<div class="form-group form-group-material">
 												<label>Pincode <span class="text-danger">*</span> </label>
 												<div class="input-group">
-													<input type="text" class="form-control" name="pincode" id="pincode" required="required" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
+													<input type="text" class="form-control" name="pincode" id="pincode" maxlength="6" required="required" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
                                                         <span class="input-group-addon">
                                                     		<i class="icon-location3"></i>
                                                     	</span>
@@ -195,7 +192,18 @@
 									</div>
 
 										<div class="row">
-											<div class="col-md-6">
+											<div class="col-md-4">
+												<div class="form-group form-group-material">
+													<label>Person <span class="text-danger">*</span> </label>
+													<div class="input-group">
+														<input type="text" class="form-control" name="person" id="person" required="required" onkeypress="return only_Alpha_Space(event);" ondrop="return false;" onpaste="return false;">
+															<span class="input-group-addon">
+																<i class="icon-user"></i>
+															</span>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-4">
 												<div class="form-group form-group-material">
 													<label>Pancard Number <span class="text-danger">*</span> </label>
 													<div class="input-group">
@@ -206,7 +214,7 @@
 													</div>
 												</div>
 											</div>
-											<div class="col-md-6">
+											<div class="col-md-4">
 												<div class="form-group form-group-material">
 													<label>Telephone <span class="text-danger">*</span> </label>
 													<div class="input-group">
@@ -248,7 +256,7 @@
 								<div class="panel-footer">
 									<div class="col-md-12">
 										<div class="text-right">
-											<button type="submit" name="submit" id="submit" class="btn bg-grey-600" onclick="return add_merchant();"><span class="text-semibold" id="<?php echo $span_pageButton; ?>">Submit</span></button>
+											<button type="button" name="submit" id="submit" class="btn bg-grey-600" onclick="return add_merchant();"><span class="text-semibold" id="<?php echo $span_pageButton; ?>">Submit</span></button>
 										</div>
 									</div>
 									<div id="div_merchant"></div>
@@ -264,7 +272,7 @@
 								<div class="heading-elements">
 									<ul class="icons-list">
 										<li><a data-action="collapse"></a></li>
-										<li><a data-action="reload" onclick="return ClearAllControls(0);"></a></li>
+										<li><a data-action="reload" onclick="return refreshpage(0);"></a></li>
 									</ul>
 								</div>
 							</div>

@@ -26,7 +26,15 @@
     $session_ip=$_REQUEST["session_ip"];
 
     $deliverystatus=sanitize($con, $_REQUEST["deliverystatus"]);
-
+    if($AddEdit==0){
+        $DeliveryStatusExist=0;
+        $DeliveryStatusExist=Check_DeliveryStatusExist($con, $deliverystatus);
+    //        echo ("productname:- ".$productname."</br>");
+    //        die();
+        if($DeliveryStatusExist>0){
+            $error_msg="Delivery Status already exist.";
+        }
+    }
 //    echo ("AddEdit:- ".$AddEdit."</br>");
 //    echo ("session_userid:- ".$session_userid."</br>");
 //    echo ("session_ip:- ".$session_ip."</br>");
@@ -53,7 +61,9 @@
             $Procedure = "Call Save_DeliveryStatus('$CurrentDate', $session_userid, '$session_ip', '$deliverystatus');";
         }
         else{
-            $IDExist=Check_MenuIDExist($con, $AddEdit);
+            $IDTableName="deliverystatus_master";
+            $IDColumnName="dsid";
+            $IDExist=Check_IDExist($con, $IDTableName, $IDColumnName, $AddEdit);
             if($IDExist>0) {
                 $Procedure = "Call Update_DeliveryStatus($IDExist, '$CurrentDate', $session_userid, '$session_ip', '$deliverystatus');";
             }
@@ -84,7 +94,11 @@
 
     }
     else{
-        echo($error_msg);
+        ?>
+            <script type="text/javascript">
+                show_error('<?php echo $error_msg; ?>');
+            </script>
+        <?php
     }
 
 ?>

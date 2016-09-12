@@ -255,7 +255,7 @@ include('page_header.php');
 							<a class="heading-elements-toggle"><i class="icon-menu"></i></a></div>
                             
                             <div class="panel-body">
-                                Extra large border size using <code>.border-*-xlg</code> class
+                                <div class="chart has-fixed-height has-minimum-width" id="basic_pie"></div>
                             </div>
                         </div>
                       </div>
@@ -272,7 +272,7 @@ include('page_header.php');
 							<a class="heading-elements-toggle"><i class="icon-menu"></i></a></div>
                             
                             <div class="panel-body">
-                                Extra large border size using <code>.border-*-xlg</code> class
+                                <div class="display-inline-block" id="google-3d-exploded"></div>
                             </div>
                         </div>
                       </div>

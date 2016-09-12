@@ -140,7 +140,7 @@
 									<div class="heading-elements">
 										<ul class="icons-list">
 											<li><a data-action="collapse"></a></li>
-											<li><a data-action="reload" onclick="return ClearAllControls(0);"></a></li>
+											<li><a data-action="reload" onclick="return refreshpage(0);"></a></li>
 										</ul>
 									</div>
 								</div>
@@ -207,37 +207,50 @@
 										</div>
 									</div>
 
+
 									<div class="row">
-										<div class="col-md-4">
+										<div class="col-md-3">
+											<div class="form-group form-group-material">
+												<label>Person Name <span class="text-danger">*</span> </label>
+												<div class="input-group">
+
+													<input type="text" class="form-control" name="person" id="person" required="required" onkeypress="return only_Alpha_Space(event);" ondrop="return false;" onpaste="return false;">
+                                                        <span class="input-group-addon">
+                                                    		<i class="icon-user"></i>
+                                                    	</span>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-3">
 											<div class="form-group form-group-material">
 												<label>Telephone <span class="text-danger">*</span> </label>
 												<div class="input-group">
 
-													<input type="text" class="form-control" name="telephone1" id="telephone1" required="required" onkeypress="return only_Numeric_Comma(event);" ondrop="return false;" onpaste="return false;">
+													<input type="text" class="form-control" name="telephone1" id="telephone1" required="required" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
                                                         <span class="input-group-addon">
                                                     <i class="icon-phone"></i>
                                                     </span>
 												</div>
 											</div>
 										</div>
-										<div class="col-md-4">
+										<div class="col-md-3">
 											<div class="form-group form-group-material">
 												<label>Telephone </label>
 												<div class="input-group">
 
-													<input type="text" class="form-control" name="telephone2" id="telephone2" required="required" onkeypress="return only_Numeric_Comma(event);" ondrop="return false;" onpaste="return false;">
+													<input type="text" class="form-control" name="telephone2" id="telephone2" required="required" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
                                                         <span class="input-group-addon">
                                                     <i class="icon-phone"></i>
                                                     </span>
 												</div>
 											</div>
 										</div>
-										<div class="col-md-4">
+										<div class="col-md-3">
 											<div class="form-group form-group-material">
 												<label>Telephone </label>
 												<div class="input-group">
 
-													<input type="text" class="form-control" name="telephone3" id="telephone3" required="required" onkeypress="return only_Numeric_Comma(event);" ondrop="return false;" onpaste="return false;">
+													<input type="text" class="form-control" name="telephone3" id="telephone3" required="required" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
                                                         <span class="input-group-addon">
                                                     <i class="icon-phone"></i>
                                                     </span>
@@ -290,7 +303,7 @@
 											<div class="multi-select-auto">
 												<label>Product <span class="text-danger">*</span> </label>
 												<div class="multi-select-full">
-													<select name="product" id="product" multiple="multiple" style="height: 100px;">
+													<select name="product" id="product" multiple="multiple" style="height:100px; width: 273px;">
 														<?php
 															$TableName="product_master";
 															$ColumnName="pmid, ProductName";
@@ -307,7 +320,7 @@
 											<div class="form-group form-group-material">
 												<label>Remark </label>
 												<div class="input-group">
-													<textarea cols="40" rows="5" name="remark" id="remark"></textarea>
+													<textarea name="remark" id="remark"></textarea>
 												</div>
 											</div>
 										</div>
@@ -348,7 +361,7 @@
 								<div class="heading-elements">
 									<ul class="icons-list">
 										<li><a data-action="collapse"></a></li>
-										<li><a data-action="reload" onclick="return ClearAllControls(0);"></a></li>
+										<li><a data-action="reload" onclick="return refreshpage(0);"></a></li>
 									</ul>
 								</div>
 							</div>
