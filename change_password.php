@@ -33,6 +33,14 @@
 	<script type="text/javascript" src="assets/js/core/app.js"></script>
 	<!-- /theme JS files -->
 
+
+	<!-- Theme JS files -->
+	<script type="text/javascript" src="assets/js/plugins/notifications/bootbox.min.js"></script>
+	<script type="text/javascript" src="assets/js/plugins/notifications/sweet_alert.min.js"></script>
+	<script type="text/javascript" src="assets/js/pages/components_modals.js"></script>
+	<!-- /theme JS files -->
+
+	
 	<script type="text/JavaScript" src="assets/js/search/search.js"></script>
 
 </head>

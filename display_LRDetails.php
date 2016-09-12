@@ -93,7 +93,7 @@
             <div class="modal-dialog">
                 <div class="modal-dialog modal-full">
                     <div class="modal-content">
-                        <div class="modal-header bg-primary">
+                        <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <h5 class="modal-title"><i class="icon-menu7"></i> Lorry Receipt No. - <?php echo $lrid; ?></h5>
                         </div>

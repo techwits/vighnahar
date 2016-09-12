@@ -971,6 +971,28 @@
 		return $Getting_ConsignorDetails;
 	}
 
+	function Fill_MasterPageList($con)
+	{
+		$sqlQry= "";
+		$sqlQry= "select TableName, ColumnName, urlDescription from  1menusub ";
+		$sqlQry.= " where PageType=1";
+		$sqlQry.= " and TableName<>''";
+		$sqlQry.= " and Active=1";
+		$sqlQry.= " order by urlDescription";
+		//echo ("$sqlQry");
+		// mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		while ($row = mysqli_fetch_array($result, MYSQLI_NUM))
+		{
+			$ID=$row{0}."||".$row{1};
+			$Name=$row{2};
+			echo "<option value=".$ID.">".$Name." </option>";
+		}
+		mysqli_free_result($result);
+	}
+
 	function Fill_FinancialYear($con, $Prv, $Nxt)
 	{
 		$sqlQry= "";
@@ -991,21 +1013,64 @@
 		mysqli_free_result($result);
 	}
 
+	function Get_FirstColumnName($con, $TableName)
+	{
+		$FirstColumnName="";
+		$sqlQry= "";
+		$sqlQry= "SHOW COLUMNS from $TableName";
+//		echo ("$sqlQry");
+	//		die();
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		if (mysqli_num_rows($result)!=0){
+			$inc=0;
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+				$inc=$inc+1;
+				if($inc==1) {
+					$FirstColumnName = $row{0};
+				}
+			}
+		}
+		mysqli_free_result($result);
+		return $FirstColumnName;
+	}
+
+	function Get_MasterDataID($con, $TableName, $ColumnName, $MasterData, $FirstColumnName)
+	{
+		$MasterDataID=0;
+		$sqlQry= "";
+		$sqlQry= "select $FirstColumnName from $TableName Where 1=1";
+		$sqlQry.= " and $ColumnName='$MasterData'";
+		$sqlQry.= " and Active=1";
+		echo ("$sqlQry");
+//		die();
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		if (mysqli_num_rows($result)!=0){
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+				$MasterDataID=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $MasterDataID;
+	}
+
 	function Fill_Master($con, $TableName, $ColumnName, $OrderBy)
 	{
 		$sqlQry= "";
 		$sqlQry= "select $ColumnName from $TableName ";
 		$sqlQry.= " where Active=1";
 		$sqlQry.= " order by $OrderBy";
-		//echo ("$sqlQry");
-		// mysqli_close($con);
+//		echo ("$sqlQry");
+//		die();
+		mysqli_close($con);
 		include('db_connect.php');
 		$result = mysqli_query($con, $sqlQry);
 		//fetch tha data from the database
 		while ($row = mysqli_fetch_array($result, MYSQLI_NUM))
 		{
 			$ID=$row{0};
-			$Name=$row{1};
+			$Name=$row{0};
 			echo "<option value=".$ID.">".$Name." </option>";
 		}
 		mysqli_free_result($result);
@@ -1721,6 +1786,29 @@
 		}
 		mysqli_free_result($result);
 		return $Getting_ServiceTaxApplicable;
+	}
+
+	function Check_AreaExist($con, $AreaName)
+	{
+		$Getting_AreaExist=0;
+		$sqlQry= "";
+		$sqlQry= "select amid from area_master ";
+		$sqlQry= $sqlQry." where AreaName='$AreaName'";
+		$sqlQry= $sqlQry." and Active=1";
+	//		echo ("Check sqlQry :- $sqlQry </br>");
+	//		die();
+		unset($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		if (mysqli_num_rows($result)!=0)
+		{
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$Getting_AreaExist=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_AreaExist;
 	}
 
 	function Check_AreaID($con, $AreaID, $AreaName)

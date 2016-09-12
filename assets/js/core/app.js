@@ -558,8 +558,8 @@ $(function() {
                 $('.sidebar-opposite').prependTo('.page-content');
 
                 // Remove nicescroll on mobiles
-                $('.menu-list').getNiceScroll().remove();
-                $(".menu-list").removeAttr('style').removeAttr('tabindex');
+                // $('.menu-list').getNiceScroll().remove();
+                // $(".menu-list").removeAttr('style').removeAttr('tabindex');
             }
             else {
 

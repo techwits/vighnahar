@@ -78,6 +78,12 @@
 
 	<!-- Javascript dropdown list functions-->
 
+	<!-- Theme JS files -->
+		<script type="text/javascript" src="assets/js/plugins/notifications/bootbox.min.js"></script>
+		<script type="text/javascript" src="assets/js/plugins/notifications/sweet_alert.min.js"></script>
+		<script type="text/javascript" src="assets/js/pages/components_modals.js"></script>
+	<!-- /theme JS files -->
+
 
 	<script type="text/JavaScript" src="assets/js/search/search.js"></script>
 	<script type="text/JavaScript" src="assets/js/sha512.js"></script>
@@ -325,7 +331,7 @@
 								<div class="panel-footer">
 									<div class="col-md-12">
 										<div class="text-right">
-											<button type="submit" name="submit" id="submit" class="btn bg-grey-600" onclick="return add_consignor();"><span class="text-semibold" id="<?php echo $span_pageButton; ?>">Submit</span></button>
+											<button type="button" name="submit" id="submit" class="btn bg-grey-600" onclick="return add_consignor();"><span class="text-semibold" id="<?php echo $span_pageButton; ?>">Submit</span></button>
 										</div>
 									</div>
 									<div id="div_consignor"></div>

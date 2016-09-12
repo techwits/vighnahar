@@ -1,7 +1,7 @@
 <!-- Theme JS files -->
-    <script type="text/javascript" src="assets/js/plugins/notifications/pnotify.min.js"></script>
-    <script type="text/javascript" src="assets/js/core/app.js"></script>
-    <script type="text/javascript" src="assets/js/pages/components_notifications_pnotify.js"></script>
+    <script type="text/javascript" src="assets/js/plugins/notifications/bootbox.min.js"></script>
+    <script type="text/javascript" src="assets/js/plugins/notifications/sweet_alert.min.js"></script>
+    <script type="text/javascript" src="assets/js/pages/components_modals.js"></script>
 <!-- /theme JS files -->
 
 <?php
@@ -26,6 +26,11 @@
 
     $areaname=sanitize($con, $_REQUEST["areaname"]);
 
+    $AreaExist=0;
+    $AreaExist=Check_AreaExist($con, $areaname);
+    if($AreaExist>0){
+        $error_msg.=" Area Name is already Exist.";
+    }
 //    echo ("AddEdit:- ".$AddEdit."</br>");
 //    echo ("session_userid:- ".$session_userid."</br>");
 //    echo ("session_ip:- ".$session_ip."</br>");
@@ -86,7 +91,11 @@
 //        echo("Saved Successfully & LastInsertedID :- $LastInsertedID </br>");
     }
     else{
-        echo($error_msg);
+        ?>
+            <script type="text/javascript">
+                show_error('<?php echo $error_msg; ?>');
+            </script>
+        <?php
     }
 ?>
 

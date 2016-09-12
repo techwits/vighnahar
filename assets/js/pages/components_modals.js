@@ -180,7 +180,7 @@ $(function() {
     $('#sweet_error').on('click', function() {
         swal({
             title: "Oops...",
-            text: "Something went wrong!",
+            text: "Something went wrong! /n sachin",
             confirmButtonColor: "#EF5350",
             type: "error"
         });

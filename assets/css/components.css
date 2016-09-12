@@ -33,7 +33,7 @@
     display: table-cell;
     vertical-align: top;
     width: 280px;
-    padding-right: 10px;
+    padding-right: 20px;
   }
 }
 .sidebar-main {
@@ -123,7 +123,7 @@
 }
 .category-content {
   position: relative;
-  padding: 10px;
+  padding: 20px;
 }
 .navigation {
   margin: 0;
@@ -1237,7 +1237,6 @@
   font-size: 12px;
   color: #fff;
 }
-
 .overlay-demo {
   display: inline-block;
   background-color: #333;
@@ -16105,10 +16104,10 @@ thead .htCollapseButton:after {
   width: 100%;
 }
 .chart.has-minimum-width {
-  min-width: 600px;
+  min-width: 400px;
 }
 .has-fixed-height {
-  height: 400px;
+  height: 200px;
 }
 .chart-pie {
   width: 100%;

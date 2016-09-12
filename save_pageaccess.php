@@ -1,8 +1,7 @@
 <!-- Theme JS files -->
-<script type="text/javascript" src="assets/js/plugins/notifications/pnotify.min.js"></script>
-
-<script type="text/javascript" src="assets/js/core/app.js"></script>
-<script type="text/javascript" src="assets/js/pages/components_notifications_pnotify.js"></script>
+<script type="text/javascript" src="assets/js/plugins/notifications/bootbox.min.js"></script>
+<script type="text/javascript" src="assets/js/plugins/notifications/sweet_alert.min.js"></script>
+<script type="text/javascript" src="assets/js/pages/components_modals.js"></script>
 <!-- /theme JS files -->
 
 

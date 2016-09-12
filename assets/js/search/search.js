@@ -478,7 +478,7 @@ function changepassword_change()
     }
     else
     {
-        alert(error_msg);
+		show_error(error_msg); //alert(error_msg);
         return false;
     }
 }
@@ -529,7 +529,7 @@ function changepassword_checkuserid()
 	}
     else
     {
-        alert(error_msg);
+        show_error(error_msg); //alert(error_msg);
         return false;
     }
 }
@@ -592,7 +592,86 @@ function delete_bill(BillID)
 	}
 	else
 	{
-		alert(error_msg);
+		show_error(error_msg); //alert(error_msg);
+		return false;
+	}
+}
+
+function delete_master()
+{
+	//alert("Hi...");
+	var frm=document.deletemaster_form;
+	var error_count;
+	var error_msg;
+	error_msg="";
+	error_count=0;
+
+	var session_userid=trim(frm.session_userid.value);
+	if(session_userid.length <= 0 || session_userid == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter User ID" + "\n";
+		// frm.username.focus();
+	}
+	var session_ip=trim(frm.session_ip.value);
+	if(session_ip.length <= 0 || session_ip == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter IP address" + "\n";
+		// frm.username.focus();
+	}
+
+	var mastertable=trim(frm.mastertable.value);
+	if(mastertable.length <= 0 || mastertable == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Select Master Table" + "\n";
+		frm.userID.focus();
+	}
+
+
+	masterrecord=trim(frm.masterrecord.value);
+	if(masterrecord.length <= 0 || masterrecord == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Select Data to be deleted" + "\n";
+		frm.masterrecord.focus();
+	}
+
+
+	if(Number(error_count) == 0)
+	{
+		swal({
+				title: "Are you sure?",
+				text: "",
+				type: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#EF5350",
+				confirmButtonText: "Yes, delete it!",
+				cancelButtonText: "No, cancel pls!",
+				closeOnConfirm: true,
+				closeOnCancel: true
+			},
+			function(isConfirm){
+				if (isConfirm) {
+
+					var div_name = "#div_deletemaster";
+					var page_name = "save_deletemaster.php";
+					$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+					$.post(page_name, {session_userid:session_userid, session_ip:session_ip, mastertable:mastertable, masterrecord:masterrecord},
+						function(data)
+						{
+							$(div_name).html(data);
+						}
+					);
+					return false;
+
+				}
+			});
+	}
+	else
+	{
+		show_error(error_msg); //alert(error_msg);
 		return false;
 	}
 }
@@ -654,7 +733,7 @@ function delete_user()
 	}
 	else
 	{
-		alert(error_msg);
+		show_error(error_msg); //alert(error_msg);
 		return false;
 	}
 }
@@ -716,7 +795,7 @@ function delete_user()
 	}
 	else
 	{
-		alert(error_msg);
+		show_error(error_msg); //alert(error_msg);
 		return false;
 	}
 }
@@ -848,12 +927,19 @@ function ClearAllControls(formno) {
 		}
 	}
 	$("input:text:visible:first").focus();
-	
-	new PNotify({
-		title: 'Success notice',
-		text: 'Check me out! I\'m a notice.',
-		icon: 'icon-checkmark3',
-		type: 'success'
+
+	// new PNotify({
+	// 	title: 'Success notice',
+	// 	text: 'Check me out! I\'m a notice.',
+	// 	icon: 'icon-checkmark3',
+	// 	type: 'success'
+	// });
+
+	swal({
+		title: "Auto close alert!",
+		text: "Record has beeen saved...",
+		confirmButtonColor: "#2196F3",
+		timer: 2000
 	});
 
 	setTimeout(function(){
@@ -861,6 +947,15 @@ function ClearAllControls(formno) {
 	}, 1000);
 }
 
+function show_error(error_msg){
+	// alert("Hi...");
+	swal({
+		title: "",
+		text: error_msg,
+		confirmButtonColor: "#EF5350",
+		type: "error"
+	});
+}
 
 function searchlogin(searchvalue, searchin)
 {
@@ -1906,7 +2001,7 @@ function get_LROnConsignor(ConsignorID, session_userid, session_ip)
 		return false;
 	}
 	else{
-		alert(error_msg);
+		show_error(error_msg); //alert(error_msg);
 		return false;
 	}
 }
@@ -1986,7 +2081,7 @@ function billDiscount(DiscountAmount, GrandTotal, ServiceTaxAmount)
 		return false;
 	}
 	else{
-		alert(error_msg);
+		show_error(error_msg); //alert(error_msg);
 		return false;
 	}
 }
@@ -2039,12 +2134,45 @@ function rmstatusreverse(session_userid, session_ip, divname, olrid)
 		return false;
 	}
 	else{
-		alert(error_msg);
+		show_error(error_msg); //alert(error_msg);
 		return false;
 	}
 
 }
 
+function Fill_MasterColumn(Table_ColumnName)
+{
+	var error_count;
+	var error_msg;
+	error_msg="";
+	error_count=0;
+
+	if(Table_ColumnName.length <= 0 || Table_ColumnName == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Select Master Table.." + "\n";
+		// frm.username.focus();
+	}
+	
+	if(Number(error_count) == 0)
+	{
+		var div_name = "#div_fillmasterrecords";
+		var page_name = "deletemaster_1.php";
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$.post(page_name, {Table_ColumnName:Table_ColumnName},
+			function(data)
+			{
+				$(div_name).html(data);
+			}
+		);
+		return false;
+	}
+	else{
+		show_error(error_msg); //alert(error_msg);
+		document.getElementById("lrno").value="";
+		return false;
+	}
+}
 
 function fill_rmtableEdit(lrnumber){
 
@@ -2134,7 +2262,7 @@ function fill_rmtableEdit(lrnumber){
 			return false;
 		}
 		else{
-			alert(error_msg);
+			show_error(error_msg); //alert(error_msg);
 			document.getElementById("lrno").value="";
 			return false;
 		}
@@ -2214,7 +2342,7 @@ function display_LR(AddEdit, session_userid, session_ip, financialyear, rmdate, 
 		return false;
 	}
 	else {
-		alert(error_msg);
+		show_error(error_msg); //alert(error_msg);
 		document.getElementById("lrno").value = "";
 		return false;
 	}
@@ -2307,7 +2435,7 @@ function fill_rmtable(e, lrnumber){
 			return false;
 		}
 		else{
-			alert(error_msg);
+			show_error(error_msg); //alert(error_msg);
 			document.getElementById("lrno").value="";
 			return false;
 		}
@@ -2418,7 +2546,7 @@ function add_billentry()
 	}
 	else
 	{
-		alert(error_msg);
+		show_error(error_msg); //alert(error_msg);
 		return false;
 	}
 }
@@ -2528,7 +2656,7 @@ function add_rmentry()
 	}
 	else
 	{
-		alert(error_msg);
+		show_error(error_msg); //alert(error_msg);
 		return false;
 	}
 }
@@ -2618,7 +2746,7 @@ function add_pageaccess()
 	}
 	else
 	{
-		alert(error_msg);
+		show_error(error_msg); //alert(error_msg);
 		return false;
 	}
 }
@@ -2720,7 +2848,7 @@ function add_contacttype()
 		return false;
 	}
 	else{
-		alert(error_msg);
+		show_error(error_msg); //alert(error_msg);
 		return false;
 	}
 }
@@ -2905,7 +3033,7 @@ function add_undeliveredreason()
 		return false;
 	}
 	else {
-		alert(error_msg);
+		show_error(error_msg); //alert(error_msg);
 		return false;
 	}
 }
@@ -3153,7 +3281,7 @@ function add_lrentry()
 		return false;
 	}
 	else{
-		alert(error_msg);
+		show_error(error_msg); //alert(error_msg);
 		return false;
 	}
 
@@ -3187,7 +3315,7 @@ function show_warai(LRNO)
 		return false;
 	}
 	else{
-		alert(error_msg);
+		show_error(error_msg); //alert(error_msg);
 		return false;
 	}
 }
@@ -3251,7 +3379,7 @@ function add_warai()
 		return false;
 	}
 	else{
-		alert(error_msg);
+		show_error(error_msg); //alert(error_msg);
 		return false;
 	}
 }
@@ -3318,7 +3446,7 @@ function add_transporter()
 		return false;
 	}
 	else{
-		alert(error_msg);
+		show_error(error_msg); //alert(error_msg);
 		return false;
 	}
 }
@@ -3423,7 +3551,7 @@ function add_vehicle()
 	}
 	else
 	{
-		alert(error_msg);
+		show_error(error_msg); //alert(error_msg);
 		return false;
 	}
 }
@@ -3618,7 +3746,7 @@ function add_rate()
 		return false;
 	}
 	else{
-		alert(error_msg);
+		show_error(error_msg); //alert(error_msg);
 		return false;
 	}
 }
@@ -3700,7 +3828,7 @@ function updateRMStatus(Inc, session_userid, session_ip, RMID, LRID, DeliveredID
         return false;
     }
     else{
-        alert(error_msg);
+        show_error(error_msg); //alert(error_msg);
         return false;
     }
     
@@ -3753,7 +3881,7 @@ function add_deliverystatus()
         return false;
     }
 	else{
-		alert(error_msg);
+		show_error(error_msg); //alert(error_msg);
 		return false;
 	}
 }
@@ -3973,7 +4101,7 @@ function add_consignor()
 	}
 	else
 	{
-		alert(error_msg);
+		show_error(error_msg); //alert(error_msg);
 		return false;
 	}
 }
@@ -4299,7 +4427,7 @@ function add_login()
 		return false;
 	}
 	else{
-		alert(error_msg);
+		show_error(error_msg); //alert(error_msg);
 		return false;
 	}
 }
