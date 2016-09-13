@@ -26,20 +26,23 @@
     $session_ip=$_REQUEST["session_ip"];
 
     $contacttypename=sanitize($con, $_REQUEST["contacttypename"]);
-    if($AddEdit==0){
-        $ContactTypeExist=0;
-        $ContactTypeExist=Check_ContactTypeExist($con, $contacttypename);
-//        echo ("ContactTypeExist:- ".$ContactTypeExist."</br>");
-//        die();
-        if($ContactTypeExist>0){
-            $error_msg="Contact type already exist.";
-        }
-    }
 //    echo ("AddEdit:- ".$AddEdit."</br>");
 //    echo ("session_userid:- ".$session_userid."</br>");
 //    echo ("session_ip:- ".$session_ip."</br>");
 //    echo ("contacttypename:- ".$contacttypename."</br>");
 //    die();
+
+    $DuplicateEntry=0;
+    $TableName="contacttype_master";
+    $ColumnName="ctmid";
+    $Searchin="ContactName";
+    $SearchValue="$contacttypename";
+    $DuplicateEntry=Check_DuplicateEntry($con, $TableName, $ColumnName, $Searchin, $SearchValue, $AddEdit);
+    //    echo ("DuplicateEntry:- ".$DuplicateEntry."</br>");
+    //    die();
+    if($DuplicateEntry>0){
+        $error_msg="Record already exist.";
+    }
 
     $tablename="contacttype_master";
     $searchColumn="ctmid";
@@ -67,7 +70,12 @@
                 $Procedure = "Call Update_ContactType($AddEdit, '$CurrentDate', $session_userid, '$session_ip', '$contacttypename');";
             }
             else{
-                echo("Transporter ID is not getting. Please contact system administrator....");
+                $error_msg="Contact Type ID is not getting. Please contact system administrator....";
+                ?>
+                    <script type="text/javascript">
+                        show_error('<?php echo $error_msg; ?>');
+                    </script>
+                <?php
             }
         }
 //        echo ("Procedure:- ".$Procedure."</br>");

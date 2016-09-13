@@ -2855,17 +2855,25 @@ $(function() {
 
 
 
-    // Bar charts with random data
+    // Bar charts with random data sachin
     // ------------------------------
 
-    var LRList="21,23,45,12,45,21,22,4,56,32,34,56,78,33,56, 23,56, 10, 25, 34, 56, 34, 32, 54, 76, 98";
-    var RMList="21,23,45,12,45,21,22,4,56,32,34,56,78,33,56, 23,56, 10, 25, 34, 56, 34, 32, 54, 76, 98";
+    // var LRList="21.25,23";
+    var PHP_LR=LREntry_30Days;
+    var LRList=PHP_LR;
+
+    var PHP_RM=RMEntry_30Days;
+    var RMList=PHP_RM;
+
+    // var RMList="21,23,45,12,45,21,22,4,56,32,34,56,78,33,56, 23,56, 10, 25, 34, 56, 34, 32, 54, 76, 98";
     var BillList="21,23,45,12,45,21,22,4,56,32,34,56,78,33,56, 23,56, 10, 25, 34, 56, 34, 32, 54, 76, 98,21,23,45,12,45,21,22,4,56,32,34,56,78,33,56, 23,56, 10, 25, 34, 56, 34, 32, 54, 76, 98,21,23,45,12,45,21,22,4,56,32,34,56,78,33,56, 23,56, 10, 25, 34, 56, 34, 32, 54, 76, 98";
     // Initialize charts
     // generateBarChart("#hours-available-bars", 24, 40, true, "elastic", 1200, 50, "#EC407A", "hours", LRList);
     // generateBarChart("#goal-bars", 24, 40, true, "elastic", 1200, 50, "#5C6BC0", "goal", LRList);
-    generateBarChart("#members-lr", 24, 50, true, "elastic", 1200, 50, "rgba(255,255,255,0.5)", "members", LRList);
-    generateBarChart("#members-rm", 24, 50, true, "elastic", 1200, 50, "rgba(255,255,255,0.5)", "members", RMList);
+    generateBarChart("#members-lr", 24, 50, true, "elastic", 1200, 50, "rgba(255,255,255,0.5)", "members", RMList);
+
+    generateBarChart("#members-rm", 24, 50, true, "elastic", 1200, 50, "rgba(255,255,255,0.5)", "members", LRList);
+
     generateBarChart("#members-bill", 24, 50, true, "elastic", 1200, 50, "rgba(255,255,255,0.5)", "members", BillList);
 
     // Chart setup
@@ -2989,10 +2997,11 @@ $(function() {
         // Online members tooltip content
         if(tooltip == "members") {
             tip.html(function (d, i) {
+                // alert("d  :- " + d );
+                var DateCount=d.split(".");
                 return "<div class='text-center'>" +
-                    "<h6 class='no-margin'>" + d + "0" + "</h6>" +
-                    "<span class='text-size-small'>members</span>" +
-                    "<div class='text-size-small'>" + i + ":00" + "</div>" +
+                    "<span class='text-size-small'> Date:   " + DateCount[0]  + "</span>" +
+                    "<h4 class='no-margin'> Count:  " + DateCount[1]  + "</h4>" +
                     "</div>"
             });
         }

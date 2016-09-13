@@ -1,7 +1,7 @@
 <!-- Theme JS files -->
-<script type="text/javascript" src="assets/js/plugins/notifications/bootbox.min.js"></script>
-<script type="text/javascript" src="assets/js/plugins/notifications/sweet_alert.min.js"></script>
-<script type="text/javascript" src="assets/js/pages/components_modals.js"></script>
+    <script type="text/javascript" src="assets/js/plugins/notifications/bootbox.min.js"></script>
+    <script type="text/javascript" src="assets/js/plugins/notifications/sweet_alert.min.js"></script>
+    <script type="text/javascript" src="assets/js/pages/components_modals.js"></script>
 <!-- /theme JS files -->
 
 
@@ -35,6 +35,18 @@
 //    echo ("pagedescription:- ".$pagedescription."</br>");
 //    die();
 
+    $DuplicateEntry=0;
+    $TableName="1menusub";
+    $ColumnName="menusub_id";
+    $Searchin="url";
+    $SearchValue="$menuname";
+    $DuplicateEntry=Check_DuplicateEntry($con, $TableName, $ColumnName, $Searchin, $SearchValue, $AddEdit);
+    //    echo ("DuplicateEntry:- ".$DuplicateEntry."</br>");
+    //    die();
+    if($DuplicateEntry>0){
+        $error_msg="Record already exist.";
+    }
+
     $tablename="1menusub";
     $searchColumn="menusub_id";
     $searchColumn_Value=$AddEdit;
@@ -44,18 +56,12 @@
     $Creator=$session_userid;
     $ip=$session_ip;
 
-    /* Log Start*/
-        $LogStart_Value=Log_Start($con, $CurrentDate, $Creator, $ip, $PageName, $inTime, $tablename, $searchColumn, $searchColumn_Value);
-//        echo("LogStart_Value :- $LogStart_Value </br>");
-//        die();
-        unset($con);
-//        mysqli_close($con);
-        include('assets/inc/db_connect.php');
-    /* Log Start*/
-
-
     if(trim($error_msg)=="") {
 
+        /* Log Start*/
+            $LogStart_Value=Log_Start($con, $CurrentDate, $Creator, $ip, $PageName, $inTime, $tablename, $searchColumn, $searchColumn_Value);
+        /* Log Start*/
+        
         if ($AddEdit==0) {
             $Procedure = "Call Save_Menu('$CurrentDate', $session_userid, '$session_ip', '$menuname', '$pagedescription');";
         }
@@ -65,40 +71,37 @@
                 $Procedure = "Call Update_Menu($IDExist, '$CurrentDate', $session_userid, '$session_ip', '$menuname', '$pagedescription');";
             }
             else{
-                echo("Menu ID is not getting. Please contact system administrator....");
+                $error_msg="Menu ID is not getting. Please contact system administrator....";
+                ?>
+                    <script type="text/javascript">
+                        show_error('<?php echo $error_msg; ?>');
+                    </script>
+                <?php
+                die();
             }
         }
 //        echo ("Procedure:- ".$Procedure."</br>");
 //        die();
-        unset($con);
         include('assets/inc/db_connect.php');
-
         $result = mysqli_query($con, $Procedure) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
         if (mysqli_num_rows($result) != 0) {
             $row = mysqli_fetch_array($result, MYSQLI_NUM);
             $LastInsertedID = $row{0};
         }
         mysqli_free_result($result);
-//        echo("Saved Successfully & LastInsertedID :- $LastInsertedID </br>");
-//        die();
-
-
-        /* Log Ends*/
-            Log_End($con, $searchColumn_Value, $LogStart_Value);
-            unset($con);
-//            mysqli_close($con);
-        /* Log Ends*/
-
+            /* Log Ends*/
+                Log_End($con, $searchColumn_Value, $LogStart_Value);
+            /* Log Ends*/
+        ?>
+            <script language="javascript">
+                ClearAllControls(0);
+            </script>
+        <?php
     }
     else{
-        echo($error_msg);
+        ?>
+            <script type="text/javascript">
+                show_error('<?php echo $error_msg; ?>');
+            </script>
+        <?php
     }
-
-?>
-
-<script language="javascript">
-    ClearAllControls(0);
-    show_newlyaddedlist('add_pages_2.php', 'div_searchmenu');
-</script>
-
-

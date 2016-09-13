@@ -1,9 +1,6 @@
 <!-- Theme JS files -->
 <script type="text/javascript" src="assets/js/pages/datatables_api_2columns.js"></script>
 <!-- /theme JS files -->
-
-
-
 <?php
     $error_msg="";
     $CurrentDate = date('Y-m-d h:i:s');
@@ -35,10 +32,7 @@
         $post_wildcharacter="%";
     }
 ?>
-
-
 <!-- Single row selection -->
-
     <table class="table datatable-selection-single">
         <thead>
         <tr>
@@ -55,13 +49,10 @@
         $sqlQry= $sqlQry." and Active=1";
 //        echo ("Check sqlQry :- $sqlQry </br>");
 //        die();
-        unset($con);
         include('assets/inc/db_connect.php');
         $result = mysqli_query($con, $sqlQry);
-        if (mysqli_num_rows($result)!=0)
-        {
-            while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
-            {
+        if (mysqli_num_rows($result)!=0){
+            while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
                 $menusub_id=$row[0];
                 $CreationDate=$row[1];
                 $CreationDate=substr($CreationDate,0,strpos($CreationDate," "));
@@ -72,16 +63,14 @@
                 $urlDescription=$row[6];
                 $Active=$row[6];
                 ?>
-                <tr>
-                    <td><a href="#" onclick="return editmenu(<?php echo $menusub_id; ?>, '<?php echo $CreationDate; ?>', '<?php echo $ModificationDate; ?>', '<?php echo $Creator; ?>', '<?php echo $ip; ?>', '<?php echo $url; ?>', '<?php echo $urlDescription; ?>', '<?php echo $Active; ?>');"><?php echo $urlDescription; ?></a> </td>
-                    <td><?php echo $CreationDate; ?></td>
-                </tr>
+                    <tr>
+                        <td><a href="#" onclick="return editmenu(<?php echo $menusub_id; ?>, '<?php echo $CreationDate; ?>', '<?php echo $ModificationDate; ?>', '<?php echo $Creator; ?>', '<?php echo $ip; ?>', '<?php echo $url; ?>', '<?php echo $urlDescription; ?>', '<?php echo $Active; ?>');"><?php echo $urlDescription; ?></a> </td>
+                        <td><?php echo $CreationDate; ?></td>
+                    </tr>
                 <?php
             }
         }
         ?>
-
         </tbody>
     </table>
-
 <!-- /single row selection -->

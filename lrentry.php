@@ -59,7 +59,7 @@
 	<script type="text/javascript" src="assets/js/pages/components_modals.js"></script>
 	<!-- /theme JS files -->
 
-	
+
 	<script type="text/JavaScript" src="assets/js/search/search.js"></script>
 
 </head>
@@ -68,11 +68,10 @@
 
 <!-- Main navbar -->
 <?php
-	$PageHeaderName="Add Lorry Receipt";
+	$PageHeaderName="Manage Lorry Receipt";
 	$icon="icon-address-book";
 
 	include('page_header.php');
-
 	$php_page=basename(__FILE__);
 	$get_return_value=login_check($con, $php_page);
 	include_once("assets/inc/handle_error.php");
@@ -117,11 +116,11 @@
 
 
 								<div class="row">
-									<div class="col-md-2 col-lg-offset-4">
+									<div class="col-md-2 text-right col-lg-offset-4">
 										<div class="form-group form-group-material">
 											<label>Financial Year <span class="text-danger">*</span></label>
 											<div>
-												<div class="input-group">
+												<div class="input-group text-right ">
 													<?php
 
 														$CYear=date("Y");
@@ -133,7 +132,7 @@
 //														echo("FinancialYear :- $FinancialYear </br>");
 														$FinancialYear_P=$FinancialYear_C-1;
 													?>
-													<select name="financialyear" id="financialyear" class="form-control" required="required">
+													<select name="financialyear" id="financialyear" class="form-control " required="required">
 															<?php
 																Fill_FinancialYear($con, $FinancialYear_P, $FinancialYear_C);
 															?>
@@ -159,7 +158,14 @@
 										<div class="label label-danger" style="padding: 15px; font-size:24px;">
 											<input type="hidden" class="form-control" name="lramount" id="lramount" value="">
 											<input type="hidden" class="form-control" name="paidlramount" id="paidlramount" disabled required="required" value="">
-											<span id="div_paidlramount">0</span>
+
+											<div>
+												Total
+											</div>
+
+											<span id="div_paidlramount">
+												
+											</span>
 										</div>
 									</div>
 								</div>
@@ -367,7 +373,7 @@
 					<!-- Search field -->
 					<div class="panel panel-flat">
 						<div class="panel-heading">
-							<h6 class="panel-title"><i class="icon-search4 text-size-base"></i> Search</h6>
+							<h6 class="panel-title"> LR Details</h6>
 							<div class="heading-elements">
 								<ul class="icons-list">
 									<li><a data-action="collapse"></a></li>
@@ -376,17 +382,15 @@
 							</div>
 						</div>
 
-						<?php include('lrentry_6.php'); ?>
-
-
-						<!-- Basic datatable -->
+						<?php
+							define("_session_userid_",$_SESSION['user_id']);
+							define("_session_ip_",$_SESSION['ip']);
+						?>
+<!--						< ?php include('lrentry_6.php'); ?>-->
 						<div class="panel-heading" id="div_searchlrentry">
 							<?php include('lrentry_7.php'); ?>
 							<div/>
-							<!-- /basic datatable -->
 						</div>
-
-						<!-- /search field -->
 					</div>
 				</div>
 			</div>

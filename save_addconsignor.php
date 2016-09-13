@@ -1,8 +1,7 @@
 <!-- Theme JS files -->
-<script type="text/javascript" src="assets/js/plugins/notifications/pnotify.min.js"></script>
-
-<script type="text/javascript" src="assets/js/core/app.js"></script>
-<script type="text/javascript" src="assets/js/pages/components_notifications_pnotify.js"></script>
+    <script type="text/javascript" src="assets/js/plugins/notifications/pnotify.min.js"></script>
+    <script type="text/javascript" src="assets/js/core/app.js"></script>
+    <script type="text/javascript" src="assets/js/pages/components_notifications_pnotify.js"></script>
 <!-- /theme JS files -->
 
 <?php
@@ -108,6 +107,18 @@
 //    die();
 
 
+    $DuplicateEntry=0;
+    $TableName="consignor_master";
+    $ColumnName="cid";
+    $Searchin="ConsignorName";
+    $SearchValue="$consignorname";
+    $DuplicateEntry=Check_DuplicateEntry($con, $TableName, $ColumnName, $Searchin, $SearchValue, $AddEdit);
+//    echo ("DuplicateEntry:- ".$DuplicateEntry."</br>");
+//    die();
+    if($DuplicateEntry>0){
+        $error_msg="Merchant already exist.";
+    }
+
     $PageName=basename(__FILE__);
     $CurrentDate = date('Y-m-d h:i:s');
     $inTime=udate('H:i:s:u');
@@ -123,7 +134,6 @@ if(trim($error_msg)=="") {
 
     /* Log Start*/
         $LogStart_Value=Log_Start($con, $CurrentDate, $Creator, $ip, $PageName, $inTime, $tablename, $searchColumn, $searchColumn_Value);
-        unset($con);
     /* Log Start*/
 
     $tablename="consignoraddress_master";
@@ -132,7 +142,6 @@ if(trim($error_msg)=="") {
 
     /* Log Start*/
         $LogStart_Value1=Log_Start($con, $CurrentDate, $Creator, $ip, $PageName, $inTime, $tablename, $searchColumn, $searchColumn_Value1);
-        unset($con);
     /* Log Start*/
 
     $tablename="consignorcontact_master";
@@ -141,7 +150,6 @@ if(trim($error_msg)=="") {
 
     /* Log Start*/
         $LogStart_Value2=Log_Start($con, $CurrentDate, $Creator, $ip, $PageName, $inTime, $tablename, $searchColumn, $searchColumn_Value2);
-        unset($con);
     /* Log Start*/
 
     $tablename="consignorproduct_master";
@@ -150,7 +158,6 @@ if(trim($error_msg)=="") {
 
     /* Log Start*/
         $LogStart_Value3=Log_Start($con, $CurrentDate, $Creator, $ip, $PageName, $inTime, $tablename, $searchColumn, $searchColumn_Value3);
-        unset($con);
     /* Log Start*/
 
 
@@ -176,14 +183,18 @@ if(trim($error_msg)=="") {
             $Procedure = "Call Update_Consignor($AddEdit, $AddEdit1, '$CurrentDate', $session_userid, '$session_ip', '$consignorname', '$panno', '$person', '$address', $AreaID, $pincode, '$city', '$remark', $servicetax);";
         }
         else{
-            echo("Consignor ID is not getting. Please contact system administrator....");
+            $error_msg.="Consignor ID is not getting. Please contact system administrator....";
+            ?>
+                <script type="text/javascript">
+                    show_error('<?php echo $error_msg; ?>');
+                </script>
+            <?php
+            die();
         }
     }
 //    echo ("Procedure:- ".$Procedure."</br>");
 //    die();
-    unset($con);
     include('assets/inc/db_connect.php');
-
     $result = mysqli_query($con, $Procedure) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
     if (mysqli_num_rows($result) != 0) {
         $row = mysqli_fetch_array($result, MYSQLI_NUM);
@@ -199,29 +210,21 @@ if(trim($error_msg)=="") {
                 Update_ConsignorProduct($con, $CurrentDate, $session_userid, $session_ip, $AddEdit1, $product);
             }
 
-//          echo("Saved Successfully & LastInsertedID :- $LastInsertedID </br>");
-
             /* Log Ends*/
-            Log_End($con, $searchColumn_Value, $LogStart_Value);
-            unset($con);
+                Log_End($con, $searchColumn_Value, $LogStart_Value);
             /* Log Ends*/
 
             /* Log Ends*/
-            include('assets/inc/db_connect.php');
-            Log_End($con, $searchColumn_Value1, $LogStart_Value1);
-            unset($con);
+                Log_End($con, $searchColumn_Value1, $LogStart_Value1);
+
             /* Log Ends*/
 
             /* Log Ends*/
-            include('assets/inc/db_connect.php');
-            Log_End($con, $searchColumn_Value2, $LogStart_Value2);
-            unset($con);
+                Log_End($con, $searchColumn_Value2, $LogStart_Value2);
             /* Log Ends*/
 
             /* Log Ends*/
-            include('assets/inc/db_connect.php');
-            Log_End($con, $searchColumn_Value3, $LogStart_Value3);
-            unset($con);
+                Log_End($con, $searchColumn_Value3, $LogStart_Value3);
             /* Log Ends*/
 
             ?>
@@ -234,6 +237,10 @@ if(trim($error_msg)=="") {
     mysqli_free_result($result);
 }
 else{
-    echo($error_msg);
+    ?>
+        <script type="text/javascript">
+            show_error('<?php echo $error_msg; ?>');
+        </script>
+    <?php
 }
 ?>

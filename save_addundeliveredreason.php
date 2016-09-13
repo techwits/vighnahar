@@ -26,6 +26,18 @@
 
     $reasonname=sanitize($con, $_REQUEST["reasonname"]);
 
+    $DuplicateEntry=0;
+    $TableName="undeliveredreason_master";
+    $ColumnName="urid";
+    $Searchin="UndeliveredReason";
+    $SearchValue="$reasonname";
+    $DuplicateEntry=Check_DuplicateEntry($con, $TableName, $ColumnName, $Searchin, $SearchValue, $AddEdit);
+//    echo ("DuplicateEntry:- ".$DuplicateEntry."</br>");
+//    die();
+    if($DuplicateEntry>0){
+        $error_msg="Record already exist.";
+    }
+
 //    echo ("AddEdit:- ".$AddEdit."</br>");
 //    echo ("session_userid:- ".$session_userid."</br>");
 //    echo ("session_ip:- ".$session_ip."</br>");
@@ -45,7 +57,6 @@
 
         /* Log Start*/
             $LogStart_Value=Log_Start($con, $CurrentDate, $Creator, $ip, $PageName, $inTime, $tablename, $searchColumn, $searchColumn_Value);
-            unset($con);
         /* Log Start*/
 
         if ($AddEdit==0) {
@@ -59,12 +70,17 @@
                 $Procedure = "Call Update_UndeliveredReason($AddEdit, '$CurrentDate', $session_userid, '$session_ip', '$reasonname');";
             }
             else{
-                echo("Undelivered Reason ID is not getting. Please contact system administrator....");
+                $error_msg="Undelivered Reason ID is not getting. Please contact system administrator....";
+                ?>
+                    <script type="text/javascript">
+                        show_error('<?php echo $error_msg; ?>');
+                    </script>
+                <?php
+                die();
             }
         }
     //        echo ("Procedure:- ".$Procedure."</br>");
     //        die();
-        unset($con);
         include('assets/inc/db_connect.php');
 
         $result = mysqli_query($con, $Procedure) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
@@ -73,7 +89,6 @@
             $LastInsertedID = $row{0};
             /* Log Ends*/
                 Log_End($con, $searchColumn_Value, $LogStart_Value);
-                unset($con);
             /* Log Ends*/
             ?>
                 <script language="javascript">
@@ -84,8 +99,10 @@
         mysqli_free_result($result);
     }
     else{
-        echo($error_msg);
+        ?>
+            <script type="text/javascript">
+                show_error('<?php echo $error_msg; ?>');
+            </script>
+        <?php
     }
-    ?>
-
-
+?>

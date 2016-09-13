@@ -79,7 +79,6 @@
 	<!-- /theme JS files -->
 
 	<script type="text/JavaScript" src="assets/js/search/search.js"></script>
-	<script type="text/JavaScript" src="assets/js/sha512.js"></script>
 
 </head>
 
@@ -91,14 +90,11 @@
 		$icon="icon-address-book";
 
 		include('page_header.php');
-
 		$php_page=basename(__FILE__);
 		$get_return_value=login_check($con, $php_page);
 		include_once("assets/inc/handle_error.php");
 		log_pageaccess($con, $_SESSION["pageid"], basename(__FILE__));
 		include_once('assets/inc/db_connect.php');
-
-
 	?>
 	<!-- /main navbar -->
 

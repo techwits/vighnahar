@@ -120,7 +120,7 @@ function only_Alpha_Numeric_Space(evt) {
 	var key = theEvent.keyCode || theEvent.which;
 	key = String.fromCharCode(key);
 	if (key.length == 0) return;
-	var regex = /^[0-9,\b \d,a-z,A-Z]+$/;
+	var regex = /^[0-9,\b \t\d,a-z,A-Z]+$/;
 	if (!regex.test(key)) {
 		theEvent.returnValue = false;
 		if (theEvent.preventDefault) theEvent.preventDefault();
@@ -136,7 +136,7 @@ function only_Alpha_Numeric_Comma(evt) {
 	var key = theEvent.keyCode || theEvent.which;
 	key = String.fromCharCode(key);
 	if (key.length == 0) return;
-	var regex = /^[0-9,\b,\d,a-z,A-Z]+$/;
+	var regex = /^[0-9,\b\t,\d,a-z,A-Z]+$/;
 	if (!regex.test(key)) {
 		theEvent.returnValue = false;
 		if (theEvent.preventDefault) theEvent.preventDefault();
@@ -152,7 +152,7 @@ function only_Alpha_Space(evt) {
 	var key = theEvent.keyCode || theEvent.which;
 	key = String.fromCharCode(key);
 	if (key.length == 0) return;
-	var regex = /^[ \b,\d,a-z,A-Z]+$/;
+	var regex = /^[ \b,\d \t,a-z,A-Z]+$/;
 	if (!regex.test(key)) {
 		theEvent.returnValue = false;
 		if (theEvent.preventDefault) theEvent.preventDefault();
@@ -168,7 +168,7 @@ function only_Alpha_Numeric(evt) {
 	var key = theEvent.keyCode || theEvent.which;
 	key = String.fromCharCode(key);
 	if (key.length == 0) return;
-	var regex = /^[0-9,\b\d,a-z,A-Z]+$/;
+	var regex = /^[0-9,\b\d\t,a-z,A-Z]+$/;
 	if (!regex.test(key)) {
 		theEvent.returnValue = false;
 		if (theEvent.preventDefault) theEvent.preventDefault();
@@ -184,7 +184,7 @@ function only_Alpha_Numeric_Comma_Space(evt) {
 	var key = theEvent.keyCode || theEvent.which;
 	key = String.fromCharCode(key);
 	if (key.length == 0) return;
-	var regex = /^[0-9, ,\b,\d,a-z,A-Z]+$/;
+	var regex = /^[0-9, ,\b,\d\t,a-z,A-Z]+$/;
 	if (!regex.test(key)) {
 		theEvent.returnValue = false;
 		if (theEvent.preventDefault) theEvent.preventDefault();
@@ -200,7 +200,7 @@ function only_Alpha_Numeric_Comma_Plus(evt) {
 	var key = theEvent.keyCode || theEvent.which;
 	key = String.fromCharCode(key);
 	if (key.length == 0) return;
-	var regex = /^[0-9,+,\b,\d,a-z,A-Z]+$/;
+	var regex = /^[0-9,+,\b,\d\t,a-z,A-Z]+$/;
 	if (!regex.test(key)) {
 		theEvent.returnValue = false;
 		if (theEvent.preventDefault) theEvent.preventDefault();
@@ -216,7 +216,7 @@ function only_Alpha_Numeric_underscore_dot(evt) {
 	var key = theEvent.keyCode || theEvent.which;
 	key = String.fromCharCode(key);
 	if (key.length == 0) return;
-	var regex = /^[0-9,_,.,\b,\d,a-z,A-Z]+$/;
+	var regex = /^[0-9,_,.,\b,\d\t,a-z,A-Z]+$/;
 	if (!regex.test(key)) {
 		theEvent.returnValue = false;
 		if (theEvent.preventDefault) theEvent.preventDefault();
@@ -233,7 +233,7 @@ function only_Numeric_Dot(evt) {
 	var key = theEvent.keyCode || theEvent.which;
 	key = String.fromCharCode(key);
 	if (key.length == 0) return;
-	var regex = /^[0-9.\b\d]+$/;
+	var regex = /^[0-9.\b\d\t]+$/;
 	if (!regex.test(key)) {
 		theEvent.returnValue = false;
 		if (theEvent.preventDefault) theEvent.preventDefault();
@@ -250,7 +250,7 @@ function only_Numeric_Comma(evt) {
 	var key = theEvent.keyCode || theEvent.which;
 	key = String.fromCharCode(key);
 	if (key.length == 0) return;
-	var regex = /^[0-9,\b,\d]+$/;
+	var regex = /^[0-9,\b,\d\t]+$/;
 	if (!regex.test(key)) {
 		theEvent.returnValue = false;
 		if (theEvent.preventDefault) theEvent.preventDefault();
@@ -1275,7 +1275,7 @@ function editlogin(loginid, CreationDate, ModificationDate, Creator, ip, UserNam
 		document.getElementById("userpassword").value="";
 		document.getElementById("designation").selectedIndex=0;
 		document.getElementById("designation").disabled=true;
-		document.getElementById("userpassword").disabled=true;
+		// document.getElementById("userpassword").disabled=true;
 
 		document.getElementById("username").focus();
 
@@ -1741,6 +1741,60 @@ function editarea(amid, CreationDate, ModificationDate, Creator, ip, AreaName, A
 	else
 	{
 		alert("Area ID is Blank. Please check......");
+	}
+}
+
+function deletelrentry(session_userid, session_ip, lrid, divName, Status)
+{
+
+	var error_count;
+	var error_msg;
+	error_msg="";
+	error_count=0;
+
+	if(session_userid.length <= 0 || session_userid == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter User ID" + "\n";
+		// frm.username.focus();
+	}
+
+	if(session_ip.length <= 0 || session_ip == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter IP address" + "\n";
+		// frm.username.focus();
+	}
+
+	// alert("Status :- " + Status);
+	if(Number(Status)!=0) {
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Can't update LR now as LR status is updated....." + "\n";
+	}
+
+	if(lrid.length <= 0 || lrid == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " LR ID missing" + "\n";
+		// frm.username.focus();
+	}
+
+	if(Number(error_count) == 0)
+	{
+		var div_name = "#"+divName;
+		var page_name = "deletelr.php";
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$.post(page_name, {session_userid:session_userid, session_ip:session_ip, lrid:lrid},
+			function(data)
+			{
+				$(div_name).html(data);
+			}
+		);
+		return false;
+	}
+	else{
+		show_error(error_msg); //alert(error_msg);
+		return false;
 	}
 }
 
@@ -2917,7 +2971,7 @@ function add_additionalcharge()
 		frm.chargepercentage.focus();
 	}
 
-	if ( (chargepercentage.length > 0 ) && (chargefix.length > 0) )
+	if ( (chargepercentage.length > 0 && chargepercentage !="0" ) && (chargefix.length > 0 && chargefix !="0") )
 	{
 		error_count = error_count + 1;
 		error_msg  =  error_msg + error_count + ") " + " Please Enter any one Charges Percentage or Fix" + "\n";
@@ -3108,6 +3162,10 @@ function add_area()
 				$(div_name).html(data);
 			}
 		);
+		return false;
+	}
+	else{
+		show_error(error_msg); //alert(error_msg);
 		return false;
 	}
 }
@@ -3646,6 +3704,10 @@ function add_vehicleownership()
 		);
 		return false;
 	}
+	else{
+		show_error(error_msg); //alert(error_msg);
+		return false;
+	}
 }
 
 function add_category()
@@ -4011,6 +4073,11 @@ function add_menu()
 				$(div_name).html(data);
 			}
 		);
+		return false;
+	}
+	else
+	{
+		show_error(error_msg); //alert(error_msg);
 		return false;
 	}
 }
@@ -4484,17 +4551,16 @@ function add_login()
 
 
 	var userpassword="";
-	if(Number(AddEdit)==0) {
-		userpassword = trim(frm.userpassword.value);
-		if (userpassword.length <= 0 || userpassword == "") {
-			error_count = error_count + 1;
-			error_msg = error_msg + error_count + ") " + " Please Enter User Password" + "\n";
-			frm.userpassword.focus();
-		}
-		else {
-			var pwd = hex_sha512(userpassword);
-		}
+	userpassword = trim(frm.userpassword.value);
+	if (userpassword.length <= 0 || userpassword == "") {
+		error_count = error_count + 1;
+		error_msg = error_msg + error_count + ") " + " Please Enter User Password" + "\n";
+		frm.userpassword.focus();
 	}
+	else {
+		var pwd = hex_sha512(userpassword);
+	}
+
 	var designation=0;
 	if(Number(AddEdit)==0) {
 		var designation = trim(frm.designation.value);
@@ -4706,6 +4772,9 @@ function lradditionalcharge(cnt, Controlname)
 	for(i=0; i<cnt; i++)
 	{
 
+		control=0;
+		ControlAmount=0;
+
 		Names=Controlname[i];
 		Names_Fix=Controlname[i]+"_fix";
 		Names_Per=Controlname[i]+"_percentage";
@@ -4714,23 +4783,24 @@ function lradditionalcharge(cnt, Controlname)
 		// alert("Control Value :- " + document.getElementById(Names).value);
 
 		controlfix=document.getElementById(Names_Fix).value;
-		// alert("Control name"+ Names_Fix + "controlfix :- " + controlfix);
+		// alert("Control name :- "+ Names + "Value :- " + controlfix);
 		controlper=document.getElementById(Names_Per).value;
 		// alert("Control name :- "+ Names_Per + "   ||||  controlper :- " + controlper);
 
-		if(Number(controlper)>0){
+
+		// if(Number(controlper)>0){
 			control=document.getElementById(Names).value;
 			// alert("Control "+ control );
 			// alert("lramount "+ lramount );
 			ControlAmount=Number((Number(lramount)*Number(control)))/100;
 			 // alert("ControlAmount :- " + ControlAmount);
-		}
-		else if(Number(controlfix)>0){
+		// }
+		// if(Number(controlfix)>0){
 			control=document.getElementById(Names).value;
 			// alert("Control "+ control );
 			ControlAmount=control;
 			// alert("ControlAmount :- " + ControlAmount);
-		}
+		// }
 
 		lramount_ControlAmount=Number(lramount_ControlAmount)+Number(ControlAmount);
 
@@ -4752,8 +4822,10 @@ function lradditionalcharge(cnt, Controlname)
 
 
 
-	// alert("lradditioncharge :- " + lradditioncharge);
+	// alert("controlfix :- " + controlfix)
 	// alert("lramount :- " + lramount);
+	// alert("lramount_ControlAmount :- " + lramount_ControlAmount);
+
 	additionamount=Number(lramount)+Number(lramount_ControlAmount);
 	// alert("additionamount :- " + additionamount);
 	frm.paidlramount.value=additionamount.toFixed(2);

@@ -631,6 +631,336 @@
 		return $Getting_LRBillAmount;
 	}
 
+	function Get_LRRoadMemo($con, $Status)
+	{
+		$Getting_LRRoadMemo=0;
+		$sqlQry= "";
+		$sqlQry= "select count(*) from inward ";
+		$sqlQry.= " left join outwardlr";
+		$sqlQry.= " on inward.LRID = outwardlr.iid";
+		$sqlQry.= " where 1=1";
+		if($Status==1) {
+			$sqlQry.= " and outwardlr.iid IS NULL";
+		}
+		$sqlQry.= " and inward.active=1";
+//		echo ("$sqlQry");
+//		die();
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0){
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+				$Getting_MasterDataCount=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_MasterDataCount;
+	}
+
+	function Get_LRStatusCount($con, $Status)
+	{
+		$Getting_LRDelivered=0;
+		$sqlQry= "";
+		$sqlQry= "select count(*) from outwardlr ";
+		$sqlQry.= " where 1=1";
+		if($Status==1) {
+			$sqlQry .= " and RMStatus > 0";
+		}
+		elseif($Status==2) {
+			$sqlQry .= " and RMStatus=2";
+		}
+		elseif($Status==3) {
+			$sqlQry .= " and RMStatus=0";
+		}
+		$sqlQry.= " and active=1";
+		//		echo ("$sqlQry");
+		//		die();
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0){
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+				$Getting_LRDelivered=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_LRDelivered;
+	}
+
+	function Get_RMCountDayAvarage($con, $StartDate, $EndDate)
+	{
+		$DayAvarage=0;
+		$sqlQry= "";
+		$sqlQry= "select TransitDate, count(*) from outward ";
+		$sqlQry.= " where 1=1";
+		$sqlQry.= " and (TransitDate  BETWEEN  '$StartDate' AND '$EndDate')";
+		$sqlQry.= " and active=1";
+		$sqlQry.= " GROUP by TransitDate ";
+		$sqlQry.= " order by TransitDate";
+	//		echo ("$sqlQry");
+	//		die();
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0){
+			$RowCount=0;
+			$RMCount=0;
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+				$RowCount=$RowCount+1;
+				$RMCount=$RMCount+$row{1};
+			}
+		}
+		$DayAvarage=round($RMCount/$RowCount,2);
+	//		echo("RMCount :- $RMCount </br>");
+	//		echo("RowCount :- $RowCount </br>");
+	//		echo("DayAvarage :- $DayAvarage </br>");
+
+		mysqli_free_result($result);
+		return $DayAvarage;
+	}
+
+	function Get_LRCountDayAvarage($con, $StartDate, $EndDate)
+	{
+		$DayAvarage=0;
+		$sqlQry= "";
+		$sqlQry= "select ReceivedDate, count(*) from inward ";
+		$sqlQry.= " where 1=1";
+		$sqlQry.= " and (ReceivedDate  BETWEEN  '$StartDate' AND '$EndDate')";
+		$sqlQry.= " and active=1";
+		$sqlQry.= " GROUP by ReceivedDate ";
+		$sqlQry.= " order by ReceivedDate";
+//		echo ("$sqlQry");
+//		die();
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0){
+			$RowCount=0;
+			$LRCount=0;
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+				$RowCount=$RowCount+1;
+				$LRCount=$LRCount+$row{1};
+			}
+		}
+		$DayAvarage=round($LRCount/$RowCount,2);
+//		echo("LRCount :- $LRCount </br>");
+//		echo("RowCount :- $RowCount </br>");
+//		echo("DayAvarage :- $DayAvarage </br>");
+
+		mysqli_free_result($result);
+		return $DayAvarage;
+	}
+
+	function Get_RMCountMonth($con, $StartDate, $EndDate)
+	{
+		$Getting_RMCount=0;
+		$sqlQry= "";
+		$sqlQry= "select count(*) from outward ";
+		$sqlQry.= " where 1=1";
+		$sqlQry.= " and (ReceivedDate  BETWEEN  '$StartDate' AND '$EndDate')";
+		$sqlQry.= " and active=1";
+//		echo ("$sqlQry");
+//		die();
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0){
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+				$Getting_RMCount=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_RMCount;
+	}
+
+	function Get_LRCountMonth($con, $StartDate, $EndDate)
+	{
+		$Getting_LRCount=0;
+		$sqlQry= "";
+		$sqlQry= "select count(*) from inward ";
+		$sqlQry.= " where 1=1";
+		$sqlQry.= " and (ReceivedDate  BETWEEN  '$StartDate' AND '$EndDate')";
+		$sqlQry.= " and active=1";
+//					echo ("$sqlQry");
+		//		die();
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0){
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+				$Getting_LRCount=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_LRCount;
+	}
+
+	function Get_RMCountFinancialYear($con, $FinancialYearID)
+	{
+		$Getting_RMCount=0;
+		$sqlQry= "";
+		$sqlQry= "select count(*) from outward ";
+		$sqlQry.= " where 1=1";
+		$sqlQry .= " and fyid=$FinancialYearID";
+		$sqlQry.= " and active=1";
+//		echo ("$sqlQry");
+//		die();
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0){
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+				$Getting_RMCount=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_RMCount;
+	}
+
+	function Get_LRCountFinancialYear($con, $FinancialYearID)
+	{
+		$Getting_LRCount=0;
+		$sqlQry= "";
+		$sqlQry= "select count(*) from inward ";
+		$sqlQry.= " where 1=1";
+		$sqlQry .= " and fyid=$FinancialYearID";
+		$sqlQry.= " and active=1";
+//				echo ("$sqlQry");
+		//		die();
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0){
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+				$Getting_LRCount=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_LRCount;
+	}
+
+	function Get_LRCountInTransit($con)
+	{
+		$Getting_LRCount=0;
+		$sqlQry= "";
+		$sqlQry= "select count(*) from outwardlr ";
+		$sqlQry.= " where 1=1";
+		$sqlQry .= " and RMStatus=0";
+		$sqlQry.= " and active=1";
+//		echo ("$sqlQry");
+//		die();
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0){
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+				$Getting_LRCount=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_LRCount;
+	}
+
+	function Get_MasterDataCount($con, $TableName)
+	{
+		$Getting_MasterDataCount=0;
+		$sqlQry= "";
+		$sqlQry= "select count(*) from $TableName ";
+		$sqlQry.= " where active=1";
+//		echo ("$sqlQry");
+//		die();
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0){
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+				$Getting_MasterDataCount=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_MasterDataCount;
+	}
+
+	function Get_RMEntry_30Days($con)
+	{
+		$RMEntry_30Days="";
+		$EndDate = date('Y-m-d')." 23:59:59";
+		$StartDate=date('Y-m-d', strtotime('today - 30 days'));
+//		echo(" StartDate :- $StartDate </br>");
+//		echo(" EndDate :- $EndDate </br>");
+//		die();
+		$sqlQry= "";
+		$sqlQry= "select TransitDate, count(*) from  outward ";
+		$sqlQry.= " where 1=1";
+		$sqlQry.= " and (TransitDate  BETWEEN  '$StartDate' AND '$EndDate')";
+		$sqlQry.= " group by TransitDate";
+		$sqlQry.= " order by TransitDate";
+//		echo ("$sqlQry");
+//		die();
+		// mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0){
+			$inc=0;
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+				$inc=$inc+1;
+				$Day=0;
+				$Valide=validateDate($row{0});
+//				echo("Valide :- $Valide </br>");
+				if($Valide==1){
+					$Split_Date = explode("-", $row{0});
+					$Day=$Split_Date[2];
+//					echo("Valide :- $row{0} </br>");
+//					echo("Day :- $Day </br>");
+				}
+				$inc==1?$RMEntry_30Days=$Day.".".$row{1}:$RMEntry_30Days=$RMEntry_30Days.",".$Day.".".$row{1};
+			}
+		}
+		mysqli_free_result($result);
+		return $RMEntry_30Days;
+	}
+
+	function Get_LREntry_30Days($con)
+	{
+		$LREntry_30Days="";
+		$EndDate = date('Y-m-d')." 23:59:59";
+		$StartDate=date('Y-m-d', strtotime('today - 30 days'));
+	//		echo(" StartDate :- $StartDate </br>");
+	//		echo(" EndDate :- $EndDate </br>");
+	//		die();
+		$sqlQry= "";
+		$sqlQry= "select ReceivedDate, count(*) from  inward ";
+		$sqlQry.= " where 1=1";
+		$sqlQry.= " and (ReceivedDate  BETWEEN  '$StartDate' AND '$EndDate')";
+		$sqlQry.= " group by ReceivedDate";
+		$sqlQry.= " order by ReceivedDate";
+	//		echo ("$sqlQry");
+	//		die();
+		// mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0){
+			$inc=0;
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+				$inc=$inc+1;
+				$Day=0;
+				$Valide=validateDate($row{0});
+	//				echo("Valide :- $Valide </br>");
+				if($Valide==1){
+					$Split_Date = explode("-", $row{0});
+					$Day=$Split_Date[2];
+	//					echo("Valide :- $row{0} </br>");
+	//					echo("Day :- $Day </br>");
+				}
+				$inc==1?$LREntry_30Days=$Day.".".$row{1}:$LREntry_30Days=$LREntry_30Days.",".$Day.".".$row{1};
+			}
+		}
+		mysqli_free_result($result);
+		return $LREntry_30Days;
+	}
+
 	function Get_LRDetails($con, $LRID)
 	{
 		$Getting_LRDetails="";
@@ -1891,8 +2221,8 @@
 			$sqlQry.= " and $ColumnName<>$AddEdit";
 		}
 		$sqlQry.=" and active=1";
-		echo ("Check sqlQry :- $sqlQry </br>");
-		die();
+//		echo ("Check sqlQry :- $sqlQry </br>");
+//		die();
 		include('db_connect.php');
 		$result = mysqli_query($con, $sqlQry);
 		if (mysqli_num_rows($result)!=0){
@@ -2237,6 +2567,38 @@
 		}
 		mysqli_free_result($result);
 		return $Getting_rmid;
+	}
+
+	function Set_LRDeactive($con, $CurrentDate, $session_userid, $session_ip, $lrid)
+	{
+		$sqlQry= "select iid from `inward`";
+		$sqlQry.= " where LRID=$lrid ";
+		$sqlQry.= " and Active=1";
+//		echo ("Check sqlQry :- $sqlQry </br>");
+//		die();
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		if (mysqli_num_rows($result)!=0)
+		{
+			$iid=0;
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$iid=$row{0};
+				$sqlQry1= "";
+				$sqlQry1= "update `inward`";
+				$sqlQry1.=" set ModificationDate='$CurrentDate',";
+				$sqlQry1.=" Creator=$session_userid, ";
+				$sqlQry1.=" ip='$session_ip', ";
+				$sqlQry1.=" Active=0 ";
+				$sqlQry1.=" where iid=$iid ";
+//				echo ("Check sqlQry :- $sqlQry1 </br>");
+//				die();
+				include('db_connect.php');
+				$Updateresult = mysqli_query($con, $sqlQry1);
+				mysqli_free_result($Updateresult);
+			}
+		}
+		mysqli_free_result($result);
 	}
 
 

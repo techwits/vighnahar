@@ -14,7 +14,6 @@
         $searchvalue = sanitize($con, $_REQUEST["searchvalue"]);
         $searchin = sanitize($con, $_REQUEST["searchin"]);
     }
-
     if (strlen($searchvalue)==0){
         $searchvalue="";
         $searchin=1;
@@ -23,7 +22,6 @@
     else{
         $TableHeading=$searchvalue." Results..";
     }
-
     $columnname="";
     $pre_wildcharacter="";
     $post_wildcharacter="";
@@ -32,14 +30,6 @@
         $pre_wildcharacter="";
         $post_wildcharacter="%";
     }
-//    elseif ($searchin==2){
-//        $columnname="Telephone like";
-//        $pre_wildcharacter="%";
-//        $post_wildcharacter="%";
-//    }
-    //    echo ("CurrentDate:- ".$CurrentDate."</br>");
-    //    echo ("searchvalue:- ".$searchvalue."</br>");
-    //    die();
 ?>
 
 
@@ -99,10 +89,8 @@
         unset($con);
         include('assets/inc/db_connect.php');
         $result = mysqli_query($con, $sqlQry);
-        if (mysqli_num_rows($result)!=0)
-        {
-            while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
-            {
+        if (mysqli_num_rows($result)!=0){
+            while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
                     $rmid=$row[0];
                     $CreationDate=$row[1];
                     $ModificationDate=$row[2];
@@ -134,5 +122,4 @@
 
         </tbody>
     </table>
-
 <!-- /single row selection -->

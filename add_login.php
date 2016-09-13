@@ -54,32 +54,23 @@
 
     <script type="text/JavaScript" src="assets/js/search/search.js"></script>
     <script type="text/JavaScript" src="assets/js/sha512.js"></script>
-
-
 </head>
 
 <body class="navbar-top">
 
 <!-- Main navbar -->
     <?php
-        $PageHeaderName=" Manage Login ";
+        $PageHeaderName="Manage Login ";
         $icon="icon-address-book";
-
         include('page_header.php');
 
         $php_page=basename(__FILE__);
         $get_return_value=login_check($con, $php_page);
         include_once("assets/inc/handle_error.php");
-
-        //		mysqli_close($con);
         log_pageaccess($con, $_SESSION["pageid"], basename(__FILE__));
-        //		mysqli_close($con);
         include_once('assets/inc/db_connect.php');
-
-
     ?>
 <!-- /main navbar -->
-
 
 <!-- Page container -->
 <div class="page-container">
@@ -95,17 +86,15 @@
                         <input type="hidden" name="session_ip" id="session_ip" value="<?php echo $_SESSION['ip']; ?>">
                         <input type="hidden" name="AddEdit" id="AddEdit" value="0">
                         <div id="<?php echo $div_merchantcontrols; ?>" class="panel panel-flat" style="border-color:<?php echo $Form_BorderColor; ?>; border-top-width:<?php echo $Form_BorderTopWidth; ?>;">
-
-                                <div class="panel-heading" id="<?php echo $div_panel; ?>" style="background-color:<?php echo $FormHeadingColor; ?>;">
-                                    <h5 class="panel-title"><i class="icon-user-lock position-left"></i> <span class="text-semibold" id="<?php echo $span_pageName; ?>"><?php echo $PageHeaderName; ?></h5>
-                                    <div class="heading-elements">
-                                        <ul class="icons-list">
-                                            <li><a data-action="collapse"></a></li>
-                                            <li><a data-action="reload" onclick="return ClearAllControls(0);"></a></li>
-                                        </ul>
-                                    </div>
+                            <div class="panel-heading" id="<?php echo $div_panel; ?>" style="background-color:<?php echo $FormHeadingColor; ?>;">
+                                <h5 class="panel-title"><i class="icon-user-lock position-left"></i> <span class="text-semibold" id="<?php echo $span_pageName; ?>"><?php echo $PageHeaderName; ?></h5>
+                                <div class="heading-elements">
+                                    <ul class="icons-list">
+                                        <li><a data-action="collapse"></a></li>
+                                        <li><a data-action="reload" onclick="return ClearAllControls(0);"></a></li>
+                                    </ul>
                                 </div>
-
+                            </div>
                             <div class="panel-body" style="margin-top:15px;">
                                 <div class="row">
                                     <div class="col-lg-6">
@@ -119,7 +108,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label>Select Designation</label>
@@ -130,11 +118,10 @@
                                                         Fill_Designation($con, $UserID);
                                                     ?>
                                             </select>
-
                                         </div>
-
                                     </div>
                                 </div>
+
 
                                 <div class="row">
                                     <div class="col-lg-6">
@@ -161,6 +148,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="panel-footer">
                                 <div class="col-md-12">
                                     <div class="text-right">
@@ -175,43 +163,31 @@
                 <div class="col-lg-4">
 
                     <!-- Search field -->
-                    <div class="panel panel-flat" style="border-color:<?php echo $Search_BorderColor; ?>; border-top-width:<?php echo $Search_BorderTopWidth; ?>;">
-                        <div class="panel-heading" style="background-color:<?php echo $SearchHeadingColor; ?>;">
-                            <h5 class="panel-title"><i class="icon-search4 text-size-base"></i> <span class="text-semibold"><?php echo $SearchPageHeading; ?></h5>
-                            <div class="heading-elements">
-                                <ul class="icons-list">
-                                    <li><a data-action="collapse"></a></li>
-                                    <li><a data-action="reload" onclick="return ClearAllControls(0);"></a></li>
-                                </ul>
+                        <div class="panel panel-flat" style="border-color:<?php echo $Search_BorderColor; ?>; border-top-width:<?php echo $Search_BorderTopWidth; ?>;">
+                            <div class="panel-heading" style="background-color:<?php echo $SearchHeadingColor; ?>;">
+                                <h5 class="panel-title"><i class="icon-search4 text-size-base"></i> <span class="text-semibold"><?php echo $SearchPageHeading; ?></h5>
+                                <div class="heading-elements">
+                                    <ul class="icons-list">
+                                        <li><a data-action="collapse"></a></li>
+                                        <li><a data-action="reload" onclick="return ClearAllControls(0);"></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <?php include('add_login_1.php'); ?>
+                            <div class="panel-heading" id="div_searchlogin">
+                                <?php include('add_login_2.php'); ?>
                             </div>
                         </div>
-
-                        <?php include('add_login_1.php'); ?>
-
-
-                        <!-- Basic datatable -->
-                        <div class="panel-heading" id="div_searchlogin">
-                            <?php include('add_login_2.php'); ?>
-                            <!-- /basic datatable -->
-                        </div>
-                        <!-- /search field -->
-                    </div>
+                    <!-- /search field -->
                 </div>
             </div>
-
             <!-- /form actions -->
-
         </div>
         <!-- /content wrapper -->
-
     </div>
     <!-- /page content -->
-
-
     <?php include('footer.php'); ?>
-
 </div>
 <!-- /page container -->
-
 </body>
 </html>

@@ -104,7 +104,7 @@
 
 <!-- Main navbar -->
 <?php
-    $PageHeaderName="Road Receipt Entry";
+    $PageHeaderName="Road Memo Entry";
     $icon="icon-address-book";
 
     include('page_header.php');
@@ -125,8 +125,6 @@
     <div class="page-content">
         <!-- Main content -->
         <div class="content-wrapper">
-
-
 
             <!-- Form actions -->
             <div class="row">
@@ -153,7 +151,7 @@
 
                                     <div class="col-md-3">
                                         <div class="form-group form-group-material">
-                                            <label>Select Vehicle Number </label>
+                                            <label>Financial Year </label>
                                             <div class="input-group">
                                                 <?php
                                                     $CYear=date("Y");
@@ -193,7 +191,7 @@
 
                                     <div class="col-md-3">
                                         <div class="form-group form-group-material">
-                                            <label>Select Vehicle Number <span class="text-danger">*</span></label>
+                                            <label>Vehicle Number <span class="text-danger">*</span></label>
                                             <div class="input-group">
                                                 <select name="vehicleid" id="vehicleid" class="form-control" autofocus onblur="return lrentry_disabled(this.value, 'vehicleid');">
                                                     <option></option>
@@ -256,14 +254,7 @@
                                     </div>
                                 </div>
                             </div>
-<!--                            <div class="panel-footer">-->
-<!--                                <div class="col-md-12">-->
-<!--                                    <div class="text-right">-->
-<!--                                        <button type="button" name="submit" id="submit" class="btn bg-grey-600" onclick="return add_merchant();"><span class="text-semibold" id="--><?php //echo $span_pageButton; ?><!--">Submit</span></button>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div id="div_merchant"></div>-->
-<!--                            </div>-->
+
                         </div>
                     </form>
                 </div>

@@ -19,8 +19,6 @@ if(!isset($_REQUEST["session_userid"])) {
 		header("Location: /login.php");
 	}
 }
-
-
 $ConsignorID=$_REQUEST["ConsignorID"];
 $session_userid=$_REQUEST["session_userid"];
 $session_ip=$_REQUEST["session_ip"];
@@ -29,12 +27,8 @@ $session_ip=$_REQUEST["session_ip"];
 //    echo("session_userid :- $session_userid </br>");
 //    echo("session_ip :- $session_ip </br>");
 //    die();
-
 //onchange="return get_productOnConsignee(this.value, < ? p h pecho $ConsignorID; ? > , < ? p h pecho $session_userid; ? >, '< ? p h p echo $session_ip; ? >');">
-
 ?>
-
-
 <div class="form-group">
 	<label>Consignee</label>
 	<div class="input-group">

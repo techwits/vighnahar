@@ -1,8 +1,7 @@
 <!-- Theme JS files -->
-<script type="text/javascript" src="assets/js/plugins/notifications/pnotify.min.js"></script>
-
-<script type="text/javascript" src="assets/js/core/app.js"></script>
-<script type="text/javascript" src="assets/js/pages/components_notifications_pnotify.js"></script>
+    <script type="text/javascript" src="assets/js/plugins/notifications/pnotify.min.js"></script>
+    <script type="text/javascript" src="assets/js/core/app.js"></script>
+    <script type="text/javascript" src="assets/js/pages/components_notifications_pnotify.js"></script>
 <!-- /theme JS files -->
 
 
@@ -31,7 +30,6 @@
     $mobilenumber=sanitize($con, $_REQUEST["mobilenumber"]);
     $licencenumber=sanitize($con, $_REQUEST["licencenumber"]);
 
-
 //    echo ("AddEdit:- ".$AddEdit."</br>");
 //    echo ("session_userid:- ".$session_userid."</br>");
 //    echo ("session_ip:- ".$session_ip."</br>");
@@ -43,6 +41,19 @@
 //
 //    die();
 
+
+    $DuplicateEntry=0;
+    $TableName="transporter_master";
+    $ColumnName="tmid";
+    $Searchin="TransporterName";
+    $SearchValue="$transportername";
+    $DuplicateEntry=Check_DuplicateEntry($con, $TableName, $ColumnName, $Searchin, $SearchValue, $AddEdit);
+//    echo ("DuplicateEntry:- ".$DuplicateEntry."</br>");
+//    die();
+    if($DuplicateEntry>0){
+        $error_msg="Record already exist.";
+    }
+
     $tablename="transporter_master";
     $searchColumn="tmid";
     $searchColumn_Value=$AddEdit;
@@ -52,14 +63,10 @@
     $Creator=$session_userid;
     $ip=$session_ip;
 
-
     if(trim($error_msg)=="") {
-
         /* Log Start*/
             $LogStart_Value=Log_Start($con, $CurrentDate, $Creator, $ip, $PageName, $inTime, $tablename, $searchColumn, $searchColumn_Value);
-            unset($con);
         /* Log Start*/
-
         if ($AddEdit==0) {
             $Procedure = "Call Save_Transporter('$CurrentDate', $session_userid, '$session_ip', '$transportername', '$address', '$mobilenumber', '$licencenumber');";
         }
@@ -71,25 +78,24 @@
                 $Procedure = "Call Update_Transporter($AddEdit, '$CurrentDate', $session_userid, '$session_ip', '$transportername', '$address', '$mobilenumber', '$licencenumber');";
             }
             else{
-                echo("Transporter ID is not getting. Please contact system administrator....");
+                $error_msg="Transporter ID is not getting. Please contact system administrator....";
+                ?>
+                    <script type="text/javascript">
+                        show_error('<?php echo $error_msg; ?>');
+                    </script>
+                <?php
                 die();
             }
         }
 //        echo ("Procedure:- ".$Procedure."</br>");
 //        die();
-        unset($con);
         include('assets/inc/db_connect.php');
-
         $result = mysqli_query($con, $Procedure) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
         if (mysqli_num_rows($result) != 0) {
             $row = mysqli_fetch_array($result, MYSQLI_NUM);
             $LastInsertedID = $row{0};
-//          echo("Saved Successfully & LastInsertedID :- $LastInsertedID </br>");
-
             /* Log Ends*/
-            Log_End($con, $searchColumn_Value, $LogStart_Value);
-            unset($con);
-//            mysqli_close($con);
+                Log_End($con, $searchColumn_Value, $LogStart_Value);
             /* Log Ends*/
             ?>
                 <script language="javascript">
@@ -100,6 +106,10 @@
         mysqli_free_result($result);
     }
     else{
-        echo($error_msg);
+        ?>
+            <script type="text/javascript">
+                show_error('<?php echo $error_msg; ?>');
+            </script>
+        <?php
     }
 ?>

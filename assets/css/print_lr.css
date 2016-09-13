@@ -69,7 +69,8 @@ page[size="A5"][layout="portrait"] {
 .top-headerdetails{
 	border: 1px solid black;
 	margin-top: 0cm;
-	height: 2.0cm;
+	height: 2.7cm;
+	background-color: #e0e0e0;
 	vertical-align:central;
 }
 .Chalan-details1{

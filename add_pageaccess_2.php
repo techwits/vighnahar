@@ -78,14 +78,11 @@
         $sqlQry.=" order by `pageaccess_member`.menusub_id";
 //        echo ("Check sqlQry :- $sqlQry </br>");
 //        die();
-        unset($con);
         include('assets/inc/db_connect.php');
 //        include('assets/inc/common-function.php');
         $result = mysqli_query($con, $sqlQry);
-        if (mysqli_num_rows($result)!=0)
-        {
-            while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
-            {
+        if (mysqli_num_rows($result)!=0){
+            while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
                 $id=$row[0];
                 $CreationDate=$row[1];
                 $ModificationDate=$row[2];
@@ -97,16 +94,14 @@
                 $LoginName=$row[8];
                 $Active=$row[9];
                 ?>
-                <tr>
-                    <td><a href="#" onclick="return editpageaccess(<?php echo $id; ?>, '<?php echo $CreationDate; ?>', '<?php echo $ModificationDate; ?>', '<?php echo $Creator; ?>', '<?php echo $ip; ?>', '<?php echo $menusub_id; ?>', '<?php echo $PageName; ?>', '<?php echo $designation_id; ?>', '<?php echo $LoginName; ?>', '<?php echo $Active; ?>');"><?php echo $PageName; ?></a> </td>
-                    <td><?php echo $LoginName; ?></td>
-                </tr>
+                    <tr>
+                        <td><a href="#" onclick="return editpageaccess(<?php echo $id; ?>, '<?php echo $CreationDate; ?>', '<?php echo $ModificationDate; ?>', '<?php echo $Creator; ?>', '<?php echo $ip; ?>', '<?php echo $menusub_id; ?>', '<?php echo $PageName; ?>', '<?php echo $designation_id; ?>', '<?php echo $LoginName; ?>', '<?php echo $Active; ?>');"><?php echo $PageName; ?></a> </td>
+                        <td><?php echo $LoginName; ?></td>
+                    </tr>
                 <?php
             }
         }
         ?>
-
         </tbody>
     </table>
-
 <!-- /single row selection -->

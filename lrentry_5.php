@@ -64,6 +64,8 @@ if(!isset($_REQUEST["session_userid"])) {
 			$controlname1=$db_acmid."_fix";
 			$controlname2=$db_acmid."_percentage";
 
+			$ControlAmount=0;
+			$ControlDisplay=0;
 			if($db_ChargePercentage>0){
 				$ControlAmount=($lramount*$db_ChargePercentage)/100;
 				$ControlDisplay=$db_ChargePercentage;

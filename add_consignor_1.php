@@ -4,7 +4,6 @@
         <ul class="nav nav-tabs nav-tabs-highlight">
             <li class="active"><a href="#bordered-tab1" data-toggle="tab">Consignor</a></li>
         </ul>
-
         <div class="tab-content">
             <div class="tab-pane has-padding active" id="bordered-justified-tab1">
                 <form name="search_menu" action="#" class="main-search">
@@ -21,7 +20,6 @@
                     </div>
                 </form>
             </div>
-
         </div>
     </div>
 </div>

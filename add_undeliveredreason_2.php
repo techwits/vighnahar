@@ -2,7 +2,6 @@
     <script type="text/javascript" src="assets/js/pages/datatables_api_2columns.js"></script>
 <!-- /theme JS files -->
 
-
 <?php
     $error_msg="";
     $CurrentDate = date('Y-m-d h:i:s');
@@ -33,22 +32,8 @@
         $pre_wildcharacter="";
         $post_wildcharacter="%";
     }
-//    elseif ($searchin==2){
-//        $columnname="Telephone like";
-//        $pre_wildcharacter="%";
-//        $post_wildcharacter="%";
-//    }
-    //    echo ("CurrentDate:- ".$CurrentDate."</br>");
-    //    echo ("searchvalue:- ".$searchvalue."</br>");
-    //    die();
 ?>
-
-
-
-
 <!-- Single row selection -->
-
-
     <table class="table datatable-selection-single">
         <thead>
         <tr>
@@ -57,43 +42,34 @@
         </tr>
         </thead>
         <tbody>
-
-
         <?php
-        $cols="urid, CreationDate, ModificationDate, Creator, ip, UndeliveredReason, Active ";
-        $sqlQry= "select $cols from `undeliveredreason_master`";
-        $sqlQry.= " where $columnname '$pre_wildcharacter$searchvalue$post_wildcharacter'";
-        $sqlQry.= " and Active=1";
-//        echo ("Check sqlQry :- $sqlQry </br>");
-//        die();
-        unset($con);
-        include('assets/inc/db_connect.php');
-        $result = mysqli_query($con, $sqlQry);
-        if (mysqli_num_rows($result)!=0)
-        {
-            while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
-            {
-                    $urid=$row[0];
-                    $CreationDate=$row[1];
-                    $CreationDate=substr($CreationDate,0,strpos($CreationDate," "));
-                    $ModificationDate=$row[2];
-                    $Creator=$row[3];
-                    $ip=$row[4];
-                    $UndeliveredReason=$row[5];
-                    $Active=$row[6];
-               
-                ?>
-                <tr>
-                    <td><a href="#" onclick="return editundeliveredreason(<?php echo $urid; ?>, '<?php echo $CreationDate; ?>', '<?php echo $ModificationDate; ?>', '<?php echo $Creator; ?>', '<?php echo $ip; ?>', '<?php echo $UndeliveredReason; ?>', '<?php echo $Active; ?>');"><?php echo $UndeliveredReason; ?></a> </td>
-                    <td><?php echo $CreationDate; ?></td>
-                </tr>
-                <?php
+            $cols="urid, CreationDate, ModificationDate, Creator, ip, UndeliveredReason, Active ";
+            $sqlQry= "select $cols from `undeliveredreason_master`";
+            $sqlQry.= " where $columnname '$pre_wildcharacter$searchvalue$post_wildcharacter'";
+            $sqlQry.= " and Active=1";
+    //        echo ("Check sqlQry :- $sqlQry </br>");
+    //        die();
+            include('assets/inc/db_connect.php');
+            $result = mysqli_query($con, $sqlQry);
+            if (mysqli_num_rows($result)!=0){
+                while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+                        $urid=$row[0];
+                        $CreationDate=$row[1];
+                        $CreationDate=substr($CreationDate,0,strpos($CreationDate," "));
+                        $ModificationDate=$row[2];
+                        $Creator=$row[3];
+                        $ip=$row[4];
+                        $UndeliveredReason=$row[5];
+                        $Active=$row[6];
+                    ?>
+                        <tr>
+                            <td><a href="#" onclick="return editundeliveredreason(<?php echo $urid; ?>, '<?php echo $CreationDate; ?>', '<?php echo $ModificationDate; ?>', '<?php echo $Creator; ?>', '<?php echo $ip; ?>', '<?php echo $UndeliveredReason; ?>', '<?php echo $Active; ?>');"><?php echo $UndeliveredReason; ?></a> </td>
+                            <td><?php echo $CreationDate; ?></td>
+                        </tr>
+                    <?php
+                }
             }
-        }
         ?>
-
-
         </tbody>
     </table>
-
 <!-- /single row selection -->

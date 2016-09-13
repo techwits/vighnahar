@@ -48,7 +48,7 @@ if(isset($_REQUEST["Valid_LRIDs"])) {
     <!-- Scrollable datatable -->
     <div class="panel panel-flat">
         <div class="panel-heading">
-            <h5 class="panel-title">Scrollable datatable</h5>
+            <h5 class="panel-title">Road Memo - LR wise Details</h5>
             <div class="heading-elements">
                 <ul class="icons-list">
                     <li><a data-action="collapse"></a></li>
@@ -71,8 +71,9 @@ if(isset($_REQUEST["Valid_LRIDs"])) {
         <table class="table datatable-scroll-y" width="100%">
             <thead>
             <tr>
-                <th>LR Number</th>
-                <th>Invoice Number</th>
+                <th>Select</th>
+                <th>LR No.</th>
+                <th>Invoice No.</th>
                 <th>Consignor Name</th>
                 <th>COnsignee Name</th>
                 <th>Product Name</th>
@@ -144,7 +145,8 @@ if(isset($_REQUEST["Valid_LRIDs"])) {
                         ?>
                         <tr>
                             <td><input type="checkbox" name="<?php echo $checkbocname; ?>"
-                                       id="<?php echo $checkbocname; ?>" checked><?php echo $LRID; ?></td>
+                                       id="<?php echo $checkbocname; ?>" checked>
+							<td><?php echo $LRID; ?></td>
                             <td><?php echo $InvoiceNumber; ?></td>
                             <td><?php echo $ConsignorName; ?></td>
                             <td><?php echo $ConsigneeName; ?></td>

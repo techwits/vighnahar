@@ -41,6 +41,19 @@
 //    echo ("deliverystatus:- ".$deliverystatus."</br>");
 //    die();
 
+    $DuplicateEntry=0;
+    $TableName="deliverystatus_master";
+    $ColumnName="dsid";
+    $Searchin="DeliveryStatus";
+    $SearchValue="$deliverystatus";
+    $DuplicateEntry=Check_DuplicateEntry($con, $TableName, $ColumnName, $Searchin, $SearchValue, $AddEdit);
+    //    echo ("DuplicateEntry:- ".$DuplicateEntry."</br>");
+    //    die();
+    if($DuplicateEntry>0){
+        $error_msg="Record already exist.";
+    }
+
+
     $tablename="deliverystatus_master";
     $searchColumn="dsid";
     $searchColumn_Value=$AddEdit;
@@ -54,7 +67,6 @@
 
         /* Log Start*/
             $LogStart_Value=Log_Start($con, $CurrentDate, $Creator, $ip, $PageName, $inTime, $tablename, $searchColumn, $searchColumn_Value);
-            unset($con);
         /* Log Start*/
 
         if ($AddEdit==0) {
@@ -68,12 +80,17 @@
                 $Procedure = "Call Update_DeliveryStatus($IDExist, '$CurrentDate', $session_userid, '$session_ip', '$deliverystatus');";
             }
             else{
-                echo("Delivery Status ID is not getting. Please contact system administrator....");
+                $error_msg="Delivery Status ID is not getting. Please contact system administrator....";
+                ?>
+                    <script type="text/javascript">
+                        show_error('<?php echo $error_msg; ?>');
+                    </script>
+                <?php
+                die();
             }
         }
 //        echo ("Procedure:- ".$Procedure."</br>");
 //        die();
-        unset($con);
         include('assets/inc/db_connect.php');
         $result = mysqli_query($con, $Procedure) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
         if (mysqli_num_rows($result) != 0) {
@@ -84,7 +101,6 @@
 
         /* Log Ends*/
             Log_End($con, $searchColumn_Value, $LogStart_Value);
-            unset($con);
         /* Log Ends*/
         ?>
             <script language="javascript">
@@ -100,6 +116,4 @@
             </script>
         <?php
     }
-
 ?>
-

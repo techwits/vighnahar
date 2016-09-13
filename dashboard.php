@@ -262,7 +262,7 @@ include('page_header.php');
                     <!-- Road Memo table -->
                     <div class="col-lg-12">
                         <div class="row">
-                            <div class="panel panel-flat" style="border-color: #F44336; border-top-width: 4px;">
+                            <div class="panel panel-flat border-top-xlg border-top-warning border-grey">
                                 <div class="panel-heading" style="background-color:<?php echo $SearchHeadingColor; ?>;">
                                     <h6 class="panel-title" style="text-align: center;"> <span class="label label-danger" style="font-size:14px;" >Update Delivery Status</span></h6>
                                     <div class="heading-elements">
@@ -282,68 +282,12 @@ include('page_header.php');
                         </div>
                     </div>
                     <!-- Road Memo table -->
-
-
-
-                    <!-- Yooyubes -->
-
-                    <div class="col-lg-12">
-                        <div class="row">
-                            <div class="col-lg-4 col-sm-6">
-                                <div class="thumbnail">
-                                    <div class="video-container">
-                                        <iframe allowfullscreen="" frameborder="0" mozallowfullscreen="" src="https://player.vimeo.com/video/127628756?title=0&amp;byline=0&amp;portrait=0" webkitallowfullscreen=""></iframe>
-                                    </div>
-
-                                    <div class="caption">
-                                        <h6 class="no-margin-top text-semibold"><a href="#" class="text-default">Wholly coming</a> <a href="#" class="text-muted"><i class="icon-cog5 pull-right"></i></a></h6>
-                                        Own hence views two ask right whole ten seems. What near kept met call old west announcing
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-sm-6">
-                                <div class="thumbnail">
-                                    <div class="video-container">
-                                        <iframe allowfullscreen="" frameborder="0" mozallowfullscreen="" src="https://player.vimeo.com/video/126136408?title=0&amp;byline=0&amp;portrait=0" webkitallowfullscreen=""></iframe>
-                                    </div>
-
-                                    <div class="caption">
-                                        <h6 class="no-margin-top text-semibold"><a href="#" class="text-default">Offending delivered</a> <a href="#" class="text-muted"><i class="icon-cog5 pull-right"></i></a></h6>
-                                        Preserved defective offending he daughters on. Rejoiced prospect yet material servants out
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-sm-6">
-                                <div class="thumbnail">
-                                    <div class="video-container">
-                                        <iframe allowfullscreen="" frameborder="0" mozallowfullscreen="" src="https://player.vimeo.com/video/125791075?title=0&amp;byline=0&amp;portrait=0" webkitallowfullscreen=""></iframe>
-                                    </div>
-
-                                    <div class="caption">
-                                        <h6 class="no-margin-top text-semibold"><a href="#" class="text-default">Much did had call</a> <a href="#" class="text-muted"><i class="icon-cog5 pull-right"></i></a></h6>
-                                        Add stairs admire all answer the nearer length. Advantages prosperous remarkably inhabiting
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-
-
-
-
                 </div>
                 <!-- /content wrapper -->
 
+				<!-- Side Bar -->
 
-
-
-                <!-- Side Bar -->
-
-                <div class="col-lg-2">
+                <div class="col-lg-2 col-sm-6">
                     <!-- Secondary sidebar -->
                     <div class="sidebar sidebar-secondary sidebar-default">
                         <div class="sidebar-content">
@@ -356,35 +300,23 @@ include('page_header.php');
                                         <li><a href="#" data-action="collapse"></a></li>
                                     </ul>
                                 </div>
-                                <div class="category-content">
-                                    <div class="row row-condensed">
-                                        <div class="col-xs-6">
-                                            <button type="button" class="btn bg-teal-400 btn-block btn-float btn-float-sm" onclick="window.open('add_vehicle.php','_self');">
-                                                <i class="icon-truck"></i> <span>Vehicle</span></button>
-                                            <button type="button" class="btn bg-purple-300 btn-block btn-float btn-float-sm" onclick="window.open('add_transporter.php','_self');">
-                                                <i class="icon-steering-wheel"></i> <span>Driver</span></button>
-                                        </div>
-                                        <div class="col-xs-6">
-                                            <button type="button" class="btn bg-warning-400 btn-block btn-float btn-float-sm ">
-                                                <i class="icon-stats-bars"></i> <span>XYZ</span></button>
-                                            <button type="button" class="btn bg-blue btn-block btn-float btn-float-sm">
-                                                <i class="icon-cog3"></i> <span>PQR</span></button>
-                                        </div>
-                                    </div>
+                                <div class="category-content" style="display: block;">
+                                    <a href="#" class="btn bg-pink-400 btn-rounded btn-block btn-xs" onclick="window.open('add_vehicle.php','_self');">Vehicle</a>
+                                    <a href="#" class="btn bg-teal-400 btn-rounded btn-block btn-xs" onclick="window.open('add_transporter.php','_self');">Driver</a>
+                                    <a href="#" class="btn bg-brown-400 btn-rounded btn-block btn-xs" onclick="window.open('add_consignee.php','_self');">Consignee</a>
                                 </div>
                             </div>
                             <!-- /actions -->
                         </div>
                     </div>
                     <!-- /secondary sidebar -->
-
                 </div>
 
 
                 <div class="col-lg-2 col-sm-6">
                     <div class="panel panel-flat">
                         <div class="panel-heading">
-                            <h6 class="panel-title">View LR / Rm / Bill</h6>
+                            <h6 class="panel-title">View LR / RM /  Bill</h6>
                             <div class="heading-elements">
                                 <ul class="icons-list">
                                     <li><a data-action="collapse"></a></li>
@@ -444,7 +376,7 @@ include('page_header.php');
                             <h6 class="panel-title">Share your Problem</h6>
                             <div class="heading-elements">
                                 <ul class="icons-list">
-                                    <li><a data-action="close"></a></li>
+                                    <li><a data-action="collapse"></a></li>
                                 </ul>
                             </div>
                             <a class="heading-elements-toggle"><i class="icon-menu"></i></a></div>

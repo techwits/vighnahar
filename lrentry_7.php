@@ -3,6 +3,8 @@
     $error_msg="";
     $CurrentDate = date('Y-m-d h:i:s');
 
+//    echo("session_userid :-". _session_userid_ ."</br>");
+//    echo("session_ip :-". _session_ip_ ."</br>");
     $searchvalue="";
     if(isset($_REQUEST["searchvalue"])) {
         ?>
@@ -50,25 +52,17 @@
 <!-- Single row selection -->
 
 <div class="panel panel-flat">
-    <div class="panel-heading">
-        <h5 class="panel-title">Lorry Receipt</h5>
-    </div>
 
-    <table class="table datatable-scroll-y" width="100%">
+    <table class="table datatable-basic" width="100%">
         <thead>
         <tr>
-            <th>LR Number</th>
-            <th>Financial Year</th>
-            <th>LR Date</th>
-            <th>Invoice No.</th>
-            <th>Truck Number</th>
+            <th>LR No.</th>
             <th>Consignor</th>
             <th>Consignee</th>
             <th>Product</th>
             <th>Package Type</th>
-            <th>Rate</th>
-            <th>Quantity</th>
             <th>Amount</th>
+            <th>Action</th>
         </tr>
         </thead>
         <tbody>
@@ -107,15 +101,16 @@
                 }
 
                 $sqlQry.= " and `inward`.Active=1";
-        //        echo ("Check sqlQry :- $sqlQry </br>");
-        //        die();
+                $sqlQry.= " order by `inward`.LRID desc";
+//                echo ("Check sqlQry :- $sqlQry </br>");
+//                die();
                 unset($con);
                 include('assets/inc/db_connect.php');
                 $result = mysqli_query($con, $sqlQry);
-                if (mysqli_num_rows($result)!=0)
-                {
-                    while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
-                    {
+                if (mysqli_num_rows($result)!=0){
+                    $inc=0;
+                    while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+                            $inc=$inc+1;
                             $lrid=$row[0];
                             $TransitDate=$row[1];
                             $InvoiceNo=$row[2];
@@ -134,30 +129,56 @@
 //                            echo("$lrid) LRIDExist_ForRM :- $LRIDExist_ForRM </br>");
                         ?>
 
-                        <tr>
-                            <td><a href="#" onclick="return editlrentry(<?php echo $lrid; ?>, <?php echo $LRIDExist_ForRM; ?>);"><?php echo $lrid; ?></a> </td>
-                            <td><?php echo $FinancialYear; ?></td>
-                            <td><?php echo $TransitDate; ?></td>
-                            <td><?php echo $InvoiceNo; ?></td>
-
-                            <td><?php echo $VehicleNumber; ?></td>
-                            <td><?php echo $ConsignorName; ?></td>
-                            <td><?php echo $ConsigneeName; ?></td>
-                            <td><?php echo $ProductName; ?></td>
-
-                            <td><?php echo $PakageType; ?></td>
-                            <td><?php echo $Rate; ?></td>
-                            <td><?php echo $Quantity; ?></td>
-
-                            <td><?php echo $Amount; ?></td>
-                        </tr>
+                            <tr>
+                                <td><?php echo $lrid; ?></td>
+                                <td><?php echo $ConsignorName; ?></td>
+                                <td><?php echo $ConsigneeName; ?></td>
+                                <td><?php echo $ProductName; ?></td>
+                                <td><?php echo $PakageType; ?></td>
+                                <td><?php echo $Amount; ?></td>
+                                <td align="center">
+                                    <div id="<?php echo $inc;?>">
+                                        <ul class="icons-list">
+                                            <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="icon-circle-down2"></i>
+                                                </a>
+                                                <ul class="dropdown-menu dropdown-menu-right dropdown-menu-xs">
+                                                    <li><a href="#" onclick="return editlrentry(<?php echo $lrid; ?>, <?php echo $LRIDExist_ForRM; ?>);"><i class="icon-user-block"></i>Update</a></li>
+                                                    <li><a href="#modal_full" data-toggle='modal' class='modalButton1' data-teacherid="<?php echo $lrid; ?>" > <i class="icon-user-block"></i> View</a></li>
+                                                    <li><a href="#" onclick="return editlrentry(<?php echo $lrid; ?>, <?php echo $LRIDExist_ForRM; ?>);"><i class="icon-user-minus"></i> Print</a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="#" onclick="return deletelrentry('<?php echo _session_userid_?>', '<?php echo _session_ip_?>', <?php echo $lrid; ?>, <?php echo $inc;?>, <?php echo $LRIDExist_ForRM; ?>);"><i class="icon-embed"></i> Delete</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
                         <?php
                     }
                 }
             ?>
-
-
         </tbody>
     </table>
 </div>
 <!-- /single row selection -->
+
+<!-- Modal -->
+<div id="modal_full" class="modal fade" style="font-weight: normal;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <?php header("refresh:0; url=lrentry_7.php"); ?>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+
+<script>
+    $('.modalButton1').click(function(){
+        var teacherid = $(this).attr('data-teacherid');
+        $.ajax({url:"display_LRDetails.php?LRID="+teacherid,cache:false,success:function(result){
+            $(".modal-content").html(result);
+        }});
+    });
+</script>

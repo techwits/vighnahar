@@ -53,7 +53,6 @@
 	<!-- /theme JS files -->
 
 	<script type="text/JavaScript" src="assets/js/search/search.js"></script>
-	<script type="text/JavaScript" src="assets/js/sha512.js"></script>
 
 </head>
 
@@ -63,14 +62,13 @@
 	<?php
 		$PageHeaderName="Manage Contact Type";
 		$icon="icon-address-book";
-		include('page_header.php');
 
+		include('page_header.php');
 		$php_page=basename(__FILE__);
 		$get_return_value=login_check($con, $php_page);
 		include_once("assets/inc/handle_error.php");
 		log_pageaccess($con, $_SESSION["pageid"], basename(__FILE__));
 		include_once('assets/inc/db_connect.php');
-
 	?>
 	<!-- /main navbar -->
 	
@@ -140,34 +138,22 @@
 								</div>
 							</div>
 
-								<?php include('add_contacttype_1.php'); ?>
-
-							
-							<!-- Basic datatable -->
+							<?php include('add_contacttype_1.php'); ?>
 							<div class="panel-heading" id="div_searchcontacttypename">
 								<?php include('add_contacttype_2.php'); ?>
 							<div/>
-							<!-- /basic datatable -->
 						</div>
-
 						<!-- /search field -->
                 </div>
              </div>
              </div>
-				
 				<!-- /form actions -->
-
 			</div>
 			<!-- /content wrapper -->
-
 		</div>
 		<!-- /page content -->
-
-
 		<?php include('footer.php'); ?>
-
 	</div>
 	<!-- /page container -->
-
 </body>
 </html>

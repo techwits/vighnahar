@@ -47,13 +47,12 @@
 	<!-- /theme JS files -->
 
 	<!-- Theme JS files -->
-	<script type="text/javascript" src="assets/js/plugins/notifications/bootbox.min.js"></script>
-	<script type="text/javascript" src="assets/js/plugins/notifications/sweet_alert.min.js"></script>
-	<script type="text/javascript" src="assets/js/pages/components_modals.js"></script>
+		<script type="text/javascript" src="assets/js/plugins/notifications/bootbox.min.js"></script>
+		<script type="text/javascript" src="assets/js/plugins/notifications/sweet_alert.min.js"></script>
+		<script type="text/javascript" src="assets/js/pages/components_modals.js"></script>
 	<!-- /theme JS files -->
 
 	<script type="text/JavaScript" src="assets/js/search/search.js"></script>
-	<script type="text/JavaScript" src="assets/js/sha512.js"></script>
 
 </head>
 
@@ -65,16 +64,11 @@
 		$icon="icon-address-book";
 
 		include('page_header.php');
-
 		$php_page=basename(__FILE__);
 		$get_return_value=login_check($con, $php_page);
 		include_once("assets/inc/handle_error.php");
-
-		//		mysqli_close($con);
 		log_pageaccess($con, $_SESSION["pageid"], basename(__FILE__));
-		//		mysqli_close($con);
 		include_once('assets/inc/db_connect.php');
-
 
 	?>
 	<!-- /main navbar -->

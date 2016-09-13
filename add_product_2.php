@@ -23,7 +23,6 @@
     else{
         $TableHeading=$searchvalue." Results..";
     }
-
     $columnname="";
     $pre_wildcharacter="";
     $post_wildcharacter="";
@@ -32,21 +31,9 @@
         $pre_wildcharacter="";
         $post_wildcharacter="%";
     }
-//    elseif ($searchin==2){
-//        $columnname="Telephone like";
-//        $pre_wildcharacter="%";
-//        $post_wildcharacter="%";
-//    }
-    //    echo ("CurrentDate:- ".$CurrentDate."</br>");
-    //    echo ("searchvalue:- ".$searchvalue."</br>");
-    //    die();
 ?>
 
-
-
-
 <!-- Single row selection -->
-
     <table class="table datatable-selection-single">
         <thead>
         <tr>
@@ -56,40 +43,34 @@
         </thead>
         <tbody>
 
-
         <?php
-        $cols="product_master.pmid, product_master.CreationDate, product_master.ModificationDate, product_master.Creator, product_master.ip, product_master.ProductName, product_master.Active ";
-        $sqlQry= "select $cols from `product_master`";
-        $sqlQry.= " where $columnname '$pre_wildcharacter$searchvalue$post_wildcharacter'";
-        $sqlQry.= " and product_master.Active=1";
-//        echo ("Check sqlQry :- $sqlQry </br>");
-//        die();
-        unset($con);
-        include('assets/inc/db_connect.php');
-        $result = mysqli_query($con, $sqlQry);
-        if (mysqli_num_rows($result)!=0)
-        {
-            while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
-            {
-                $pmid=$row[0];
-                $CreationDate=$row[1];
-                $CreationDate=substr($CreationDate,0,strpos($CreationDate," "));
-                $ModificationDate=$row[2];
-                $Creator=$row[3];
-                $ip=$row[4];
-                $ProductName=$row[5];
-                $Active=$row[6];
-                ?>
-                <tr>
-                    <td><a href="#" onclick="return editproduct(<?php echo $pmid; ?>, '<?php echo $CreationDate; ?>', '<?php echo $ModificationDate; ?>', '<?php echo $Creator; ?>', '<?php echo $ip; ?>', '<?php echo $ProductName; ?>', '<?php echo $Active; ?>');"><?php echo $ProductName; ?></a> </td>
-                    <td><?php echo $CreationDate; ?></td>
-                </tr>
-                <?php
+            $cols="product_master.pmid, product_master.CreationDate, product_master.ModificationDate, product_master.Creator, product_master.ip, product_master.ProductName, product_master.Active ";
+            $sqlQry= "select $cols from `product_master`";
+            $sqlQry.= " where $columnname '$pre_wildcharacter$searchvalue$post_wildcharacter'";
+            $sqlQry.= " and product_master.Active=1";
+//          echo ("Check sqlQry :- $sqlQry </br>");
+//          die();
+            include('assets/inc/db_connect.php');
+            $result = mysqli_query($con, $sqlQry);
+            if (mysqli_num_rows($result)!=0){
+                while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+                    $pmid=$row[0];
+                    $CreationDate=$row[1];
+                    $CreationDate=substr($CreationDate,0,strpos($CreationDate," "));
+                    $ModificationDate=$row[2];
+                    $Creator=$row[3];
+                    $ip=$row[4];
+                    $ProductName=$row[5];
+                    $Active=$row[6];
+                    ?>
+                        <tr>
+                            <td><a href="#" onclick="return editproduct(<?php echo $pmid; ?>, '<?php echo $CreationDate; ?>', '<?php echo $ModificationDate; ?>', '<?php echo $Creator; ?>', '<?php echo $ip; ?>', '<?php echo $ProductName; ?>', '<?php echo $Active; ?>');"><?php echo $ProductName; ?></a> </td>
+                            <td><?php echo $CreationDate; ?></td>
+                        </tr>
+                    <?php
+                }
             }
-        }
         ?>
-
         </tbody>
     </table>
-
 <!-- /single row selection -->

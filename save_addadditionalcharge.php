@@ -30,13 +30,26 @@
     $chargepercentage=sanitize($con, $_REQUEST["chargepercentage"]);
     $chargefix=sanitize($con, $_REQUEST["chargefix"]);
 
-    echo ("AddEdit:- ".$AddEdit."</br>");
-    echo ("session_userid:- ".$session_userid."</br>");
-    echo ("session_ip:- ".$session_ip."</br>");
-    echo ("additionalchargename:- ".$additionalchargename."</br>");
-    echo ("chargepercentage:- ".$chargepercentage."</br>");
-    echo ("chargefix:- ".$chargefix."</br>");
-    die();
+    $DuplicateEntry=0;
+    $TableName="additionalcharge_master";
+    $ColumnName="acmid";
+    $Searchin="ChargeName";
+    $SearchValue="$additionalchargename";
+    $DuplicateEntry=Check_DuplicateEntry($con, $TableName, $ColumnName, $Searchin, $SearchValue, $AddEdit);
+//    echo ("DuplicateEntry:- ".$DuplicateEntry."</br>");
+//    die();
+    if($DuplicateEntry>0){
+        $error_msg="Record already exist.";
+    }
+
+
+//    echo ("AddEdit:- ".$AddEdit."</br>");
+//    echo ("session_userid:- ".$session_userid."</br>");
+//    echo ("session_ip:- ".$session_ip."</br>");
+//    echo ("additionalchargename:- ".$additionalchargename."</br>");
+//    echo ("chargepercentage:- ".$chargepercentage."</br>");
+//    echo ("chargefix:- ".$chargefix."</br>");
+//    die();
 
     $tablename="additionalcharge_master";
     $searchColumn="acmid";
@@ -51,7 +64,6 @@
 
         /* Log Start*/
             $LogStart_Value=Log_Start($con, $CurrentDate, $Creator, $ip, $PageName, $inTime, $tablename, $searchColumn, $searchColumn_Value);
-            unset($con);
         /* Log Start*/
 
         if ($AddEdit==0) {
@@ -65,38 +77,40 @@
                 $Procedure = "Call Update_AdditionalCharge($AddEdit, '$CurrentDate', $session_userid, '$session_ip', '$additionalchargename', $chargepercentage, $chargefix);";
             }
             else{
-                echo("Additional Charge ID is not getting. Please contact system administrator....");
+                $error_msg="Additional Charge ID is not getting. Please contact system administrator....";
+                ?>
+                    <script type="text/javascript">
+                        show_error('<?php echo $error_msg; ?>');
+                    </script>
+                <?php
+                die();
             }
         }
 //        echo ("Procedure:- ".$Procedure."</br>");
 //        die();
-        unset($con);
         include('assets/inc/db_connect.php');
-
         $result = mysqli_query($con, $Procedure) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
         if (mysqli_num_rows($result) != 0) {
             $row = mysqli_fetch_array($result, MYSQLI_NUM);
             $LastInsertedID = $row{0};
-//            echo("Saved Successfully & LastInsertedID :- $LastInsertedID </br>");
-
             /* Log Ends*/
                 Log_End($con, $searchColumn_Value, $LogStart_Value);
-                unset($con);
-//            mysqli_close($con);
             /* Log Ends*/
+
             ?>
             <script language="javascript">
-//                ClearAllControls(0);
-//                show_newlyaddedlist('add_undeliveredreason_2.php', 'div_searchundeliveredreason');
-                window.location.reload(true);
+                ClearAllControls(0);
             </script>
             <?php
         }
         mysqli_free_result($result);
-//        echo("Saved Successfully & LastInsertedID :- $LastInsertedID </br>");
     }
     else{
-        echo($error_msg);
+        ?>
+            <script type="text/javascript">
+                show_error('<?php echo $error_msg; ?>');
+            </script>
+        <?php
     }
 ?>
 

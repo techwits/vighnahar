@@ -68,7 +68,6 @@
                                 $ConsignorConsigneeRate=0;
                                 $ConsignorConsigneeRate=Check_ConsignorConsigneeRate($con, $consignorid, $db_consigneeID, $productid);
                                 if($ConsignorConsigneeRate==0) {
-                                    mysqli_close($con);
                                     include('assets/inc/db_connect.php');
 
                                     $tablename = "rate_master";
@@ -82,14 +81,12 @@
 
                                     /* Log Start*/
                                         $LogStart_Value = Log_Start($con, $CurrentDate, $Creator, $ip, $PageName, $inTime, $tablename, $searchColumn, $searchColumn_Value);
-                                        mysqli_close($con);
                                     /* Log Start*/
 
 
                                     $Procedure = "Call Save_Rate('$CurrentDate', $session_userid, '$session_ip', $consignorid, $db_consigneeID, $productid, $minimumrate, $cartoonrate, $itemrate);";
 //                                  echo ("Procedure:- ".$Procedure."</br>");
 //                                  die();
-                                    mysqli_close($con);
                                     include('assets/inc/db_connect.php');
                                     $result = mysqli_query($con, $Procedure) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
                                     if (mysqli_num_rows($result) != 0) {
@@ -101,7 +98,6 @@
 
                                     /* Log Ends*/
                                         Log_End($con, $searchColumn_Value, $LogStart_Value);
-                                        unset($con);
                                     /* Log Ends*/
                                 }
                             else{
@@ -134,7 +130,6 @@
 
                         /* Log Start*/
                             $LogStart_Value=Log_Start($con, $CurrentDate, $Creator, $ip, $PageName, $inTime, $tablename, $searchColumn, $searchColumn_Value);
-                            mysqli_close($con);
                         /* Log Start*/
 
                         $IDTableName="rate_master";
@@ -142,10 +137,8 @@
                         $IDExist=Check_IDExist($con, $IDTableName, $IDColumnName, $AddEdit);
                         if($IDExist>0) {
                             $Procedure = "Call Update_Rate($AddEdit, '$CurrentDate', $session_userid, '$session_ip', $consignorid, $consigneeid, $productid, $minimumrate, $cartoonrate, $itemrate);";
-
     //                      echo ("Procedure:- ".$Procedure."</br>");
     //                      die();
-                            unset($con);
                             include('assets/inc/db_connect.php');
 
                             $result = mysqli_query($con, $Procedure) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
@@ -157,7 +150,6 @@
 
                             /* Log Ends*/
                                 Log_End($con, $searchColumn_Value, $LogStart_Value);
-                                unset($con);
                             /* Log Ends*/
                             ?>
                                 <script language="javascript">

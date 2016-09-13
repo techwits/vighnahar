@@ -7,12 +7,12 @@
 		include('assets/inc/functions.php');
 		sec_session_start();
 		$Area=Fill_AreaForJS($con);
-		//		echo("</br></br></br></br></br></br></br></br></br></br></br> Area :- $Area </br>");
+//		echo("</br></br></br></br></br></br></br></br></br></br></br> Area :- $Area </br>");
 		$Area="[".$Area."]";
 		$vals=$Area;
 		mysqli_close($con);
 		include('assets/inc/db_connect.php');
-		//		echo("</br></br></br></br></br></br></br></br></br></br></br> Area :- $Area </br>");
+//		echo("</br></br></br></br></br></br></br></br></br></br></br> Area :- $Area </br>");
 	?>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -66,17 +66,11 @@
 	<script type="text/javascript" src="assets/js/plugins/forms/inputs/typeahead/handlebars.js"></script>
 	<script type="text/javascript" src="assets/js/plugins/forms/inputs/passy.js"></script>
 	<script type="text/javascript" src="assets/js/plugins/forms/inputs/maxlength.min.js"></script>
-
 	<script type="text/javascript" src="assets/js/pages/form_controls_extended.js"></script>
-
 	<script type="text/javascript" src="assets/js/plugins/forms/styling/uniform.min.js"></script>
 	<script type="text/javascript" src="assets/js/plugins/notifications/pnotify.min.js"></script>
 	<script type="text/javascript" src="assets/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
-
 	<script type="text/javascript" src="assets/js/pages/form_multiselect.js"></script>
-
-
-	<!-- Javascript dropdown list functions-->
 
 	<!-- Theme JS files -->
 		<script type="text/javascript" src="assets/js/plugins/notifications/bootbox.min.js"></script>
@@ -84,11 +78,7 @@
 		<script type="text/javascript" src="assets/js/pages/components_modals.js"></script>
 	<!-- /theme JS files -->
 
-
 	<script type="text/JavaScript" src="assets/js/search/search.js"></script>
-	<script type="text/JavaScript" src="assets/js/sha512.js"></script>
-
-
 
 </head>
 
@@ -96,22 +86,14 @@
 
 	<!-- Main navbar -->
 	<?php
-		$PageHeaderName="Add Consignor";
+		$PageHeaderName="Manage Consignor";
 		$icon="icon-address-book";
-		$EntryToday=2345;
-		$EntryWeek=5364;
-		$EntryMonth=9546;
-		$EntryTillDate=9957;
-
 		include('page_header.php');
 
 		$php_page=basename(__FILE__);
 		$get_return_value=login_check($con, $php_page);
 		include_once("assets/inc/handle_error.php");
-
-		//		mysqli_close($con);
 		log_pageaccess($con, $_SESSION["pageid"], basename(__FILE__));
-		//		mysqli_close($con);
 		include_once('assets/inc/db_connect.php');
 	?>
 	<!-- /main navbar -->
@@ -177,9 +159,9 @@
 												<label>Area <span class="text-danger">*</span> </label>
 												<div class="input-group">
 													<input type="text" class="form-control typeahead-basic" placeholder="Enter Area" name="area" id="area" required="required" onkeypress="return only_Alpha_Space(event);" ondrop="return false;" onpaste="return false;">
-                                                        <span class="input-group-addon">
+                                                        <!--<span class="input-group-addon">
                                                     		<i class="icon-location4"></i>
-                                                    	</span>
+                                                    	</span>-->
 												</div>
 											</div>
 										</div>
@@ -226,7 +208,7 @@
 												<label>Telephone <span class="text-danger">*</span> </label>
 												<div class="input-group">
 
-													<input type="text" class="form-control" name="telephone1" id="telephone1" required="required" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
+													<input type="text" class="form-control" name="telephone1" id="telephone1" maxlength="12" required="required" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
                                                         <span class="input-group-addon">
                                                     <i class="icon-phone"></i>
                                                     </span>
@@ -238,7 +220,7 @@
 												<label>Telephone </label>
 												<div class="input-group">
 
-													<input type="text" class="form-control" name="telephone2" id="telephone2" required="required" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
+													<input type="text" class="form-control" name="telephone2" id="telephone2" maxlength="12" required="required" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
                                                         <span class="input-group-addon">
                                                     <i class="icon-phone"></i>
                                                     </span>
@@ -250,7 +232,7 @@
 												<label>Telephone </label>
 												<div class="input-group">
 
-													<input type="text" class="form-control" name="telephone3" id="telephone3" required="required" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
+													<input type="text" class="form-control" name="telephone3" id="telephone3" maxlength="12" required="required" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
                                                         <span class="input-group-addon">
                                                     <i class="icon-phone"></i>
                                                     </span>
@@ -297,7 +279,6 @@
 									</div>
 
 									<div class="row">
-
 										<!-- Filtering options -->
 										<div class="col-md-4">
 											<div class="multi-select-auto">
@@ -315,7 +296,6 @@
 											</div>
 										</div>
 										<!-- /filtering options -->
-										
 										<div class="col-md-4">
 											<div class="form-group form-group-material">
 												<label>Remark </label>
@@ -324,7 +304,6 @@
 												</div>
 											</div>
 										</div>
-
 										<div class="col-md-4">
 											<div class="form-group form-group-material">
 												<label>Service Tax </label>
@@ -335,11 +314,7 @@
 												</div>
 											</div>
 										</div>
-
-
 									</div>
-
-
 								</div>
 								<div class="panel-footer">
 									<div class="col-md-12">
@@ -355,38 +330,30 @@
                     <div class="col-lg-4">
 
 						<!-- Search field -->
-						<div class="panel panel-flat" style="border-color:<?php echo $Search_BorderColor; ?>; border-top-width:<?php echo $Search_BorderTopWidth; ?>;">
-							<div class="panel-heading" style="background-color:<?php echo $SearchHeadingColor; ?>;">
-								<h5 class="panel-title"><i class="icon-search4 text-size-base"></i> <span class="text-semibold"><?php echo $SearchPageHeading; ?></h5>
-								<div class="heading-elements">
-									<ul class="icons-list">
-										<li><a data-action="collapse"></a></li>
-										<li><a data-action="reload" onclick="return refreshpage(0);"></a></li>
-									</ul>
+							<div class="panel panel-flat" style="border-color:<?php echo $Search_BorderColor; ?>; border-top-width:<?php echo $Search_BorderTopWidth; ?>;">
+								<div class="panel-heading" style="background-color:<?php echo $SearchHeadingColor; ?>;">
+									<h5 class="panel-title"><i class="icon-search4 text-size-base"></i> <span class="text-semibold"><?php echo $SearchPageHeading; ?></h5>
+									<div class="heading-elements">
+										<ul class="icons-list">
+											<li><a data-action="collapse"></a></li>
+											<li><a data-action="reload" onclick="return refreshpage(0);"></a></li>
+										</ul>
+									</div>
 								</div>
-							</div>
-
 								<?php include('add_consignor_1.php'); ?>
-
-							
-							<!-- Basic datatable -->
-							<div class="panel-heading" id="div_searchconsignor">
-								<?php include('add_consignor_2.php'); ?>
-							<div/>
-							<!-- /basic datatable -->
-						</div>
+								<div class="panel-heading" id="div_searchconsignor">
+									<?php include('add_consignor_2.php'); ?>
+								<div/>
+							</div>
 						<!-- /search field -->
-                </div>
+             	</div>
              </div>
-             </div>
-				
 				<!-- /form actions -->
 			</div>
 			<!-- /content wrapper -->
 		</div>
 		<!-- /page content -->
 		<?php include('footer.php'); ?>
-
 	</div>
 	<!-- /page container -->
 </body>

@@ -20,11 +20,16 @@ google.setOnLoadCallback(drawBar);
 
 // Chart settings
 function drawBar() {
-
     // Data
+    var _Year="Status";
+    var _Delivered=LRDelivered;
+    var _UnDelivered=LRUnDelivered;
+    var _InTransit=LRInTransit;
+    var _PendingRoadMemo=LRRoadMemo;
+
     var data = google.visualization.arrayToDataTable([
-        ['Year', 'Sales', {role: 'annotation'}, 'Expenses', 'Sachin', 'Om', {role: 'annotation'}],
-        ['2004',  1000, 'asjkas',      400,      500,      800, 'test']
+        ['Year', 'Sales', {role: 'annotation'}, 'Expenses', {role: 'annotation'}, 'Sachin', {role: 'annotation'}, 'Om', {role: 'annotation'}],
+        [_Year,  _Delivered, 'Delivered', _UnDelivered, 'UnDelivered', _InTransit, 'InTransit', _PendingRoadMemo, 'PendingRoadMemo']
     ]);
 
 

@@ -53,7 +53,6 @@
 	<!-- /theme JS files -->
 	
 	<script type="text/JavaScript" src="assets/js/search/search.js"></script>
-	<script type="text/JavaScript" src="assets/js/sha512.js"></script>
 
 	<!-- /theme JS files -->
 
@@ -67,16 +66,11 @@
 		$icon="icon-address-book";
 
 		include('page_header.php');
-
-//		$php_page=basename(__FILE__);
-//		$get_return_value=login_check($con, $php_page);
-//		include_once("assets/inc/handle_error.php");
-//
-//		//		mysqli_close($con);
-//		log_pageaccess($con, $_SESSION["pageid"], basename(__FILE__));
-//		//		mysqli_close($con);
-//		include_once('assets/inc/db_connect.php');
-
+		$php_page=basename(__FILE__);
+		$get_return_value=login_check($con, $php_page);
+		include_once("assets/inc/handle_error.php");
+		log_pageaccess($con, $_SESSION["pageid"], basename(__FILE__));
+		include_once('assets/inc/db_connect.php');
 
 	?>
 	<!-- /main navbar -->
@@ -111,7 +105,7 @@
 											<div class="form-group form-group-material">
 												<label>Area Name <span class="text-danger">*</span></label>
 												<div class="input-group">
-													<input type="text" class="form-control" name="areaname" id="areaname" autofocus required="required" onkeypress="return only_Alpha_Numeric_underscore_dot(event);" ondrop="return false;" onpaste="return false;">
+													<input type="text" class="form-control" name="areaname" id="areaname" autofocus required="required" onkeypress="return only_Alpha_Numeric_Space(event);" ondrop="return false;" onpaste="return false;">
                                                         <span class="input-group-addon">
                                                     <i class="icon-location4"></i>
                                                     </span>
@@ -124,7 +118,7 @@
 								<div class="panel-footer">
 									<div class="col-md-12">
 										<div class="text-right">
-											<button type="submit" name="submit" id="submit" class="btn bg-grey-600" onclick="return add_area();"><span class="text-semibold" id="<?php echo $span_pageButton; ?>">Submit</span></button>
+											<button type="button" name="submit" id="submit" class="btn bg-grey-600" onclick="return add_area();"><span class="text-semibold" id="<?php echo $span_pageButton; ?>">Submit</span></button>
 										</div>
 									</div>
 									<div id="div_area"></div>
@@ -147,34 +141,22 @@
 								</div>
 							</div>
 
-								<?php include('add_area_1.php'); ?>
-
-							
-							<!-- Basic datatable -->
+							<?php include('add_area_1.php'); ?>
 							<div class="panel-heading" id="div_searcharea">
 								<?php include('add_area_2.php'); ?>
 							<div/>
-							<!-- /basic datatable -->
 						</div>
-
 						<!-- /search field -->
                 </div>
              </div>
              </div>
-				
 				<!-- /form actions -->
-
 			</div>
 			<!-- /content wrapper -->
-
 		</div>
 		<!-- /page content -->
-
-
 		<?php include('footer.php'); ?>
-
 	</div>
 	<!-- /page container -->
-
 </body>
 </html>

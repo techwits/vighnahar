@@ -1,6 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <?php
+        include('assets/inc/db_connect.php');
+        include('assets/inc/common-function.php');
+        include('assets/inc/functions.php');
+        sec_session_start();
+
+        $LREntry_30Days=Get_LREntry_30Days($con);
+//        echo("</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>");
+//        echo("LREntry_30Days :- $LREntry_30Days </br>");
+//        die();
+        $RMEntry_30Days=Get_RMEntry_30Days($con);
+//        echo("</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>");
+//        echo("RMEntry_30Days :- $RMEntry_30Days </br>");
+//        die();
+
+        // 1 - Delivered, 2 - UnDelivered, 3 - InTransit
+        $LRDelivered=Get_LRStatusCount($con,1);
+        $LRUnDelivered=Get_LRStatusCount($con,2);
+        $LRInTransit=Get_LRStatusCount($con,3);
+
+        // No RM is Created
+        $LRRoadMemo=Get_LRRoadMemo($con,1);
+
+    ?>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -45,6 +69,13 @@
     <script type="text/javascript" src="assets/js/plugins/pickers/daterangepicker.js"></script>
 
     <script type="text/javascript" src="assets/js/core/app.js"></script>
+
+
+    <script type="text/javascript">
+        var LREntry_30Days="<?php echo $LREntry_30Days ?>";
+        var RMEntry_30Days="<?php echo $RMEntry_30Days ?>";
+    </script>
+
     <script type="text/javascript" src="assets/js/pages/dashboard.js"></script>
     <!-- /theme JS files -->
 
@@ -54,6 +85,12 @@
 
         <script type="text/javascript" src="assets/js/charts/google/bars/column.js"></script>
         <script type="text/javascript" src="assets/js/charts/google/bars/column_stacked.js"></script>
+        <script type="text/javascript">
+            var LRDelivered=<?php echo $LRDelivered ?>;
+            var LRUnDelivered=<?php echo $LRUnDelivered ?>;
+            var LRInTransit=<?php echo $LRInTransit ?>;
+            var LRRoadMemo=<?php echo $LRRoadMemo ?>;
+        </script>
         <script type="text/javascript" src="assets/js/charts/google/bars/bar.js"></script>
         <script type="text/javascript" src="assets/js/charts/google/bars/bar_stacked.js"></script>
         <script type="text/javascript" src="assets/js/charts/google/bars/histogram.js"></script>
@@ -77,20 +114,15 @@
 
 <!-- Main navbar -->
 <?php
-$PageHeaderName="Dashboard";
-$icon="icon-address-book";
-
-include('page_header.php');
+    $PageHeaderName="Super Admin Dashboard ";
+    $icon="icon-address-book";
+    include('page_header.php');
 
 //    $php_page=basename(__FILE__);
 //    $get_return_value=login_check($con, $php_page);
 //    include_once("assets/inc/handle_error.php");
-//
-//    //		mysqli_close($con);
 //    log_pageaccess($con, $_SESSION["pageid"], basename(__FILE__));
-//    //		mysqli_close($con);
 //    include_once('assets/inc/db_connect.php');
-
 ?>
 <!-- /main navbar -->
 
@@ -130,17 +162,41 @@ include('page_header.php');
                                 	<div class="row">
                                       <div class="col-xs-12">
                                         <div class="col-xs-4 text-left border-right ">
-                                            <h3 class="no-margin">54,800</h3>
+                                            <?php
+                                                $first_day_this_month = date('Y-m-01'); // hard-coded '01' for first day
+                                                $last_day_this_month  = date('Y-m-t');
+                                                $StartDate=$first_day_this_month." 00:00:00";
+                                                $EndDate=$last_day_this_month." 23:59:59";
+//                                                echo("Start_Date :- $Start_Date </br>");
+//                                                echo("End_Date :- $End_Date </br>");
+                                                $CYear=date("Y");
+                                                $CMonth=date("m");
+                                                if($CMonth<4){
+                                                    $CYear=$CYear-1;
+                                                }
+                                                $FinancialYearID=Get_FinancialYear($con, $CYear);
+                                                $LRCountFinancialYear=Get_LRCountFinancialYear($con, $FinancialYearID);
+                                            ?>
+                                            <h3 class="no-margin"><?php echo $LRCountFinancialYear; ?></h3>
                                             Year
-                                            <div class="text-muted text-size-small">489 avg</div>
+
+                                            <?php
+                                                $LRCountDayAvarage=Get_LRCountDayAvarage($con, $StartDate, $EndDate);
+                                            ?>
+                                            <div class="text-muted text-size-small"><?php echo $LRCountDayAvarage; ?>% avg</div>
                                         </div>
                                         <div class="col-xs-4 text-left border-right">
-                                            <h3 class="no-margin">3,450</h3>
+                                            <?php
+                                                $LRCountMonth=Get_LRCountMonth($con, $StartDate, $EndDate);
+                                            ?>
+                                            <h3 class="no-margin"><?php echo $LRCountMonth; ?></h3>
                                             Month
-                                            <div class="text-muted text-size-small">489 avg</div>
                                         </div>
                                         <div class="col-xs-4 text-right">
-                                        <span class="heading-text badge bg-teal-800"> 53 </span>
+                                            <?php
+                                                $InTransit=Get_LRCountInTransit($con);
+                                            ?>
+                                        <span class="heading-text badge bg-teal-800"> <?php echo $InTransit;?> </span>
                                            <div class="text-muted text-size-small">In Transit</div>
                                         </div>
                                     </div>
@@ -163,14 +219,24 @@ include('page_header.php');
                                 	<div class="row">
                                         <div class="col-xs-12">
                                             <div class="col-xs-4 text-left border-right">
-                                                 <h3 class="no-margin">3400</h3>
+                                                <?php
+                                                    $RMCountFinancialYear=Get_RMCountFinancialYear($con, $FinancialYearID);
+                                                ?>
+                                                 <h3 class="no-margin"><?php echo $RMCountFinancialYear;?></h3>
                                                 Year
-                                                <div class="text-muted text-size-small">34.6% avg</div>
+
+                                                <?php
+                                                    $RMCountDayAvarage=Get_RMCountDayAvarage($con, $StartDate, $EndDate);
+                                                ?>
+                                                
+                                                <div class="text-muted text-size-small"><?php echo $RMCountDayAvarage;?>% avg</div>
                                             </div>
                                             <div class="col-xs-4 text-left border-right">
-                                                <h3 class="no-margin">300</h3>
+                                                <?php
+                                                    $RMCountMonth=Get_RMCountMonth($con, $StartDate, $EndDate);
+                                                ?>
+                                                <h3 class="no-margin"><?php echo $RMCountMonth;?></h3>
                                                 Month
-                                                <div class="text-muted text-size-small">34.6% avg</div>
                                             </div>
                                             <div class="col-xs-4 text-right">
                                                 <div class="heading-text">
@@ -255,7 +321,7 @@ include('page_header.php');
 							<a class="heading-elements-toggle"><i class="icon-menu"></i></a></div>
                             
                             <div class="panel-body">
-                                <div class="chart has-fixed-height has-minimum-width" id="basic_pie"></div>
+                                Extra large border size using <code>.border-*-xlg</code> class
                             </div>
                         </div>
                       </div>
@@ -272,7 +338,7 @@ include('page_header.php');
 							<a class="heading-elements-toggle"><i class="icon-menu"></i></a></div>
                             
                             <div class="panel-body">
-                                <div class="display-inline-block" id="google-3d-exploded"></div>
+                                Extra large border size using <code>.border-*-xlg</code> class
                             </div>
                         </div>
                       </div>
@@ -1534,16 +1600,45 @@ include('page_header.php');
                                 <div class="bg-blue-800 text-center"><span>Manage Masters </span></div>
 
                                 <ul class="navigation navigation-alt navigation-accordion">
-                                    <li><a href="#" onclick="window.open('add_login.php','_self');"><i class="icon-user-lock"></i> User <span class="badge badge-info">8</span></a></li>
-                                    <li><a href="#" onclick="window.open('add_consignor.php','_self');"><i class="icon-user-check"></i> Consignor <span class="badge badge-danger">74</span></a></li>
-                                    <li><a href="#" onclick="window.open('add_product.php','_self');"><i class="icon-cart-add2"></i> Products <span class="badge badge-info">180</span></a></li>
+                                    <?php
+                                        $TableName="login_master";
+                                        $MasterDataCount=Get_MasterDataCount($con, $TableName);
+                                    ?>
+                                    <li><a href="#" onclick="window.open('add_login.php','_self');"><i class="icon-user-lock"></i> User <span class="badge badge-info"><?php echo $MasterDataCount;?></span></a></li>
+
+                                    <?php
+                                        $TableName="consignor_master";
+                                        $MasterDataCount=Get_MasterDataCount($con, $TableName);
+                                    ?>
+                                    <li><a href="#" onclick="window.open('add_consignor.php','_self');"><i class="icon-user-check"></i> Consignor <span class="badge badge-danger"><?php echo $MasterDataCount;?></span></a></li>
+
+                                    <?php
+                                        $TableName="product_master";
+                                        $MasterDataCount=Get_MasterDataCount($con, $TableName);
+                                    ?>
+                                    <li><a href="#" onclick="window.open('add_product.php','_self');"><i class="icon-cart-add2"></i> Products <span class="badge badge-info"><?php echo $MasterDataCount;?></span></a></li>
+
                                     <li><a href="#" onclick="window.open('add_rate.php','_self');"><img src="assets/images/rupee_bag-512.png" height="20" width="20"> &nbsp;&nbsp;Rate </a></li>
                                     <li><a href="#" onclick="window.open('add_additionalcharge.php','_self');"><i class="icon-coin-dollar"></i> Additional Charges</a></li>
-                                    <li><a href="#" onclick="window.open('add_transporter.php','_self');"><i class="icon-steering-wheel"></i> Driver <span class="badge badge-success">165</span></a></li>
-                                    <li><a href="#" onclick="window.open('add_vehicle.php','_self');"><i class="icon-truck"></i> Vehicle <span class="badge badge-success">165</span></a></li>
+                                    <?php
+                                        $TableName="transporter_master";
+                                        $MasterDataCount=Get_MasterDataCount($con, $TableName);
+                                    ?>
+                                    <li><a href="#" onclick="window.open('add_transporter.php','_self');"><i class="icon-steering-wheel"></i> Driver <span class="badge badge-success"><?php echo $MasterDataCount;?></span></a></li>
+
+                                    <?php
+                                        $TableName="vehicle_master";
+                                        $MasterDataCount=Get_MasterDataCount($con, $TableName);
+                                    ?>
+                                    <li><a href="#" onclick="window.open('add_vehicle.php','_self');"><i class="icon-truck"></i> Vehicle <span class="badge badge-success"><?php echo $MasterDataCount;?></span></a></li>
+
                                     <li><a href="#" onclick="window.open('add_undeliveredreason.php','_self');"><i class="icon-location3"></i> Undelivered Reason </a></li>
 
-                                    <li><a href="#" onclick="window.open('add_area.php','_self');"><i class="icon-location4"></i> Area <span class="badge badge-info">8</span></a></li>
+                                    <?php
+                                        $TableName="area_master";
+                                        $MasterDataCount=Get_MasterDataCount($con, $TableName);
+                                    ?>
+                                    <li><a href="#" onclick="window.open('add_area.php','_self');"><i class="icon-location4"></i> Area <span class="badge badge-info"><?php echo $MasterDataCount;?></span></a></li>
                                     <li><a href="#" onclick="window.open('add_vehicleownership.php','_self');"><i class="icon-bus"></i>Vehicle Ownership</a></li>
                                     <li><a href="#" onclick="window.open('add_pageaccess.php','_self');"><i class="icon-file-check"></i>Page Access</a></li>
                                     <li><a href="#" onclick="window.open('add_pages.php','_self');"><i class="icon-stack"></i>Pages </a></li>

@@ -1,7 +1,7 @@
 <!-- Theme JS files -->
-<script type="text/javascript" src="assets/js/plugins/notifications/bootbox.min.js"></script>
-<script type="text/javascript" src="assets/js/plugins/notifications/sweet_alert.min.js"></script>
-<script type="text/javascript" src="assets/js/pages/components_modals.js"></script>
+    <script type="text/javascript" src="assets/js/plugins/notifications/bootbox.min.js"></script>
+    <script type="text/javascript" src="assets/js/plugins/notifications/sweet_alert.min.js"></script>
+    <script type="text/javascript" src="assets/js/pages/components_modals.js"></script>
 <!-- /theme JS files -->
 
 
@@ -46,16 +46,10 @@
 
     /* Log Start*/
         $LogStart_Value=Log_Start($con, $CurrentDate, $Creator, $ip, $PageName, $inTime, $tablename, $searchColumn, $searchColumn_Value);
-//        echo("LogStart_Value :- $LogStart_Value </br>");
-//        die();
-        unset($con);
-//        mysqli_close($con);
-        include('assets/inc/db_connect.php');
     /* Log Start*/
 
 
     if(trim($error_msg)=="") {
-
         if ($AddEdit==0) {
             Set_PageAccessDeactive($con, $CurrentDate, $session_userid, $session_ip, $username);
 //            echo("Deactivated.....");
@@ -72,9 +66,7 @@
                             $Procedure = "Call Save_PageAccess('$CurrentDate', $session_userid, '$session_ip', $SinglePage, $username);";
         //                    echo ("Procedure:- ".$Procedure."</br>");
         //                    die();
-                            unset($con);
                             include('assets/inc/db_connect.php');
-
                             $result = mysqli_query($con, $Procedure) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
                             if (mysqli_num_rows($result) != 0) {
                                 $row = mysqli_fetch_array($result, MYSQLI_NUM);
@@ -92,8 +84,6 @@
 
                 /* Log Ends*/
                     Log_End($con, $searchColumn_Value, $LogStart_Value);
-                    unset($con);
-//                        mysqli_close($con);
                 /* Log Ends*/
             }
             ?>
@@ -106,12 +96,9 @@
             $IDExist=Check_PageAccessIDExist($con, $AddEdit);
             if($IDExist>0) {
                 $Procedure = "Call Update_PageAccess($IDExist, '$CurrentDate', $session_userid, '$session_ip', $pagename, $username);";
-
 //                echo ("Procedure:- ".$Procedure."</br>");
 //                die();
-                unset($con);
                 include('assets/inc/db_connect.php');
-
                 $result = mysqli_query($con, $Procedure) or trigger_error("Query Failed(save masters)! Error: " . mysqli_error($con), E_USER_ERROR);
                 if (mysqli_num_rows($result) != 0) {
                     $row = mysqli_fetch_array($result, MYSQLI_NUM);
@@ -120,11 +107,8 @@
                 mysqli_free_result($result);
 //              echo("Saved Successfully & LastInsertedID :- $LastInsertedID </br>");
 
-
                 /* Log Ends*/
                     Log_End($con, $searchColumn_Value, $LogStart_Value);
-                    unset($con);
-//                    mysqli_close($con);
                 /* Log Ends*/
                 ?>
                     <script language="javascript">
@@ -134,12 +118,22 @@
 
             }
             else{
-                echo("Page Access ID is not getting. Please contact system administrator....");
+                $error_msg="Page Access ID is not getting. Please contact system administrator....";
+                ?>
+                    <script type="text/javascript">
+                        show_error('<?php echo $error_msg; ?>');
+                    </script>
+                <?php
+                die();
             }
         }
     }
     else{
-        echo($error_msg);
+        ?>
+            <script type="text/javascript">
+                show_error('<?php echo $error_msg; ?>');
+            </script>
+        <?php
     }
 ?>
 

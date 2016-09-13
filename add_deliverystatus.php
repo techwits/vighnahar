@@ -37,25 +37,17 @@
 	<!-- Theme JS files -->
 	<script type="text/javascript" src="assets/js/core/libraries/jquery_ui/full.min.js"></script>
 	<script type="text/javascript" src="assets/js/plugins/forms/selects/select2.min.js"></script>
-
 	<script type="text/javascript" src="assets/js/core/app.js"></script>
 	<script type="text/javascript" src="assets/js/pages/form_select2.js"></script>
-
 	<script type="text/javascript" src="assets/js/plugins/tables/datatables/datatables.min.js"></script>
 	<script type="text/javascript" src="assets/js/pages/datatables_api_2columns.js"></script>
-
 	<!-- /theme JS files -->
-
 	<!-- Theme JS files -->
-	<script type="text/javascript" src="assets/js/plugins/notifications/bootbox.min.js"></script>
-	<script type="text/javascript" src="assets/js/plugins/notifications/sweet_alert.min.js"></script>
-	<script type="text/javascript" src="assets/js/pages/components_modals.js"></script>
+		<script type="text/javascript" src="assets/js/plugins/notifications/bootbox.min.js"></script>
+		<script type="text/javascript" src="assets/js/plugins/notifications/sweet_alert.min.js"></script>
+		<script type="text/javascript" src="assets/js/pages/components_modals.js"></script>
 	<!-- /theme JS files -->
-
 	<script type="text/JavaScript" src="assets/js/search/search.js"></script>
-	<script type="text/JavaScript" src="assets/js/sha512.js"></script>
-
-
 </head>
 
 <body class="navbar-top">
@@ -66,7 +58,6 @@
 		$icon="icon-address-book";
 
 		include('page_header.php');
-
 		$php_page=basename(__FILE__);
 		$get_return_value=login_check($con, $php_page);
 		include_once("assets/inc/handle_error.php");
@@ -127,7 +118,6 @@
 						</form>
 					</div>
                     <div class="col-lg-4">
-
 						<!-- Search field -->
 						<div class="panel panel-flat" style="border-color:<?php echo $Search_BorderColor; ?>; border-top-width:<?php echo $Search_BorderTopWidth; ?>;">
 							<div class="panel-heading" style="background-color:<?php echo $SearchHeadingColor; ?>;">
@@ -139,31 +129,21 @@
 									</ul>
 								</div>
 							</div>
-								<?php include('add_deliverystatus_1.php'); ?>
-							<!-- Basic datatable -->
+							<?php include('add_deliverystatus_1.php'); ?>
 							<div class="panel-heading" id="div_searchdeliverystatus">
 								<?php include('add_deliverystatus_2.php'); ?>
 							<div/>
-							<!-- /basic datatable -->
 						</div>
-
 						<!-- /search field -->
                 </div>
              </div>
-
 				<!-- /form actions -->
-
 			</div>
 			<!-- /content wrapper -->
-
 		</div>
 		<!-- /page content -->
-
-
 		<?php include('footer.php'); ?>
-
 	</div>
 	<!-- /page container -->
-
 </body>
 </html>

@@ -9,6 +9,7 @@
    body.print-paper-a4 {
     width: 210mm;
     height: 297mm;
+	border: 1px dotted black;
   }
 
    body {
@@ -33,7 +34,6 @@
        margin: 0;
        padding: .8cm;
        border:none;
-       overflow: hidden;
    }
 
 }
@@ -55,7 +55,6 @@ body.print-paper-a4 .print-paper {
 .print-paper {
     margin: .6cm auto;
     background: white;
-    border: 1px dotted black;
     box-sizing: border-box;
     padding: 0cm .6cm 0cm .6cm;
     overflow: hidden;   

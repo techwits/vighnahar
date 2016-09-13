@@ -32,18 +32,7 @@
         $pre_wildcharacter="";
         $post_wildcharacter="%";
     }
-//    elseif ($searchin==2){
-//        $columnname="Telephone like";
-//        $pre_wildcharacter="%";
-//        $post_wildcharacter="%";
-//    }
-    //    echo ("CurrentDate:- ".$CurrentDate."</br>");
-    //    echo ("searchvalue:- ".$searchvalue."</br>");
-    //    die();
 ?>
-
-
-
 
 <!-- Single row selection -->
     <table class="table datatable-selection-single">
@@ -54,8 +43,6 @@
         </tr>
         </thead>
         <tbody>
-
-
         <?php
         $cols="void, CreationDate, ModificationDate, Creator, ip, Ownership, Active";
         $sqlQry= "select $cols from `vehicleownership_master`";
@@ -63,13 +50,10 @@
         $sqlQry= $sqlQry." and Active=1";
 //        echo ("Check sqlQry :- $sqlQry </br>");
 //        die();
-        unset($con);
         include('assets/inc/db_connect.php');
         $result = mysqli_query($con, $sqlQry);
-        if (mysqli_num_rows($result)!=0)
-        {
-            while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
-            {
+        if (mysqli_num_rows($result)!=0){
+            while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
                 $void=$row[0];
                 $CreationDate=$row[1];
                 $CreationDate=substr($CreationDate,0,strpos($CreationDate," "));
@@ -79,15 +63,14 @@
                 $Ownership=$row[5];
                 $Active=$row[6];
                 ?>
-                <tr>
-                    <td><a href="#" onclick="return editvehicleownership(<?php echo $void; ?>, '<?php echo $CreationDate; ?>', '<?php echo $ModificationDate; ?>', '<?php echo $Creator; ?>', '<?php echo $ip; ?>', '<?php echo $Ownership; ?>', '<?php echo $Active; ?>');"><?php echo $Ownership; ?></a> </td>
-                    <td><?php echo $CreationDate; ?></td>
-                </tr>
+                    <tr>
+                        <td><a href="#" onclick="return editvehicleownership(<?php echo $void; ?>, '<?php echo $CreationDate; ?>', '<?php echo $ModificationDate; ?>', '<?php echo $Creator; ?>', '<?php echo $ip; ?>', '<?php echo $Ownership; ?>', '<?php echo $Active; ?>');"><?php echo $Ownership; ?></a> </td>
+                        <td><?php echo $CreationDate; ?></td>
+                    </tr>
                 <?php
             }
         }
         ?>
-
         </tbody>
     </table>
 <!-- /single row selection -->
