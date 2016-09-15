@@ -114,8 +114,10 @@
 
 							<div class="panel-body" style="margin-top:15px;">
 
+
 								<div class="row">
-									<div class="col-md-2 col-lg-offset-4">
+                                
+                                <div class="col-md-2 col-lg-offset-4">
 										<div class="form-group form-group-material">
                                             <label>Financial Year <span class="text-danger">*</span></label>
                                           <div>
@@ -184,8 +186,8 @@
 									<div class="col-md-3">
 										<div class="form-group form-group-material">
 											<label>Truck Number </label>
-                                            <div class="input-group">
-												<select name="vehicleid" id="vehicleid" class="form-control" >
+											<div class="input-group">
+												<select name="vehicleid" id="vehicleid" class="form-control" onblur="return lrentry_disabled(this.value, 'vehicleid');">
 													<option></option>
 													<?php
 													$TableName="vehicle_master";
@@ -231,20 +233,18 @@
 									</div>
 								</div>
 								<div class="row">
-									<div id="div_product">
-										<div class="col-md-3">
-											<div class="form-group form-group-material">
-												<label>Product <span class="text-danger">*</span></label>
-												<div class="input-group">
-													<select name="productid" id="productid" required  class="form-control" onblur="return lrentry_disabled(this.value, 'productid');">
-														<option></option>
-													</select>
-															<span class="input-group-addon">
-																<i class="icon-cart-add2"></i>
-															</span>
-												</div>
+									<div class="col-md-3" id="div_product">
+										<div class="form-group form-group-material">
+											<label>Product <span class="text-danger">*</span></label>
+											<div class="input-group">
+												<select name="productid" id="productid" required  class="form-control" onblur="return lrentry_disabled(this.value, 'productid');">
+													<option></option>
+												</select>
+														<span class="input-group-addon">
+															<i class="icon-cart-add2"></i>
+														</span>
 											</div>
-									</div>
+										</div>
 									</div>
 									<div class="col-md-3">
 										<div class="form-group form-group-material">
@@ -262,16 +262,14 @@
 										</div>
 									</div>
 
-									<div id="div_productrate">
-										<div class="col-md-3">
-											<div class="form-group form-group-material">
-												<label>Rate </label>
-												<div class="input-group">
-													<input type="text" class="form-control" required="required" name="productrate" id="productrate" disabled>
-													<span class="input-group-addon">
-														<img src="assets/images/rupees-128.png" height="15" width="15">
-													</span>
-												</div>
+									<div class="col-md-3" id="div_productrate">
+										<div class="form-group form-group-material">
+											<label>Rate <span class="text-danger">*</span></label>
+											<div class="input-group">
+												<input type="text" class="form-control" required="required" name="productrate" id="productrate" disabled>
+												<span class="input-group-addon">
+													<img src="assets/images/rupees-128.png" height="15" width="15">
+												</span>
 											</div>
 										</div>
 									</div>
@@ -294,10 +292,9 @@
 									<div id="div_quantityrate">
 										<div class="col-md-3">
 											<div class="form-group form-group-material">
-												<label>Road Expenses</label>
+												<label>Shiping Charges <span class="text-danger">*</span></label>
 												<div class="input-group">
-													<input type="hidden" class="form-control" name="shippingcharge" id="shippingcharge" disabled value="<?php echo $ShippingCharges;?>">
-													<input type="text" class="form-control" name="roadexpense" id="roadexpense" disabled value="" onkeypress="return only_Numeric_Dot(event);" ondrop="return false;" onpaste="return false;">
+													<input type="text" class="form-control" required="required" name="shippingcharge" id="shippingcharge" value="" onkeypress="return only_Numeric_Dot(event);" ondrop="return false;" onpaste="return false;">
 													<span class="input-group-addon">
 														<img src="assets/images/rupees-128.png" height="15" width="15">
 													</span>
@@ -308,7 +305,7 @@
 											<div class="form-group form-group-material">
 												<label>Bilty Charges </label>
 												<div class="input-group">
-													<input type="text" class="form-control" name="biltycharge" id="biltycharge" disabled value="" onkeypress="return only_Numeric_Dot(event);" ondrop="return false;" onpaste="return false;">
+													<input type="text" class="form-control" name="biltycharge" id="biltycharge" value="" onkeypress="return only_Numeric_Dot(event);" ondrop="return false;" onpaste="return false;">
 													<span class="input-group-addon">
 														<img src="assets/images/rupees-128.png" height="15" width="15">
 													</span>
@@ -317,7 +314,7 @@
 										</div>
 										<div class="col-md-3">
 											<div class="form-group form-group-material">
-												<label>Photocopy Charges </label>
+												<label>Serice Tax </label>
 												<div class="input-group">
 													<input type="text" class="form-control" name="servicetax" id="servicetax" value="" onkeypress="return only_Numeric_Dot(event);" ondrop="return false;" onpaste="return false;">
 													<span class="input-group-addon">
@@ -328,20 +325,19 @@
 										</div>
 									</div>
 
-									<div class="col-md-3">
-										<div class="form-group form-group-material">
-											<label>Additional Charges </label>
-											<div class="input-group">
-												<label class="checkbox-inline">
-													<input type="checkbox" class="styled" name="additionalcharges" id="additionalcharges" onchange="return displayAdditionalCharges(<?php echo $_SESSION['user_id']; ?>, '<?php echo $_SESSION['ip']; ?>');");>
-													<input type="hidden" class="form-control" name="additionalchargesentry" id="additionalchargesentry" value="">
-												</label>
+									<div class="col-md-3" style=" margin-top:30px">
+										<label class="checkbox-inline">
+											<div class="checker">
+                                            <span class="checked">
+                                            	<input type="checkbox" class="styled" name="additionalcharges" id="additionalcharges" onchange="return displayAdditionalCharges(<?php echo $_SESSION['user_id']; ?>, '<?php echo $_SESSION['ip']; ?>');");>
+                                            </span>
 											</div>
-										</div>
+											Additional Charges
+										</label>
+										<input type="hidden" class="form-control" name="additionalchargesentry" id="additionalchargesentry" value="">
 									</div>
 
 								</div>
-                                
 
 
 								<div class="row">
@@ -349,20 +345,21 @@
 
 									</div>
 								</div>
-
-								<div id="divToPrint" style="display:none;">
+                                  <div id="divToPrint" style="display:none;">
 								</div>
-                                </div>
-                                
-                                <div class="panel-footer"><a class="heading-elements-toggle"><i class="icon-more"></i></a>
-                                  <div class="col-md-12">
-                                      <button type="button" name="submit" id="submit" class="btn btn-primary heading-btn pull-right"onclick="return add_lrentry();"><span class="text-semibold" id="<?php echo $span_pageButton; ?>">Submit</span></button>
-                                    </div>
-                                    <div id="div_lrentry"></div>
-                                </div>
 							</div>
+                            
+                            <div class="panel-footer"><a class="heading-elements-toggle"><i class="icon-more"></i></a>
+                              <div class="col-md-12">
+                                  <div class="text-right">
+                                      <button type="button" name="submit" id="submit" class="btn btn-primary heading-btn pull-right"onclick="return add_lrentry();"><span class="text-semibold" id="<?php echo $span_pageButton; ?>">Submit</span></button>
+                                  </div>
+                              </div>
+                              <div id="div_lrentry"></div>
+                          </div>
+						</div>
 					</form>
-                  </div>
+				</div>
 				</div>
 
 
@@ -383,9 +380,10 @@
                             <div class="heading-elements-search">
                               <form class="heading-form-search" action="#">
                                   <div class="form-group has-feedback">
-<!--									  <input type="search" class="form-control" placeholder="Search...">-->
-									  <?php include('lrentry_6.php'); ?>
-
+                                      <input type="search" class="form-control" placeholder="Search...">
+                                      <div class="form-control-feedback">
+                                          <i class="icon-search4 text-size-base"></i>
+                                      </div>
                                   </div>
                               </form>
                             </div>
@@ -397,7 +395,7 @@
 								  define("_session_userid_",$_SESSION['user_id']);
 								  define("_session_ip_",$_SESSION['ip']);
 							  ?>
-
+	  <!--						< ?php include('lrentry_6.php'); ?>-->
 							  <div id="div_searchlrentry">
 								  <?php include('lrentry_7.php'); ?>
 								  <div/>

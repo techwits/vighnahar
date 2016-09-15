@@ -32,6 +32,8 @@
     <!-- /global stylesheets -->
 
 
+
+
     <!-- Core JS files -->
     <script type="text/javascript" src="assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="assets/js/core/libraries/jquery.min.js"></script>
@@ -57,18 +59,20 @@
     <script type="text/javascript" src="assets/js/plugins/pickers/pickadate/picker.time.js"></script>
     <script type="text/javascript" src="assets/js/plugins/pickers/pickadate/legacy.js"></script>
 
-    <script type="text/javascript" src="assets/js/core/app.js"></script>
     <script type="text/javascript" src="assets/js/pages/picker_date.js"></script>
-    <!-- /theme JS files -->
 
+
+    <script type="text/javascript" src="assets/js/plugins/tables/datatables/datatables.min.js"></script>
+    <script type="text/javascript" src="assets/js/pages/datatables_basic.js"></script>
+    <script type="text/javascript" src="assets/js/pages/datatables_api_2columns.js"></script>
+    <!-- /theme JS files -->
 
     <!-- Theme JS files -->
-        <script type="text/javascript" src="assets/js/plugins/tables/datatables/datatables.min.js"></script>
-        <script type="text/javascript" src="assets/js/plugins/forms/selects/select2.min.js"></script>
-
-        <script type="text/javascript" src="assets/js/core/app.js"></script>
-
+    <script type="text/javascript" src="assets/js/plugins/notifications/bootbox.min.js"></script>
+    <script type="text/javascript" src="assets/js/plugins/notifications/sweet_alert.min.js"></script>
+    <script type="text/javascript" src="assets/js/pages/components_modals.js"></script>
     <!-- /theme JS files -->
+
 
 
     <!-- Javascript dropdown list functions-->
@@ -89,11 +93,6 @@
     <!-- Javascript dropdown list functions-->
 
 
-    <!-- Theme JS files -->
-    <script type="text/javascript" src="assets/js/plugins/notifications/bootbox.min.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/notifications/sweet_alert.min.js"></script>
-    <script type="text/javascript" src="assets/js/pages/components_modals.js"></script>
-    <!-- /theme JS files -->
 
 
     <script type="text/JavaScript" src="assets/js/search/search.js"></script>
@@ -104,7 +103,7 @@
 
 <!-- Main navbar -->
 <?php
-    $PageHeaderName="Road Memo Entry";
+    $PageHeaderName="Manage Road Memo";
     $icon="icon-address-book";
 
     include('page_header.php');
@@ -134,10 +133,11 @@
                         <input type="hidden" name="session_ip" id="session_ip" value="<?php echo $_SESSION['ip']; ?>">
                         <input type="hidden" name="AddEdit" id="AddEdit" value="0">
 
-                        <div id="<?php echo $div_merchantcontrols; ?>" class="panel panel-flat" style="border-color:<?php echo $Form_BorderColor; ?>; border-top-width:<?php echo $Form_BorderTopWidth; ?>;">
+                        <div id="<?php echo $div_merchantcontrols; ?>" class="panel panel-default" style="border-color:<?php echo $Form_BorderColor; ?>; border-top-width:<?php echo $Form_BorderTopWidth; ?>;">
 
+                        	
                             <div class="panel-heading" id="<?php echo $div_panel; ?>" style="background-color:<?php echo $FormHeadingColor; ?>;">
-                                <h5 class="panel-title"><i class="icon-user-tie position-left"></i> <span class="text-semibold" id="<?php echo $span_pageName; ?>"><?php echo $PageHeaderName; ?></h5>
+                                <h5 class="panel-title"><i class="icon-road position-left"></i> <span class="text-semibold" id="<?php echo $span_pageName; ?>"><?php echo $PageHeaderName; ?></h5>
                                 <div class="heading-elements">
                                     <ul class="icons-list">
                                         <li><a data-action="collapse"></a></li>
@@ -151,7 +151,7 @@
 
                                     <div class="col-md-3">
                                         <div class="form-group form-group-material">
-                                            <label>Financial Year </label>
+                                            <label>Financial Year <span class="text-danger">*</span></label>
                                             <div class="input-group">
                                                 <?php
                                                     $CYear=date("Y");
@@ -235,9 +235,9 @@
                                     <div class="col-md-4 col-lg-offset-4">
                                         <form class="form-horizontal">
                                             <div class="form-group form-group-material">
-                                                <label class="col-sm-3 control-label" style=" font-size:18px;">LR No.</label>
+                                                <label class="col-sm-3 control-label" style=" font-size:18px;">LR No. </label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control typeahead-basic" name="lrno" id="lrno" onkeyup="return fill_rmtable(event, this.value);" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;" style="border: 1px solid black; float: left; border-top: 0px; border-left: 0px; border-right: 0px; margin: 0; padding: 0; font-size:24px;">
+                                                    <input type="text" class="form-control typeahead-basic" name="lrno" id="lrno" onkeyup="return fill_rmtable(event, this.value);" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;" style="border: 1px solid black; float: left; border-top: 0px; border-left: 0px; border-right: 0px; margin: 0; padding: 0; font-size:24px; width:150px; ">
                                                 </div>
                                             </div>
                                         </form>
@@ -256,6 +256,7 @@
                             </div>
 
                         </div>
+                        
                     </form>
                 </div>
             </div>
@@ -284,34 +285,50 @@
         
                                 <div class="tab-pane has-padding" id="bordered-tab2">
                                     <form name="search_menu" action="#" class="main-search">
+
                                         <div class="row" id="div_lrlisttable">
-        
-        
-                                            <!-- Search field -->
-        
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-lg-12">
-                                                <div class="panel panel-flat" style="border-color:<?php echo $Search_BorderColor; ?>; border-top-width:<?php echo $Search_BorderTopWidth; ?>;">
-                                                    <div class="panel-heading" style="background-color:<?php echo $SearchHeadingColor; ?>;">
-                                                        <h5 class="panel-title"><i class="icon-search4 text-size-base"></i> <span class="text-semibold"><?php echo $SearchPageHeading; ?></h5>
+                                            <div class="col-sm-8 col-md-8 col-lg-8 col-lg-8 col-lg-offset-2">
+
+                                                <!-- Search field -->
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">
+                                                        <h6 class="panel-title">RM Details<a class="heading-elements-toggle"><i class="icon-more"></i></a></h6>
                                                         <div class="heading-elements">
                                                             <ul class="icons-list">
                                                                 <li><a data-action="collapse"></a></li>
                                                                 <li><a data-action="reload" onclick="return refreshpage(0);"></a></li>
                                                             </ul>
                                                         </div>
+                                                        <div class="col-sm-4 col-sm-offset-4">
+                                                            <div class="heading-elements-search">
+                                                                <form class="heading-form-search" action="#">
+                                                                    <div class="form-group has-feedback">
+                                                                        <!--									  <input type="search" class="form-control" placeholder="Search...">-->
+                                                                        <?php include('rmentry_2.php'); ?>
+
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                            <?php include('rmentry_2.php'); ?>
-                                                    <!-- Basic datatable -->
-                                                         <div class="panel-heading" id="div_searchroadmemo">
+
+                                                    <div>
+                                                        <?php
+                                                        define("_session_userid_",$_SESSION['user_id']);
+                                                        define("_session_ip_",$_SESSION['ip']);
+                                                        ?>
+
+                                                        <div id="div_searchroadmemo">
                                                                 <?php include('rmentry_3.php'); ?>
-                                                         <div/>
-                                                        <!-- /basic datatable -->
+                                                            <div/>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-        
-                                            <!-- /search field -->
                                         </div>
+
+
+
                                     </form>
                                 </div>
                             </div>

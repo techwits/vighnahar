@@ -99,7 +99,7 @@
 														<div class="col-lg-6">
 															<div class="form-group">
 																<label>Consignor Name <span class="text-danger">*</span></label>
-																<select name="consignorid" id="consignorid"  class="form-control" autofocus onblur="return control_disabled(this.value, 'consignorid');"  onchange="return get_rate_consignee(this.value, <?php echo $_SESSION['user_id']; ?>, '<?php echo $_SESSION['ip']; ?>');">
+																<select name="consignorid" id="consignorid"  class="form-control" autofocus onblur="return control_disabled(this.value, 'consignorid');" onchange="return get_rate_consignee(this.value, <?php echo $_SESSION['user_id']; ?>, '<?php echo $_SESSION['ip']; ?>');">
 																	<option></option>
 																	<?php
 																		Fill_Consignor($con);
@@ -118,17 +118,11 @@
 														</div>
 												</div>
 													<div class="row">
-														<div class="col-lg-3">
+														<div class="col-lg-3" id="div_product">
 															<div class="form-group">
 																<label>Select Product <span class="text-danger">*</span></label>
 																<select name="productid" id="productid" class="form-control" onblur="return control_disabled(this.value, 'productid');">
 																	<option></option>
-																		<?php
-																			$TableName="product_master";
-																			$ColumnName="pmid, ProductName";
-																			$OrderBy="ProductName";
-																			Fill_Master($con, $TableName, $ColumnName, $OrderBy);
-																		?>
 																</select>
 															</div>
 														</div>

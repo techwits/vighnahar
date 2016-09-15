@@ -52,21 +52,21 @@
     $email=sanitize($con, $_REQUEST["email"]);
     $url=sanitize($con, $_REQUEST["url"]);
 
-//    echo ("AddEdit:- ".$AddEdit."</br>");
-//    echo ("AddEdit1:- ".$AddEdit1."</br>");
-//    echo ("AddEdit2:- ".$AddEdit2."</br>");
-//    echo ("session_userid:- ".$session_userid."</br>");
-//    echo ("session_ip:- ".$session_ip."</br>");
-//    echo ("consignoraddressid:- ".$consignoraddressid."</br>");
-//    echo ("companyname:- ".$companyname."</br>");
-//    echo ("address:- ".$address."</br>");
-//    echo ("area :- ".$area."</br>");
-//    echo ("pincode:- ".$pincode."</br>");
-//    echo ("city:- ".$city."</br>");
-//    echo ("telephone:- ".$telephone."</br>");
-//    echo ("email:- ".$email."</br>");
-//    echo ("url:- ".$url."</br>");
-//    die();
+    echo ("AddEdit:- ".$AddEdit."</br>");
+    echo ("AddEdit1:- ".$AddEdit1."</br>");
+    echo ("AddEdit2:- ".$AddEdit2."</br>");
+    echo ("session_userid:- ".$session_userid."</br>");
+    echo ("session_ip:- ".$session_ip."</br>");
+    echo ("consignoraddressid:- ".$consignoraddressid."</br>");
+    echo ("companyname:- ".$companyname."</br>");
+    echo ("address:- ".$address."</br>");
+    echo ("area :- ".$area."</br>");
+    echo ("pincode:- ".$pincode."</br>");
+    echo ("city:- ".$city."</br>");
+    echo ("telephone:- ".$telephone."</br>");
+    echo ("email:- ".$email."</br>");
+    echo ("url:- ".$url."</br>");
+    die();
 
 
     $PageName=basename(__FILE__);
@@ -86,8 +86,6 @@
 
             /* Log Start*/
                 $LogStart_Value=Log_Start($con, $CurrentDate, $Creator, $ip, $PageName, $inTime, $tablename, $searchColumn, $searchColumn_Value);
-                unset($con);
-                include('assets/inc/db_connect.php');
             /* Log Start*/
 
             $tablename="consigneeaddress_master";
@@ -96,8 +94,6 @@
 
             /* Log Start*/
                 $LogStart_Value1=Log_Start($con, $CurrentDate, $Creator, $ip, $PageName, $inTime, $tablename, $searchColumn, $searchColumn_Value1);
-                unset($con);
-                include('assets/inc/db_connect.php');
             /* Log Start*/
 
             $Procedure = "Call Save_Consignee('$CurrentDate', $session_userid, '$session_ip', $consignoraddressid, '$companyname', '$address', $AreaID, $pincode, '$city', '$telephone', '$email', '$url');";
@@ -126,7 +122,12 @@
                 $Procedure = "Call Update_Consignee($IDExist, $IDExist1, $IDExist2, '$CurrentDate', $session_userid, '$session_ip', $consignoraddressid, '$companyname', '$address', $pincode, '$city', '$telephone', '$email', '$url');";
             }
             else{
-                echo("Consignee ID is not getting. Please contact system administrator....");
+                $error_msg="Consignee / Consignor / Area ID is not getting. Please contact system administrator....";
+                ?>
+                    <script type="text/javascript">
+                        show_error('<?php echo $error_msg; ?>');
+                    </script>
+                <?php
             }
         }
 //        echo ("Procedure:- ".$Procedure."</br>");
@@ -138,16 +139,12 @@
         if (mysqli_num_rows($result) != 0) {
             $row = mysqli_fetch_array($result, MYSQLI_NUM);
             $LastInsertedID = $row{0};
-
             /* Log Ends*/
                 Log_End($con, $searchColumn_Value, $LogStart_Value);
-                unset($con);
             /* Log Ends*/
 
             /* Log Ends*/
-                include('assets/inc/db_connect.php');
                 Log_End($con, $searchColumn_Value1, $LogStart_Value1);
-                unset($con);
             /* Log Ends*/
 
             ?>
@@ -163,6 +160,10 @@
         mysqli_free_result($result);
     }
     else{
-        echo($error_msg);
+        ?>
+            <script type="text/javascript">
+                show_error('<?php echo $error_msg; ?>');
+            </script>
+        <?php
     }
 ?>

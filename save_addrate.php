@@ -29,8 +29,17 @@
     $consigneeid=sanitize($con, $_REQUEST["consigneeid"]);
     $productid=sanitize($con, $_REQUEST["productid"]);
     $minimumrate=sanitize($con, $_REQUEST["minimumrate"]);
+    if($minimumrate==""){
+        $minimumrate=0;
+    }
     $cartoonrate=sanitize($con, $_REQUEST["cartoonrate"]);
+    if($cartoonrate==""){
+        $cartoonrate=0;
+    }
     $itemrate=sanitize($con, $_REQUEST["itemrate"]);
+    if($itemrate==""){
+        $itemrate=0;
+    }
 
 //    echo ("error_msg:- ".$error_msg."</br>");
 //    echo ("AddEdit:- ".$AddEdit."</br>");
@@ -110,12 +119,22 @@
                                     die();
                             }
                         }
+                        ?>
+                            <script language="javascript">
+                                ClearAllControls(0);
+                            </script>
+                        <?php
                     }
-                    ?>
-                        <script language="javascript">
-                            ClearAllControls(0);
-                        </script>
-                    <?php
+                    else{
+                        $error_msg= "Consignee is not available. Please check";
+                            ?>
+                                <script type="text/javascript">
+                                    show_error('<?php echo $error_msg; ?>');
+                                </script>
+                            <?php
+                        die();
+                    }
+
                 }
                 else{
 

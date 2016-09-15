@@ -1576,14 +1576,14 @@ input[class*=bg-] + .form-control-feedback {
 .btn-primary:focus,
 .btn-primary.focus,
 .btn-primary:hover {
-  background-color: #2196F3;
-  border-color: #2196F3;
+  background-color: #072762;
+  border-color: #072762;
 }
 .btn-primary:active,
 .btn-primary.active,
 .open > .dropdown-toggle.btn-primary {
-  background-color: #2196F3;
-  border-color: #2196F3;
+  background-color: #072762;
+  border-color: #072762;
 }
 .btn-primary:active:hover,
 .btn-primary.active:hover,
@@ -1594,8 +1594,8 @@ input[class*=bg-] + .form-control-feedback {
 .btn-primary:active.focus,
 .btn-primary.active.focus,
 .open > .dropdown-toggle.btn-primary.focus {
-  background-color: #2196F3;
-  border-color: #2196F3;
+  background-color: #072762;
+  border-color: #072762;
 }
 .btn-primary.disabled {
   -webkit-box-shadow: none;

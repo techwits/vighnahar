@@ -35,16 +35,16 @@
     $transporterid=sanitize($con, $_REQUEST["transporterid"]);
     $SelectedLR=sanitize($con, $_REQUEST["SelectedLR"]);
 
-    echo ("AddEdit:- ".$AddEdit."</br>");
-    echo ("session_userid:- ".$session_userid."</br>");
-    echo ("session_ip:- ".$session_ip."</br>");
-
-    echo ("financialyear:- ".$financialyear."</br>");
-    echo ("rmdate:- ".$rmdate."</br>");
-    echo ("vehicleid:- ".$vehicleid."</br>");
-    echo ("transporterid:- ".$transporterid."</br>");
-    echo ("SelectedLR:- ".$SelectedLR."</br>");
-    die();
+//    echo ("AddEdit:- ".$AddEdit."</br>");
+//    echo ("session_userid:- ".$session_userid."</br>");
+//    echo ("session_ip:- ".$session_ip."</br>");
+//
+//    echo ("financialyear:- ".$financialyear."</br>");
+//    echo ("rmdate:- ".$rmdate."</br>");
+//    echo ("vehicleid:- ".$vehicleid."</br>");
+//    echo ("transporterid:- ".$transporterid."</br>");
+//    echo ("SelectedLR:- ".$SelectedLR."</br>");
+//    die();
 
     $tablename="outward";
     $searchColumn="oid";

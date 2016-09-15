@@ -442,6 +442,51 @@
 		return $Getting_MinimumRate;
 	}
 
+	function Get_RoadMemoLRPackageCount($con, $oid)
+	{
+		$Getting_RoadMemoLRPackageCount=0;
+		$sqlQry= "";
+		$sqlQry.= "select sum(inward.Quantity) from  outwardlr ";
+		$sqlQry.= "inner join inward ";
+		$sqlQry.= "on outwardlr.iid=inward.iid ";
+		$sqlQry.= " where outwardlr.oid=$oid";
+		$sqlQry.= " and outwardlr.Active=1";
+		$sqlQry.= " and inward.Active=1";
+//			echo ("</br> $sqlQry </br>");
+	//		die();
+		include('db_connect.php');
+		$rs = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($rs)!=0){
+			while ($row = mysqli_fetch_array($rs,MYSQLI_NUM)){
+				$Getting_RoadMemoLRPackageCount=$row{0};
+			}
+		}
+		mysqli_free_result($rs);
+		return $Getting_RoadMemoLRPackageCount;
+	}
+
+
+	function Get_RoadMemoLRCount($con, $oid)
+	{
+		$Getting_RoadMemoLRCount=0;
+		$sqlQry= "";
+		$sqlQry= "select count(*) from  outwardlr ";
+		$sqlQry.= " where oid=$oid";
+		$sqlQry.= " and Active=1";
+//		echo ("$sqlQry");
+//		die();
+		include('db_connect.php');
+		$rs = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($rs)!=0){
+			while ($row = mysqli_fetch_array($rs,MYSQLI_NUM)){
+				$Getting_RoadMemoLRCount=$row{0};
+			}
+		}
+		mysqli_free_result($rs);
+		return $Getting_RoadMemoLRCount;
+	}
 
 	function Get_RoadMemoLR($con, $RMID)
 	{
@@ -1345,10 +1390,12 @@
 
 	function Get_FirstColumnName($con, $TableName)
 	{
+//		echo ("TableName :- $TableName </br>");
+//		die();
 		$FirstColumnName="";
 		$sqlQry= "";
 		$sqlQry= "SHOW COLUMNS from $TableName";
-//		echo ("$sqlQry");
+//		echo ("sqlQry :- $sqlQry </br>");
 	//		die();
 		include('db_connect.php');
 		$result = mysqli_query($con, $sqlQry);
@@ -1383,6 +1430,27 @@
 		}
 		mysqli_free_result($result);
 		return $MasterDataID;
+	}
+
+	function Fill_Master_Delete($con, $TableName, $ColumnName, $FirstColumn)
+	{
+		$sqlQry= "";
+		$sqlQry= "select $FirstColumn, $ColumnName from $TableName ";
+		$sqlQry.= " where Active=1";
+		$sqlQry.= " order by $ColumnName";
+	//		echo ("$sqlQry");
+	//		die();
+		mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		while ($row = mysqli_fetch_array($result, MYSQLI_NUM))
+		{
+			$ID=$row{0};
+			$Name=$row{1};
+			echo "<option value=".$ID.">".$Name." </option>";
+		}
+		mysqli_free_result($result);
 	}
 
 	function Fill_Master($con, $TableName, $ColumnName, $OrderBy)
@@ -1626,6 +1694,34 @@
 			mysqli_free_result($result);
 		}
 
+	function Fill_ProductOnConsignor($con, $ConsignorID)
+	{
+		$sqlQry= "";
+		$sqlQry= "select consignorproduct_master.pmid, product_master.ProductName from consignorproduct_master ";
+
+		$sqlQry.= " inner join product_master";
+		$sqlQry.= " on consignorproduct_master.pmid=product_master.pmid";
+
+		$sqlQry.= " where consignorproduct_master.Active=1";
+		$sqlQry.= " and product_master.Active=1";
+		$sqlQry.= " and consignorproduct_master.caid=$ConsignorID";
+//		$sqlQry.= " and rate_master.cnid=$ConsigneeID";
+		$sqlQry.= " order by product_master.ProductName";
+//			echo ("$sqlQry");
+//			die();
+
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		while ($row = mysqli_fetch_array($result, MYSQLI_NUM))
+		{
+			$ID=$row{0};
+			$Name=$row{1};
+			echo "<option value=".$ID.">".$Name." </option>";
+		}
+		mysqli_free_result($result);
+	}
+
 	function Fill_ProductOnConsignorConsignee($con, $ConsignorID, $ConsigneeID)
 	{
 		$sqlQry= "";
@@ -1637,7 +1733,8 @@
 		$sqlQry.= " and rate_master.cnid=$ConsigneeID";
 		$sqlQry.= " order by product_master.ProductName";
 //		echo ("$sqlQry");
-		// mysqli_close($con);
+//		die();
+
 		include('db_connect.php');
 		$result = mysqli_query($con, $sqlQry);
 		//fetch tha data from the database
@@ -1866,13 +1963,68 @@
 		return $Getting_AreaName;
 	}
 
+	function Get_AdditionalCharges($con, $LRID)
+	{
+		$Getting_AdditionalCharges="";
+		$sqlQry= "";
+		$sqlQry= "select acmid, ChargeName from additionalcharge_master ";
+		$sqlQry= $sqlQry." where 1=1";
+		$sqlQry= $sqlQry." and Active=1";
+		$sqlQry= $sqlQry." order by acmid";
+//		echo ("Check sqlQry :- $sqlQry </br>");
+//		die();
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		if (mysqli_num_rows($result)!=0){
+			$i=0;
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+				$i=$i+1;
+				$acmid=$row{0};
+				$$LR_AdditionalCharge=0;
+				$LR_AdditionalCharge=Get_LR_AdditionalCharge($con, $LRID, $acmid);
+//				echo("LR_AdditionalCharge :- $LR_AdditionalCharge </br>");
+//				die();
+				if($i==1) {
+					$Getting_AdditionalCharges=$LR_AdditionalCharge;
+				}
+				else {
+					$Getting_AdditionalCharges=$Getting_AdditionalCharges.", ".$LR_AdditionalCharge;
+				}
+			}
+		}
+		mysqli_free_result($result);
+//		echo("Getting_AdditionalCharges :- $Getting_AdditionalCharges </br>");
+		return $Getting_AdditionalCharges;
+	}
+
+	function Get_LR_AdditionalCharge($con, $LRID, $acmid)
+	{
+		$Getting_LR_AdditionalCharge=0;
+		$sqlQry= "";
+		$sqlQry= "select Amount from inwardcharge ";
+		$sqlQry= $sqlQry." where LRID=$LRID";
+		$sqlQry= $sqlQry." and acmid=$acmid";
+		$sqlQry= $sqlQry." and Active=1";
+//		echo ("Check sqlQry :- $sqlQry </br>");
+//		die();
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		if (mysqli_num_rows($result)!=0){
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+				$Getting_LR_AdditionalCharge=$row{0};
+				$Getting_LR_AdditionalCharge=number_format((float)$Getting_LR_AdditionalCharge, 2, '.', '');
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_LR_AdditionalCharge;
+	}
 
 	function Get_AdditionalChargeList($con)
 	{
 		$Getting_allControlName="";
 		$sqlQry= "";
 		$sqlQry= "select ChargeName, ChargeFix, acmid from additionalcharge_master ";
-		$sqlQry= $sqlQry." where acmid>3";
+		$sqlQry= $sqlQry." where (acmid>3 and acmid<8)";
 		$sqlQry= $sqlQry." and Active=1";
 		$sqlQry= $sqlQry." order by acmid";
 	//			echo ("Check sqlQry :- $sqlQry </br>");
@@ -1945,6 +2097,29 @@
 		}
 		mysqli_free_result($result);
 		return $Getting_ServiceTax;
+	}
+
+	function Get_RoadExpenses($con)
+	{
+		$Getting_RoadExpenses=0;
+		$sqlQry= "";
+		$sqlQry= "select ChargeFix from `additionalcharge_master`";
+		$sqlQry= $sqlQry." where acmid=1";
+		$sqlQry= $sqlQry." and Active=1";
+	//		echo ("Check sqlQry :- $sqlQry </br>");
+	//		die();
+		unset($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		if (mysqli_num_rows($result)!=0)
+		{
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$Getting_RoadExpenses = $row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_RoadExpenses;
 	}
 
 	function Get_BiltyCharge($con)

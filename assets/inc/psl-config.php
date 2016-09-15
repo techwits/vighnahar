@@ -1,7 +1,7 @@
 <?php
 /**
  * These are the database login details
- */  
+ */
 define("HOST", "192.168.0.88");     // The host you want to connect to.
 define("USER", "root");    // The database username.
 define("PASSWORD", "root");    // The database password.
@@ -18,6 +18,6 @@ define("LOCKCOOKIE", "zx2cv1");    // The name.
 
 define("CAN_REGISTER", "any");
 define("DEFAULT_ROLE", "member");
- 
+
 define("SECURE", FALSE);    // FOR DEVELOPMENT ONLY!!!!
 ?>

@@ -397,7 +397,7 @@ function show_newlyaddedlist(pagename, divname)
 	{
 		var div_name = "#"+divname;
 		var page_name = pagename;
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {pagename:pagename},
 			function(data)
 			{
@@ -467,7 +467,7 @@ function changepassword_change()
     {
         var div_name = "#div_userid";
         var page_name = "save_changepassword.php";
-        $(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+        $(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
         $.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, userid:userid, pwd:pwd, pwd:pwd},
             function(data)
             {
@@ -518,7 +518,7 @@ function changepassword_checkuserid()
 	{
 		var div_name = "#div_userid";
 		var page_name = "change_password_1.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {session_userid:session_userid, session_ip:session_ip, userid:userid},
 			function(data)
 			{
@@ -581,7 +581,7 @@ function delete_bill(BillID)
 	{
 		var div_name = "#"+BillID;
 		var page_name = "save_deletebill.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {session_userid:session_userid, session_ip:session_ip, BillID:BillID, deletereason:deletereason},
 			function(data)
 			{
@@ -630,6 +630,31 @@ function delete_master()
 	}
 
 
+	TableName=trim(frm.TableName.value);
+	if(TableName.length <= 0 || TableName == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Select Table Name" + "\n";
+		// frm.masterrecord.focus();
+	}
+
+	ColumnName=trim(frm.ColumnName.value);
+	if(ColumnName.length <= 0 || ColumnName == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Select Column Name" + "\n";
+		// frm.masterrecord.focus();
+	}
+
+	FirstColumn=trim(frm.FirstColumn.value);
+	if(FirstColumn.length <= 0 || FirstColumn == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Select First Column Name" + "\n";
+		// frm.masterrecord.focus();
+	}
+
+
 	masterrecord=trim(frm.masterrecord.value);
 	if(masterrecord.length <= 0 || masterrecord == "")
 	{
@@ -657,8 +682,8 @@ function delete_master()
 
 					var div_name = "#div_deletemaster";
 					var page_name = "save_deletemaster.php";
-					$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
-					$.post(page_name, {session_userid:session_userid, session_ip:session_ip, mastertable:mastertable, masterrecord:masterrecord},
+					$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
+					$.post(page_name, {session_userid:session_userid, session_ip:session_ip, mastertable:mastertable, TableName:TableName, ColumnName:ColumnName, FirstColumn:FirstColumn, masterrecord:masterrecord},
 						function(data)
 						{
 							$(div_name).html(data);
@@ -722,7 +747,7 @@ function delete_user()
 	{
 		var div_name = "#div_deleteuser";
 		var page_name = "save_deleteuser.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {session_userid:session_userid, session_ip:session_ip, userID:userID, deleteuser_reason:deleteuser_reason},
 			function(data)
 			{
@@ -784,7 +809,7 @@ function delete_user()
 	{
 		var div_name = "#div_deleteuser";
 		var page_name = "save_deleteuser.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {session_userid:session_userid, session_ip:session_ip, userID:userID, deleteuser_reason:deleteuser_reason},
 			function(data)
 			{
@@ -834,7 +859,7 @@ function add_designation()
 	{
 		var div_name = "#div_designation";
 		var page_name = "save_designation.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {designation:designation, p:p},
 			function(data)
 			{
@@ -963,6 +988,51 @@ function show_error(error_msg){
 	});
 }
 
+function show_selectedproducts()
+{
+	var SelectedProductsList="";
+	var productLength = $('select#product option').length
+	for (i = 0; i < productLength; i++) {
+		if(document.getElementById('product').options[i].selected == true)
+		{
+			// alert("Selected Product :- " +  document.getElementById('product').options[i].text);
+			if(SelectedProductsList==""){
+				SelectedProductsList=document.getElementById('product').options[i].text;
+			}
+			else{
+				SelectedProductsList=SelectedProductsList+", "+document.getElementById('product').options[i].text;
+			}
+		}
+	}
+	document.getElementById('selectedproduct').value=SelectedProductsList;
+}
+
+function displayrm(rmno)
+{
+	// alert("LRNO :- " + lrno);
+	var strWindowFeatures = "location=yes,height=590,width=820,scrollbars=yes,status=yes";
+	//var URL = "display_LRDetails.php?LRID="+ lrno +"&amp;url=" + location.href;
+	var URL = "display_RMDetails.php?RMID="+ rmno;
+	var win = window.open(URL, "_blank", strWindowFeatures);
+}
+
+function displaylr(lrno)
+{
+	// alert("LRNO :- " + lrno);
+	var strWindowFeatures = "location=yes,height=590,width=820,scrollbars=NO,status=yes";
+	//var URL = "display_LRDetails.php?LRID="+ lrno +"&amp;url=" + location.href;
+	var URL = "display_LRDetails.php?LRID="+ lrno;
+	var win = window.open(URL, "_blank", strWindowFeatures);
+}
+
+function display_printlr(lrno)
+{
+	// alert("LRNO :- " + lrno);
+	var strWindowFeatures = "location=yes,height=590,width=820,scrollbars=NO,status=yes";
+	var URL = "lrprint.php?LRID="+ lrno;
+	var win = window.open(URL, "_blank", strWindowFeatures);
+}
+
 function searchlogin(searchvalue, searchin)
 {
 	// alert("Hi...");
@@ -993,7 +1063,7 @@ function searchlogin(searchvalue, searchin)
 	{
 		var div_name = "#div_searchlogin";
 		var page_name = "add_login_2.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {searchvalue:searchvalue, searchin:searchin},
 			function(data)
 			{
@@ -1034,7 +1104,7 @@ function searchconsignee(searchvalue, searchin)
 	{
 		var div_name = "#div_searchconsignee";
 		var page_name = "add_consignee_2.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {searchvalue:searchvalue, searchin:searchin},
 			function(data)
 			{
@@ -1087,7 +1157,7 @@ function searchform1_session(searchvalue, searchin, divName, formName, session_u
 	{
 		var div_name = "#"+divName;
 		var page_name = formName;
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {searchvalue:searchvalue, searchin:searchin, session_userid:session_userid, session_ip:session_ip},
 			function(data)
 			{
@@ -1127,7 +1197,7 @@ function searchform1(searchvalue, searchin, divName, formName)
 	{
 		var div_name = "#"+divName;
 		var page_name = formName;
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {searchvalue:searchvalue, searchin:searchin},
 			function(data)
 			{
@@ -1169,7 +1239,7 @@ function searchvehicleownership(searchvalue, searchin)
 	{
 		var div_name = "#div_searchvehicleownership";
 		var page_name = "add_vehicleownership_2.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {searchvalue:searchvalue, searchin:searchin},
 			function(data)
 			{
@@ -1210,7 +1280,7 @@ function searchmenu(searchvalue, searchin)
 	{
 		var div_name = "#div_searchmenu";
 		var page_name = "add_pages_2.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {searchvalue:searchvalue, searchin:searchin},
 			function(data)
 			{
@@ -1251,7 +1321,7 @@ function searchmerchant(searchvalue, searchin)
 	{
 		var div_name = "#div_searchmerchant";
 		var page_name = "add_merchant_2.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {searchvalue:searchvalue, searchin:searchin},
 			function(data)
 			{
@@ -1377,6 +1447,7 @@ function editconsignor(cid, ConsignorName, Pancard, ServiceTax, Remark, caid, Ad
 			document.getElementById("servicetax").checked=false;
 		}
 
+		var SelectedProductsList="";
 		var productLength = $('select#product option').length
 		for (i = 0; i < productLength; i++) {
 			document.getElementById('product').options[i].selected = false;
@@ -1391,10 +1462,18 @@ function editconsignor(cid, ConsignorName, Pancard, ServiceTax, Remark, caid, Ad
 					// alert("Yes....");
 					// alert(document.getElementById('product').options[i].text);
 					document.getElementById('product').options[i].selected = true;
+
+					if(SelectedProductsList==""){
+						SelectedProductsList=Consignor_SelectedProduct;
+					}
+					else{
+						SelectedProductsList=SelectedProductsList+", "+Consignor_SelectedProduct;
+					}
+
 				}
 			}
 		}
-
+		document.getElementById('selectedproduct').value=SelectedProductsList;
 
 		// if(edited_consignoraddressid!=consignoraddressid) {
 		// 	var oForm = document.forms["consignee_form"];
@@ -1783,7 +1862,7 @@ function deletelrentry(session_userid, session_ip, lrid, divName, Status)
 	{
 		var div_name = "#"+divName;
 		var page_name = "deletelr.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {session_userid:session_userid, session_ip:session_ip, lrid:lrid},
 			function(data)
 			{
@@ -1798,7 +1877,7 @@ function deletelrentry(session_userid, session_ip, lrid, divName, Status)
 	}
 }
 
-function editlrentry(lrid, Status)
+function editlrentry(lrid, Status, LRDate, fyid, FinancialYear)
 {
 	if(Number(Status)==0) {
 		// alert("LRID :- " + lrid);
@@ -1806,12 +1885,23 @@ function editlrentry(lrid, Status)
 		document.getElementById("AddEdit").value = lrid;
 		if (Number(lrid) > 0) {
 			document.getElementById("additionalcharges").checked = false;
-			if (edited_financialyear != "") {
-				$("#financialyear").prepend("<option value=''></option>");
-				$("#financialyear option:first").attr("selected", "selected");
+			// if (edited_financialyear != "") {
+			// 	$("#financialyear").prepend("<option value=''></option>");
+			// 	$("#financialyear option:first").attr("selected", "selected");
+			// }
+			if(edited_financialyear!=fyid) {
+				var oForm = document.forms["rmentry_form"];
+				$("#financialyear option").eq(0).before($('<option>', {
+					value: fyid,
+					text: FinancialYear
+				}));
+				document.getElementById("financialyear").selectedIndex = 0;
 			}
-			document.getElementById("lrdate").value = "";
-			displayAdditionalCharges(6, '::1');
+			document.getElementById("lrdate").value = LRDate;
+
+			document.getElementById("financialyear").disabled=true;
+			document.getElementById("lrdate").disabled=true;
+			// displayAdditionalCharges(6, '::1');
 			// document.getElementById("div_pageheader").innerHTML = "Edit LREntry " + lrid;
 
 			document.getElementById("invoicenumber").focus();
@@ -1823,7 +1913,7 @@ function editlrentry(lrid, Status)
 
 			// $("#div_merchantcontrols").css({ 'border-color': "#00c0ef" });
 			// $( "#div_merchantcontrols" ).css( "border-top", "3px solid red");
-			document.getElementById("span_pageName").innerHTML = "Update - " + lrid;
+			document.getElementById("span_pageName").innerHTML = "Updating LRNo - " + lrid;
 			document.getElementById("span_pageButton").innerHTML = "Update";
 
 
@@ -2051,7 +2141,7 @@ function get_LROnConsignor(ConsignorID, session_userid, session_ip)
 	{
 		var div_name = "#div_consignorlr";
 		var page_name = "billentry_2.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {session_userid:session_userid, session_ip:session_ip, ConsignorID:ConsignorID},
 			function(data)
 			{
@@ -2184,7 +2274,7 @@ function rmstatusreverse(session_userid, session_ip, divname, olrid)
 	{
 		var div_name = "#"+divname;
 		var page_name = "rmstatus_reverse.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {session_userid:session_userid, session_ip:session_ip, olrid:olrid},
 			function(data)
 			{
@@ -2217,8 +2307,8 @@ function Fill_MasterColumn(Table_ColumnName)
 	if(Number(error_count) == 0)
 	{
 		var div_name = "#div_fillmasterrecords";
-		var page_name = "deletemaster_1.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		var page_name = "delete_master_1.php";
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {Table_ColumnName:Table_ColumnName},
 			function(data)
 			{
@@ -2312,7 +2402,7 @@ function fill_rmtableEdit(lrnumber){
 			document.getElementById("lrno").value="";
 			var div_name = "#div_lrlisttable";
 			var page_name = "rmentry_1.php";
-			$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+			$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 			$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, financialyear:financialyear, rmdate:rmdate, vehicleid:vehicleid, transporterid:transporterid, Fill_LRIdList:Fill_LRIdList, Valid_LRIDs:Valid_LRIDs},
 				function(data)
 				{
@@ -2381,7 +2471,7 @@ function display_LR(AddEdit, session_userid, session_ip, financialyear, rmdate, 
 		// alert("Comming....");
 		var div_name = "#div_lrlisttable";
 		var page_name = "rmentry_1.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {
 				AddEdit: AddEdit,
 				session_userid: session_userid,
@@ -2481,11 +2571,12 @@ function fill_rmtable(e, lrnumber){
 
 		if(Number(error_count) == 0)
 		{
+			$('a[href="#bordered-tab1"]').click();
 			document.getElementById("lrid_list").value=Fill_LRIdList;
 			document.getElementById("lrno").value="";
 			var div_name = "#div_lrlisttable";
 			var page_name = "rmentry_05.php";
-			$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+			$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 			$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, financialyear:financialyear, rmdate:rmdate, vehicleid:vehicleid, transporterid:transporterid, Fill_LRIdList:Fill_LRIdList, Get_LRId:Get_LRId},
 				function(data)
 				{
@@ -2595,7 +2686,7 @@ function add_billentry()
 	{
 		var div_name = "#div_savebillentry";
 		var page_name = "save_billentry.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {session_userid:session_userid, session_ip:session_ip, olrid_List:olrid_List, financialyear:financialyear, rmdate:rmdate, consignoraddressid:consignoraddressid, lrlist:lrlist, total:total, discount:discount, servicetax:servicetax, billtotal:billtotal},
 			function(data)
 			{
@@ -2705,7 +2796,7 @@ function add_rmentry()
 	{
 		var div_name = "#div_rmentry";
 		var page_name = "save_rmentry.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, financialyear:financialyear, rmdate:rmdate, vehicleid:vehicleid, transporterid:transporterid, SelectedLR:SelectedLR},
 			function(data)
 			{
@@ -2795,7 +2886,7 @@ function add_pageaccess()
 	{
 		var div_name = "#div_pageacess";
 		var page_name = "save_pageaccess.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, selectedvalue:selectedvalue, username:username},
 			function(data)
 			{
@@ -2849,7 +2940,7 @@ function add_product()
 	{
 		var div_name = "#div_product";
 		var page_name = "save_addproduct.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, productname:productname},
 			function(data)
 			{
@@ -2898,7 +2989,7 @@ function add_contacttype()
 	{
 		var div_name = "#div_contacttypename";
 		var page_name = "save_addcontacttype.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, contacttypename:contacttypename},
 			function(data)
 			{
@@ -2983,7 +3074,7 @@ function add_additionalcharge()
 	{
 		var div_name = "#div_additionalcharges";
 		var page_name = "save_addadditionalcharge.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, additionalchargename:additionalchargename, chargepercentage:chargepercentage, chargefix:chargefix},
 			function(data)
 			{
@@ -3052,7 +3143,7 @@ function add_additionalcharge()
 // 	{
 // 		var div_name = "#div_additionalcharges";
 // 		var page_name = "save_addadditionalcharge.php";
-// 		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+// 		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 // 		$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, additionalchargename:additionalchargename, chargepercentage:chargepercentage, chargefix:chargefix},
 // 			function(data)
 // 			{
@@ -3102,7 +3193,7 @@ function add_undeliveredreason()
 	{
 		var div_name = "#div_undeliveredreason";
 		var page_name = "save_addundeliveredreason.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, reasonname:reasonname},
 			function(data)
 			{
@@ -3155,7 +3246,7 @@ function add_area()
 	{
 		var div_name = "#div_area";
 		var page_name = "save_addarea.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, areaname:areaname},
 			function(data)
 			{
@@ -3341,6 +3432,8 @@ function add_lrentry()
 		frm.shippingcharge.focus();
 	}
 
+	var roadexpense=trim(frm.roadexpense.value);
+
 	var biltycharge=trim(frm.biltycharge.value);
 	
 	var servicetax=trim(frm.servicetax.value);
@@ -3361,8 +3454,8 @@ function add_lrentry()
 	{
 		var div_name = "#div_lrentry";
 		var page_name = "save_lrentry.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
-		$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, financialyear:financialyear, ToDate:ToDate, invoicenumber:invoicenumber, vehicleid:vehicleid, consignorid:consignorid, consigneeid:consigneeid, productid:productid, packagetype:packagetype, productrate:productrate, qauntity:qauntity, paidlramount:paidlramount, shippingcharge:shippingcharge, biltycharge:biltycharge, servicetax:servicetax, additionalchargesentry:additionalchargesentry},
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
+		$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, financialyear:financialyear, ToDate:ToDate, invoicenumber:invoicenumber, vehicleid:vehicleid, consignorid:consignorid, consigneeid:consigneeid, productid:productid, packagetype:packagetype, productrate:productrate, qauntity:qauntity, paidlramount:paidlramount, shippingcharge:shippingcharge, roadexpense:roadexpense, biltycharge:biltycharge, servicetax:servicetax, additionalchargesentry:additionalchargesentry},
 			function(data)
 			{
 				$(div_name).html(data);
@@ -3395,7 +3488,7 @@ function show_warai(LRNO)
 	{
 		var div_name = "#div_showwarai";
 		var page_name = "show_warai.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {LRNO:LRNO},
 			function(data)
 			{
@@ -3459,7 +3552,7 @@ function add_warai()
 	{
 		var div_name = "#div_warai";
 		var page_name = "save_warai.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, lrno:lrno, waraicharges:waraicharges},
 			function(data)
 			{
@@ -3526,7 +3619,7 @@ function add_transporter()
 	{
 		var div_name = "#div_transporter";
 		var page_name = "save_addtransporter.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, transportername:transportername, address:address, mobilenumber:mobilenumber, licencenumber:licencenumber},
 			function(data)
 			{
@@ -3641,7 +3734,7 @@ function add_vehicle()
 	{
 		var div_name = "#div_vehicle";
 		var page_name = "save_addvehicle.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, vehiclename:vehiclename, vehiclenumber:vehiclenumber, vehiclercbooknumber:vehiclercbooknumber, vehicleownershipname:vehicleownershipname, registrationyear:registrationyear, permitnumber:permitnumber, vehiclepermitexpiredate:vehiclepermitexpiredate, insurancenumber:insurancenumber, insuranceexpiredate:insuranceexpiredate},
 			function(data) {
 				$(div_name).html(data);
@@ -3695,7 +3788,7 @@ function add_vehicleownership()
 	{
 		var div_name = "#div_vehicleownership";
 		var page_name = "save_addvehicleownership.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, vehicleownershipname:vehicleownershipname},
 			function(data)
 			{
@@ -3750,7 +3843,7 @@ function add_category()
 	{
 		var div_name = "#div_category";
 		var page_name = "save_addcategory.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, categoryname:categoryname, octroi:octroi},
 			function(data)
 			{
@@ -3870,7 +3963,7 @@ function add_rate()
 	{
 		var div_name = "#div_rate";
 		var page_name = "save_addrate.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, consignorid:consignorid, consigneeid:consigneeid, productid:productid, minimumrate:minimumrate, cartoonrate:cartoonrate, itemrate:itemrate},
 			function(data)
 			{
@@ -3952,7 +4045,7 @@ function updateRMStatus(Inc, session_userid, session_ip, RMID, LRID, DeliveredID
         var divname="div"+Inc;
         var div_name = "#"+divname;
         var page_name = "save_rmstatus.php";
-        $(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+        $(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
         $.post(page_name, {divname:divname, session_userid:session_userid, session_ip:session_ip, RMID:RMID, LRID:LRID, DeliveredID:DeliveredID, UnDeliveredID:UnDeliveredID, returncount:returncount, LRRate:LRRate, LRQuantityCount:LRQuantityCount},
             function(data)
             {
@@ -4005,7 +4098,7 @@ function add_deliverystatus()
     {
         var div_name = "#div_deliverystatus";
         var page_name = "save_adddeliverystatus.php";
-        $(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+        $(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
         $.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, deliverystatus:deliverystatus},
             function(data)
             {
@@ -4066,7 +4159,7 @@ function add_menu()
 	{
 		var div_name = "#div_menu";
 		var page_name = "save_pages.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, menuname:menuname, pagedescription:pagedescription},
 			function(data)
 			{
@@ -4237,7 +4330,7 @@ function add_consignor()
 	{
 		var div_name = "#div_consignor";
 		var page_name = "save_addconsignor.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {AddEdit:AddEdit, AddEdit1:AddEdit1, AddEdit2:AddEdit2, AddEdit3:AddEdit3, session_userid:session_userid, session_ip:session_ip, consignorname:consignorname, address:address, area:area, pincode:pincode, city:city, panno:panno, person:person, telephone1:telephone1, telephone2:telephone2, telephone3:telephone3, email:email, url:url, selectedvalue:selectedvalue, remark:remark, servicetax:servicetax},
 			function(data)
 			{
@@ -4300,7 +4393,7 @@ function add_consignee()
 	{
 		error_count = error_count + 1;
 		error_msg  =  error_msg + error_count + ") " + " Please Enter Company Name" + "\n";
-		frm.username.focus();
+		frm.companyname.focus();
 	}
 
 	var address=trim(frm.address.value);
@@ -4308,7 +4401,7 @@ function add_consignee()
 	{
 		error_count = error_count + 1;
 		error_msg  =  error_msg + error_count + ") " + " Please Enter Address" + "\n";
-		frm.userid.focus();
+		frm.address.focus();
 	}
 
 	var area=trim(frm.area.value);
@@ -4344,20 +4437,20 @@ function add_consignee()
 	}
 
 	var email=trim(frm.email.value);
-	if(email.length <= 0 || email == "")
-	{
-		error_count = error_count + 1;
-		error_msg  =  error_msg + error_count + ") " + " Please Enter Email" + "\n";
-		frm.email.focus();
-	}
+	// if(email.length <= 0 || email == "")
+	// {
+	// 	error_count = error_count + 1;
+	// 	error_msg  =  error_msg + error_count + ") " + " Please Enter Email" + "\n";
+	// 	frm.email.focus();
+	// }
 
 	var url=trim(frm.url.value);
-	if(url.length <= 0 || url == "")
-	{
-		error_count = error_count + 1;
-		error_msg  =  error_msg + error_count + ") " + " Please Enter Website" + "\n";
-		frm.url.focus();
-	}
+	// if(url.length <= 0 || url == "")
+	// {
+	// 	error_count = error_count + 1;
+	// 	error_msg  =  error_msg + error_count + ") " + " Please Enter Website" + "\n";
+	// 	frm.url.focus();
+	// }
 
 
 
@@ -4365,13 +4458,17 @@ function add_consignee()
 	{
 		var div_name = "#div_consignee";
 		var page_name = "save_consignee.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {AddEdit:AddEdit, AddEdit1:AddEdit1, AddEdit2:AddEdit2, session_userid:session_userid, session_ip:session_ip, consignoraddressid:consignoraddressid, companyname:companyname, address:address, area:area, pincode:pincode, city:city, telephone:telephone, email:email, url:url},
 			function(data)
 			{
 				$(div_name).html(data);
 			}
 		);
+		return false;
+	}
+	else{
+		show_error(error_msg); //alert(error_msg);
 		return false;
 	}
 }
@@ -4490,7 +4587,7 @@ function add_merchant()
 	{
 		var div_name = "#div_merchant";
 		var page_name = "save_merchant.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {AddEdit:AddEdit, AddEdit1:AddEdit1, session_userid:session_userid, session_ip:session_ip, companyname:companyname, address:address, area:area, pincode:pincode, city:city, person:person, panno:panno, telephone:telephone, email:email, url:url},
 			function(data)
 			{
@@ -4575,7 +4672,7 @@ function add_login()
 	{
 		var div_name = "#div_login";
 		var page_name = "save_addlogin.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {AddEdit:AddEdit, session_userid:session_userid, session_ip:session_ip, username:username, userid:userid, pwd:pwd, designation:designation},
 			function(data)
 			{
@@ -4621,6 +4718,14 @@ function displayAdditionalCharges(session_userid, session_ip)
 		// frm.username.focus();
 	}
 
+	var servicetax=document.getElementById("servicetax").value;
+	if(servicetax.length <= 0 || servicetax == "")
+	// {
+	// 	error_count = error_count + 1;
+	// 	error_msg  =  error_msg + error_count + ") " + " Please Enter Product Rate" + "\n";
+	// 	// frm.username.focus();
+	// }
+
 
 	var additionalcharges_tick=0;
 	var additionalcharges_tick=frm.additionalcharges.checked;
@@ -4632,8 +4737,8 @@ function displayAdditionalCharges(session_userid, session_ip)
 	{
 		var div_name = "#div_additionalcharges";
 		var page_name = "lrentry_5.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
-		$.post(page_name, {session_userid:session_userid, session_ip:session_ip, additionalcharges_tick:additionalcharges_tick, lramount:lramount},
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
+		$.post(page_name, {session_userid:session_userid, session_ip:session_ip, additionalcharges_tick:additionalcharges_tick, lramount:lramount, servicetax:servicetax},
 			function(data)
 			{
 				$(div_name).html(data);
@@ -4726,7 +4831,7 @@ function get_quantityRate(Quantity, Creator, ip)
 		document.getElementById("qauntity").disabled = true;
 		var div_name = "#div_quantityrate";
 		var page_name = "lrentry_4.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {Quantity:Quantity, session_userid:session_userid, session_ip:session_ip, consignorid:consignorid, consigneeid:consigneeid, productid:productid, productrate:productrate},
 			function(data)
 			{
@@ -4742,7 +4847,24 @@ function get_quantityRate(Quantity, Creator, ip)
 	}
 }
 
-function lradditionalcharge(cnt, Controlname)
+function lradditionalcharge1(cnt, Controlname)
+{
+	var frm=document.lrentry_form;
+	var lramount=trim(frm.lramount.value);
+	if(lramount.length <= 0 || lramount == "")
+	{
+		alert("Please check. LR Amount is Blank");
+	}
+
+	lramount_ControlAmount=document.getElementById(Controlname).value;
+	// alert("lramount_ControlAmount :- " + lramount_ControlAmount);
+	additionamount=Number(lramount)+Number(lramount_ControlAmount);
+	// alert("additionamount :- " + additionamount);
+	frm.paidlramount.value=additionamount.toFixed(2);
+	document.getElementById("div_paidlramount").innerHTML = additionamount.toFixed(2);
+}
+
+function lradditionalcharge(cnt, Controlname, servicetax)
 {
 	var frm=document.lrentry_form;
 	var lramount=trim(frm.lramount.value);
@@ -4821,7 +4943,7 @@ function lradditionalcharge(cnt, Controlname)
 	// alert("lramount_ControlAmount :- " + lramount_ControlAmount);
 
 
-
+	lramount_ControlAmount=Number(lramount_ControlAmount)+Number(servicetax);
 	// alert("controlfix :- " + controlfix)
 	// alert("lramount :- " + lramount);
 	// alert("lramount_ControlAmount :- " + lramount_ControlAmount);
@@ -4894,7 +5016,7 @@ function get_productRate(packageType, Creator, ip)
 		//document.getElementById("packagetype").disabled = true;
 		var div_name = "#div_productrate";
 		var page_name = "lrentry_3.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {packageType:packageType, session_userid:session_userid, session_ip:session_ip, consignorid:consignorid, consigneeid:consigneeid, productid:productid},
 			function(data)
 			{
@@ -4910,9 +5032,9 @@ function get_productRate(packageType, Creator, ip)
 	}
 }
 
-
-function get_productOnConsignee(ConsigneeID, ConsignorID, Creator, ip)
+function get_lrproductOnConsignee(ConsigneeID, ConsignorID, Creator, ip)
 {
+	// alert("Hi,....");
 	var error_count;
 	var error_msg;
 	error_msg="";
@@ -4952,10 +5074,78 @@ function get_productOnConsignee(ConsigneeID, ConsignorID, Creator, ip)
 
 	if(Number(error_count) == 0)
 	{
-		// document.getElementById("consigneeid").disabled = true;
+		// alert("ConsigneeID :- " + ConsigneeID);
+		// alert("ConsignorID :- " + ConsignorID);
+		// alert("session_userid :- " + session_userid);
+		// alert("session_ip :- " + session_ip);
 		var div_name = "#div_product";
-		var page_name = "lrentry_2.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		var page_name = "lrentry_05.php";
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
+		$.post(page_name, {ConsigneeID:ConsigneeID, ConsignorID:ConsignorID, session_userid:session_userid, session_ip:session_ip},
+			function(data)
+			{
+				$(div_name).html(data);
+			}
+		);
+		return false;
+	}
+	else
+	{
+		// alert("ID is Blank.");
+		return false;
+	}
+}
+
+
+function get_productOnConsignee(ConsigneeID, ConsignorID, Creator, ip)
+{
+	// alert("Hi,....");
+	var error_count;
+	var error_msg;
+	error_msg="";
+	error_count=0;
+
+	var ConsigneeID=ConsigneeID;
+	if(ConsigneeID.length <= 0 || ConsigneeID == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Error - Consignee ID" + "\n";
+		// frm.username.focus();
+	}
+
+	var ConsignorID=ConsignorID;
+	if(ConsignorID.length <= 0 || ConsignorID == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Error - Consignor ID" + "\n";
+		// frm.username.focus();
+	}
+
+	var session_userid=Creator;
+	if(session_userid.length <= 0 || session_userid == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Error - User ID" + "\n";
+		// frm.username.focus();
+	}
+	var session_ip=ip;
+	if(session_ip.length <= 0 || session_ip == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Error - IP Address " + "\n";
+		// frm.username.focus();
+	}
+
+
+	if(Number(error_count) == 0)
+	{
+		// alert("ConsigneeID :- " + ConsigneeID);
+		// alert("ConsignorID :- " + ConsignorID);
+		// alert("session_userid :- " + session_userid);
+		// alert("session_ip :- " + session_ip);
+		var div_name = "#div_product";
+		var page_name = "add_rate_4.php";
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {ConsigneeID:ConsigneeID, ConsignorID:ConsignorID, session_userid:session_userid, session_ip:session_ip},
 			function(data)
 			{
@@ -5007,7 +5197,7 @@ function get_rate_consignee(ConsignorID, Creator, ip)
 		// document.getElementById("consignorid").disabled = true;
 		var div_name = "#div_consignee";
 		var page_name = "add_rate_3.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {ConsignorID:ConsignorID, session_userid:session_userid, session_ip:session_ip},
 			function(data)
 			{
@@ -5059,7 +5249,7 @@ function get_consignee(ConsignorID, Creator, ip)
 		// document.getElementById("consignorid").disabled = true;
 		var div_name = "#div_consignee";
 		var page_name = "lrentry_1.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {ConsignorID:ConsignorID, session_userid:session_userid, session_ip:session_ip},
 			function(data)
 			{
@@ -5088,7 +5278,7 @@ function printlr(LRID)
 	{
 		var div_name = "#divToPrint";
 		var page_name = "lrprint.php";
-		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='images/wait.gif' /></div>");
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {LRID:LRID},
 			function(data)
 			{

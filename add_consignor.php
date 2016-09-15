@@ -133,7 +133,7 @@
 											<div class="form-group form-group-material">
 												<label>Consignor Name <span class="text-danger">*</span></label>
 												<div class="input-group">
-													<input type="text" class="form-control" name="consignorname" id="consignorname"  required="required" autofocus onkeypress="return only_Alpha_Numeric_Apostrophy_Space(event);" ondrop="return false;" onpaste="return false;">
+													<input type="text" class="form-control" name="consignorname" id="consignorname"  required="required" autofocus onkeypress="return only_Alpha_Numeric_Apostrophy_Space(event);" ondrop="return false;" onpaste="return true;">
                                                         <span class="input-group-addon">
 															<i class="icon-user-check"></i>
                                                     	</span>
@@ -144,7 +144,7 @@
 											<div class="form-group form-group-material">
 												<label>Address <span class="text-danger">*</span> </label>
 												<div class="input-group">
-													<input type="text" class="form-control" name="address" id="address" required="required" ondrop="return false;" onpaste="return false;">
+													<input type="text" class="form-control" name="address" id="address" required="required" ondrop="return false;" onpaste="return true;">
                                                         <span class="input-group-addon">
                                                     <i class="icon-road"></i>
                                                     </span>
@@ -158,10 +158,10 @@
 											<div class="form-group form-group-material">
 												<label>Area <span class="text-danger">*</span> </label>
 												<div class="input-group">
-													<input type="text" class="form-control typeahead-basic" placeholder="Enter Area" name="area" id="area" required="required" onkeypress="return only_Alpha_Space(event);" ondrop="return false;" onpaste="return false;">
-                                                        <!--<span class="input-group-addon">
+													<input type="text" class="form-control typeahead-basic" placeholder="Enter Area" name="area" id="area" required="required" onkeypress="return only_Alpha_Space(event);" ondrop="return false;" onpaste="return true;">
+                                                        <span class="input-group-addon">
                                                     		<i class="icon-location4"></i>
-                                                    	</span>-->
+                                                    	</span>
 												</div>
 											</div>
 										</div>
@@ -169,7 +169,7 @@
 											<div class="form-group form-group-material">
 												<label>City <span class="text-danger">*</span> </label>
 												<div class="input-group">
-													<input type="text" class="form-control" name="city" id="city" required="required" onkeypress="return only_Alpha_Space(event);" ondrop="return false;" onpaste="return false;">
+													<input type="text" class="form-control" name="city" id="city" required="required" onkeypress="return only_Alpha_Space(event);" ondrop="return false;" onpaste="return true;">
                                                         <span class="input-group-addon">
                                                     		<i class="icon-city"></i>
                                                     	</span>
@@ -180,7 +180,7 @@
 											<div class="form-group form-group-material">
 												<label>Pincode <span class="text-danger">*</span> </label>
 												<div class="input-group">
-													<input type="text" class="form-control" name="pincode" id="pincode" maxlength="6" required="required" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
+													<input type="text" class="form-control" name="pincode" id="pincode" value="0" maxlength="6" required="required" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return true;">
                                                         <span class="input-group-addon">
                                                     <i class="icon-location3"></i>
                                                     </span>
@@ -196,7 +196,7 @@
 												<label>Person Name <span class="text-danger">*</span> </label>
 												<div class="input-group">
 
-													<input type="text" class="form-control" name="person" id="person" required="required" onkeypress="return only_Alpha_Space(event);" ondrop="return false;" onpaste="return false;">
+													<input type="text" class="form-control" name="person" id="person" value="NA" required="required" onkeypress="return only_Alpha_Space(event);" ondrop="return false;" onpaste="return true;">
                                                         <span class="input-group-addon">
                                                     		<i class="icon-user"></i>
                                                     	</span>
@@ -208,7 +208,7 @@
 												<label>Telephone <span class="text-danger">*</span> </label>
 												<div class="input-group">
 
-													<input type="text" class="form-control" name="telephone1" id="telephone1" maxlength="12" required="required" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
+													<input type="text" class="form-control" name="telephone1" id="telephone1" maxlength="12" value="0" required="required" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return true;">
                                                         <span class="input-group-addon">
                                                     <i class="icon-phone"></i>
                                                     </span>
@@ -220,7 +220,7 @@
 												<label>Telephone </label>
 												<div class="input-group">
 
-													<input type="text" class="form-control" name="telephone2" id="telephone2" maxlength="12" required="required" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
+													<input type="text" class="form-control" name="telephone2" id="telephone2" maxlength="12" required="required" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return true;">
                                                         <span class="input-group-addon">
                                                     <i class="icon-phone"></i>
                                                     </span>
@@ -232,7 +232,7 @@
 												<label>Telephone </label>
 												<div class="input-group">
 
-													<input type="text" class="form-control" name="telephone3" id="telephone3" maxlength="12" required="required" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
+													<input type="text" class="form-control" name="telephone3" id="telephone3" maxlength="12" required="required" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return true;">
                                                         <span class="input-group-addon">
                                                     <i class="icon-phone"></i>
                                                     </span>
@@ -247,7 +247,7 @@
 											<div class="form-group form-group-material">
 												<label>Email <span class="text-danger">*</span> </label>
 												<div class="input-group">
-													<input type="email" class="form-control" name="email" id="email" required="required">
+													<input type="email" class="form-control" name="email" id="email" required="required" value="sa@sa.com">
                                                         <span class="input-group-addon">
                                                     <i class="icon-mail5"></i>
                                                     </span>
@@ -258,7 +258,7 @@
 											<div class="form-group form-group-material">
 												<label>Website <span class="text-danger">*</span> </label>
 												<div class="input-group">
-													<input type="text" class="form-control" name="url" id="url" required="required">
+													<input type="text" class="form-control" name="url" id="url" required="required" value="http://www.sa.com">
                                                         <span class="input-group-addon">
                                                     <i class="icon-sphere"></i>
                                                     </span>
@@ -269,7 +269,7 @@
 											<div class="form-group form-group-material">
 												<label>Pancard No. <span class="text-danger">*</span> </label>
 												<div class="input-group">
-													<input type="text" class="form-control" name="panno" id="panno" required="required" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
+													<input type="text" class="form-control" name="panno" id="panno" value="NA" required="required" onkeypress="return only_Alpha_Numeric(event);" ondrop="return false;" onpaste="return true;">
                                                         <span class="input-group-addon">
                                                     		<i class="icon-credit-card"></i>
                                                     	</span>
@@ -284,7 +284,7 @@
 											<div class="multi-select-auto">
 												<label>Product <span class="text-danger">*</span> </label>
 												<div class="multi-select-full">
-													<select name="product" id="product" multiple="multiple" style="height:100px; width: 273px;">
+													<select name="product" id="product" multiple="multiple" style="height:100px; width: 273px;" onclick="return show_selectedproducts();">
 														<?php
 															$TableName="product_master";
 															$ColumnName="pmid, ProductName";
@@ -304,13 +304,21 @@
 												</div>
 											</div>
 										</div>
-										<div class="col-md-4">
+										<div class="col-md-1">
 											<div class="form-group form-group-material">
 												<label>Service Tax </label>
 												<div class="input-group">
 													<label class="checkbox-inline">
 														<input type="checkbox" name="servicetax" id="servicetax">
 													</label>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-3">
+											<div class="form-group form-group-material">
+												<label>Selected Products </label>
+												<div class="input-group">
+													<textarea name="selectedproduct" id="selectedproduct" disabled></textarea>
 												</div>
 											</div>
 										</div>

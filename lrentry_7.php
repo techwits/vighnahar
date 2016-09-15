@@ -3,6 +3,8 @@
     $error_msg="";
     $CurrentDate = date('Y-m-d h:i:s');
 
+    $StartDate=date("Y-m-d")." 00:00:00";
+    $EndDate=date("Y-m-d")." 23:59:59";
 //    echo("session_userid :-". _session_userid_ ."</br>");
 //    echo("session_ip :-". _session_ip_ ."</br>");
     $searchvalue="";
@@ -51,16 +53,17 @@
 
 <!-- Single row selection -->
 
-<div class="panel panel-flat">
+<div>
 
     <table class="table datatable-basic" width="100%">
         <thead>
         <tr>
+            <th>LR Date</th>
             <th>LR No.</th>
             <th>Consignor</th>
             <th>Consignee</th>
             <th>Product</th>
-            <th>Package Type</th>
+            <th>Quantity</th>
             <th>Amount</th>
             <th>Action</th>
         </tr>
@@ -99,6 +102,9 @@
                 if($searchvalue!="") {
                     $sqlQry.= " and $columnname '$pre_wildcharacter$searchvalue$post_wildcharacter'";
                 }
+                else{
+                    $sqlQry.= " and (ReceivedDate  BETWEEN  '$StartDate' AND '$EndDate')";
+                }
 
                 $sqlQry.= " and `inward`.Active=1";
                 $sqlQry.= " order by `inward`.LRID desc";
@@ -113,6 +119,10 @@
                             $inc=$inc+1;
                             $lrid=$row[0];
                             $TransitDate=$row[1];
+                            $JSLRDate="";
+                            if(strlen(trim($TransitDate))>0){
+                                $JSLRDate = implode("/", array_reverse(explode("-", $TransitDate)));
+                            }
                             $InvoiceNo=$row[2];
                             $PakageType=$row[3];
                             $Amount=$row[4];
@@ -121,20 +131,23 @@
                             $ConsigneeName=$row[7];
                             $ProductName=$row[8];
 
-                            $FinancialYear=$row[9];
+                            $fyid=$row[9];
+                            $FinancialYear=Get_FinancialYearOnID($con, $fyid);
                             $Rate=$row[10];
                             $Quantity=$row[11];
 
                             $LRIDExist_ForRM=Check_LRIDExist_ForRM($con, $lrid);
 //                            echo("$lrid) LRIDExist_ForRM :- $LRIDExist_ForRM </br>");
+//                            echo("LRNo :- $lrid  </br>");
                         ?>
 
                             <tr>
+                                <td><?php echo $TransitDate; ?></td>
                                 <td><?php echo $lrid; ?></td>
                                 <td><?php echo $ConsignorName; ?></td>
                                 <td><?php echo $ConsigneeName; ?></td>
                                 <td><?php echo $ProductName; ?></td>
-                                <td><?php echo $PakageType; ?></td>
+                                <td><?php echo $Quantity; ?></td>
                                 <td><?php echo $Amount; ?></td>
                                 <td align="center">
                                     <div id="<?php echo $inc;?>">
@@ -144,11 +157,11 @@
                                                     <i class="icon-circle-down2"></i>
                                                 </a>
                                                 <ul class="dropdown-menu dropdown-menu-right dropdown-menu-xs">
-                                                    <li><a href="#" onclick="return editlrentry(<?php echo $lrid; ?>, <?php echo $LRIDExist_ForRM; ?>);"><i class="icon-user-block"></i>Update</a></li>
-                                                    <li><a href="#modal_full" data-toggle='modal' class='modalButton1' data-teacherid="<?php echo $lrid; ?>" > <i class="icon-user-block"></i> View</a></li>
-                                                    <li><a href="#" onclick="return editlrentry(<?php echo $lrid; ?>, <?php echo $LRIDExist_ForRM; ?>);"><i class="icon-user-minus"></i> Print</a></li>
+                                                    <li><a href="#" onclick="return editlrentry(<?php echo $lrid; ?>, <?php echo $LRIDExist_ForRM; ?>, '<?php echo $JSLRDate;?>', '<?php echo $fyid; ?>', '<?php echo $FinancialYear; ?>');"><i class=" icon-pencil7"></i>Update</a></li>
+                                                    <li><a href="#modal_full" onclick="return displaylr(<?php echo $lrid; ?>);"> <i class="icon-eye4"></i> View</a></li>
+                                                    <li><a href="#" onclick="return display_printlr(<?php echo $lrid; ?>);"><i class="icon-printer2"></i> Print</a></li>
                                                     <li class="divider"></li>
-                                                    <li><a href="#" onclick="return deletelrentry('<?php echo _session_userid_?>', '<?php echo _session_ip_?>', <?php echo $lrid; ?>, <?php echo $inc;?>, <?php echo $LRIDExist_ForRM; ?>);"><i class="icon-embed"></i> Delete</a></li>
+                                                    <li><a href="#" onclick="return deletelrentry('<?php echo _session_userid_?>', '<?php echo _session_ip_?>', <?php echo $lrid; ?>, <?php echo $inc;?>, <?php echo $LRIDExist_ForRM; ?>);"><i class="icon-cross"></i> Delete</a></li>
                                                 </ul>
                                             </li>
                                         </ul>

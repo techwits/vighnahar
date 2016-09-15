@@ -41,12 +41,14 @@ if(!isset($_REQUEST["session_userid"])) {
 //	die();
 
 ?>
-
+<div class="col-md-3">
 	<div class="form-group form-group-material">
 		<label>Rate </label>
 		<div class="input-group">
 			<input type="text" class="form-control" name="productrate" id="productrate" disabled value="<?php echo $ProductRate; ?>">
-				<span class="input-group-btn">
-			   </span>
+				<span class="input-group-addon">
+					<img src="assets/images/rupees-128.png" height="15" width="15">
+				</span>
 		</div>
 	</div>
+</div>

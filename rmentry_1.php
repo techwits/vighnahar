@@ -23,6 +23,21 @@ if(isset($_REQUEST["Valid_LRIDs"])) {
     $Get_LRId = sanitize($con, $_REQUEST["Get_LRId"]);
     $LRIDExist = sanitize($con, $_REQUEST["LRIDExist"]);
     $Valid_LRIDs = sanitize($con, $_REQUEST["Valid_LRIDs"]);
+    $LROrderList="";
+    if(strlen(trim($Valid_LRIDs))>0){
+        $LROrderList = implode(",", array_reverse(explode(",", $Valid_LRIDs)));
+    }
+
+    $inc=-1;
+    $OrderBy="CASE iid"; //
+    $Split_LROrderList = explode(",", $LROrderList);
+    foreach ($Split_LROrderList as $SingleLROrderList)
+    {
+        $inc=$inc+1;
+        $OrderBy.=" WHEN ".$SingleLROrderList." THEN ".$inc;
+    }
+    $OrderBy.=" END ";
+//    echo ("OrderBy:- ".$OrderBy."</br>");
 
 //    echo ("session_userid:- ".$session_userid."</br>");
 //    echo ("session_ip:- ".$session_ip."</br>");
@@ -34,6 +49,7 @@ if(isset($_REQUEST["Valid_LRIDs"])) {
 //    echo ("Get_LRId:- ".$Get_LRId."</br>");
 //    echo ("LRIDExist:- ".$LRIDExist."</br>");
 //    echo ("Valid_LRIDs:- ".$Valid_LRIDs."</br>");
+//    echo ("LROrderList:- ".$LROrderList."</br>");
 //    die();
 //
     
@@ -46,14 +62,13 @@ if(isset($_REQUEST["Valid_LRIDs"])) {
 
 <div class="col-sm-12 col-md-12 col-lg-12 col-lg-12">
     <!-- Scrollable datatable -->
-    <div class="panel panel-flat">
+    <div class="panel panel-default">
         <div class="panel-heading">
             <h5 class="panel-title">Road Memo - LR wise Details</h5>
             <div class="heading-elements">
                 <ul class="icons-list">
                     <li><a data-action="collapse"></a></li>
                     <li><a data-action="reload"></a></li>
-                    <li><a data-action="close"></a></li>
                 </ul>
             </div>
         </div>
@@ -68,15 +83,16 @@ if(isset($_REQUEST["Valid_LRIDs"])) {
         <input type="hidden" name="transporterid1" id="transporterid1" value="<?php echo $transporterid; ?>">
         <input type="hidden" name="lridlist1" id="lridlist1" value="<?php echo $Valid_LRIDs; ?>">
 
-        <table class="table datatable-scroll-y" width="100%">
+        <table class="table datatable-basic" width="100%">
             <thead>
             <tr>
                 <th>Select</th>
+                <th>LR Date</th>
                 <th>LR No.</th>
                 <th>Invoice No.</th>
-                <th>Consignor Name</th>
-                <th>COnsignee Name</th>
-                <th>Product Name</th>
+                <th>Consignor</th>
+                <th>Consignee</th>
+                <th>Product</th>
                 <th>Quantiry</th>
                 <th>Amount</th>
             </tr>
@@ -90,7 +106,9 @@ if(isset($_REQUEST["Valid_LRIDs"])) {
                 $sqlQry = "select $cols from `inward`";
                 $sqlQry .= " where LRID in ($Valid_LRIDs)";
                 $sqlQry .= " and Active=1";
-                $sqlQry .= " order by LRID";
+                $sqlQry .= " ORDER BY $OrderBy";
+
+
 
 //                $sqlQry= "select $cols from  inward ";
 //                $sqlQry.= " left join outwardlr";
@@ -146,6 +164,7 @@ if(isset($_REQUEST["Valid_LRIDs"])) {
                         <tr>
                             <td><input type="checkbox" name="<?php echo $checkbocname; ?>"
                                        id="<?php echo $checkbocname; ?>" checked>
+                            <td><?php echo $ReceivedDate; ?></td>
 							<td><?php echo $LRID; ?></td>
                             <td><?php echo $InvoiceNumber; ?></td>
                             <td><?php echo $ConsignorName; ?></td>
@@ -162,12 +181,12 @@ if(isset($_REQUEST["Valid_LRIDs"])) {
             </tbody>
         </table>
     </div>
-    <div class="panel-footer">
-        <div class="col-md-12">
-            <div class="text-right">
-                <button type="button" name="submit" id="submit" class="btn bg-grey-600" onclick="return add_rmentry();"><span class="text-semibold" id="<?php echo $span_pageButton; ?>">Submit</span></button>
-            </div>
-        </div>
-        <div id="div_rmentry"></div>
+    
+    <div class="panel-footer"><a class="heading-elements-toggle"><i class="icon-more"></i></a>
+  <div class="col-md-12">
+      <button type="button" name="submit" id="submit" class="btn btn-primary heading-btn pull-right"onclick="return add_rmentry();"><span class="text-semibold" id="<?php echo $span_pageButton; ?>">Submit</span></button>
     </div>
+    <div id="div_rmentry"></div>
+</div>
+   
 </div>

@@ -1,14 +1,17 @@
-<!-- Theme JS files -->
-<script type="text/javascript" src="assets/js/pages/datatables_api_2columns.js"></script>
-<!-- /theme JS files -->
-
 <?php
 $error_msg="";
 $CurrentDate = date('Y-m-d h:i:s');
+$StartDate=date("Y-m-d")." 00:00:00";
+$EndDate=date("Y-m-d")." 23:59:59";
 
 $searchvalue="";
 $searchin=1;
 if(isset($_REQUEST["searchvalue"])) {
+    ?>
+    <!-- Theme JS files -->
+        <script type="text/javascript" src="assets/js/pages/datatables_api_2columns.js"></script>
+    <!-- /theme JS files -->
+    <?php
     include('assets/inc/db_connect.php');
     include('assets/inc/common-function.php');
 
@@ -45,15 +48,16 @@ if ($searchin==1){
 
 
 
-
-<!-- Single row selection -->
-<div id="DataTables_Table_0_wrapper" class="dataTables_wrapper no-footer">
-<div class="datatable-scroll">
+<div>
     <table class="table datatable-selection-single">
         <thead>
         <tr>
-            <th>RoadMemo No</th>
-            <th>CreationDate</th>
+            <th>RM Date</th>
+            <th>RM No</th>
+            <th>Vehicle No.</th>
+            <th>Driver</th>
+            <th>LR Count</th>
+            <th>Packages</th>
         </tr>
         </thead>
         <tbody>
@@ -66,8 +70,12 @@ if ($searchin==1){
         if(strlen(trim($searchvalue))>0) {
             $sqlQry .= " and $columnname '$pre_wildcharacter$searchvalue$post_wildcharacter'";
         }
+        else{
+            $sqlQry.= " and (TransitDate  BETWEEN  '$StartDate' AND '$EndDate')";
+        }
         $sqlQry.= " and Active=1";
-    //    echo ("Check sqlQry :- $sqlQry </br>");
+        $sqlQry.= " order by oid desc";
+//        echo ("Check sqlQry :- $sqlQry </br>");
     //    die();
         //        unset($con);
         include('assets/inc/db_connect.php');
@@ -99,21 +107,32 @@ if ($searchin==1){
     
                     $TransporterName=Get_TransporterName($con, $tmid);
     //                echo("TransporterName :- $TransporterName </br>");
-    
+
+                    $RoadMemoLR="";
                     $RoadMemoLR=Get_RoadMemoLR($con, $oid);
+
+                    $RoadMemoLRCount=0;
+                    $RoadMemoLRCount=Get_RoadMemoLRCount($con, $oid);
     //                echo("RoadMemoLR :- $RoadMemoLR </br>");
+
+                    $RoadMemoLRPackageCount=0;
+                    $RoadMemoLRPackageCount=Get_RoadMemoLRPackageCount($con, $oid);
+                    
+                    ?>
+                        <tr>
+                            <td><?php echo $TransitDate; ?></td>
+                            <td><a href="#" onclick="return editrmentry(<?php echo $oid; ?>, '<?php echo $CreationDate; ?>', '<?php echo $ModificationDate; ?>', '<?php echo $Creator; ?>', '<?php echo $ip; ?>', '<?php echo $TransitDate; ?>', '<?php echo $fyid; ?>', '<?php echo $vmid; ?>', '<?php echo $tmid; ?>', '<?php echo $Active; ?>', '<?php echo $TransitDate; ?>', '<?php echo $FinancialYear; ?>', '<?php echo $VehicleNumber; ?>', '<?php echo $TransporterName; ?>', '<?php echo $RoadMemoLR; ?>');"><?php echo $oid; ?></a> </td>
+                            <td><?php echo $VehicleNumber; ?></td>
+                            <td><?php echo $TransporterName; ?></td>
+                            <td><?php echo $RoadMemoLRCount; ?></td>
+                            <td><?php echo $RoadMemoLRPackageCount; ?></td>
+                        </tr>
+                    <?php
+
                 }
-    
-                ?>
-                <tr>
-                    <td><a href="#" onclick="return editrmentry(<?php echo $oid; ?>, '<?php echo $CreationDate; ?>', '<?php echo $ModificationDate; ?>', '<?php echo $Creator; ?>', '<?php echo $ip; ?>', '<?php echo $TransitDate; ?>', '<?php echo $fyid; ?>', '<?php echo $vmid; ?>', '<?php echo $tmid; ?>', '<?php echo $Active; ?>', '<?php echo $TransitDate; ?>', '<?php echo $FinancialYear; ?>', '<?php echo $VehicleNumber; ?>', '<?php echo $TransporterName; ?>', '<?php echo $RoadMemoLR; ?>');"><?php echo $oid; ?></a> </td>
-                    <td><?php echo $CreationDate; ?></td>
-                </tr>
-                <?php
+
             }
         ?>
         </tbody>
     </table>
- </div>
- </div>
-<!-- /single row selection -->
+</div>

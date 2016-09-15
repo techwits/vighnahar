@@ -197,7 +197,7 @@
                                                 $InTransit=Get_LRCountInTransit($con);
                                             ?>
                                         <span class="heading-text badge bg-teal-800"> <?php echo $InTransit;?> </span>
-                                           <div class="text-muted text-size-small">In Transit</div>
+                                           <div class="text-muted text-size-small">Consignors</div>
                                         </div>
                                     </div>
                                    </div>                                  
@@ -242,13 +242,10 @@
                                                 <div class="heading-text">
                                                   <ul class="icons-list">
                                                       <li class="dropdown">
-                                                          <a href="#" class="dropdown-toggle" data-toggle="dropdown">More..
+                                                          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                                           <i class="icon-cog3"></i> <span class="caret"></span></a>
                                                           <ul class="dropdown-menu dropdown-menu-right">
-                                                              <li><a href="#"><i class="icon-sync"></i> Update data</a></li>
-                                                              <li><a href="#"><i class="icon-list-unordered"></i> Detailed log</a></li>
-                                                              <li><a href="#"><i class="icon-pie5"></i> Statistics</a></li>
-                                                              <li><a href="#"><i class="icon-cross3"></i> Clear list</a></li>
+                                                              <li><a href="#"><i class="icon-tree6"></i> Road Memo Tree View</a></li>
                                                           </ul>
                                                       </li>
                                                   </ul>
@@ -269,15 +266,37 @@
                             <!-- Today's revenue -->
                             <div class="panel bg-blue-400">
                                 <div class="panel-body">
-                                    <div class="heading-elements">
-                                        <ul class="icons-list">
-                                            <li><a data-action="reload"></a></li>
-                                        </ul>
-                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="col-xs-4 text-left border-right">
+                                                <?php
+                                                    $RMCountFinancialYear=Get_RMCountFinancialYear($con, $FinancialYearID);
+                                                ?>
+                                                 <h3 class="no-margin"><?php echo $RMCountFinancialYear;?></h3>
+                                                Current Stock
 
-                                    <h3 class="no-margin">$18,390</h3>
-                                    Today's revenue
-                                    <div class="text-muted text-size-small">$37,578 avg</div>
+                                                <?php
+                                                    $RMCountDayAvarage=Get_RMCountDayAvarage($con, $StartDate, $EndDate);
+                                                ?>
+                                                
+                                                <div class="text-muted text-size-small"><?php echo $RMCountDayAvarage;?>Areas</div>
+                                            </div>
+                                            <div class="col-xs-4 text-left border-right">
+                                                <?php
+                                                    $RMCountMonth=Get_RMCountMonth($con, $StartDate, $EndDate);
+                                                ?>
+                                                <h3 class="no-margin"><?php echo $RMCountMonth;?></h3>
+                                                Consignors
+                                            </div>
+                                            <div class="col-xs-4 text-right">
+                                                <div class="heading-text">
+                                                  <ul class="icons-list">
+                                                      <li><a data-action="reload"></a></li>
+                                                  </ul>
+                                              </div>
+                                            </div>
+                                        </div>
+                                     </div>
                                 </div>
 
                                 <div id="members-bill"></div>
@@ -287,1310 +306,334 @@
                         </div>
                     </div>
                     <!-- /quick stats boxes -->
-                    <div class="row">
-                      <div class="col-md-6">
-                      	<div class="panel panel-flat border-top-xlg border-top-warning border-grey">
-							<div class="panel-heading">
-								<h6 class="panel-title">Custom panel border</h6>
-								<div class="heading-elements">
-									<ul class="icons-list">
-				                		<li><a data-action="collapse" class=""></a></li>
-				                		<li><a data-action="reload"></a></li>
-				                	</ul>
-			                	</div>
-							<a class="heading-elements-toggle"><i class="icon-menu"></i></a>
+                    <div class="col-md-12">
+                    	<div class="row">
+                        	<div class="col-md-8">
+                            	<div class="row">
+                                    <div class="col-md-9">
+                                       <div class="panel panel-flat border-top-xlg border-top-info border-grey">
+                                          <div class="panel-heading">
+                                              <h6 class="panel-title">LR Status</h6>
+                                              <div class="heading-elements">
+                                                  <ul class="icons-list">
+                                                      <li><a data-action="collapse" class=""></a></li>
+                                                      <li><a data-action="reload"></a></li>
+                                                  </ul>
+                                              </div>
+                                              <a class="heading-elements-toggle"><i class="icon-menu"></i></a>
+                                          </div>
+              
+                                          <div class="panel-body" style="display: block;">
+                                              <!-- Members online -->
+                                                      <div id="google-bar"></div>
+                                              <!-- /members online -->
+                                          </div>
+                                      </div>
+                                   </div>
+                                   <div class="col-md-3">
+                                      <div class="panel panel-flat border-top-xlg border-top-info border-grey">
+                                          <div class="panel-body">
+                                             	<div class="count no-margin">2500</div>
+                                                <span class="count_bottom no-margin">From last Week</span>
+                                                <div class="count no-margin">2500</div>
+                                                <span class="count_bottom no-margin">From last Week</span>
+                                              </div>
+                                      </div>  
+                                      <div class="panel panel-flat border-top-xlg border-top-info border-grey">
+                                          <div class="panel-body">
+                                              <div class="count no-margin">2500</div>
+                                                <span class="count_bottom no-margin">From last Week</span>
+                                                <div class="count no-margin">2500</div>
+                                                <span class="count_bottom no-margin">From last Week</span>
+                                          </div>
+                                      </div>
+                                   </div>
+                                </div>
+                        		
+                                 <div class="col-md-12">
+                                 	<div class="row">
+                                    	<div class="col-md-6">
+                                            <div class="panel panel-flat border-top-xlg border-top-info border-grey">
+                                                <div class="panel-heading">
+                                                    <h6 class="panel-title">Custom panel border</h6>
+                                                    <div class="heading-elements">
+                                                        <ul class="icons-list">
+                                                            <li><a data-action="collapse" class=""></a></li>
+                                                            <li><a data-action="reload"></a></li>
+                                                        </ul>
+                                                    </div>
+                                                <a class="heading-elements-toggle"><i class="icon-menu"></i></a>
+                                                </div>
+                    
+                                                <div class="panel-body text-center">
+                                                    <!-- Members online -->
+                                                    <div class="chart has-fixed-height has-minimum-width" id="basic_pie"></div>
+                                                    <!-- /members online -->
+                                                </div>
+                                            </div>
+                                         </div>
+                                         <div class="col-md-6">
+                                            <div class="panel panel-flat border-top-xlg border-top-info border-grey">
+                                                <div class="panel-heading">
+                                                    <h6 class="panel-title">Custom panel border</h6>
+                                                    <div class="heading-elements">
+                                                        <ul class="icons-list">
+                                                            <li><a data-action="collapse" class=""></a></li>
+                                                            <li><a data-action="reload"></a></li>
+                                                        </ul>
+                                                    </div>
+                                                <a class="heading-elements-toggle"><i class="icon-menu"></i></a>
+                                                </div>
+                    
+                                                <div class="panel-body text-center">
+                                                    <!-- Members online -->
+                                                        <div class="chart-container text-center content-group">
+                                                            <div class="display-inline-block" id="google-3d-exploded"></div>
+                                                        </div>
+                                                    <!-- /members online -->
+                                                </div>
+                                            </div>
+                                         </div>
+                                    </div>
+                                 </div>
+                             </div>
+                        	<div class="col-md-4">
+                        		<div class="panel panel-flat border-top-xlg border-top-info border-grey">
+                                  <div class="panel-heading">
+                                      <h6 class="panel-title">H6 title</h6>
+                                      <div class="heading-elements">
+                                          <ul class="icons-list">
+                                              <li><a data-action="collapse"></a></li>
+                                              <li><a data-action="reload"></a></li>
+                                          </ul>
+                                      </div>
+                                  <a class="heading-elements-toggle"><i class="icon-menu"></i></a></div>
+                                  
+                                  <div class="panel-body">
+                                      Extra large border size using <code>.border-*-xlg</code> class
+                                  </div>
+                                  <div class="table-responsive">
+                                      <table class="table text-nowrap">
+                                          <thead>
+                                              <tr>
+                                                  <th>Application</th>
+                                                  <th>Time</th>
+                                                  <th>Price</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody>
+                                              <tr>
+                                                  <td>
+                                                      <div class="media-left media-middle">
+                                                          <a href="#" class="btn bg-primary-400 btn-rounded btn-icon btn-xs">
+                                                              <span class="letter-icon"></span>
+                                                          </a>
+                                                      </div>
+      
+                                                      <div class="media-body">
+                                                          <div class="media-heading">
+                                                              <a href="#" class="letter-icon-title">Sigma application</a>
+                                                          </div>
+      
+                                                          <div class="text-muted text-size-small"><i class="icon-checkmark3 text-size-mini position-left"></i> New order</div>
+                                                      </div>
+                                                  </td>
+                                                  <td>
+                                                      <span class="text-muted text-size-small">06:28 pm</span>
+                                                  </td>
+                                                  <td>
+                                                      <h6 class="text-semibold no-margin">$49.90</h6>
+                                                  </td>
+                                              </tr>
+      
+                                              <tr>
+                                                  <td>
+                                                      <div class="media-left media-middle">
+                                                          <a href="#" class="btn bg-danger-400 btn-rounded btn-icon btn-xs">
+                                                              <span class="letter-icon"></span>
+                                                          </a>
+                                                      </div>
+      
+                                                      <div class="media-body">
+                                                          <div class="media-heading">
+                                                              <a href="#" class="letter-icon-title">Alpha application</a>
+                                                          </div>
+      
+                                                          <div class="text-muted text-size-small"><i class="icon-spinner11 text-size-mini position-left"></i> Renewal</div>
+                                                      </div>
+                                                  </td>
+                                                  <td>
+                                                      <span class="text-muted text-size-small">04:52 pm</span>
+                                                  </td>
+                                                  <td>
+                                                      <h6 class="text-semibold no-margin">$90.50</h6>
+                                                  </td>
+                                              </tr>
+      
+                                              <tr>
+                                                  <td>
+                                                      <div class="media-left media-middle">
+                                                          <a href="#" class="btn bg-indigo-400 btn-rounded btn-icon btn-xs">
+                                                              <span class="letter-icon"></span>
+                                                          </a>
+                                                      </div>
+      
+                                                      <div class="media-body">
+                                                          <div class="media-heading">
+                                                              <a href="#" class="letter-icon-title">Delta application</a>
+                                                          </div>
+      
+                                                          <div class="text-muted text-size-small"><i class="icon-lifebuoy text-size-mini position-left"></i> Support</div>
+                                                      </div>
+                                                  </td>
+                                                  <td>
+                                                      <span class="text-muted text-size-small">01:26 pm</span>
+                                                  </td>
+                                                  <td>
+                                                      <h6 class="text-semibold no-margin">$60.00</h6>
+                                                  </td>
+                                              </tr>
+      
+                                              <tr>
+                                                  <td>
+                                                      <div class="media-left media-middle">
+                                                          <a href="#" class="btn bg-success-400 btn-rounded btn-icon btn-xs">
+                                                              <span class="letter-icon"></span>
+                                                          </a>
+                                                      </div>
+      
+                                                      <div class="media-body">
+                                                          <div class="media-heading">
+                                                              <a href="#" class="letter-icon-title">Omega application</a>
+                                                          </div>
+      
+                                                          <div class="text-muted text-size-small"><i class="icon-lifebuoy text-size-mini position-left"></i> Support</div>
+                                                      </div>
+                                                  </td>
+                                                  <td>
+                                                      <span class="text-muted text-size-small">11:46 am</span>
+                                                  </td>
+                                                  <td>
+                                                      <h6 class="text-semibold no-margin">$55.00</h6>
+                                                  </td>
+                                              </tr>
+      
+                                              <tr>
+                                                  <td>
+                                                      <div class="media-left media-middle">
+                                                          <a href="#" class="btn bg-danger-400 btn-rounded btn-icon btn-xs">
+                                                              <span class="letter-icon"></span>
+                                                          </a>
+                                                      </div>
+      
+                                                      <div class="media-body">
+                                                          <div class="media-heading">
+                                                              <a href="#" class="letter-icon-title">Alpha application</a>
+                                                          </div>
+      
+                                                          <div class="text-muted text-size-small"><i class="icon-spinner11 text-size-mini position-left"></i> Renewal</div>
+                                                      </div>
+                                                  </td>
+                                                  <td>
+                                                      <span class="text-muted text-size-small">10:29 am</span>
+                                                  </td>
+                                                  <td>
+                                                      <h6 class="text-semibold no-margin">$90.50</h6>
+                                                  </td>
+                                              </tr>
+                                              <tr>
+                                                  <td>
+                                                      <div class="media-left media-middle">
+                                                          <a href="#" class="btn bg-danger-400 btn-rounded btn-icon btn-xs">
+                                                              <span class="letter-icon"></span>
+                                                          </a>
+                                                      </div>
+      
+                                                      <div class="media-body">
+                                                          <div class="media-heading">
+                                                              <a href="#" class="letter-icon-title">Alpha application</a>
+                                                          </div>
+      
+                                                          <div class="text-muted text-size-small"><i class="icon-spinner11 text-size-mini position-left"></i> Renewal</div>
+                                                      </div>
+                                                  </td>
+                                                  <td>
+                                                      <span class="text-muted text-size-small">10:29 am</span>
+                                                  </td>
+                                                  <td>
+                                                      <h6 class="text-semibold no-margin">$90.50</h6>
+                                                  </td>
+                                              </tr>
+                                              <tr>
+                                                  <td>
+                                                      <div class="media-left media-middle">
+                                                          <a href="#" class="btn bg-danger-400 btn-rounded btn-icon btn-xs">
+                                                              <span class="letter-icon"></span>
+                                                          </a>
+                                                      </div>
+      
+                                                      <div class="media-body">
+                                                          <div class="media-heading">
+                                                              <a href="#" class="letter-icon-title">Alpha application</a>
+                                                          </div>
+      
+                                                          <div class="text-muted text-size-small"><i class="icon-spinner11 text-size-mini position-left"></i> Renewal</div>
+                                                      </div>
+                                                  </td>
+                                                  <td>
+                                                      <span class="text-muted text-size-small">10:29 am</span>
+                                                  </td>
+                                                  <td>
+                                                      <h6 class="text-semibold no-margin">$90.50</h6>
+                                                  </td>
+                                              </tr>
+                                              <tr>
+                                                  <td>
+                                                      <div class="media-left media-middle">
+                                                          <a href="#" class="btn bg-danger-400 btn-rounded btn-icon btn-xs">
+                                                              <span class="letter-icon"></span>
+                                                          </a>
+                                                      </div>
+      
+                                                      <div class="media-body">
+                                                          <div class="media-heading">
+                                                              <a href="#" class="letter-icon-title">Alpha application</a>
+                                                          </div>
+      
+                                                          <div class="text-muted text-size-small"><i class="icon-spinner11 text-size-mini position-left"></i> Renewal</div>
+                                                      </div>
+                                                  </td>
+                                                  <td>
+                                                      <span class="text-muted text-size-small">10:29 am</span>
+                                                  </td>
+                                                  <td>
+                                                      <h6 class="text-semibold no-margin">$90.50</h6>
+                                                  </td>
+                                              </tr>
+                                          </tbody>
+                                      </table>
+                                  </div>
+                              </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                    	<div class="row">
+								<div class="col-md-12">
+									<div class="panel border-left-lg border-left-info">
+										<div class="panel-body">
+											
+										</div>
 
-							<div class="panel-body" style="display: block;">
-								<!-- Members online -->
-                                        <div id="google-bar"></div>
-                                <!-- /members online -->
+										
+									</div>
+								</div>
 							</div>
-						</div>
-                      </div>
-                      <div class="col-md-3">
-                        <div class="panel panel-flat border-left-xlg border-left-info">
-                            <div class="panel-heading">
-								<h6 class="panel-title">H6 title</h6>
-								<div class="heading-elements">
-									<ul class="icons-list">
-				                		<li><a data-action="collapse"></a></li>
-				                		<li><a data-action="reload"></a></li>
-				                	</ul>
-			                	</div>
-							<a class="heading-elements-toggle"><i class="icon-menu"></i></a></div>
-                            
-                            <div class="panel-body">
-                                Extra large border size using <code>.border-*-xlg</code> class
-                            </div>
-                        </div>
-                      </div>
-                      <div class="col-md-3">
-                        <div class="panel panel-flat border-left-xlg border-left-info">
-                            <div class="panel-heading">
-								<h6 class="panel-title">H6 title</h6>
-								<div class="heading-elements">
-									<ul class="icons-list">
-				                		<li><a data-action="collapse"></a></li>
-				                		<li><a data-action="reload"></a></li>
-				                	</ul>
-			                	</div>
-							<a class="heading-elements-toggle"><i class="icon-menu"></i></a></div>
-                            
-                            <div class="panel-body">
-                                Extra large border size using <code>.border-*-xlg</code> class
-                            </div>
-                        </div>
-                      </div>
-                      
                     </div>
-               
-
-
-
-                    <!-- Google Graph -->
-                    <div class="row">
-                        
-                        <div class="col-md-3" style="background-color: white">
-                            <!-- Members online -->
-                            <div class="chart has-fixed-height has-minimum-width" id="basic_pie"></div>
-                            <!-- /members online -->
-                        </div>
-                        <div class="col-md-3">
-                            <!-- Members online -->
-                                <div class="chart-container text-center content-group">
-                                    <div class="display-inline-block" id="google-3d-exploded"></div>
-                                </div>
-
-                            <!-- /members online -->
-                        </div>
-
-                    </div>
-                    <!-- Google Graph -->
-
-
-
-
-
-
-
-
-
-
-
-
-                    <!-- Support tickets -->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <!-- Invoice archive -->
-                            <div class="panel panel-white">
-                                <div class="panel-heading ">
-                                    <div class="bg-grey-800 text-center"><span>Invoice Details </span></div>
-
-                                </div>
-                                <table class="table table-xlg text-nowrap">
-                                    <tbody>
-                                    <tr>
-                                        <td class="col-md-2">
-                                            <div class="media-left media-middle">
-                                                <a href="#" class="btn border-indigo-400 text-indigo-400 btn-flat btn-rounded btn-xs btn-icon"><i class="icon-cart5"></i></a>
-                                            </div>
-
-                                            <div class="media-left">
-                                                <h5 class="text-semibold no-margin">
-                                                    1,132 <small class="display-block no-margin">Bill Value</small>
-                                                </h5>
-                                            </div>
-                                        </td>
-
-                                        <td class="col-md-2">
-                                            <div class="media-left media-middle">
-                                                <a href="#" class="btn border-indigo-400 text-indigo-400 btn-flat btn-rounded btn-xs btn-icon"><i class=" icon-cart-add"></i></a>
-                                            </div>
-
-                                            <div class="media-left">
-                                                <h5 class="text-semibold no-margin">
-                                                    1,132 <small class="display-block no-margin">Bill Pending Value</small>
-                                                </h5>
-                                            </div>
-                                        </td>
-
-                                        <td class="col-md-2">
-                                            <div class="media-left media-middle">
-                                                <a href="#" class="btn border-indigo-400 text-indigo-400 btn-flat btn-rounded btn-xs btn-icon"><i class="icon-cart-add2"></i></a>
-                                            </div>
-
-                                            <div class="media-left">
-                                                <h5 class="text-semibold no-margin">
-                                                    200 <small class="display-block no-margin">Receivables</small>
-                                                </h5>
-                                            </div>
-                                        </td>
-
-                                        <td class="col-md-2">
-                                            <div class="media-left media-middle">
-                                                <a href="#" class="btn border-indigo-400 text-indigo-400 btn-flat btn-rounded btn-xs btn-icon"><i class=" icon-cart4"></i></a>
-                                            </div>
-
-                                            <div class="media-left">
-                                                <h5 class="text-semibold no-margin">
-                                                    12 <small class="display-block no-margin">Consignors-Debtors</small>
-                                                </h5>
-                                            </div>
-                                        </td>
-
-                                    </tr>
-                                    </tbody>
-                                </table>
-
-                                <table class="table table-lg invoice-archive">
-                                    <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Period</th>
-                                        <th>Issued to</th>
-                                        <th>Status</th>
-                                        <th>Issue date</th>
-                                        <th>Due date</th>
-                                        <th>Amount</th>
-                                        <th class="text-center">Actions</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>#0025</td>
-                                        <td>February 2015</td>
-                                        <td>
-                                            <h6 class="no-margin">
-                                                <a href="#">Rebecca Manes</a>
-                                                <small class="display-block text-muted">Payment method: Skrill</small>
-                                            </h6>
-                                        </td>
-                                        <td>
-                                            <select name="status" class="select" data-placeholder="Select status">
-                                                <option value="overdue">Overdue</option>
-                                                <option value="hold" selected="selected">On hold</option>
-                                                <option value="pending">Pending</option>
-                                                <option value="paid">Paid</option>
-                                                <option value="invalid">Invalid</option>
-                                                <option value="cancel">Canceled</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            April 18, 2015
-                                        </td>
-                                        <td>
-                                            <span class="label label-success">Paid on Mar 16, 2015</span>
-                                        </td>
-                                        <td>
-                                            <h6 class="no-margin text-bold">$17,890 <small class="display-block text-muted text-size-small">VAT $4,890</small></h6>
-                                        </td>
-                                        <td class="text-center">
-                                            <ul class="icons-list">
-                                                <li><a href="#" data-toggle="modal" data-target="#invoice"><i class="icon-file-eye"></i></a></li>
-                                                <li class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-file-text2"></i> <span class="caret"></span></a>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="#"><i class="icon-file-download"></i> Download</a></li>
-                                                        <li><a href="#"><i class="icon-printer"></i> Print</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="#"><i class="icon-file-plus"></i> Edit</a></li>
-                                                        <li><a href="#"><i class="icon-cross2"></i> Remove</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>#0024</td>
-                                        <td>February 2015</td>
-                                        <td>
-                                            <h6 class="no-margin">
-                                                <a href="#">James Alexander</a>
-                                                <small class="display-block text-muted">Payment method: Wire transfer</small>
-                                            </h6>
-                                        </td>
-                                        <td>
-                                            <select name="status" class="select" data-placeholder="Select status">
-                                                <option value="overdue">Overdue</option>
-                                                <option value="hold">On hold</option>
-                                                <option value="pending">Pending</option>
-                                                <option value="paid" selected="selected">Paid</option>
-                                                <option value="invalid">Invalid</option>
-                                                <option value="cancel">Canceled</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            April 17, 2015
-                                        </td>
-                                        <td>
-                                            <span class="label label-warning">5 days</span>
-                                        </td>
-                                        <td>
-                                            <h6 class="no-margin text-bold">$2,769 <small class="display-block text-muted text-size-small">VAT $2,839</small></h6>
-                                        </td>
-                                        <td class="text-center">
-                                            <ul class="icons-list">
-                                                <li><a href="#" data-toggle="modal" data-target="#invoice"><i class="icon-file-eye"></i></a></li>
-                                                <li class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-file-text2"></i> <span class="caret"></span></a>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="#"><i class="icon-file-download"></i> Download</a></li>
-                                                        <li><a href="#"><i class="icon-printer"></i> Print</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="#"><i class="icon-file-plus"></i> Edit</a></li>
-                                                        <li><a href="#"><i class="icon-cross2"></i> Remove</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>#0023</td>
-                                        <td>February 2015</td>
-                                        <td>
-                                            <h6 class="no-margin">
-                                                <a href="#">Jeremy Victorino</a>
-                                                <small class="display-block text-muted">Payment method: Payoneer</small>
-                                            </h6>
-                                        </td>
-                                        <td>
-                                            <select name="status" class="select" data-placeholder="Select status">
-                                                <option value="overdue">Overdue</option>
-                                                <option value="hold">On hold</option>
-                                                <option value="pending">Pending</option>
-                                                <option value="paid" selected="selected">Paid</option>
-                                                <option value="invalid">Invalid</option>
-                                                <option value="cancel">Canceled</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            April 17, 2015
-                                        </td>
-                                        <td>
-                                            <span class="label label-primary">27 days</span>
-                                        </td>
-                                        <td>
-                                            <h6 class="no-margin text-bold">$1,500 <small class="display-block text-muted text-size-small">VAT $1,984</small></h6>
-                                        </td>
-                                        <td class="text-center">
-                                            <ul class="icons-list">
-                                                <li><a href="#" data-toggle="modal" data-target="#invoice"><i class="icon-file-eye"></i></a></li>
-                                                <li class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-file-text2"></i> <span class="caret"></span></a>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="#"><i class="icon-file-download"></i> Download</a></li>
-                                                        <li><a href="#"><i class="icon-printer"></i> Print</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="#"><i class="icon-file-plus"></i> Edit</a></li>
-                                                        <li><a href="#"><i class="icon-cross2"></i> Remove</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>#0022</td>
-                                        <td>January 2015</td>
-                                        <td>
-                                            <h6 class="no-margin">
-                                                <a href="#">Margo Baker</a>
-                                                <small class="display-block text-muted">Payment method: Paypal</small>
-                                            </h6>
-                                        </td>
-                                        <td>
-                                            <select name="status" class="select" data-placeholder="Select status">
-                                                <option value="overdue">Overdue</option>
-                                                <option value="hold">On hold</option>
-                                                <option value="pending">Pending</option>
-                                                <option value="paid">Paid</option>
-                                                <option value="invalid">Invalid</option>
-                                                <option value="cancel" selected="selected">Canceled</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            January 15, 2015
-                                        </td>
-                                        <td>
-                                            <span class="label label-primary">12 days</span>
-                                        </td>
-                                        <td>
-                                            <h6 class="no-margin text-bold">$4,580 <small class="display-block text-muted text-size-small">VAT $992</small></h6>
-                                        </td>
-                                        <td class="text-center">
-                                            <ul class="icons-list">
-                                                <li><a href="#" data-toggle="modal" data-target="#invoice"><i class="icon-file-eye"></i></a></li>
-                                                <li class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-file-text2"></i> <span class="caret"></span></a>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="#"><i class="icon-file-download"></i> Download</a></li>
-                                                        <li><a href="#"><i class="icon-printer"></i> Print</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="#"><i class="icon-file-plus"></i> Edit</a></li>
-                                                        <li><a href="#"><i class="icon-cross2"></i> Remove</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>#0021</td>
-                                        <td>January 2015</td>
-                                        <td>
-                                            <h6 class="no-margin">
-                                                <a href="#">Beatrix Diaz</a>
-                                                <small class="display-block text-muted">Payment method: Paypal</small>
-                                            </h6>
-                                        </td>
-                                        <td>
-                                            <select name="status" class="select" data-placeholder="Select status">
-                                                <option value="overdue" selected="selected">Overdue</option>
-                                                <option value="hold">On hold</option>
-                                                <option value="pending">Pending</option>
-                                                <option value="paid">Paid</option>
-                                                <option value="invalid">Invalid</option>
-                                                <option value="cancel">Canceled</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            January 10, 2015
-                                        </td>
-                                        <td>
-                                            <span class="label label-danger">- 3 days</span>
-                                        </td>
-                                        <td>
-                                            <h6 class="no-margin text-bold">$7,990 <small class="display-block text-muted text-size-small">VAT $1,294</small></h6>
-                                        </td>
-                                        <td class="text-center">
-                                            <ul class="icons-list">
-                                                <li><a href="#" data-toggle="modal" data-target="#invoice"><i class="icon-file-eye"></i></a></li>
-                                                <li class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-file-text2"></i> <span class="caret"></span></a>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="#"><i class="icon-file-download"></i> Download</a></li>
-                                                        <li><a href="#"><i class="icon-printer"></i> Print</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="#"><i class="icon-file-plus"></i> Edit</a></li>
-                                                        <li><a href="#"><i class="icon-cross2"></i> Remove</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>#0020</td>
-                                        <td>January 2015</td>
-                                        <td>
-                                            <h6 class="no-margin">
-                                                <a href="#">Richard Vango</a>
-                                                <small class="display-block text-muted">Payment method: Wire transfer</small>
-                                            </h6>
-                                        </td>
-                                        <td>
-                                            <select name="status" class="select" data-placeholder="Select status">
-                                                <option value="overdue">Overdue</option>
-                                                <option value="hold">On hold</option>
-                                                <option value="pending">Pending</option>
-                                                <option value="paid">Paid</option>
-                                                <option value="invalid" selected="selected">Invalid</option>
-                                                <option value="cancel">Canceled</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            January 10, 2015
-                                        </td>
-                                        <td>
-                                            <span class="label label-default">On hold</span>
-                                        </td>
-                                        <td>
-                                            <h6 class="no-margin text-bold">$12,120 <small class="display-block text-muted text-size-small">VAT $3,278</small></h6>
-                                        </td>
-                                        <td class="text-center">
-                                            <ul class="icons-list">
-                                                <li><a href="#" data-toggle="modal" data-target="#invoice"><i class="icon-file-eye"></i></a></li>
-                                                <li class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-file-text2"></i> <span class="caret"></span></a>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="#"><i class="icon-file-download"></i> Download</a></li>
-                                                        <li><a href="#"><i class="icon-printer"></i> Print</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="#"><i class="icon-file-plus"></i> Edit</a></li>
-                                                        <li><a href="#"><i class="icon-cross2"></i> Remove</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>#0019</td>
-                                        <td>January 2015</td>
-                                        <td>
-                                            <h6 class="no-margin">
-                                                <a href="#">Will Baker</a>
-                                                <small class="display-block text-muted">Payment method: Paypal</small>
-                                            </h6>
-                                        </td>
-                                        <td>
-                                            <select name="status" class="select" data-placeholder="Select status">
-                                                <option value="overdue">Overdue</option>
-                                                <option value="hold" selected="selected">On hold</option>
-                                                <option value="pending">Pending</option>
-                                                <option value="paid">Paid</option>
-                                                <option value="invalid">Invalid</option>
-                                                <option value="cancel">Canceled</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            December 26, 2014
-                                        </td>
-                                        <td>
-                                            <span class="label label-success">Paid on Feb 25, 2015</span>
-                                        </td>
-                                        <td>
-                                            <h6 class="no-margin text-bold">$5,390 <small class="display-block text-muted text-size-small">VAT $2,880</small></h6>
-                                        </td>
-                                        <td class="text-center">
-                                            <ul class="icons-list">
-                                                <li><a href="#" data-toggle="modal" data-target="#invoice"><i class="icon-file-eye"></i></a></li>
-                                                <li class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-file-text2"></i> <span class="caret"></span></a>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="#"><i class="icon-file-download"></i> Download</a></li>
-                                                        <li><a href="#"><i class="icon-printer"></i> Print</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="#"><i class="icon-file-plus"></i> Edit</a></li>
-                                                        <li><a href="#"><i class="icon-cross2"></i> Remove</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>#0018</td>
-                                        <td>January 2015</td>
-                                        <td>
-                                            <h6 class="no-margin">
-                                                <a href="#">Joseph Mills</a>
-                                                <small class="display-block text-muted">Payment method: Skrill</small>
-                                            </h6>
-                                        </td>
-                                        <td>
-                                            <select name="status" class="select" data-placeholder="Select status">
-                                                <option value="overdue">Overdue</option>
-                                                <option value="hold">On hold</option>
-                                                <option value="pending" selected="selected">Pending</option>
-                                                <option value="paid">Paid</option>
-                                                <option value="invalid">Invalid</option>
-                                                <option value="cancel">Canceled</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            June 17, 2015
-                                        </td>
-                                        <td>
-                                            <span class="label label-default">On hold</span>
-                                        </td>
-                                        <td>
-                                            <h6 class="no-margin text-bold">$10,280 <small class="display-block text-muted text-size-small">VAT $2,190</small></h6>
-                                        </td>
-                                        <td class="text-center">
-                                            <ul class="icons-list">
-                                                <li><a href="#" data-toggle="modal" data-target="#invoice"><i class="icon-file-eye"></i></a></li>
-                                                <li class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-file-text2"></i> <span class="caret"></span></a>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="#"><i class="icon-file-download"></i> Download</a></li>
-                                                        <li><a href="#"><i class="icon-printer"></i> Print</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="#"><i class="icon-file-plus"></i> Edit</a></li>
-                                                        <li><a href="#"><i class="icon-cross2"></i> Remove</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>#0017</td>
-                                        <td>December 2014</td>
-                                        <td>
-                                            <h6 class="no-margin">
-                                                <a href="#">Buzz Brenson</a>
-                                                <small class="display-block text-muted">Payment method: Wire transfer</small>
-                                            </h6>
-                                        </td>
-                                        <td>
-                                            <select name="status" class="select" data-placeholder="Select status">
-                                                <option value="overdue">Overdue</option>
-                                                <option value="hold">On hold</option>
-                                                <option value="pending" selected="selected">Pending</option>
-                                                <option value="paid">Paid</option>
-                                                <option value="invalid">Invalid</option>
-                                                <option value="cancel">Canceled</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            May 6, 2015
-                                        </td>
-                                        <td>
-                                            <span class="label label-warning">2 days</span>
-                                        </td>
-                                        <td>
-                                            <h6 class="no-margin text-bold">$43,320 <small class="display-block text-muted text-size-small">VAT $1,299</small></h6>
-                                        </td>
-                                        <td class="text-center">
-                                            <ul class="icons-list">
-                                                <li><a href="#" data-toggle="modal" data-target="#invoice"><i class="icon-file-eye"></i></a></li>
-                                                <li class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-file-text2"></i> <span class="caret"></span></a>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="#"><i class="icon-file-download"></i> Download</a></li>
-                                                        <li><a href="#"><i class="icon-printer"></i> Print</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="#"><i class="icon-file-plus"></i> Edit</a></li>
-                                                        <li><a href="#"><i class="icon-cross2"></i> Remove</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>#0016</td>
-                                        <td>December 2014</td>
-                                        <td>
-                                            <h6 class="no-margin">
-                                                <a href="#">Zachary Willson</a>
-                                                <small class="display-block text-muted">Payment method: Paypal</small>
-                                            </h6>
-                                        </td>
-                                        <td>
-                                            <select name="status" class="select" data-placeholder="Select status">
-                                                <option value="overdue" selected="selected">Overdue</option>
-                                                <option value="hold">On hold</option>
-                                                <option value="pending">Pending</option>
-                                                <option value="paid">Paid</option>
-                                                <option value="invalid">Invalid</option>
-                                                <option value="cancel">Canceled</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            March 7, 2015
-                                        </td>
-                                        <td>
-                                            <span class="label label-primary">15 days</span>
-                                        </td>
-                                        <td>
-                                            <h6 class="no-margin text-bold">$7,100 <small class="display-block text-muted text-size-small">VAT $1,450</small></h6>
-                                        </td>
-                                        <td class="text-center">
-                                            <ul class="icons-list">
-                                                <li><a href="#" data-toggle="modal" data-target="#invoice"><i class="icon-file-eye"></i></a></li>
-                                                <li class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-file-text2"></i> <span class="caret"></span></a>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="#"><i class="icon-file-download"></i> Download</a></li>
-                                                        <li><a href="#"><i class="icon-printer"></i> Print</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="#"><i class="icon-file-plus"></i> Edit</a></li>
-                                                        <li><a href="#"><i class="icon-cross2"></i> Remove</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>#0015</td>
-                                        <td>December 2014</td>
-                                        <td>
-                                            <h6 class="no-margin">
-                                                <a href="#">Bastian Miller</a>
-                                                <small class="display-block text-muted">Payment method: Payoneer</small>
-                                            </h6>
-                                        </td>
-                                        <td>
-                                            <select name="status" class="select" data-placeholder="Select status">
-                                                <option value="overdue">Overdue</option>
-                                                <option value="hold">On hold</option>
-                                                <option value="pending">Pending</option>
-                                                <option value="paid">Paid</option>
-                                                <option value="invalid" selected="selected">Invalid</option>
-                                                <option value="cancel">Canceled</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            March 23, 2015
-                                        </td>
-                                        <td>
-                                            <span class="label label-warning">6 days</span>
-                                        </td>
-                                        <td>
-                                            <h6 class="no-margin text-bold">$1,030 <small class="display-block text-muted text-size-small">VAT $229</small></h6>
-                                        </td>
-                                        <td class="text-center">
-                                            <ul class="icons-list">
-                                                <li><a href="#" data-toggle="modal" data-target="#invoice"><i class="icon-file-eye"></i></a></li>
-                                                <li class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-file-text2"></i> <span class="caret"></span></a>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="#"><i class="icon-file-download"></i> Download</a></li>
-                                                        <li><a href="#"><i class="icon-printer"></i> Print</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="#"><i class="icon-file-plus"></i> Edit</a></li>
-                                                        <li><a href="#"><i class="icon-cross2"></i> Remove</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>#0014</td>
-                                        <td>December 2014</td>
-                                        <td>
-                                            <h6 class="no-margin">
-                                                <a href="#">William Samuel</a>
-                                                <small class="display-block text-muted">Payment method: Paypal</small>
-                                            </h6>
-                                        </td>
-                                        <td>
-                                            <select name="status" class="select" data-placeholder="Select status">
-                                                <option value="overdue">Overdue</option>
-                                                <option value="hold">On hold</option>
-                                                <option value="pending">Pending</option>
-                                                <option value="paid">Paid</option>
-                                                <option value="invalid">Invalid</option>
-                                                <option value="cancel" selected="selected">Canceled</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            March 2, 2015
-                                        </td>
-                                        <td>
-                                            <span class="label label-default">On hold</span>
-                                        </td>
-                                        <td>
-                                            <h6 class="no-margin text-bold">$800 <small class="display-block text-muted text-size-small">VAT $189</small></h6>
-                                        </td>
-                                        <td class="text-center">
-                                            <ul class="icons-list">
-                                                <li><a href="#" data-toggle="modal" data-target="#invoice"><i class="icon-file-eye"></i></a></li>
-                                                <li class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-file-text2"></i> <span class="caret"></span></a>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="#"><i class="icon-file-download"></i> Download</a></li>
-                                                        <li><a href="#"><i class="icon-printer"></i> Print</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="#"><i class="icon-file-plus"></i> Edit</a></li>
-                                                        <li><a href="#"><i class="icon-cross2"></i> Remove</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>#0013</td>
-                                        <td>November 2014</td>
-                                        <td>
-                                            <h6 class="no-margin">
-                                                <a href="#">Monica Smith</a>
-                                                <small class="display-block text-muted">Payment method: Wire transfer</small>
-                                            </h6>
-                                        </td>
-                                        <td>
-                                            <select name="status" class="select" data-placeholder="Select status">
-                                                <option value="overdue">Overdue</option>
-                                                <option value="hold">On hold</option>
-                                                <option value="pending" selected="selected">Pending</option>
-                                                <option value="paid">Paid</option>
-                                                <option value="invalid">Invalid</option>
-                                                <option value="cancel">Canceled</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            February 25, 2015
-                                        </td>
-                                        <td>
-                                            <span class="label label-success">Paid on Feb 15, 2015</span>
-                                        </td>
-                                        <td>
-                                            <h6 class="no-margin text-bold">$6,300 <small class="display-block text-muted text-size-small">VAT $1,200</small></h6>
-                                        </td>
-                                        <td class="text-center">
-                                            <ul class="icons-list">
-                                                <li><a href="#" data-toggle="modal" data-target="#invoice"><i class="icon-file-eye"></i></a></li>
-                                                <li class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-file-text2"></i> <span class="caret"></span></a>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="#"><i class="icon-file-download"></i> Download</a></li>
-                                                        <li><a href="#"><i class="icon-printer"></i> Print</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="#"><i class="icon-file-plus"></i> Edit</a></li>
-                                                        <li><a href="#"><i class="icon-cross2"></i> Remove</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>#0012</td>
-                                        <td>November 2014</td>
-                                        <td>
-                                            <h6 class="no-margin">
-                                                <a href="#">Jordana Miles</a>
-                                                <small class="display-block text-muted">Payment method: Paypal</small>
-                                            </h6>
-                                        </td>
-                                        <td>
-                                            <select name="status" class="select" data-placeholder="Select status">
-                                                <option value="overdue">Overdue</option>
-                                                <option value="hold">On hold</option>
-                                                <option value="pending">Pending</option>
-                                                <option value="paid" selected="selected">Paid</option>
-                                                <option value="invalid">Invalid</option>
-                                                <option value="cancel">Canceled</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            February 26, 2015
-                                        </td>
-                                        <td>
-                                            <span class="label label-primary">12 days</span>
-                                        </td>
-                                        <td>
-                                            <h6 class="no-margin text-bold">$2,200 <small class="display-block text-muted text-size-small">VAT $689</small></h6>
-                                        </td>
-                                        <td class="text-center">
-                                            <ul class="icons-list">
-                                                <li><a href="#" data-toggle="modal" data-target="#invoice"><i class="icon-file-eye"></i></a></li>
-                                                <li class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-file-text2"></i> <span class="caret"></span></a>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="#"><i class="icon-file-download"></i> Download</a></li>
-                                                        <li><a href="#"><i class="icon-printer"></i> Print</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="#"><i class="icon-file-plus"></i> Edit</a></li>
-                                                        <li><a href="#"><i class="icon-cross2"></i> Remove</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>#0011</td>
-                                        <td>November 2014</td>
-                                        <td>
-                                            <h6 class="no-margin">
-                                                <a href="#">John Craving</a>
-                                                <small class="display-block text-muted">Payment method: Payoneer</small>
-                                            </h6>
-                                        </td>
-                                        <td>
-                                            <select name="status" class="select" data-placeholder="Select status">
-                                                <option value="overdue">Overdue</option>
-                                                <option value="hold">On hold</option>
-                                                <option value="pending">Pending</option>
-                                                <option value="paid" selected="selected">Paid</option>
-                                                <option value="invalid">Invalid</option>
-                                                <option value="cancel">Canceled</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            May 9, 2015
-                                        </td>
-                                        <td>
-                                            <span class="label label-success">Paid on Jan 28, 2015</span>
-                                        </td>
-                                        <td>
-                                            <h6 class="no-margin text-bold">$2,600 <small class="display-block text-muted text-size-small">VAT $370</small></h6>
-                                        </td>
-                                        <td class="text-center">
-                                            <ul class="icons-list">
-                                                <li><a href="#" data-toggle="modal" data-target="#invoice"><i class="icon-file-eye"></i></a></li>
-                                                <li class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-file-text2"></i> <span class="caret"></span></a>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="#"><i class="icon-file-download"></i> Download</a></li>
-                                                        <li><a href="#"><i class="icon-printer"></i> Print</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="#"><i class="icon-file-plus"></i> Edit</a></li>
-                                                        <li><a href="#"><i class="icon-cross2"></i> Remove</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>#0010</td>
-                                        <td>November 2014</td>
-                                        <td>
-                                            <h6 class="no-margin">
-                                                <a href="#">James Basel</a>
-                                                <small class="display-block text-muted">Payment method: Wire transfer</small>
-                                            </h6>
-                                        </td>
-                                        <td>
-                                            <select name="status" class="select" data-placeholder="Select status">
-                                                <option value="overdue" selected="selected">Overdue</option>
-                                                <option value="hold">On hold</option>
-                                                <option value="pending">Pending</option>
-                                                <option value="paid">Paid</option>
-                                                <option value="invalid">Invalid</option>
-                                                <option value="cancel">Canceled</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            June 1, 2015
-                                        </td>
-                                        <td>
-                                            <span class="label label-warning">5 days</span>
-                                        </td>
-                                        <td>
-                                            <h6 class="no-margin text-bold">$6,800 <small class="display-block text-muted text-size-small">VAT $2,118</small></h6>
-                                        </td>
-                                        <td class="text-center">
-                                            <ul class="icons-list">
-                                                <li><a href="#" data-toggle="modal" data-target="#invoice"><i class="icon-file-eye"></i></a></li>
-                                                <li class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-file-text2"></i> <span class="caret"></span></a>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="#"><i class="icon-file-download"></i> Download</a></li>
-                                                        <li><a href="#"><i class="icon-printer"></i> Print</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="#"><i class="icon-file-plus"></i> Edit</a></li>
-                                                        <li><a href="#"><i class="icon-cross2"></i> Remove</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>#0009</td>
-                                        <td>November 2014</td>
-                                        <td>
-                                            <h6 class="no-margin">
-                                                <a href="#">Lucy Johnson</a>
-                                                <small class="display-block text-muted">Payment method: Paypal</small>
-                                            </h6>
-                                        </td>
-                                        <td>
-                                            <select name="status" class="select" data-placeholder="Select status">
-                                                <option value="overdue">Overdue</option>
-                                                <option value="hold">On hold</option>
-                                                <option value="pending">Pending</option>
-                                                <option value="paid" selected="selected">Paid</option>
-                                                <option value="invalid">Invalid</option>
-                                                <option value="cancel">Canceled</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            April 10, 2015
-                                        </td>
-                                        <td>
-                                            <span class="label label-success">Paid on Jan 17, 2015</span>
-                                        </td>
-                                        <td>
-                                            <h6 class="no-margin text-bold">$900 <small class="display-block text-muted text-size-small">VAT $199</small></h6>
-                                        </td>
-                                        <td class="text-center">
-                                            <ul class="icons-list">
-                                                <li><a href="#" data-toggle="modal" data-target="#invoice"><i class="icon-file-eye"></i></a></li>
-                                                <li class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-file-text2"></i> <span class="caret"></span></a>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="#"><i class="icon-file-download"></i> Download</a></li>
-                                                        <li><a href="#"><i class="icon-printer"></i> Print</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="#"><i class="icon-file-plus"></i> Edit</a></li>
-                                                        <li><a href="#"><i class="icon-cross2"></i> Remove</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>#0008</td>
-                                        <td>October 2014</td>
-                                        <td>
-                                            <h6 class="no-margin">
-                                                <a href="#">Kinga Wallace</a>
-                                                <small class="display-block text-muted">Payment method: Skrill</small>
-                                            </h6>
-                                        </td>
-                                        <td>
-                                            <select name="status" class="select" data-placeholder="Select status">
-                                                <option value="overdue">Overdue</option>
-                                                <option value="hold">On hold</option>
-                                                <option value="pending" selected="selected">Pending</option>
-                                                <option value="paid">Paid</option>
-                                                <option value="invalid">Invalid</option>
-                                                <option value="cancel">Canceled</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            April 12, 2015
-                                        </td>
-                                        <td>
-                                            <span class="label label-primary">12 days</span>
-                                        </td>
-                                        <td>
-                                            <h6 class="no-margin text-bold">$1,200 <small class="display-block text-muted text-size-small">VAT $298</small></h6>
-                                        </td>
-                                        <td class="text-center">
-                                            <ul class="icons-list">
-                                                <li><a href="#" data-toggle="modal" data-target="#invoice"><i class="icon-file-eye"></i></a></li>
-                                                <li class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-file-text2"></i> <span class="caret"></span></a>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="#"><i class="icon-file-download"></i> Download</a></li>
-                                                        <li><a href="#"><i class="icon-printer"></i> Print</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="#"><i class="icon-file-plus"></i> Edit</a></li>
-                                                        <li><a href="#"><i class="icon-cross2"></i> Remove</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>#0007</td>
-                                        <td>October 2014</td>
-                                        <td>
-                                            <h6 class="no-margin">
-                                                <a href="#">Anna Zuniga</a>
-                                                <small class="display-block text-muted">Payment method: Payoneer</small>
-                                            </h6>
-                                        </td>
-                                        <td>
-                                            <select name="status" class="select" data-placeholder="Select status">
-                                                <option value="overdue">Overdue</option>
-                                                <option value="hold">On hold</option>
-                                                <option value="pending">Pending</option>
-                                                <option value="paid" selected="selected">Paid</option>
-                                                <option value="invalid">Invalid</option>
-                                                <option value="cancel">Canceled</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            March 29, 2015
-                                        </td>
-                                        <td>
-                                            <span class="label label-success">Paid on Jan 14, 2015</span>
-                                        </td>
-                                        <td>
-                                            <h6 class="no-margin text-bold">$13,000 <small class="display-block text-muted text-size-small">VAT $4,290</small></h6>
-                                        </td>
-                                        <td class="text-center">
-                                            <ul class="icons-list">
-                                                <li><a href="#" data-toggle="modal" data-target="#invoice"><i class="icon-file-eye"></i></a></li>
-                                                <li class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-file-text2"></i> <span class="caret"></span></a>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="#"><i class="icon-file-download"></i> Download</a></li>
-                                                        <li><a href="#"><i class="icon-printer"></i> Print</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="#"><i class="icon-file-plus"></i> Edit</a></li>
-                                                        <li><a href="#"><i class="icon-cross2"></i> Remove</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>#0006</td>
-                                        <td>October 2014</td>
-                                        <td>
-                                            <h6 class="no-margin">
-                                                <a href="#">Nicolette Grey</a>
-                                                <small class="display-block text-muted">Payment method: Paypal</small>
-                                            </h6>
-                                        </td>
-                                        <td>
-                                            <select name="status" class="select" data-placeholder="Select status">
-                                                <option value="overdue">Overdue</option>
-                                                <option value="hold">On hold</option>
-                                                <option value="pending" selected="selected">Pending</option>
-                                                <option value="paid">Paid</option>
-                                                <option value="invalid">Invalid</option>
-                                                <option value="cancel">Canceled</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            February 23, 2015
-                                        </td>
-                                        <td>
-                                            <span class="label label-default">On hold</span>
-                                        </td>
-                                        <td>
-                                            <h6 class="no-margin text-bold">$5,200 <small class="display-block text-muted text-size-small">VAT $1,300</small></h6>
-                                        </td>
-                                        <td class="text-center">
-                                            <ul class="icons-list">
-                                                <li><a href="#" data-toggle="modal" data-target="#invoice"><i class="icon-file-eye"></i></a></li>
-                                                <li class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-file-text2"></i> <span class="caret"></span></a>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="#"><i class="icon-file-download"></i> Download</a></li>
-                                                        <li><a href="#"><i class="icon-printer"></i> Print</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="#"><i class="icon-file-plus"></i> Edit</a></li>
-                                                        <li><a href="#"><i class="icon-cross2"></i> Remove</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>#0005</td>
-                                        <td>October 2014</td>
-                                        <td>
-                                            <h6 class="no-margin">
-                                                <a href="#">Vanessa Aurelius</a>
-                                                <small class="display-block text-muted">Payment method: Wire transfer</small>
-                                            </h6>
-                                        </td>
-                                        <td>
-                                            <select name="status" class="select" data-placeholder="Select status">
-                                                <option value="overdue">Overdue</option>
-                                                <option value="hold">On hold</option>
-                                                <option value="pending">Pending</option>
-                                                <option value="paid" selected="selected">Paid</option>
-                                                <option value="invalid">Invalid</option>
-                                                <option value="cancel">Canceled</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            January 10, 2015
-                                        </td>
-                                        <td>
-                                            <span class="label label-warning">9 days</span>
-                                        </td>
-                                        <td>
-                                            <h6 class="no-margin text-bold">$3,000 <small class="display-block text-muted text-size-small">VAT $789</small></h6>
-                                        </td>
-                                        <td class="text-center">
-                                            <ul class="icons-list">
-                                                <li><a href="#" data-toggle="modal" data-target="#invoice"><i class="icon-file-eye"></i></a></li>
-                                                <li class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-file-text2"></i> <span class="caret"></span></a>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="#"><i class="icon-file-download"></i> Download</a></li>
-                                                        <li><a href="#"><i class="icon-printer"></i> Print</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="#"><i class="icon-file-plus"></i> Edit</a></li>
-                                                        <li><a href="#"><i class="icon-cross2"></i> Remove</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>#0004</td>
-                                        <td>October 2014</td>
-                                        <td>
-                                            <h6 class="no-margin">
-                                                <a href="#">Hanna Walden</a>
-                                                <small class="display-block text-muted">Payment method: Paypal</small>
-                                            </h6>
-                                        </td>
-                                        <td>
-                                            <select name="status" class="select" data-placeholder="Select status">
-                                                <option value="overdue">Overdue</option>
-                                                <option value="hold">On hold</option>
-                                                <option value="pending">Pending</option>
-                                                <option value="paid" selected="selected">Paid</option>
-                                                <option value="invalid">Invalid</option>
-                                                <option value="cancel">Canceled</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            May 2, 2015
-                                        </td>
-                                        <td>
-                                            <span class="label label-primary">20 days</span>
-                                        </td>
-                                        <td>
-                                            <h6 class="no-margin text-bold">$2,830 <small class="display-block text-muted text-size-small">VAT $600</small></h6>
-                                        </td>
-                                        <td class="text-center">
-                                            <ul class="icons-list">
-                                                <li><a href="#" data-toggle="modal" data-target="#invoice"><i class="icon-file-eye"></i></a></li>
-                                                <li class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-file-text2"></i> <span class="caret"></span></a>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="#"><i class="icon-file-download"></i> Download</a></li>
-                                                        <li><a href="#"><i class="icon-printer"></i> Print</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="#"><i class="icon-file-plus"></i> Edit</a></li>
-                                                        <li><a href="#"><i class="icon-cross2"></i> Remove</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>#0003</td>
-                                        <td>September 2014</td>
-                                        <td>
-                                            <h6 class="no-margin">
-                                                <a href="#">Dori Laperriere</a>
-                                                <small class="display-block text-muted">Payment method: Skrill</small>
-                                            </h6>
-                                        </td>
-                                        <td>
-                                            <select name="status" class="select" data-placeholder="Select status">
-                                                <option value="overdue">Overdue</option>
-                                                <option value="hold" selected="selected">On hold</option>
-                                                <option value="pending">Pending</option>
-                                                <option value="paid">Paid</option>
-                                                <option value="invalid">Invalid</option>
-                                                <option value="cancel">Canceled</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            May 1, 2015
-                                        </td>
-                                        <td>
-                                            <span class="label label-success">Paid on Jan 10, 2015</span>
-                                        </td>
-                                        <td>
-                                            <h6 class="no-margin text-bold">$12,850 <small class="display-block text-muted text-size-small">VAT $3,590</small></h6>
-                                        </td>
-                                        <td class="text-center">
-                                            <ul class="icons-list">
-                                                <li><a href="#" data-toggle="modal" data-target="#invoice"><i class="icon-file-eye"></i></a></li>
-                                                <li class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-file-text2"></i> <span class="caret"></span></a>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="#"><i class="icon-file-download"></i> Download</a></li>
-                                                        <li><a href="#"><i class="icon-printer"></i> Print</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="#"><i class="icon-file-plus"></i> Edit</a></li>
-                                                        <li><a href="#"><i class="icon-cross2"></i> Remove</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>#0002</td>
-                                        <td>September 2014</td>
-                                        <td>
-                                            <h6 class="no-margin">
-                                                <a href="#">Jordano Diressimo</a>
-                                                <small class="display-block text-muted">Payment method: Paypal</small>
-                                            </h6>
-                                        </td>
-                                        <td>
-                                            <select name="status" class="select" data-placeholder="Select status">
-                                                <option value="overdue">Overdue</option>
-                                                <option value="hold">On hold</option>
-                                                <option value="pending">Pending</option>
-                                                <option value="paid" selected="selected">Paid</option>
-                                                <option value="invalid">Invalid</option>
-                                                <option value="cancel">Canceled</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            June 22, 2015
-                                        </td>
-                                        <td>
-                                            <span class="label label-success">Paid on Jan 9, 2015</span>
-                                        </td>
-                                        <td>
-                                            <h6 class="no-margin text-bold">$10,900 <small class="display-block text-muted text-size-small">VAT $3,690</small></h6>
-                                        </td>
-                                        <td class="text-center">
-                                            <ul class="icons-list">
-                                                <li><a href="#" data-toggle="modal" data-target="#invoice"><i class="icon-file-eye"></i></a></li>
-                                                <li class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-file-text2"></i> <span class="caret"></span></a>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="#"><i class="icon-file-download"></i> Download</a></li>
-                                                        <li><a href="#"><i class="icon-printer"></i> Print</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="#"><i class="icon-file-plus"></i> Edit</a></li>
-                                                        <li><a href="#"><i class="icon-cross2"></i> Remove</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>#0001</td>
-                                        <td>September 2014</td>
-                                        <td>
-                                            <h6 class="no-margin">
-                                                <a href="#">Patrick Muller</a>
-                                                <small class="display-block text-muted">Payment method: Paypal</small>
-                                            </h6>
-                                        </td>
-                                        <td>
-                                            <select name="status" class="select" data-placeholder="Select status">
-                                                <option value="overdue" selected="selected">Overdue</option>
-                                                <option value="hold">On hold</option>
-                                                <option value="pending">Pending</option>
-                                                <option value="paid">Paid</option>
-                                                <option value="invalid">Invalid</option>
-                                                <option value="cancel">Canceled</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            April 4, 2015
-                                        </td>
-                                        <td>
-                                            <span class="label label-warning">5 days</span>
-                                        </td>
-                                        <td>
-                                            <h6 class="no-margin text-bold">$9,390 <small class="display-block text-muted text-size-small">VAT $2,548</small></h6>
-                                        </td>
-                                        <td class="text-center">
-                                            <ul class="icons-list">
-                                                <li><a href="#" data-toggle="modal" data-target="#invoice"><i class="icon-file-eye"></i></a></li>
-                                                <li class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-file-text2"></i> <span class="caret"></span></a>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="#"><i class="icon-file-download"></i> Download</a></li>
-                                                        <li><a href="#"><i class="icon-printer"></i> Print</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="#"><i class="icon-file-plus"></i> Edit</a></li>
-                                                        <li><a href="#"><i class="icon-cross2"></i> Remove</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- /invoice archive -->
-                        </div>
-                    </div>
-                    <!-- /support tickets -->
+                    
                 </div>
 
-                <div class="col-lg-2">
+                <div class="col-lg-2 col-sm-6">
                     <!-- Secondary sidebar -->
                     <div class="sidebar sidebar-secondary sidebar-default">
                         <div class="sidebar-content">
@@ -1645,6 +688,7 @@
                                     <li><a href="#" onclick="window.open('add_merchant.php','_self');"><i class="icon-user-tie"></i> Merchant</a></li>
                                     <li><a href="#" onclick="window.open('add_contacttype.php','_self');"><i class="icon-address-book"></i> Contact Type</a></li>
                                     <li><a href="#" onclick="window.open('add_deliverystatus.php','_self');"><i class="icon-diff"></i> Delivery Status</a></li>
+                                    <li><a href="#" onclick="window.open('add_consignee.php','_self');"><i class=" icon-users2"></i>Manage Consignee</a></li>
 
 
 
@@ -1667,9 +711,7 @@
 
                     </div>
                     <!-- /secondary sidebar -->
-
-                </div>
-                <div class="col-lg-2 col-sm-6">
+                    <!-- View LR RM -->
                     <div class="panel panel-flat">
                         <div class="panel-heading">
                             <h6 class="panel-title">View LR / Rm / Bill</h6>
@@ -1687,18 +729,10 @@
                                 </div>
                                 <div class="col-sm-2 text-center">
 
-                                    <a href="#modal_full" data-toggle='modal' class='modalButton1' data-teacherid="1" >
-                                    <button type="button" class="btn btn-info btn-xs">Submit</button></a>
-                                </div>
-                            </form>
-                            <form action="#">
-                                <div class="form-group">
-                                    <input class="form-control input-micro" type="text" placeholder="View RM" name="show_rmno" id="show_rmno" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
-                                </div>
-                                <div class="col-sm-2 text-center">
 
-                                    <a href="#modal_full" data-toggle='modal' class='modalButton2' data-teacherid="1" >
-                                        <button type="button" class="btn btn-success btn-xs">Submit</button></a>
+<!--                                        <button type="button" class="btn btn-info btn-xs" onclick="return displaylr(document.getElementById('show_lrno').value);">Submit</button>-->
+                                        <button type="button" class="btn btn-info btn-xs" onclick="return display_printlr(document.getElementById('show_lrno').value);">Submit</button>
+
                                 </div>
                             </form>
                         </div>
@@ -1711,8 +745,9 @@
                                 </div>
                                 <div class="col-sm-2 text-center">
 
-                                    <a href="#modal_full" data-toggle='modal' class='modalButton2' data-teacherid="1" >
-                                        <button type="button" class="btn btn-success btn-xs">Submit</button></a>
+<!--                                    <a href="#modal_full" data-toggle='modal' class='modalButton2' data-teacherid="1" >-->
+                                        <button type="button" class="btn btn-success btn-xs" onclick="return displayrm(document.getElementById('show_rmno').value);">Submit</button>
+<!--                                        </a>-->
                                 </div>
                             </form>
                         </div>
@@ -1731,13 +766,8 @@
                             </form>
                         </div>
                     </div>
+                    <!-- /View LR RM -->
                 </div>
-
-
-            </div>
-            <!-- /dashboard content -->
-
-        </div>
         <!-- /main content -->
 
     </div>

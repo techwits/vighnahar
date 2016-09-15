@@ -24,6 +24,10 @@ if(!isset($_REQUEST["session_userid"])) {
 	$session_ip=$_REQUEST["session_ip"];
 	$additionalcharges_tick=$_REQUEST["additionalcharges_tick"];
 	$lramount=$_REQUEST["lramount"];
+	$servicetax=$_REQUEST["servicetax"];
+	if($servicetax==""){
+		$servicetax=0;
+	}
 
 	$AdditionalChargeList=Get_AdditionalChargeList($con);
 	$Split_AdditionalChargeList = explode("||", $AdditionalChargeList);
@@ -32,6 +36,7 @@ if(!isset($_REQUEST["session_userid"])) {
 //    echo("session_userid :- $session_userid </br>");
 //    echo("session_ip :- $session_ip </br>");
 //    echo("lramount :- $lramount </br>");
+//    echo("servicetax :- $servicetax </br>");
 //	echo("additionalcharges_tick :- $additionalcharges_tick </br>");
 //	echo("Split_AdditionalChargeList0 :- $Split_AdditionalChargeList[0] </br>");
 //	echo("Split_AdditionalChargeList1 :- $Split_AdditionalChargeList[1] </br>");
@@ -39,7 +44,7 @@ if(!isset($_REQUEST["session_userid"])) {
 
 
 	$sqlQry= "select ChargeName, ChargeFix, acmid, ChargePercentage from additionalcharge_master ";
-	$sqlQry= $sqlQry." where acmid>3";
+	$sqlQry= $sqlQry." where (acmid>3 and acmid<8)";
 	$sqlQry= $sqlQry." and Active=1";
 	$sqlQry= $sqlQry." order by acmid";
 //	echo ("Check sqlQry :- $sqlQry </br>");
@@ -53,7 +58,7 @@ if(!isset($_REQUEST["session_userid"])) {
 		$additionalchargesentry="";
 		$ControlDisplay=0;
 		$ControlAmount=0;
-		$TotalControlAmount=$lramount;
+		$TotalControlAmount=$lramount+$servicetax;
 		while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
 		{
 			$db_ChargeName=$row{0};
@@ -92,7 +97,7 @@ if(!isset($_REQUEST["session_userid"])) {
 						<div class="input-group">
 							<input type="hidden" class="form-control" name="<?php echo $controlname1;?>" id="<?php echo $controlname1;?>" value="<?php echo $db_ChargeFix;?>">
 							<input type="hidden" class="form-control" name="<?php echo $controlname2;?>" id="<?php echo $controlname2;?>" value="<?php echo $db_ChargePercentage;?>">
-							<input type="text" class="form-control" name="<?php echo $controlname;?>" id="<?php echo $controlname;?>" value="<?php echo $ControlDisplay;?>" onblur="return lradditionalcharge('<?php echo $Split_AdditionalChargeList[0];?>', '<?php echo $Split_AdditionalChargeList[1];?>');" onkeypress="return only_Numeric_Dot(event);" ondrop="return false;" onpaste="return false;">
+							<input type="text" class="form-control" name="<?php echo $controlname;?>" id="<?php echo $controlname;?>" value="<?php echo $ControlDisplay;?>" onblur="return lradditionalcharge('<?php echo $Split_AdditionalChargeList[0];?>', '<?php echo $Split_AdditionalChargeList[1];?>', <?php echo $servicetax; ?>);" onkeypress="return only_Numeric_Dot(event);" ondrop="return false;" onpaste="return false;">
 							<span class="input-group-addon">
 								<img src="assets/images/rupees-128.png" height="15" width="15">
 							</span>
@@ -104,6 +109,8 @@ if(!isset($_REQUEST["session_userid"])) {
 		}
 	}
 	mysqli_free_result($result);
+
+	$TotalControlAmount=number_format((float)$TotalControlAmount, 2, '.', '');
 ?>
 <script type="text/javascript">
 		document.getElementById("additionalchargesentry").value = '<?php echo $additionalchargesentry; ?>';

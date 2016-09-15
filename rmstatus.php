@@ -53,10 +53,14 @@
                         $sqlQry.= " inner join `transporter_master`";
                         $sqlQry.= " on outward.tmid=transporter_master.tmid";
 
-                        $sqlQry.= " where `outward`.Active=1";
-                        $sqlQry.= " and `outwardlr`.Active=1";
-                        $sqlQry.= " and `outwardlr`.dsid=1";
-            //            echo ("Check sqlQry :- $sqlQry </br>");
+                        $sqlQry.= " where 1=1";
+                        $sqlQry.= " and `outwardlr`.Bill=0";
+                        $sqlQry.= " and `outward`.Active=1";
+
+                        $sqlQry.= " order by `outward`.oid desc";
+//                        $sqlQry.= " and `outwardlr`.Active=1";
+//                        $sqlQry.= " and `outwardlr`.dsid=1";
+//                        echo ("Check sqlQry :- $sqlQry </br>");
             //            die();
                         unset($con);
                         include('assets/inc/db_connect.php');
@@ -116,13 +120,8 @@
                                         ?>
                                                         <td class="text-center">
                                                             <div id="<?php echo $div_name; ?>">
-                                                                <div class="input-group-btn">
-                                                                    <button type="button"
-                                                                            class="btn btn-primary dropdown-toggle btn-icon"
-                                                                            data-toggle="dropdown" aria-expanded="true">
-                                                                        <i class="icon-gear"></i>
-                                                                        <span class="caret"></span>
-                                                                    </button>
+                                                                <li class="dropdown">
+                                                                    <a href="#" class="label bg-info-400 dropdown-toggle" data-toggle="dropdown">Update <span class="caret"></span></a>
                                                                     <ul class="dropdown-menu dropdown-menu-right">
                                                                         <li><a href="#"
                                                                                onclick="return updateRMStatus('<?php echo $i; ?>', '<?php echo _SessionUserID_; ?>', '<?php echo _SessionIP_; ?>' , '<?php echo $oid; ?>', '<?php echo $LRID; ?>', '2', '0', '<?php echo $LRRate; ?>', '<?php echo $LRQuantityCount; ?>');">Delivered</a>
@@ -144,7 +143,9 @@
                                                                             </ul>
                                                                         </li>
                                                                     </ul>
-                                                                </div>
+                                                                </li>
+
+
                                                             </div>
                                                         </td>
                                             <?php

@@ -15108,7 +15108,7 @@ thead .htCollapseButton:after {
 }
 .datatable-header > div:first-child,
 .datatable-footer > div:first-child {
-  margin-left: 0;
+  margin-left: 10px;
 }
 .panel > .dataTables_wrapper .datatable-header,
 .panel > .dataTables_wrapper .datatable-footer {
@@ -15282,6 +15282,7 @@ thead .htCollapseButton:after {
 .panel-body > .dataTables_wrapper .datatable-footer .dataTables_info,
 .panel-body > .dataTables_wrapper .datatable-footer .dataTables_paginate {
   margin-bottom: 0;
+  margin-right: 10px;
 }
 .panel-flat > .panel-heading + .dataTables_wrapper {
   border-top: 1px solid #ddd;
@@ -15359,6 +15360,7 @@ thead .htCollapseButton:after {
     float: none!important;
     text-align: center;
     margin-left: 0;
+	
   }
   .dataTables_info,
   .dataTables_paginate {
@@ -17423,11 +17425,12 @@ thead .htCollapseButton:after {
   background-color: inherit;
   position: absolute;
   top: 50%;
-  right: 25px;S
+  right: 25px;
   height: 36px;
   margin-top: -18px;
   float:right
 }
+
 .panel-body > .heading-elements {
   top: 0;
   margin-top: 14px;
@@ -17537,6 +17540,18 @@ thead .htCollapseButton:after {
   .heading-elements > .btn-group {
     float: left;
     margin-left: 20px;
+  }
+  .heading-elements-search {
+	background-color: inherit;
+	right: 25px;
+	height: 36px;
+	margin-top: -25px;
+	text-align: center;
+  }
+  .heading-elements-search .heading-form-search {
+    margin-left: 15px;
+	text-align: center;
+	margin-bottom: 20px;
   }
   .heading-elements .heading-text {
     display: inline-block;
@@ -18134,4 +18149,17 @@ label.display-block {
 .progress-list > li span {
   float: right;
   display: block;
+}
+
+.count {
+    font-family: Helvetica Neue, Roboto, Arial, sans-serif;
+	font-size: 30px;
+    line-height: 30px;
+	color: #73879C;
+    font-weight: 600;
+	margin-bottom: 0px;
+	margin-top: 0px;
+}
+.panel-body span {
+    font-size: 12px;
 }

@@ -20,7 +20,7 @@
     }
 
     $error_msg="";
-    $CurrentDate = date('Y-m-d h:i:s');
+    $CurrentDate=date('Y-m-d h:i:s');
     $AddEdit=$_REQUEST["AddEdit"];
     $session_userid=$_REQUEST["session_userid"];
     $session_ip=$_REQUEST["session_ip"];
@@ -41,9 +41,16 @@
     $qauntity=$_REQUEST["qauntity"];
     $paidlramount=$_REQUEST["paidlramount"];
     $shippingcharge=$_REQUEST["shippingcharge"];
+    $roadexpense=$_REQUEST["roadexpense"];
     $biltycharge=$_REQUEST["biltycharge"];
     $servicetax=$_REQUEST["servicetax"];
     $additionalchargesentry=$_REQUEST["additionalchargesentry"];
+
+    $ProductCharge=0;
+    $ProductCharge=$productrate*$Quantity;
+	if ($ShippingCharges < $MinimumRate){
+		$ShippingCharges=$MinimumRate;
+		}
 
 //    echo("AddEdit :- $AddEdit </br>");
 //    echo("session_userid :- $session_userid </br>");
@@ -87,14 +94,14 @@
 
         if ($AddEdit==0)
         {
-            $Procedure = "Call Save_Inward('$CurrentDate', $session_userid, '$session_ip', $financialyear, '$lrdate', '$invoicenumber', $vehicleid, $consignorid, $consigneeid, $productid, '$packagetype', $productrate, $qauntity, $paidlramount, $shippingcharge, $biltycharge, $servicetax);";
+            $Procedure = "Call Save_Inward('$CurrentDate', $session_userid, '$session_ip', $financialyear, '$lrdate', '$invoicenumber', $vehicleid, $consignorid, $consigneeid, $productid, '$packagetype', $productrate, $qauntity, $paidlramount, $shippingcharge, $roadexpense, $biltycharge, $servicetax);";
         }
         else{
             $IDTableName="inward";
             $IDColumnName="iid";
             $IDExist=Check_IDExist($con, $IDTableName, $IDColumnName, $AddEdit);
             if($IDExist>0) {
-                $Procedure = "Call Update_Inward('$CurrentDate', $session_userid, '$session_ip', $AddEdit, $financialyear, '$lrdate', '$invoicenumber', $vehicleid, $consignorid, $consigneeid, $productid, '$packagetype', $productrate, $qauntity, $paidlramount, $shippingcharge, $biltycharge, $servicetax);";
+                $Procedure = "Call Update_Inward('$CurrentDate', $session_userid, '$session_ip', $AddEdit, $financialyear, '$lrdate', '$invoicenumber', $vehicleid, $consignorid, $consigneeid, $productid, '$packagetype', $productrate, $qauntity, $paidlramount, $shippingcharge, $roadexpense, $biltycharge, $servicetax);";
             }
             else{
                 echo("Transporter ID is not getting. Please contact system administrator....");

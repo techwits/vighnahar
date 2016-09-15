@@ -88,25 +88,15 @@
 
 	<!-- Main navbar -->
 	<?php
-		$PageHeaderName="Add Consignee";
+		$PageHeaderName="Manage Consignee";
 		$icon="icon-address-book";
-		$EntryToday=2345;
-		$EntryWeek=5364;
-		$EntryMonth=9546;
-		$EntryTillDate=9957;
 
 		include('page_header.php');
-
 		$php_page=basename(__FILE__);
 		$get_return_value=login_check($con, $php_page);
 		include_once("assets/inc/handle_error.php");
-
-		//		mysqli_close($con);
 		log_pageaccess($con, $_SESSION["pageid"], basename(__FILE__));
-		//		mysqli_close($con);
 		include_once('assets/inc/db_connect.php');
-
-
 	?>
 	<!-- /main navbar -->
 
@@ -174,7 +164,7 @@
 											<div class="form-group form-group-material">
 												<label>Address <span class="text-danger">*</span> </label>
 												<div class="input-group">
-													<input type="text" class="form-control" name="address" id="address" required="required" ondrop="return false;" onpaste="return false;">
+													<input type="text" class="form-control" name="address" id="address" value="NA" required="required" ondrop="return false;" onpaste="return false;">
                                                         <span class="input-group-addon">
                                                     <i class="icon-road"></i>
                                                     </span>
@@ -200,7 +190,7 @@
 											<div class="form-group form-group-material">
 												<label>City <span class="text-danger">*</span> </label>
 												<div class="input-group">
-													<input type="text" class="form-control" name="city" id="city" required="required" onkeypress="return only_Alpha_Space(event);" ondrop="return false;" onpaste="return false;">
+													<input type="text" class="form-control" name="city" id="city" value="NA" required="required" onkeypress="return only_Alpha_Space(event);" ondrop="return false;" onpaste="return false;">
                                                         <span class="input-group-addon">
                                                     		<i class="icon-city"></i>
                                                     	</span>
@@ -211,7 +201,7 @@
 											<div class="form-group form-group-material">
 												<label>Pincode <span class="text-danger">*</span> </label>
 												<div class="input-group">
-													<input type="text" class="form-control" name="pincode" id="pincode" required="required" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
+													<input type="text" class="form-control" name="pincode" id="pincode" value="123456" required="required" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
                                                         <span class="input-group-addon">
                                                     		<i class="icon-location3"></i>
                                                     	</span>
@@ -222,7 +212,7 @@
 											<div class="form-group form-group-material">
 												<label>Telephone <span class="text-danger">*</span> </label>
 												<div class="input-group">
-													<input type="text" class="form-control" name="telephone" id="telephone" required="required" onkeypress="return only_Numeric_Comma(event);" ondrop="return false;" onpaste="return false;">
+													<input type="text" class="form-control" name="telephone" id="telephone" value="123456" required="required" onkeypress="return only_Numeric_Comma(event);" ondrop="return false;" onpaste="return false;">
                                                         <span class="input-group-addon">
                                                     		<i class="icon-phone"></i>
                                                     	</span>
@@ -235,7 +225,7 @@
 
 										<div class="col-md-6">
 											<div class="form-group form-group-material">
-												<label>Email <span class="text-danger">*</span> </label>
+												<label>Email </label>
 												<div class="input-group">
 													<input type="email" class="form-control" name="email" id="email" required="required">
                                                         <span class="input-group-addon">
@@ -246,7 +236,7 @@
 										</div>
 										<div class="col-md-6">
 											<div class="form-group form-group-material">
-												<label>Website <span class="text-danger">*</span> </label>
+												<label>Website </label>
 												<div class="input-group">
 													<input type="text" class="form-control" name="url" id="url" required="required">
                                                         <span class="input-group-addon">
@@ -260,7 +250,7 @@
 								<div class="panel-footer">
 									<div class="col-md-12">
 										<div class="text-right">
-											<button type="submit" name="submit" id="submit" class="btn bg-grey-600" onclick="return add_consignee();"><span class="text-semibold" id="<?php echo $span_pageButton; ?>">Submit</span></button>
+											<button type="button" name="submit" id="submit" class="btn bg-grey-600" onclick="return add_consignee();"><span class="text-semibold" id="<?php echo $span_pageButton; ?>">Submit</span></button>
 										</div>
 									</div>
 									<div id="div_consignee"></div>

@@ -48,10 +48,14 @@ if(!isset($_REQUEST["session_userid"])) {
 	if ($ShippingCharges < $MinimumRate){
 		$ShippingCharges=$MinimumRate;
 		}
-
 //	echo("ShippingCharges :- $ShippingCharges </br>");
 //    die();
 
+
+	$RoadExpenses=0;
+	$RoadExpenses=Get_RoadExpenses($con);
+
+	$BiltyCharge=0;
 	$BiltyCharge=Get_BiltyCharge($con);
 //	echo("BiltyCharge :- $BiltyCharge </br>");
 //	die();
@@ -70,7 +74,8 @@ if(!isset($_REQUEST["session_userid"])) {
 
 	$lramount=0;
 	$lramount=$ShippingCharges+$BiltyCharge+$ServiceTaxAmount;
-
+	$lramount=number_format((float)$lramount, 2, '.', '');
+//	echo("lramount :- $lramount </br>");
 //	die();
 
 ?>
@@ -79,7 +84,8 @@ if(!isset($_REQUEST["session_userid"])) {
 		<div class="form-group form-group-material">
 			<label>Shiping Charges </label>
 			<div class="input-group">
-				<input type="text" class="form-control" name="shippingcharge" id="shippingcharge" disabled value="<?php echo $ShippingCharges;?>" onkeypress="return only_Numeric_Dot(event);" ondrop="return false;" onpaste="return false;">
+				<input type="hidden" class="form-control" name="shippingcharge" id="shippingcharge" disabled value="<?php echo $ShippingCharges;?>">
+				<input type="text" class="form-control" name="roadexpense" id="roadexpense" disabled value="<?php echo $RoadExpenses;?>" onkeypress="return only_Numeric_Dot(event);" ondrop="return false;" onpaste="return false;">
 				<span class="input-group-addon"><img src="assets/images/rupees-128.png" height="15" width="15"></span>
 			</div>
 		</div>
@@ -95,9 +101,9 @@ if(!isset($_REQUEST["session_userid"])) {
 	</div>
 	<div class="col-md-3">
 		<div class="form-group form-group-material">
-			<label>Serice Tax </label>
+			<label>Photocopy Charges </label>
 			<div class="input-group">
-				<input type="text" class="form-control" name="servicetax" id="servicetax" disabled value="<?php echo $ServiceTaxAmount;?>" onkeypress="return only_Numeric_Dot(event);" ondrop="return false;" onpaste="return false;">
+				<input type="text" class="form-control" name="servicetax" id="servicetax" value="<?php echo $ServiceTaxAmount;?>" onkeypress="return only_Numeric_Dot(event);" ondrop="return false;" onpaste="return false;" onblur="return lradditionalcharge1(1, 'servicetax');">
 				<span class="input-group-addon"><img src="assets/images/rupees-128.png" height="15" width="15"></span>
 			</div>
 		</div>
