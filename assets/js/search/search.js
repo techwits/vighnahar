@@ -923,41 +923,41 @@ function ClearAllControls_Only(formno) {
 }
 
 function ClearAllControls(formno) {
-	document.getElementById("AddEdit").value=0;
-	for (i = 0; i < document.forms[formno].length; i++) {
-		doc = document.forms[formno].elements[i];
-		//alert("doc.type :- " + doc.type);
-		doc.style.backgroundColor="";
-		switch (doc.type) {
-			case "text":
-				doc.value = "";
-				break;
-			case "email":
-				doc.value = "";
-				break;
-			case "password":
-				doc.value = "";
-				break;
-			case "textarea":
-				doc.value = "";
-				break;
-			case "checkbox":
-				doc.checked = false;
-				break;
-			case "radio":
-				doc.checked = false;
-				break;
-			case "select-one":
-				doc.selectedIndex = 0;
-				break;
-			case "select-multiple":
-				doc.selectedIndex = 0;
-				break;
-			default:
-				break;
-		}
-	}
-	$("input:text:visible:first").focus();
+	// document.getElementById("AddEdit").value=0;
+	// for (i = 0; i < document.forms[formno].length; i++) {
+	// 	doc = document.forms[formno].elements[i];
+	// 	//alert("doc.type :- " + doc.type);
+	// 	doc.style.backgroundColor="";
+	// 	switch (doc.type) {
+	// 		case "text":
+	// 			doc.value = "";
+	// 			break;
+	// 		case "email":
+	// 			doc.value = "";
+	// 			break;
+	// 		case "password":
+	// 			doc.value = "";
+	// 			break;
+	// 		case "textarea":
+	// 			doc.value = "";
+	// 			break;
+	// 		case "checkbox":
+	// 			doc.checked = false;
+	// 			break;
+	// 		case "radio":
+	// 			doc.checked = false;
+	// 			break;
+	// 		case "select-one":
+	// 			doc.selectedIndex = 0;
+	// 			break;
+	// 		case "select-multiple":
+	// 			doc.selectedIndex = 0;
+	// 			break;
+	// 		default:
+	// 			break;
+	// 	}
+	// }
+	// $("input:text:visible:first").focus();
 
 	// new PNotify({
 	// 	title: 'Success notice',
@@ -1016,12 +1016,30 @@ function displayrm(rmno)
 	var win = window.open(URL, "_blank", strWindowFeatures);
 }
 
+function displayrm(rmno)
+{
+	// alert("LRNO :- " + lrno);
+	var strWindowFeatures = "location=yes,height=590,width=820,scrollbars=NO,status=yes";
+	//var URL = "display_LRDetails.php?LRID="+ lrno +"&amp;url=" + location.href;
+	var URL = "display_RMDetails.php?RMID="+ rmno;
+	var win = window.open(URL, "_blank", strWindowFeatures);
+}
+
+
 function displaylr(lrno)
 {
 	// alert("LRNO :- " + lrno);
 	var strWindowFeatures = "location=yes,height=590,width=820,scrollbars=NO,status=yes";
 	//var URL = "display_LRDetails.php?LRID="+ lrno +"&amp;url=" + location.href;
 	var URL = "display_LRDetails.php?LRID="+ lrno;
+	var win = window.open(URL, "_blank", strWindowFeatures);
+}
+
+function display_printrm(rmno)
+{
+	// alert("LRNO :- " + lrno);
+	var strWindowFeatures = "location=yes,height=590,width=820,scrollbars=NO,status=yes";
+	var URL = "rmprint.php?RMID="+ rmno;
 	var win = window.open(URL, "_blank", strWindowFeatures);
 }
 
@@ -1823,6 +1841,60 @@ function editarea(amid, CreationDate, ModificationDate, Creator, ip, AreaName, A
 	}
 }
 
+function deletermentry(session_userid, session_ip, rmid, divName, Status)
+{
+
+	var error_count;
+	var error_msg;
+	error_msg="";
+	error_count=0;
+
+	if(session_userid.length <= 0 || session_userid == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter User ID" + "\n";
+		// frm.username.focus();
+	}
+
+	if(session_ip.length <= 0 || session_ip == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter IP address" + "\n";
+		// frm.username.focus();
+	}
+
+	// alert("Status :- " + Status);
+	if(Number(Status)!=0) {
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Can't update RM now as RM status is updated....." + "\n";
+	}
+
+	if(rmid.length <= 0 || rmid == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " RM ID missing" + "\n";
+		// frm.username.focus();
+	}
+
+	if(Number(error_count) == 0)
+	{
+		var div_name = "#"+divName;
+		var page_name = "deleterm.php";
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
+		$.post(page_name, {session_userid:session_userid, session_ip:session_ip, rmid:rmid},
+			function(data)
+			{
+				$(div_name).html(data);
+			}
+		);
+		return false;
+	}
+	else{
+		show_error(error_msg); //alert(error_msg);
+		return false;
+	}
+}
+
 function deletelrentry(session_userid, session_ip, lrid, divName, Status)
 {
 
@@ -1848,7 +1920,7 @@ function deletelrentry(session_userid, session_ip, lrid, divName, Status)
 	// alert("Status :- " + Status);
 	if(Number(Status)!=0) {
 		error_count = error_count + 1;
-		error_msg  =  error_msg + error_count + ") " + " Can't update LR now as LR status is updated....." + "\n";
+		error_msg  =  error_msg + error_count + ") " + " Can't Delete LR as this LR is part of RM....." + "\n";
 	}
 
 	if(lrid.length <= 0 || lrid == "")
@@ -1923,71 +1995,74 @@ function editlrentry(lrid, Status, LRDate, fyid, FinancialYear)
 		}
 	}
 	else{
-		alert("Can't update LR now as LR status is updated.....");
-		setTimeout(function(){
-			window.location.reload(1);
-		}, 0);
+		show_error("Can't update LR this LR is part of RM.....");
 		return false;
 	}
 }
 
-function editrmentry(oid, CreationDate, ModificationDate, Creator, ip, TransitDate, fyid, vmid, tmid, Active, ChangeTransitDate, FinancialYear, VehicleName, TransporterName, RoadMemoLRList)
+function editrmentry(Stat, oid, CreationDate, ModificationDate, Creator, ip, TransitDate, fyid, vmid, tmid, Active, ChangeTransitDate, FinancialYear, VehicleName, TransporterName, RoadMemoLRList)
 {
-	// alert("ID :- " + id);
-	edited_financialyear=document.getElementById("financialyear").value;
-	edited_vehicleid=document.getElementById("vehicleid").value;
-	edited_transporterid=document.getElementById("transporterid").value;
+	// alert("Stat :- " + Stat);
+	if(Number(Stat)==0) {
+		edited_financialyear = document.getElementById("financialyear").value;
+		edited_vehicleid = document.getElementById("vehicleid").value;
+		edited_transporterid = document.getElementById("transporterid").value;
 
 
-	document.getElementById("AddEdit").value=oid;
-	if(Number(oid) > 0)
-	{
-		if(edited_financialyear!=fyid) {
-			var oForm = document.forms["rmentry_form"];
-			$("#financialyear option").eq(0).before($('<option>', {
-				value: fyid,
-				text: FinancialYear
-			}));
-			document.getElementById("financialyear").selectedIndex = 0;
+		document.getElementById("AddEdit").value = oid;
+		if (Number(oid) > 0) {
+			if (edited_financialyear != fyid) {
+				var oForm = document.forms["rmentry_form"];
+				$("#financialyear option").eq(0).before($('<option>', {
+					value: fyid,
+					text: FinancialYear
+				}));
+				document.getElementById("financialyear").selectedIndex = 0;
+			}
+
+			if (edited_vehicleid != vmid) {
+				var oForm = document.forms["rmentry_form"];
+				$("#vehicleid option").eq(0).before($('<option>', {
+					value: vmid,
+					text: VehicleName
+				}));
+				document.getElementById("vehicleid").selectedIndex = 0;
+			}
+
+			if (edited_transporterid != tmid) {
+				var oForm = document.forms["rmentry_form"];
+				$("#transporterid option").eq(0).before($('<option>', {
+					value: tmid,
+					text: TransporterName
+				}));
+				document.getElementById("transporterid").selectedIndex = 0;
+			}
+
+			// alert("RoadMemoLRList :- " +RoadMemoLRList);
+			document.getElementById("rmdate").value = ChangeTransitDate;
+			document.getElementById("lrid_list").value = RoadMemoLRList;
+			document.getElementById("lrid_list1").value = RoadMemoLRList;
+
+			document.getElementById("transporterid").focus();
+
+			fill_rmtableEdit(RoadMemoLRList);
+
+			$('a[href="#bordered-tab1"]').click();
+			// document.getElementById("bordered-tab2").className = "deactive";
+
+			// $("#bordered-tab1").attr("class", "tab-pane has-padding active");
+			// $("#bordered-tab2").attr("class", "tab-pane has-padding");
+
+
 		}
-
-		if(edited_vehicleid!=vmid) {
-			var oForm = document.forms["rmentry_form"];
-			$("#vehicleid option").eq(0).before($('<option>', {
-				value: vmid,
-				text: VehicleName
-			}));
-			document.getElementById("vehicleid").selectedIndex = 0;
+		else {
+			alert("Menu ID is Blank. Please check......");
 		}
-
-		if(edited_transporterid!=tmid) {
-			var oForm = document.forms["rmentry_form"];
-			$("#transporterid option").eq(0).before($('<option>', {
-				value: tmid,
-				text: TransporterName
-			}));
-			document.getElementById("transporterid").selectedIndex = 0;
-		}
-
-		document.getElementById("rmdate").value=ChangeTransitDate;
-		document.getElementById("lrid_list").value=RoadMemoLRList;
-		document.getElementById("lrid_list1").value=RoadMemoLRList;
-
-		document.getElementById("transporterid").focus();
-
-		fill_rmtableEdit(RoadMemoLRList);
-
-		$('a[href="#bordered-tab1"]').click();
-		// document.getElementById("bordered-tab2").className = "deactive";
-
-		// $("#bordered-tab1").attr("class", "tab-pane has-padding active");
-		// $("#bordered-tab2").attr("class", "tab-pane has-padding");
-
-
 	}
-	else
-	{
-		alert("Menu ID is Blank. Please check......");
+	else{
+
+		show_error("Status is updated for this Road Memo. You Can't Change RM Now...."); //alert(error_msg);
+		return false;
 	}
 }
 
@@ -2236,7 +2311,7 @@ function billDiscount(DiscountAmount, GrandTotal, ServiceTaxAmount)
 	}
 }
 
-function rmstatusreverse(session_userid, session_ip, divname, olrid)
+function rmstatusreverse(session_userid, session_ip, divname, olrid, RMStatus)
 {
 
 	var error_count;
@@ -2269,13 +2344,19 @@ function rmstatusreverse(session_userid, session_ip, divname, olrid)
 		error_msg  =  error_msg + error_count + ") " + " Outward LR ID blank" + "\n";
 	}
 
+	if(RMStatus.length <= 0 || RMStatus == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " RM Status ID blank" + "\n";
+	}
+
 	// alert("divname :- " + divname);
 	if(Number(error_count) == 0)
 	{
 		var div_name = "#"+divname;
 		var page_name = "rmstatus_reverse.php";
 		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
-		$.post(page_name, {session_userid:session_userid, session_ip:session_ip, olrid:olrid},
+		$.post(page_name, {session_userid:session_userid, session_ip:session_ip, olrid:olrid, RMStatus:RMStatus},
 			function(data)
 			{
 				$(div_name).html(data);

@@ -19,9 +19,10 @@
 
     <!-- Editable inputs -->
     <div class="panel panel-flat">
-            <table class="table datatable-scroll-y" width="100%">
+            <table class="table datatable-basic" width="100%">
                 <thead>
                 <tr>
+                    <th></th>
                     <th>RMID</th>
                     <th>Transit Date</th>
                     <th>Vehicle Number</th>
@@ -56,6 +57,7 @@
                         $sqlQry.= " where 1=1";
                         $sqlQry.= " and `outwardlr`.Bill=0";
                         $sqlQry.= " and `outward`.Active=1";
+                        $sqlQry.= " and `outwardlr`.Active=1";
 
                         $sqlQry.= " order by `outward`.oid desc";
 //                        $sqlQry.= " and `outwardlr`.Active=1";
@@ -108,6 +110,7 @@
 
                                     ?>
                                     <tr>
+                                        <td></td>
                                         <td><?php echo $oid; ?></td>
                                         <td><?php echo $Transitdate; ?></td>
                                         <td><?php echo $VehicleNumber; ?></td>
@@ -142,6 +145,9 @@
                                                                                 ?>
                                                                             </ul>
                                                                         </li>
+                                                                        <li><a href="#"
+                                                                               onclick="return updateRMStatus('<?php echo $i; ?>', '<?php echo _SessionUserID_; ?>', '<?php echo _SessionIP_; ?>' , '<?php echo $oid; ?>', '<?php echo $LRID; ?>', '4', '0', '<?php echo $LRRate; ?>', '<?php echo $LRQuantityCount; ?>');">Wrong LR Entry</a>
+                                                                        </li>
                                                                     </ul>
                                                                 </li>
 
@@ -150,20 +156,29 @@
                                                         </td>
                                             <?php
                                                     }
-                                                    elseif($RMStatus==1){
-                                                        ?>
-                                                        <td class="text-center">
-                                                            <div id="<?php echo $div_name; ?>">
-                                                                <a href="#" onclick="rmstatusreverse('<?php echo _SessionUserID_; ?>', '<?php echo _SessionIP_; ?>', '<?php echo $div_name; ?>', '<?php echo $olrid; ?>');"><span class="label label-success">Delivered</span></a>
-                                                             </div>
-                                                        </td>
-                                                        <?php
-                                                    }
                                                     elseif($RMStatus==2){
                                                         ?>
                                                         <td class="text-center">
                                                             <div id="<?php echo $div_name; ?>">
-                                                                <a href="#" onclick="rmstatusreverse('<?php echo _SessionUserID_; ?>', '<?php echo _SessionIP_; ?>', '<?php echo $div_name; ?>', '<?php echo $olrid; ?>');"><span class="label label-danger">Undelivered</span></a>
+                                                                <a href="#" onclick="rmstatusreverse('<?php echo _SessionUserID_; ?>', '<?php echo _SessionIP_; ?>', '<?php echo $div_name; ?>', '<?php echo $olrid; ?>', '<?php echo $RMStatus; ?>');"><span class="label label-success">Delivered</span></a>
+                                                             </div>
+                                                        </td>
+                                                        <?php
+                                                    }
+                                                    elseif($RMStatus==3){
+                                                        ?>
+                                                        <td class="text-center">
+                                                            <div id="<?php echo $div_name; ?>">
+                                                                <a href="#" onclick="rmstatusreverse('<?php echo _SessionUserID_; ?>', '<?php echo _SessionIP_; ?>', '<?php echo $div_name; ?>', '<?php echo $olrid; ?>', '<?php echo $RMStatus; ?>');"><span class="label label-danger">Undelivered</span></a>
+                                                            </div>
+                                                        </td>
+                                                        <?php
+                                                    }
+                                                    elseif($RMStatus==4){
+                                                        ?>
+                                                        <td class="text-center">
+                                                            <div id="<?php echo $div_name; ?>">
+                                                                <a href="#" onclick="rmstatusreverse('<?php echo _SessionUserID_; ?>', '<?php echo _SessionIP_; ?>', '<?php echo $div_name; ?>', '<?php echo $olrid; ?>', '<?php echo $RMStatus; ?>');"><span class="label label-warning">Wrong LR Entry</span></a>
                                                             </div>
                                                         </td>
                                                         <?php

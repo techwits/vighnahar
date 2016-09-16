@@ -183,7 +183,7 @@
                                             <?php
                                                 $LRCountDayAvarage=Get_LRCountDayAvarage($con, $StartDate, $EndDate);
                                             ?>
-                                            <div class="text-muted text-size-small"><?php echo $LRCountDayAvarage; ?>% avg</div>
+                                            <div class="text-muted text-size-small"><?php echo $LRCountDayAvarage; ?> avg</div>
                                         </div>
                                         <div class="col-xs-4 text-left border-right">
                                             <?php
@@ -229,7 +229,7 @@
                                                     $RMCountDayAvarage=Get_RMCountDayAvarage($con, $StartDate, $EndDate);
                                                 ?>
                                                 
-                                                <div class="text-muted text-size-small"><?php echo $RMCountDayAvarage;?>% avg</div>
+                                                <div class="text-muted text-size-small"><?php echo $RMCountDayAvarage;?> avg</div>
                                             </div>
                                             <div class="col-xs-4 text-left border-right">
                                                 <?php
@@ -238,6 +238,7 @@
                                                 <h3 class="no-margin"><?php echo $RMCountMonth;?></h3>
                                                 Month
                                             </div>
+
                                             <div class="col-xs-4 text-right">
                                                 <div class="heading-text">
                                                   <ul class="icons-list">
@@ -288,12 +289,15 @@
                                                 <h3 class="no-margin"><?php echo $RMCountMonth;?></h3>
                                                 Consignors
                                             </div>
-                                            <div class="col-xs-4 text-right">
-                                                <div class="heading-text">
-                                                  <ul class="icons-list">
+                                            <div class="col-xs-4 text-left">
+                                            <div class="heading-text">
+                                                  <ul class="icons-list pull-right">
                                                       <li><a data-action="reload"></a></li>
                                                   </ul>
                                               </div>
+                                            	<span class="heading-text badge bg-blue-800"> <?php echo $InTransit;?> </span>
+                                               <div class="text-muted text-size-small">Dead Stock</div>
+                                                
                                             </div>
                                         </div>
                                      </div>
@@ -333,29 +337,33 @@
                                    <div class="col-md-3">
                                       <div class="panel panel-flat border-top-xlg border-top-info border-grey">
                                           <div class="panel-body">
-                                             	<div class="count no-margin">2500</div>
-                                                <span class="count_bottom no-margin">From last Week</span>
-                                                <div class="count no-margin">2500</div>
-                                                <span class="count_bottom no-margin">From last Week</span>
+                                          		
+                                             	<a href="#" class="media-annotation pull-right">More</a>
+                                                <div class="count no-margin">1,250</div>
+                                                <span class="count_bottom ">Bills-This Year &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
+                                                <div class="count pull-right">800</div>
+                                                <span class="count_bottom pull-right">Bills-Last Month</span>
                                               </div>
                                       </div>  
                                       <div class="panel panel-flat border-top-xlg border-top-info border-grey">
                                           <div class="panel-body">
-                                              <div class="count no-margin">2500</div>
-                                                <span class="count_bottom no-margin">From last Week</span>
-                                                <div class="count no-margin">2500</div>
-                                                <span class="count_bottom no-margin">From last Week</span>
+                                              	<a href="#" class="media-annotation pull-right">More</a>
+                                                <div class="count no-margin">1,200</div>
+                                                <span class="count_bottom ">Pending Bills-This Year</span>
+                                                <div class="count pull-right">800</div>
+                                                <span class="count_bottom pull-right">&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;Consignors</span>
                                           </div>
+                                         
                                       </div>
                                    </div>
                                 </div>
-                        		
+                        		<div class="row">
                                  <div class="col-md-12">
                                  	<div class="row">
                                     	<div class="col-md-6">
                                             <div class="panel panel-flat border-top-xlg border-top-info border-grey">
                                                 <div class="panel-heading">
-                                                    <h6 class="panel-title">Custom panel border</h6>
+                                                    <h6 class="panel-title">Statistics</h6>
                                                     <div class="heading-elements">
                                                         <ul class="icons-list">
                                                             <li><a data-action="collapse" class=""></a></li>
@@ -387,20 +395,19 @@
                     
                                                 <div class="panel-body text-center">
                                                     <!-- Members online -->
-                                                        <div class="chart-container text-center content-group">
-                                                            <div class="display-inline-block" id="google-3d-exploded"></div>
-                                                        </div>
+                                                        <div class="display-inline-block" id="google-3d-exploded"></div>
                                                     <!-- /members online -->
                                                 </div>
                                             </div>
                                          </div>
                                     </div>
                                  </div>
+                                 </div>
                              </div>
                         	<div class="col-md-4">
                         		<div class="panel panel-flat border-top-xlg border-top-info border-grey">
                                   <div class="panel-heading">
-                                      <h6 class="panel-title">H6 title</h6>
+                                      <h6 class="panel-title">Facts & Figures</h6>
                                       <div class="heading-elements">
                                           <ul class="icons-list">
                                               <li><a data-action="collapse"></a></li>
@@ -410,15 +417,14 @@
                                   <a class="heading-elements-toggle"><i class="icon-menu"></i></a></div>
                                   
                                   <div class="panel-body">
-                                      Extra large border size using <code>.border-*-xlg</code> class
                                   </div>
                                   <div class="table-responsive">
                                       <table class="table text-nowrap">
                                           <thead>
                                               <tr>
-                                                  <th>Application</th>
-                                                  <th>Time</th>
-                                                  <th>Price</th>
+                                                  <th>Descriptiom</th>
+                                                  <th></th>
+                                                  <th>Count</th>
                                               </tr>
                                           </thead>
                                           <tbody>
@@ -426,23 +432,22 @@
                                                   <td>
                                                       <div class="media-left media-middle">
                                                           <a href="#" class="btn bg-primary-400 btn-rounded btn-icon btn-xs">
-                                                              <span class="letter-icon"></span>
+                                                              <span class="letter-icon"> A</span>
                                                           </a>
                                                       </div>
       
                                                       <div class="media-body">
                                                           <div class="media-heading">
-                                                              <a href="#" class="letter-icon-title">Sigma application</a>
+                                                              <a href="#" class="letter-icon-title">Areas Served</a>
                                                           </div>
-      
-                                                          <div class="text-muted text-size-small"><i class="icon-checkmark3 text-size-mini position-left"></i> New order</div>
+                                                          <div class="text-muted text-size-small"><i class="icon-checkmark3 text-size-mini position-left"></i> </div>
                                                       </div>
                                                   </td>
                                                   <td>
-                                                      <span class="text-muted text-size-small">06:28 pm</span>
+                                                      <span class="text-muted text-size-small"></span>
                                                   </td>
                                                   <td>
-                                                      <h6 class="text-semibold no-margin">$49.90</h6>
+                                                      <h6 class="text-semibold no-margin">118</h6>
                                                   </td>
                                               </tr>
       
@@ -450,23 +455,23 @@
                                                   <td>
                                                       <div class="media-left media-middle">
                                                           <a href="#" class="btn bg-danger-400 btn-rounded btn-icon btn-xs">
-                                                              <span class="letter-icon"></span>
+                                                              <span class="letter-icon">C</span>
                                                           </a>
                                                       </div>
       
                                                       <div class="media-body">
                                                           <div class="media-heading">
-                                                              <a href="#" class="letter-icon-title">Alpha application</a>
+                                                              <a href="#" class="letter-icon-title">Consignees</a>
                                                           </div>
       
-                                                          <div class="text-muted text-size-small"><i class="icon-spinner11 text-size-mini position-left"></i> Renewal</div>
+                                                          <div class="text-muted text-size-small"><i class="icon-spinner11 text-size-mini position-left"></i> </div>
                                                       </div>
                                                   </td>
                                                   <td>
-                                                      <span class="text-muted text-size-small">04:52 pm</span>
+                                                      <span class="text-muted text-size-small"></span>
                                                   </td>
                                                   <td>
-                                                      <h6 class="text-semibold no-margin">$90.50</h6>
+                                                      <h6 class="text-semibold no-margin">200</h6>
                                                   </td>
                                               </tr>
       
@@ -474,23 +479,23 @@
                                                   <td>
                                                       <div class="media-left media-middle">
                                                           <a href="#" class="btn bg-indigo-400 btn-rounded btn-icon btn-xs">
-                                                              <span class="letter-icon"></span>
+                                                              <span class="letter-icon">T</span>
                                                           </a>
                                                       </div>
       
                                                       <div class="media-body">
                                                           <div class="media-heading">
-                                                              <a href="#" class="letter-icon-title">Delta application</a>
+                                                              <a href="#" class="letter-icon-title">Trips</a>
                                                           </div>
       
-                                                          <div class="text-muted text-size-small"><i class="icon-lifebuoy text-size-mini position-left"></i> Support</div>
+                                                          <div class="text-muted text-size-small"><i class="icon-lifebuoy text-size-mini position-left"></i> ..</div>
                                                       </div>
                                                   </td>
                                                   <td>
-                                                      <span class="text-muted text-size-small">01:26 pm</span>
+                                                      <span class="text-muted text-size-small"></span>
                                                   </td>
                                                   <td>
-                                                      <h6 class="text-semibold no-margin">$60.00</h6>
+                                                      <h6 class="text-semibold no-margin">1,675</h6>
                                                   </td>
                                               </tr>
       
@@ -498,23 +503,23 @@
                                                   <td>
                                                       <div class="media-left media-middle">
                                                           <a href="#" class="btn bg-success-400 btn-rounded btn-icon btn-xs">
-                                                              <span class="letter-icon"></span>
+                                                              <span class="letter-icon">P</span>
                                                           </a>
                                                       </div>
       
                                                       <div class="media-body">
                                                           <div class="media-heading">
-                                                              <a href="#" class="letter-icon-title">Omega application</a>
+                                                              <a href="#" class="letter-icon-title">Products</a>
                                                           </div>
       
-                                                          <div class="text-muted text-size-small"><i class="icon-lifebuoy text-size-mini position-left"></i> Support</div>
+                                                          <div class="text-muted text-size-small"><i class="icon-lifebuoy text-size-mini position-left"></i>...</div>
                                                       </div>
                                                   </td>
                                                   <td>
-                                                      <span class="text-muted text-size-small">11:46 am</span>
+                                                      <span class="text-muted text-size-small"></span>
                                                   </td>
                                                   <td>
-                                                      <h6 class="text-semibold no-margin">$55.00</h6>
+                                                      <h6 class="text-semibold no-margin">65</h6>
                                                   </td>
                                               </tr>
       
@@ -522,92 +527,92 @@
                                                   <td>
                                                       <div class="media-left media-middle">
                                                           <a href="#" class="btn bg-danger-400 btn-rounded btn-icon btn-xs">
-                                                              <span class="letter-icon"></span>
+                                                              <span class="letter-icon">C</span>
                                                           </a>
                                                       </div>
       
                                                       <div class="media-body">
                                                           <div class="media-heading">
-                                                              <a href="#" class="letter-icon-title">Alpha application</a>
+                                                              <a href="#" class="letter-icon-title">Consignees</a>
                                                           </div>
       
-                                                          <div class="text-muted text-size-small"><i class="icon-spinner11 text-size-mini position-left"></i> Renewal</div>
+                                                          <div class="text-muted text-size-small"><i class="icon-spinner11 text-size-mini position-left"></i> </div>
                                                       </div>
                                                   </td>
                                                   <td>
-                                                      <span class="text-muted text-size-small">10:29 am</span>
+                                                      <span class="text-muted text-size-small"></span>
                                                   </td>
                                                   <td>
-                                                      <h6 class="text-semibold no-margin">$90.50</h6>
+                                                      <h6 class="text-semibold no-margin">345</h6>
                                                   </td>
                                               </tr>
                                               <tr>
                                                   <td>
                                                       <div class="media-left media-middle">
                                                           <a href="#" class="btn bg-danger-400 btn-rounded btn-icon btn-xs">
-                                                              <span class="letter-icon"></span>
+                                                              <span class="letter-icon">V</span>
                                                           </a>
                                                       </div>
       
                                                       <div class="media-body">
                                                           <div class="media-heading">
-                                                              <a href="#" class="letter-icon-title">Alpha application</a>
+                                                              <a href="#" class="letter-icon-title">Vehicles</a>
                                                           </div>
       
-                                                          <div class="text-muted text-size-small"><i class="icon-spinner11 text-size-mini position-left"></i> Renewal</div>
+                                                          <div class="text-muted text-size-small"><i class="icon-spinner11 text-size-mini position-left"></i> </div>
                                                       </div>
                                                   </td>
                                                   <td>
-                                                      <span class="text-muted text-size-small">10:29 am</span>
+                                                      <span class="text-muted text-size-small"></span>
                                                   </td>
                                                   <td>
-                                                      <h6 class="text-semibold no-margin">$90.50</h6>
+                                                      <h6 class="text-semibold no-margin">12</h6>
                                                   </td>
                                               </tr>
                                               <tr>
                                                   <td>
                                                       <div class="media-left media-middle">
-                                                          <a href="#" class="btn bg-danger-400 btn-rounded btn-icon btn-xs">
-                                                              <span class="letter-icon"></span>
+                                                          <a href="#" class="btn bg-success-400 btn-rounded btn-icon btn-xs">
+                                                              <span class="letter-icon">P</span>
                                                           </a>
                                                       </div>
       
                                                       <div class="media-body">
                                                           <div class="media-heading">
-                                                              <a href="#" class="letter-icon-title">Alpha application</a>
+                                                              <a href="#" class="letter-icon-title">Packages Handled</a>
                                                           </div>
       
-                                                          <div class="text-muted text-size-small"><i class="icon-spinner11 text-size-mini position-left"></i> Renewal</div>
+                                                          <div class="text-muted text-size-small"><i class="icon-spinner11 text-size-mini position-left"></i> </div>
                                                       </div>
                                                   </td>
                                                   <td>
-                                                      <span class="text-muted text-size-small">10:29 am</span>
+                                                      <span class="text-muted text-size-small"></span>
                                                   </td>
                                                   <td>
-                                                      <h6 class="text-semibold no-margin">$90.50</h6>
+                                                      <h6 class="text-semibold no-margin">56,987</h6>
                                                   </td>
                                               </tr>
                                               <tr>
                                                   <td>
                                                       <div class="media-left media-middle">
-                                                          <a href="#" class="btn bg-danger-400 btn-rounded btn-icon btn-xs">
-                                                              <span class="letter-icon"></span>
+                                                          <a href="#" class="btn bg-indigo-400 btn-rounded btn-icon btn-xs">
+                                                              <span class="letter-icon">U</span>
                                                           </a>
                                                       </div>
       
                                                       <div class="media-body">
                                                           <div class="media-heading">
-                                                              <a href="#" class="letter-icon-title">Alpha application</a>
+                                                              <a href="#" class="letter-icon-title">System Users</a>
                                                           </div>
-      
-                                                          <div class="text-muted text-size-small"><i class="icon-spinner11 text-size-mini position-left"></i> Renewal</div>
+
+                                                          <div class="text-muted text-size-small"><i class="icon-spinner11 text-size-mini position-left"></i> </div>
                                                       </div>
                                                   </td>
                                                   <td>
-                                                      <span class="text-muted text-size-small">10:29 am</span>
+                                                      <span class="text-muted text-size-small"></span>
                                                   </td>
                                                   <td>
-                                                      <h6 class="text-semibold no-margin">$90.50</h6>
+                                                      <h6 class="text-semibold no-margin">3</h6>
                                                   </td>
                                               </tr>
                                           </tbody>

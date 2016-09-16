@@ -98,7 +98,7 @@ body.print-mode .print-preview {
 	margin-left: 10px;
 }
 .Chalan-details3{
-	width: 325px;
+	width: 275px;
 	display: inline-block;
 }
 .Chalan-details4{
@@ -114,7 +114,7 @@ body.print-mode .print-preview {
 	margin-left: 20px;
 }
 .Chalan-details5{
-	width: 80px;
+	width: 125px;
 	font-family: Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;
 	font-size: 11px;
 	text-transform: uppercase;
@@ -124,4 +124,23 @@ body.print-mode .print-preview {
 	background-color: transparent;
 	margin-top: 10px;
 	margin-left: 10px;
+}
+.footerdetails{
+	border-top: 1px dotted black;
+	border-bottom: 1px dotted black;
+	margin-top: 250px;
+}
+.driversign{
+	border-top: 1px dotted black;
+	margin-top: 70px;
+	margin-left: 50px;
+	display: inline-block;
+	float: left;
+}
+.despatchsign{
+	border-top: 1px dotted black;
+	margin-top: 70px;
+	margin-right: 50px;
+	display: inline-block;
+	float:right;
 }

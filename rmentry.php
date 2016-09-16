@@ -17,7 +17,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Merchant Entry</title>
+    <title>Road Memo Entry</title>
 
     <!-- Global stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
@@ -287,7 +287,7 @@
                                     <form name="search_menu" action="#" class="main-search">
 
                                         <div class="row" id="div_lrlisttable">
-                                            <div class="col-sm-8 col-md-8 col-lg-8 col-lg-8 col-lg-offset-2">
+                                            <div class="col-sm-10 col-md-10 col-lg-10 col-lg-10 col-lg-offset-1">
 
                                                 <!-- Search field -->
                                                 <div class="panel panel-default">
@@ -314,8 +314,8 @@
 
                                                     <div>
                                                         <?php
-                                                        define("_session_userid_",$_SESSION['user_id']);
-                                                        define("_session_ip_",$_SESSION['ip']);
+                                                            define("_session_userid_",$_SESSION['user_id']);
+                                                            define("_session_ip_",$_SESSION['ip']);
                                                         ?>
 
                                                         <div id="div_searchroadmemo">

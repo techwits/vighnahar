@@ -26,11 +26,12 @@
     $session_userid=$_REQUEST["session_userid"];
     $session_ip=$_REQUEST["session_ip"];
     $olrid=sanitize($con, $_REQUEST["olrid"]);
-
+    $RMStatus=sanitize($con, $_REQUEST["RMStatus"]);
 
 //    echo ("session_userid:- ".$session_userid."</br>");
 //    echo ("session_ip:- ".$session_ip."</br>");
 //    echo ("olrid:- ".$olrid."</br>");
+//    echo ("RMStatus:- ".$RMStatus."</br>");
 //    die();
 
     $tablename="outwardlr";
@@ -55,8 +56,14 @@
     if(trim($error_msg)=="") {
         if ($AddEdit == 0) {
 
-                    Update_OutwardLR_RMStatus($olrid);
-                    Update_OutwardLRBill_Deactive($olrid);
+//                    if($RMStatus<>4) {
+                     Update_OutwardLR_RMStatus($olrid); //set RMStatus=0
+//                    }
+//                    else{
+//                        Set_RM_Deactive($con, $CurrentDate, $session_userid, $session_ip, $olrid); //set RMStatus=0
+//                        Clone_RMlr($con, $CurrentDate, $session_userid, $session_ip, $olrid); //Clone RM's LR
+//                    }
+                    Update_OutwardLRBill_Deactive($olrid); //Set all Outward LR Bill Status = 0
 
                     /* Log Ends*/
                         Log_End($con, $searchColumn_Value, $LogStart_Value);

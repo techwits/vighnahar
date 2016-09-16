@@ -98,8 +98,10 @@
         }
         else{
             $IDTableName="inward";
-            $IDColumnName="iid";
+            $IDColumnName="LRID";
             $IDExist=Check_IDExist($con, $IDTableName, $IDColumnName, $AddEdit);
+//            echo("IDExist :- $IDExist </br>");
+//            die();
             if($IDExist>0) {
                 $Procedure = "Call Update_Inward('$CurrentDate', $session_userid, '$session_ip', $AddEdit, $financialyear, '$lrdate', '$invoicenumber', $vehicleid, $consignorid, $consigneeid, $productid, '$packagetype', $productrate, $qauntity, $paidlramount, $shippingcharge, $roadexpense, $biltycharge, $servicetax);";
             }
@@ -116,6 +118,20 @@
         if (mysqli_num_rows($result) != 0) {
             $row = mysqli_fetch_array($result, MYSQLI_NUM);
             $LastInsertedID = $row{0};
+            if ($AddEdit>0) {
+                $RMStatus = Get_RMStatusOnLRID($con, $AddEdit);
+//                  echo("AddEdit :- $AddEdit </br>");
+//                  echo("RMStatus :- $RMStatus </br>");
+//                  die();
+                    if($RMStatus==4){
+                        $olrid=Get_OLRIDOnLRID($con, $AddEdit);
+//                        echo("olrid :- $olrid </br>");
+//                        die();
+                        Set_RM_Deactive($con, $CurrentDate, $session_userid, $session_ip, $olrid); //set RMStatus=0
+                        Clone_RMlr($con, $CurrentDate, $session_userid, $session_ip, $olrid); //Clone RM's LR
+                    }
+            }
+
 //            echo("Saved Successfully & LastInsertedID :- $LastInsertedID </br>");
 //            echo("additionalchargesentry :- $additionalchargesentry </br>");
 

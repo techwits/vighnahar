@@ -84,7 +84,11 @@
 
             Update_OutwardLRBill($con, $CurrentDate, $session_userid, $session_ip, $OutwardLRID, $LRID);
             if ($DeliveredID == 2) {
-                $RMStatus=1;
+                $RMStatus=$DeliveredID;
+                Update_OutwardLRStatus($con, $CurrentDate, $session_userid, $session_ip, $OutwardLRID, $RMStatus);
+            }
+            elseif ($DeliveredID == 4) {
+                $RMStatus=$DeliveredID;
                 Update_OutwardLRStatus($con, $CurrentDate, $session_userid, $session_ip, $OutwardLRID, $RMStatus);
             }
             elseif ($DeliveredID == 3) {
@@ -97,7 +101,7 @@
                 }
 
                 Update_OutwardLRBill_Return($con, $CurrentDate, $session_userid, $session_ip, $OutwardLRID, $acmid, $Return_Charge);
-                $RMStatus=2;
+                $RMStatus=$DeliveredID;
                 Update_OutwardLRStatus($con, $CurrentDate, $session_userid, $session_ip, $OutwardLRID, $RMStatus);
 //                $LastInsertedID=0;
 //                $dsid=5;
@@ -139,16 +143,21 @@
 
             }
 
-            if($UnDeliveredID>0){
+            if($DeliveredID==3){
                     ?>
                         <a href="#" onclick="rmstatusreverse('<?php echo $session_userid; ?>', '<?php echo $session_ip; ?>', '<?php echo $divname; ?>', '<?php echo $OutwardLRID; ?>');"><span class="label label-danger">Undelivered</span></a>
                     <?php
                 }
-                else{
+            elseif($DeliveredID==2){
                     ?>
                         <a href="#" onclick="rmstatusreverse('<?php echo $session_userid; ?>', '<?php echo $session_ip; ?>', '<?php echo $divname; ?>', '<?php echo $OutwardLRID; ?>');"><span class="label label-success">Delivered</span></a>
                     <?php
                 }
+            elseif($DeliveredID==4){
+                ?>
+                <a href="#" onclick="rmstatusreverse('<?php echo $session_userid; ?>', '<?php echo $session_ip; ?>', '<?php echo $divname; ?>', '<?php echo $OutwardLRID; ?>');"><span class="label label-warning">Wrong LR Entry</span></a>
+                <?php
+            }
         }
     }
     else{

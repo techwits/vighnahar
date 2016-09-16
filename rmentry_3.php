@@ -6,6 +6,9 @@ $EndDate=date("Y-m-d")." 23:59:59";
 
 $searchvalue="";
 $searchin=1;
+//echo("session_userid :-". _session_userid_ ."</br>");
+//echo("session_ip :-". _session_ip_ ."</br>");
+
 if(isset($_REQUEST["searchvalue"])) {
     ?>
     <!-- Theme JS files -->
@@ -58,6 +61,7 @@ if ($searchin==1){
             <th>Driver</th>
             <th>LR Count</th>
             <th>Packages</th>
+            <th>Action</th>
         </tr>
         </thead>
         <tbody>
@@ -76,14 +80,15 @@ if ($searchin==1){
         $sqlQry.= " and Active=1";
         $sqlQry.= " order by oid desc";
 //        echo ("Check sqlQry :- $sqlQry </br>");
-    //    die();
-        //        unset($con);
+//        die();
         include('assets/inc/db_connect.php');
         $result = mysqli_query($con, $sqlQry);
         if (mysqli_num_rows($result)!=0)
         {
+            $inc=0;
             while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
             {
+                    $inc=$inc+1;
                     $oid=$row[0];
                     $CreationDate=$row[1];
                     $CreationDate=substr($CreationDate,0,strpos($CreationDate," "));
@@ -117,15 +122,36 @@ if ($searchin==1){
 
                     $RoadMemoLRPackageCount=0;
                     $RoadMemoLRPackageCount=Get_RoadMemoLRPackageCount($con, $oid);
-                    
+
+                    $RMIDExist_ForLR=RMIDExist_ForLR($con, $oid);
                     ?>
                         <tr>
                             <td><?php echo $TransitDate; ?></td>
-                            <td><a href="#" onclick="return editrmentry(<?php echo $oid; ?>, '<?php echo $CreationDate; ?>', '<?php echo $ModificationDate; ?>', '<?php echo $Creator; ?>', '<?php echo $ip; ?>', '<?php echo $TransitDate; ?>', '<?php echo $fyid; ?>', '<?php echo $vmid; ?>', '<?php echo $tmid; ?>', '<?php echo $Active; ?>', '<?php echo $TransitDate; ?>', '<?php echo $FinancialYear; ?>', '<?php echo $VehicleNumber; ?>', '<?php echo $TransporterName; ?>', '<?php echo $RoadMemoLR; ?>');"><?php echo $oid; ?></a> </td>
+                            <td><?php echo $oid; ?></td>
                             <td><?php echo $VehicleNumber; ?></td>
                             <td><?php echo $TransporterName; ?></td>
                             <td><?php echo $RoadMemoLRCount; ?></td>
                             <td><?php echo $RoadMemoLRPackageCount; ?></td>
+                            <td align="center">
+                                <div id="<?php echo $inc;?>">
+                                    <ul class="icons-list">
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="icon-circle-down2"></i>
+                                            </a>
+                                            <ul class="dropdown-menu dropdown-menu-right dropdown-menu-xs">
+                                                <li><a href="#" onclick="return editrmentry(<?php echo $RMIDExist_ForLR; ?>, <?php echo $oid; ?>, '<?php echo $CreationDate; ?>', '<?php echo $ModificationDate; ?>', '<?php echo $Creator; ?>', '<?php echo $ip; ?>', '<?php echo $TransitDate; ?>', '<?php echo $fyid; ?>', '<?php echo $vmid; ?>', '<?php echo $tmid; ?>', '<?php echo $Active; ?>', '<?php echo $TransitDate; ?>', '<?php echo $FinancialYear; ?>', '<?php echo $VehicleNumber; ?>', '<?php echo $TransporterName; ?>', '<?php echo $RoadMemoLR; ?>');"><i class=" icon-pencil7"></i>Update</a></li>
+                                                <li><a href="#modal_full" onclick="return displayrm(<?php echo $oid; ?>);"> <i class="icon-eye4"></i> View</a></li>
+                                                <li><a href="#" onclick="return display_printrm(<?php echo $oid; ?>);"><i class="icon-printer2"></i> Print</a></li>
+                                                
+                                                <li class="divider"></li>
+                                                <li><a href="#" onclick="return deletermentry('<?php echo _session_userid_?>', '<?php echo _session_ip_?>', <?php echo $oid; ?>, <?php echo $inc;?>, <?php echo $RMIDExist_ForLR; ?>);"><i class="icon-cross"></i> Delete</a></li>
+                                                
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
                         </tr>
                     <?php
 

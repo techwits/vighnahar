@@ -18152,14 +18152,15 @@ label.display-block {
 }
 
 .count {
-    font-family: Helvetica Neue, Roboto, Arial, sans-serif;
-	font-size: 30px;
-    line-height: 30px;
+    font-family: sans-serif, Arial, Helvetica Neue, Roboto ;
+	font-size: 28px;
+    line-height: 26px;
 	color: #73879C;
     font-weight: 600;
 	margin-bottom: 0px;
 	margin-top: 0px;
 }
-.panel-body span {
-    font-size: 12px;
+.count_bottom {
+    font-size: 13px;
+	
 }

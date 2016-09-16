@@ -35,10 +35,11 @@ include('assets/inc/common-function.php');
 <!-- Single row selection -->
 <div class="col-sm-12 col-md-12 col-lg-12 col-lg-12">
 	<div class="panel panel-flat">
-    <table class="table datatable-scroll-y" width="100%">
+    <table class="table datatable-basic" width="100%">
             <thead>
             <tr>
                 <th>LR Number</th>
+                <th>Return</th>
                 <th>LR Date</th>
                 <th>Invoice No</th>
                 <th>Consignor</th>
@@ -62,11 +63,12 @@ include('assets/inc/common-function.php');
 
             $sqlQry.= " where `inward`.LRID IN ($LRList)";
 
-            $sqlQry.= " and `outwardlr`.RMStatus>0";
+            $sqlQry.= " and (`outwardlr`.RMStatus=2 or `outwardlr`.RMStatus=3)";
             $sqlQry.= " and `outwardlr`.Bill=0";
 
             $sqlQry.= " and `inward`.Active=1";
             $sqlQry.= " and `outwardlr`.Active=1";
+
 
 //            echo ("Check sqlQry :- $sqlQry </br>");
 //            die();
@@ -111,6 +113,8 @@ include('assets/inc/common-function.php');
                     $ConsignorName=Get_ConsignorName($con, $caid);
                     $ProductName=Get_ProductName($con, $pmid);
 
+
+
                     $inc=$inc+1;
 
                     if($inc==1) {
@@ -129,7 +133,7 @@ include('assets/inc/common-function.php');
                     }
 
 
-                    if($RMStatus==1) {
+                    if($RMStatus==2) {
                         $LRGrandTotal=0;
                         $LRGrandTotal=Get_LRGrandTotal($con, $LRID, 1, 0);
                         ?>
@@ -143,6 +147,7 @@ include('assets/inc/common-function.php');
                                     <a href="#modal_full" data-toggle='modal' class='modalButton1' data-teacherid='<?php echo $LRID; ?>' ><?php echo $LRID; ?></a>
 
                                 </td>
+                                <td></td>
                                 <td><?php echo $ReceivedDate; ?></td>
                                 <td><?php echo $InvoiceNumber; ?></td>
                                 <td><?php echo $ConsignorName; ?></td>
@@ -152,7 +157,8 @@ include('assets/inc/common-function.php');
                         <?php
                         $GrandTotal=$GrandTotal+$LRGrandTotal;
                     }
-                    elseif ($RMStatus==2){
+                    elseif ($RMStatus==3){
+                        $Return="";
                         for($j=1; $j<=2; $j++){
                             if($j==1){
                                 $LRGrandTotal=0;
@@ -163,12 +169,14 @@ include('assets/inc/common-function.php');
                                 $LRGrandTotal=0;
                                 $LRGrandTotal=Get_LRGrandTotal($con, $LRID, 2, $j);
                                 $GrandTotal=$GrandTotal+$LRGrandTotal;
+                                $Return="R";
                             }
                             ?>
                                 <tr>
                                     <td><a href="#"
                                            onclick="return editmenu();"><?php echo $LRID; ?></a>
                                     </td>
+                                    <td><?php echo $Return;?></td>
                                     <td><?php echo $ReceivedDate; ?></td>
                                     <td><?php echo $InvoiceNumber; ?></td>
                                     <td><?php echo $ConsignorName; ?></td>
@@ -201,11 +209,11 @@ include('assets/inc/common-function.php');
                 <div id="<?php echo $div_merchantcontrols; ?>" class="panel panel-flat" style="border-color:<?php echo $Form_BorderColor; ?>; border-top-width:<?php echo $Form_BorderTopWidth; ?>;">
                             <input type="hidden" class="form-control" name="olrid_List" id="olrid_List" value="<?php echo $olrid_List;?>">
                             <input type="hidden" class="form-control" name="lrlist" id="lrlist" value="<?php echo $LRList;?>">
-                            <div class="panel-body" style="margin-top:15px;">
-                                <div class="row">
+                            <div class="panel-body" style="margin-top:15px; ">
+                                <div class="row" style="background-color: lightgrey;">
                                     <div class="col-lg-3">
                                         <div class="form-group form-group-material">
-                                            <label>Total <span class="text-danger">*</span></label>
+                                            <label>Total</label>
                                             <div class="input-group">
                                                 <input type="text" class="form-control" name="total" id="total" disabled required="required" value="<?php echo $GrandTotal;?>" onkeypress="return only_Numeric_Dot(event);" ondrop="return false;" onpaste="return false;">
                                                         <span class="input-group-addon">
@@ -217,7 +225,7 @@ include('assets/inc/common-function.php');
     
                                     <div class="col-lg-3">
                                         <div class="form-group form-group-material">
-                                            <label>Discount <span class="text-danger">*</span></label>
+                                            <label>Discount</label>
                                             <div class="input-group">
                                                 <input type="text" class="form-control" name="discount" id="discount" autofocus required="required" value="0" onblur="return billDiscount(this.value, <?php echo $GrandTotal; ?>, <?php echo $ServiceTax; ?>);" onkeypress="return only_Numeric_Dot(event);" ondrop="return false;" onpaste="return false;">
                                                     <span class="input-group-addon">
@@ -229,7 +237,7 @@ include('assets/inc/common-function.php');
     
                                     <div class="col-lg-3">
                                         <div class="form-group form-group-material">
-                                            <label>Service Tax <span class="text-danger">*</span></label>
+                                            <label>Service Tax</label>
                                             <div class="input-group">
                                                   <input type="text" class="form-control" name="servicetax" id="servicetax" disabled value="<?php echo $ServiceTaxAmount; ?>" onkeypress="return only_Numeric_Dot(event);" ondrop="return false;" onpaste="return false;">
                                                     <span class="input-group-addon">
@@ -241,7 +249,7 @@ include('assets/inc/common-function.php');
     
                                     <div class="col-lg-3">
                                         <div class="form-group form-group-material">
-                                            <label>Grand Total <span class="text-danger">*</span></label>
+                                            <label>Grand Total</label>
                                             <div class="input-group">
                                                 <input type="text" class="form-control" name="billtotal" id="billtotal" disabled value="<?php echo $BillAmount; ?>" onkeypress="return only_Numeric_Dot(event);" ondrop="return false;" onpaste="return false;">
                                                     <span class="input-group-addon">

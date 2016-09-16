@@ -9,7 +9,8 @@
    body.print-paper-a4 {
     width: 210mm;
     height: 297mm;
-	border: 1px dotted black;
+	border:1px solid #73879C;
+	box-shadow:0 0 10px rgba(0, 0, 0, .15);
   }
 
    body {
@@ -68,6 +69,57 @@ body.print-mode .no-print-preview {
 body.print-mode .print-preview {
     display: block;
 }
+
+
+.invoice-top{
+	max-width:210mm;
+	margin:auto;
+	padding:15px;
+	border:1px solid #73879C;
+	font-size:13px;
+	line-height:18px;
+	font-family:'sans-serif','Helvetica Neue', 'Helvetica', Arial;
+	color:#555;
+}
+.invoice-button{
+	border-bottom: 1px solid #73879C;
+	padding-bottom: 10px;
+}
+.content-add{
+	display: inline-block;
+	text-align: Leff;
+	background-color: transparent;
+}
+.content-date{
+	display: inline-block;
+	text-align: right;
+	background-color: transparent;
+	float:right;
+}
+
+.invoice-detail{
+	margin:auto;
+	border:1px solid #73879C;
+}
+.invoice-payment{
+	border:1px solid #73879C;
+}
+.content-payment{
+	display: inline-block;
+	text-align: Leff;
+	background-color: transparent;
+	margin-top: 10px;
+	margin-left: 20px;
+}
+.content-payment-total{
+	display: inline-block;
+	background-color: transparent;
+	margin-top: 10px;
+	margin-right: 20px;
+	float: right;
+}
+
+
 .top-header{
 	border-bottom: 1px dotted black;
 	margin-top: 0px;

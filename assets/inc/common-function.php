@@ -200,8 +200,8 @@
 		$sqlQry.= "on `inward`.LRID=`outwardlr`.`iid`";
 
 		$sqlQry.= " where `inward`.caid=$ConsignorID";
-		$sqlQry.= " and `outwardlr`.RMStatus>0";
-		$sqlQry.= " and `inward`.Active=1";
+		$sqlQry.= " and (`outwardlr`.RMStatus=2 or `outwardlr`.RMStatus=3)";
+//		$sqlQry.= " and `inward`.Active=1";
 		$sqlQry.= " and `outwardlr`.Active=1";
 
 //		echo ("$sqlQry");
@@ -730,6 +730,50 @@
 		}
 		mysqli_free_result($result);
 		return $Getting_LRDelivered;
+	}
+
+
+	function Get_OLRIDOnLRID($con, $LRID)
+	{
+		$Getting_OLRID=0;
+		$sqlQry= "";
+		$sqlQry= "select olrid from outwardlr ";
+		$sqlQry.= " where 1=1";
+		$sqlQry.= " and iid=$LRID";
+		$sqlQry.= " and active=1";
+	//		echo ("$sqlQry");
+	//		die();
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0){
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+				$Getting_OLRID=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_OLRID;
+	}
+	function Get_RMStatusOnLRID($con, $LRID)
+	{
+		$Getting_RMStatus=0;
+		$sqlQry= "";
+		$sqlQry= "select RMStatus from outwardlr ";
+		$sqlQry.= " where 1=1";
+		$sqlQry.= " and iid=$LRID";
+		$sqlQry.= " and active=1";
+//		echo ("$sqlQry");
+//		die();
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0){
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+				$Getting_RMStatus=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_RMStatus;
 	}
 
 	function Get_RMCountDayAvarage($con, $StartDate, $EndDate)
@@ -2565,15 +2609,37 @@
 		return $Getting_LoginID;
 	}
 
+	function RMIDExist_ForLR($con, $oid)
+	{
+		$Getting_RMID_ForLR=0;
+		$sqlQry= "select count(*) from  outwardlr ";
+		$sqlQry.= " where oid=$oid";
+		$sqlQry.= " and RMStatus>0";
+		$sqlQry.= " and Active=1";
+//		echo ("Check sqlQry :- $sqlQry </br>");
+//		die();
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		if (mysqli_num_rows($result)!=0)
+		{
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$Getting_RMID_ForLR=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_RMID_ForLR;
+	}
+
 	function Check_LRIDExist_ForRM($con, $LRID)
 	{
 		$Getting_LRID_ForRM=0;
-		
-		
+
 			$cols="outwardlr.olrid";
-			$sqlQry= "select $cols from  outwardlr ";
+			$sqlQry= "select $cols from outwardlr ";
 			$sqlQry.= " where 1=1";
 			$sqlQry.= " and outwardlr.iid = $LRID";
+			$sqlQry.= " and outwardlr.RMStatus <> 4";
 	//		$sqlQry.= " and outwardlr.RMStatus=0";
 			$sqlQry.= " and outwardlr.Active=1";
 	
@@ -2742,6 +2808,96 @@
 		}
 		mysqli_free_result($result);
 		return $Getting_rmid;
+	}
+
+	function Clone_RMlr($con, $CurrentDate, $session_userid, $session_ip, $olrid)
+	{
+		$sql1= "";
+		$sql1= "insert into outwardlr (CreationDate, Creator, ip, oid, iid, RMStatus, Bill, dsid, urid, prv_olrid, Active)";
+		$sql1.=" select '$CurrentDate', $session_userid, '$session_ip', oid, iid, 0, 0, 0, 0, 0, 1 ";
+		$sql1.=" from outwardlr ";
+		$sql1.=" where olrid=$olrid ";
+//		echo ("Check sqlQry :- $sql1 </br>");
+//		die();
+		include('db_connect.php');
+		$inserts = mysqli_query($con, $sql1);
+		mysqli_free_result($inserts);
+	}
+
+	function Set_RM_Deactive($con, $CurrentDate, $session_userid, $session_ip, $olrid)
+	{
+			$sql1= "";
+			$sql1= "update `outwardlr`";
+			$sql1.=" set ModificationDate='$CurrentDate',";
+			$sql1.=" Creator=$session_userid, ";
+			$sql1.=" ip='$session_ip', ";
+			$sql1.=" Active=0 ";
+			$sql1.=" where olrid=$olrid ";
+//			echo ("Check sqlQry :- $sql1 </br>");
+//			die();
+			include('db_connect.php');
+			$Updaters = mysqli_query($con, $sql1);
+			mysqli_free_result($Updaters);
+	}
+
+	function Set_RMDependancyDeactive($con, $CurrentDate, $session_userid, $session_ip, $rmid)
+	{
+		$sql= "select olrid from `outwardlr`";
+		$sql.= " where oid=$rmid";
+		$sql.= " and Active=1";
+//		echo ("Check sql :- $sql </br>");
+//		die();
+		include('db_connect.php');
+		$rs = mysqli_query($con, $sql);
+		if (mysqli_num_rows($rs)!=0) {
+			while ($row = mysqli_fetch_array($rs, MYSQLI_NUM)) {
+				$olrid=0;
+				$olrid=$row{0};
+				$sql1= "";
+				$sql1= "update `outwardlr`";
+				$sql1.=" set ModificationDate='$CurrentDate',";
+				$sql1.=" Creator=$session_userid, ";
+				$sql1.=" ip='$session_ip', ";
+				$sql1.=" Active=0 ";
+				$sql1.=" where olrid=$olrid ";
+//				echo ("Check sqlQry :- $sql1 </br>");
+//				die();
+				include('db_connect.php');
+				$Updaters = mysqli_query($con, $sql1);
+				mysqli_free_result($Updaters);
+			}
+		}
+	}
+
+	function Set_RMDeactive($con, $CurrentDate, $session_userid, $session_ip, $rmid)
+	{
+		$sqlQry= "select oid from `outward`";
+		$sqlQry.= " where oid=$rmid";
+		$sqlQry.= " and Active=1";
+//		echo ("Check sqlQry :- $sqlQry </br>");
+//		die();
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		if (mysqli_num_rows($result)!=0){
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+				$oid=0;
+				$oid=$row{0};
+				$sqlQry1= "";
+				$sqlQry1= "update `outward`";
+				$sqlQry1.=" set ModificationDate='$CurrentDate',";
+				$sqlQry1.=" Creator=$session_userid, ";
+				$sqlQry1.=" ip='$session_ip', ";
+				$sqlQry1.=" Active=0 ";
+				$sqlQry1.=" where oid=$oid ";
+//				echo ("Check sqlQry :- $sqlQry1 </br>");
+//				die();
+				include('db_connect.php');
+				$Updateresult = mysqli_query($con, $sqlQry1);
+				mysqli_free_result($Updateresult);
+			}
+		}
+		mysqli_free_result($result);
+		Set_RMDependancyDeactive($con, $CurrentDate, $session_userid, $session_ip, $rmid);
 	}
 
 	function Set_LRDeactive($con, $CurrentDate, $session_userid, $session_ip, $lrid)

@@ -100,7 +100,6 @@
     $sqlQry.= " and `outward`.Active=1";
     $sqlQry.= " and `outwardlr`.Active=1";
     $sqlQry.= " and `inward`.Active=1";
-
 //    echo ("Check sqlQry :- $sqlQry </br>");
 //    die();
 
@@ -236,6 +235,9 @@
         <!-- /invoice template -->
         </div>
         </div>
+        <script type="text/javascript">
+            window.print();
+        </script>
 </body>
     <?php
         }

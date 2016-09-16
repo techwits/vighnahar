@@ -46,9 +46,10 @@ if(isset($_REQUEST["Fill_LRIdList"])) {
         } else {
             ?>
             <script type="text/javascript">
-                alert("This LR no's Road Memo has been already done. please check........");
+                show_error("This LR no's Road Memo has been already done. please check........");
                 //                return false;
                 Valid_LRIDs=document.getElementById("lrid_list1").value;
+                document.getElementById("lrno").value="";
                 display_LR('<?php echo $AddEdit; ?>', '<?php echo $session_userid; ?>', '<?php echo $session_ip; ?>', '<?php echo $financialyear; ?>', '<?php echo $rmdate; ?>', '<?php echo $vehicleid; ?>', '<?php echo $transporterid; ?>', '<?php echo $lridlist; ?>', '<?php echo $Get_LRId; ?>', '<?php echo $LRIDExist; ?>', Valid_LRIDs);
             </script>
             <?php
@@ -58,7 +59,7 @@ if(isset($_REQUEST["Fill_LRIdList"])) {
     else{
         ?>
             <script type="text/javascript">
-                alert("LR No does not exist. Please check........");
+                show_error("LR No does not exist. Please check........");
                 Valid_LRIDs=document.getElementById("lrid_list1").value;
                 display_LR('<?php echo $AddEdit; ?>', '<?php echo $session_userid; ?>', '<?php echo $session_ip; ?>', '<?php echo $financialyear; ?>', '<?php echo $rmdate; ?>', '<?php echo $vehicleid; ?>', '<?php echo $transporterid; ?>', '<?php echo $lridlist; ?>', '<?php echo $Get_LRId; ?>', '<?php echo $LRIDExist; ?>', Valid_LRIDs);
             </script>
