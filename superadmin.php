@@ -71,6 +71,20 @@
     <script type="text/javascript" src="assets/js/core/app.js"></script>
 
 
+    <!-- Theme JS files -->
+    <script type="text/javascript" src="assets/js/core/libraries/jquery_ui/full.min.js"></script>
+    <script type="text/javascript" src="assets/js/pages/form_select2.js"></script>
+
+
+    <script type="text/javascript" src="assets/js/plugins/tables/datatables/datatables.min.js"></script>
+    <script type="text/javascript" src="assets/js/plugins/forms/selects/select2.min.js"></script>
+    <script type="text/javascript" src="assets/js/pages/datatables_basic.js"></script>
+    <script type="text/javascript" src="assets/js/pages/components_dropdowns.js"></script>
+
+    <!-- /theme JS files -->
+
+
+
     <script type="text/javascript">
         var LREntry_30Days="<?php echo $LREntry_30Days ?>";
         var RMEntry_30Days="<?php echo $RMEntry_30Days ?>";
@@ -185,6 +199,9 @@
                                             ?>
                                             <div class="text-muted text-size-small"><?php echo $LRCountDayAvarage; ?> avg</div>
                                         </div>
+
+
+
                                         <div class="col-xs-4 text-left border-right">
                                             <?php
                                                 $LRCountMonth=Get_LRCountMonth($con, $StartDate, $EndDate);
@@ -206,6 +223,7 @@
                                 <div class="container-fluid">
                                     <div id="members-rm"></div>
                                 </div>
+                                <div class="bg-teal-600 text-center"><span>Lorry Receipt </span></div>
                             </div>
                             <!-- /members online -->
 
@@ -257,6 +275,10 @@
                                 </div>
 
                                 <div id="members-lr"></div>
+                                <div class="container-fluid">
+                                    <div id="members-rm"></div>
+                                </div>
+                                <div class="bg-pink-800 text-center"><span>Road Memo </span></div>
                             </div>
                             <!-- /current server load -->
 
@@ -304,6 +326,10 @@
                                 </div>
 
                                 <div id="members-bill"></div>
+                                <div class="container-fluid">
+                                    <div id="members-rm"></div>
+                                </div>
+                                <div class="bg-blue-800 text-center"><span>Stock </span></div>
                             </div>
                             <!-- /today's revenue -->
 
@@ -627,7 +653,9 @@
 								<div class="col-md-12">
 									<div class="panel border-left-lg border-left-info">
 										<div class="panel-body">
-											
+
+                                            <?php include('billstatus.php'); ?>
+
 										</div>
 
 										
@@ -643,6 +671,63 @@
                     <div class="sidebar sidebar-secondary sidebar-default">
                         <div class="sidebar-content">
 
+
+                            <!-- View LR RM -->
+                            <div class="panel panel-flat">
+                                <div class="panel-heading">
+                                    <h6 class="panel-title">View LR / Rm / Bill</h6>
+                                    <div class="heading-elements">
+                                        <ul class="icons-list">
+                                            <li><a data-action="collapse"></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="panel-body">
+                                    <form action="#">
+                                        <div class="form-group">
+                                            <input class="form-control input-micro" type="text" placeholder="View LR" name="show_lrno" id="show_lrno" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
+                                        </div>
+                                        <div class="col-sm-2 text-center">
+
+
+                                            <!--                                        <button type="button" class="btn btn-info btn-xs" onclick="return displaylr(document.getElementById('show_lrno').value);">Submit</button>-->
+                                            <button type="button" class="btn btn-info btn-xs" onclick="return display_printlr(document.getElementById('show_lrno').value);">Submit</button>
+
+                                        </div>
+                                    </form>
+                                </div>
+
+
+                                <div class="panel-body">
+                                    <form action="#">
+                                        <div class="form-group">
+                                            <input class="form-control input-micro" type="text" placeholder="View RM" name="show_rmno" id="show_rmno" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
+                                        </div>
+                                        <div class="col-sm-2 text-center">
+
+                                            <!--                                    <a href="#modal_full" data-toggle='modal' class='modalButton2' data-teacherid="1" >-->
+                                            <button type="button" class="btn btn-success btn-xs" onclick="return displayrm(document.getElementById('show_rmno').value);">Submit</button>
+                                            <!--                                        </a>-->
+                                        </div>
+                                    </form>
+                                </div>
+
+
+                                <div class="panel-body">
+                                    <form action="#">
+                                        <div class="form-group">
+                                            <input class="form-control input-micro" type="text" placeholder="View Bill" name="show_billno" id="show_billno" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
+                                        </div>
+                                        <div class="col-sm-2 text-center">
+
+                                            <a href="#modal_full" data-toggle='modal' class='modalButton3' data-teacherid="1" >
+                                                <button type="button" class="btn btn-danger btn-xs">Submit</button></a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- /View LR RM -->
                             <!-- Actions -->
                             <div class="sidebar-category">
                                 <div class="bg-blue-800 text-center"><span>Manage Masters </span></div>
@@ -716,62 +801,7 @@
 
                     </div>
                     <!-- /secondary sidebar -->
-                    <!-- View LR RM -->
-                    <div class="panel panel-flat">
-                        <div class="panel-heading">
-                            <h6 class="panel-title">View LR / Rm / Bill</h6>
-                            <div class="heading-elements">
-                                <ul class="icons-list">
-                                    <li><a data-action="collapse"></a></li>
-                                </ul>
-                            </div>
-                        </div>
 
-                        <div class="panel-body">
-                            <form action="#">
-                                <div class="form-group">
-                                    <input class="form-control input-micro" type="text" placeholder="View LR" name="show_lrno" id="show_lrno" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
-                                </div>
-                                <div class="col-sm-2 text-center">
-
-
-<!--                                        <button type="button" class="btn btn-info btn-xs" onclick="return displaylr(document.getElementById('show_lrno').value);">Submit</button>-->
-                                        <button type="button" class="btn btn-info btn-xs" onclick="return display_printlr(document.getElementById('show_lrno').value);">Submit</button>
-
-                                </div>
-                            </form>
-                        </div>
-
-
-                        <div class="panel-body">
-                            <form action="#">
-                                <div class="form-group">
-                                    <input class="form-control input-micro" type="text" placeholder="View RM" name="show_rmno" id="show_rmno" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
-                                </div>
-                                <div class="col-sm-2 text-center">
-
-<!--                                    <a href="#modal_full" data-toggle='modal' class='modalButton2' data-teacherid="1" >-->
-                                        <button type="button" class="btn btn-success btn-xs" onclick="return displayrm(document.getElementById('show_rmno').value);">Submit</button>
-<!--                                        </a>-->
-                                </div>
-                            </form>
-                        </div>
-
-
-                        <div class="panel-body">
-                            <form action="#">
-                                <div class="form-group">
-                                    <input class="form-control input-micro" type="text" placeholder="View Bill" name="show_billno" id="show_billno" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
-                                </div>
-                                <div class="col-sm-2 text-center">
-
-                                    <a href="#modal_full" data-toggle='modal' class='modalButton3' data-teacherid="1" >
-                                        <button type="button" class="btn btn-danger btn-xs">Submit</button></a>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <!-- /View LR RM -->
                 </div>
         <!-- /main content -->
 

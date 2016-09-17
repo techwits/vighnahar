@@ -159,9 +159,9 @@
                                     <P>Through</P>
                                 </div>
                                 <div class="Chalan-details2">
-                                    <P><?php echo $oid; ?></P>
-                                    <P><?php echo $VehicleName;?></P>
-                                    <P>SVL</P>
+                                    <P>&nbsp; <?php echo $oid; ?></P>
+                                    <P>&nbsp; <?php echo $VehicleName;?></P>
+                                    <P>&nbsp; SVL</P>
                                 </div>
                                 <div class="Chalan-details3"> </div>
                                 <div class="Chalan-details4">
@@ -170,9 +170,9 @@
                                     <P>To</P>
                                 </div>
                                 <div class="Chalan-details5">
-                                    <P><?php echo $TransitDate; ?></P>
-                                    <P>Bhiwandi</P>
-                                    <P><?php echo $Destination; ?></P>
+                                    <P>&nbsp; <?php echo $TransitDate; ?></P>
+                                    <P>&nbsp; Bhiwandi</P>
+                                    <P> &nbsp; <?php echo $Destination; ?></P>
                                 </div>
                             </div>
                         </div>

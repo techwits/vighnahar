@@ -906,6 +906,28 @@
 		return $Getting_RMCount;
 	}
 
+	function Get_BillCountFinancialYear($con, $FinancialYearID)
+	{
+		$Getting_BillCount=0;
+		$sqlQry= "";
+		$sqlQry= "select count(*) from bill ";
+		$sqlQry.= " where 1=1";
+		$sqlQry .= " and fyid=$FinancialYearID";
+		$sqlQry.= " and active=1";
+	//				echo ("$sqlQry");
+		//		die();
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0){
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+				$Getting_BillCount=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_BillCount;
+	}
+
 	function Get_LRCountFinancialYear($con, $FinancialYearID)
 	{
 		$Getting_LRCount=0;
@@ -1304,6 +1326,74 @@
 		}
 		mysqli_free_result($result);
 		return $Getting_LRGrandTotal;
+	}
+
+	function Get_Receipt($con, $caid)
+	{
+		$Getting_Receipt=0;
+		$sqlQry= "";
+		$sqlQry= "select sum(Amount) from billreceipt ";
+		$sqlQry.= " where caid=$caid";
+		$sqlQry.= " And Active=1";
+//		echo ("$sqlQry");
+//		die();
+		// mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0){
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+				$Getting_Receipt=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_Receipt;
+	}
+
+	function Get_Consignor_FinancialYear_BillAmount($con, $caid, $fyid)
+	{
+		$Getting_Consignor_FinancialYear_BillAmount=0;
+		$sqlQry= "";
+		$sqlQry= "select sum(BillAmount) from bill ";
+		$sqlQry.= " where caid=$caid";
+		$sqlQry.= " and fyid=$fyid";
+		$sqlQry.= " And Active=1";
+	//		echo ("$sqlQry");
+	//		die();
+		// mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0){
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+				$Getting_Consignor_FinancialYear_BillAmount=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_Consignor_FinancialYear_BillAmount;
+	}
+
+	function Get_Consignor_LastBillGeneratedDetails($con, $caid)
+	{
+		$Getting_Consignor_LastBillGeneratedDetails="";
+		$sqlQry= "";
+		$sqlQry= "select BillingDate, BillAmount from bill ";
+		$sqlQry.= " where caid=$caid";
+		$sqlQry.= " And Active=1";
+		$sqlQry.= " Order by BillingDate Desc";
+//		echo ("$sqlQry");
+//		die();
+		// mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0){
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+				$Getting_Consignor_LastBillGeneratedDetails=$row{0}."|".$row{1};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_Consignor_LastBillGeneratedDetails;
 	}
 
 	function Get_ConsignorName($con, $ConsignorAddressID)
@@ -1817,8 +1907,13 @@
 		$Getting_UnbillCount=0;
 		$sqlQry= "";
 		$sqlQry= "select caid, count(*) from inward ";
-		$sqlQry.= " where LRID not in (select iid from outwardlr where Bill=0 and Active=1)";
+		$sqlQry.= " inner join outwardlr";
+		$sqlQry.= " on inward.LRID=outwardlr.iid";
+		$sqlQry.= " where 1=1";
+		$sqlQry.= " and outwardlr.RMStatus>0";
+		$sqlQry.= " and outwardlr.Bill = 0 ";
 		$sqlQry.= " and inward.Active=1";
+		$sqlQry.= " and outwardlr.Active=1";
 		$sqlQry.= " group by caid";
 		$sqlQry.= " order by caid";
 //		echo ("$sqlQry");
@@ -1836,6 +1931,39 @@
 		}
 		mysqli_free_result($result);
 		return $Getting_UnbillCount;
+	}
+
+	function Fill_WraiLRForJS($con)
+	{
+		$Getting_WraiLRForJS="";
+		$sqlQry= "";
+		$sqlQry= "select iid from  outwardlr ";
+		$sqlQry.= " where 1=1";
+		$sqlQry.= " and Bill=0";
+		$sqlQry.= " and Active=1";
+		$sqlQry.= " order by iid";
+	//		echo ("$sqlQry");
+	//		die();
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0)
+		{
+			$inc=0;
+			$Getting_WraiLRForJS="";
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$inc=$inc+1;
+				if($inc==1) {
+					$Getting_WraiLRForJS = "'".$row{0}."'";
+				}
+				else{
+					$Getting_WraiLRForJS = $Getting_WraiLRForJS.", "."'".$row{0}."'";
+				}
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_WraiLRForJS;
 	}
 
 	function Fill_LRForJS($con)

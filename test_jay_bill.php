@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>SVL RM Print</title>
+	<title>SVL Invoice Print</title>
 
 	<!-- Global stylesheets -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
@@ -59,24 +59,42 @@
 				<!-- Invoice template -->
                 
                 <div class="invoice-top">
-                  <div class="row">
+                  <!--<div class="row">
                     <div class="invoice-button">
                         <div class="heading-btn text-right">
                             <button type="button" class="btn btn-default btn-xs heading-btn"><i class="icon-file-check position-left"></i> Save</button>
                             <button type="button" class="btn btn-default btn-xs heading-btn"><i class="icon-printer position-left"></i> Print</button>
                         </div>
                     </div>
+                  </div>-->
+                  <div class="row">
+                    <div class="invoice-head">
+                      <div class="content-add">
+                          Shed No.1, Gala No.1, Arihant Complex,<br>
+                          Kopar Bus Stop, Purna Village, Bhiwandi,<br>
+                          Dist:-Thane-421302. <br>
+                          Ph: 9272217794/95
+                      </div>
+                      <div class="invoice-logo">
+                          <div class="heading-btn text-right">
+                              <img src="assets/images/logo_svl.png" class="content-group mt-10" alt="" style="width: 120px;">
+                          </div>
+                      </div>
+                    </div>
                   </div>
+                  
 	                <div class="row">
-                        <div class="content-add">
-                            <img src="assets/images/logo_svl.png" class="content-group mt-10" alt="" style="width: 120px;">
+                    	<div class="content-group text-left">
+                            <span class="text-muted">Invoice To:</span>
                             <ul class="list-condensed list-unstyled">
-                                <li>2269 Elba Lane</li>
-                                <li>Paris, France</li>
+                                <li><h5>Rebecca Manes</h5></li>
+                                <li><h5><span class="text-semibold">Normand axis LTD</span></h5></li>
+                                <li>3 Goodman Street</li>
+                                <li>London E1 8BF United Kingdom</li>
                                 <li>888-555-2311</li>
+                                <li><a href="#">rebecca@normandaxis.ltd</a></li>
                             </ul>
                         </div>
-
                         <div class="content-date">
                             <div class="invoice-details">
                                 <h5 class="text-uppercase text-semibold">Invoice #49029</h5>
@@ -88,17 +106,7 @@
                         </div>
                     </div>
                     <div class="row">
-                      <div class="content-group text-right">
-                          <span class="text-muted">Invoice To:</span>
-                          <ul class="list-condensed list-unstyled">
-                              <li><h5>Rebecca Manes</h5></li>
-                              <li><span class="text-semibold">Normand axis LTD</span></li>
-                              <li>3 Goodman Street</li>
-                              <li>London E1 8BF United Kingdom</li>
-                              <li>888-555-2311</li>
-                              <li><a href="#">rebecca@normandaxis.ltd</a></li>
-                          </ul>
-                      </div>
+                      
                   </div>
                 </div>
                 <div class="invoice-detail">

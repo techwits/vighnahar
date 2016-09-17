@@ -6,7 +6,7 @@
     include('assets/inc/common-function.php');
     include('assets/inc/functions.php');
     sec_session_start();
-    $Area=Fill_LRForJS($con);
+    $Area=Fill_WraiLRForJS($con);
     //		echo("</br></br></br></br></br></br></br></br></br></br></br> Area :- $Area </br>");
     $Area="[".$Area."]";
     $vals=$Area;
@@ -17,7 +17,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Warai Entry</title>
+    <title>Manage Warai</title>
 
     <!-- Global stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
@@ -97,19 +97,16 @@
 
 <!-- Main navbar -->
 <?php
-$PageHeaderName="Warai Entry";
+$PageHeaderName="Manage Warai";
 $icon="icon-address-book";
 
 include('page_header.php');
 
-//$php_page=basename(__FILE__);
-//$get_return_value=login_check($con, $php_page);
-//include_once("assets/inc/handle_error.php");
-//
-////		mysqli_close($con);
-//log_pageaccess($con, $_SESSION["pageid"], basename(__FILE__));
-////		mysqli_close($con);
-//include_once('assets/inc/db_connect.php');
+$php_page=basename(__FILE__);
+$get_return_value=login_check($con, $php_page);
+include_once("assets/inc/handle_error.php");
+log_pageaccess($con, $_SESSION["pageid"], basename(__FILE__));
+include_once('assets/inc/db_connect.php');
 
 
 ?>

@@ -70,12 +70,10 @@ body.print-mode .print-preview {
     display: block;
 }
 
-
 .invoice-top{
 	max-width:210mm;
 	margin:auto;
 	padding:15px;
-	border:1px solid #73879C;
 	font-size:13px;
 	line-height:18px;
 	font-family:'sans-serif','Helvetica Neue', 'Helvetica', Arial;
@@ -84,19 +82,37 @@ body.print-mode .print-preview {
 .invoice-button{
 	border-bottom: 1px solid #73879C;
 	padding-bottom: 10px;
+	display: inline-block;
+	text-align: right;
+	background-color: transparent;
+	float:right;
 }
+.invoice-head{
+	border-bottom: 1px solid #73879C;
+	padding-bottom: 5px;
+}
+.invoice-logo{
+	display: inline-block;
+	text-align: right;
+	background-color: transparent;
+	float:right;
+	vertical-align:middle;
+	margin-right: 20px;
+}
+
 .content-add{
 	display: inline-block;
 	text-align: Leff;
 	background-color: transparent;
+	margin-left: 10px;
 }
+
 .content-date{
 	display: inline-block;
 	text-align: right;
 	background-color: transparent;
 	float:right;
 }
-
 .invoice-detail{
 	margin:auto;
 	border:1px solid #73879C;

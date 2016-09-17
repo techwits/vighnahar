@@ -167,23 +167,46 @@
 
                                                                 <!-- Search field -->
 
-                                                                <div class="col-sm-12 col-md-12 col-lg-12 col-lg-12">
-                                                                    <div class="panel panel-flat" style="border-color:<?php echo $Search_BorderColor; ?>; border-top-width:<?php echo $Search_BorderTopWidth; ?>;">
-                                                                        <div class="panel-heading" style="background-color:<?php echo $SearchHeadingColor; ?>;">
-                                                                            <h5 class="panel-title"><i class="icon-search4 text-size-base"></i> <span class="text-semibold"><?php echo $SearchPageHeading; ?></h5>
+                                                                <div class="col-sm-10 col-md-10 col-lg-10 col-lg-10 col-lg-offset-1">
+
+                                                                    <!-- Search field -->
+                                                                    <div class="panel panel-default">
+                                                                        <div class="panel-heading">
+                                                                            <h6 class="panel-title">LR Details<a class="heading-elements-toggle"><i class="icon-more"></i></a></h6>
                                                                             <div class="heading-elements">
                                                                                 <ul class="icons-list">
                                                                                     <li><a data-action="collapse"></a></li>
-                                                                                    <li><a data-action="reload" onclick="return ClearAllControls(0);"></a></li>
+                                                                                    <li><a data-action="reload" onclick="return refreshpage(0);"></a></li>
                                                                                 </ul>
                                                                             </div>
+
+
+
+                                                                            <div class="col-sm-4 col-sm-offset-4">
+                                                                                <div class="heading-elements-search">
+                                                                                    <form class="heading-form-search" action="#">
+                                                                                        <div class="form-group has-feedback">
+                                                                                            <!--									  <input type="search" class="form-control" placeholder="Search...">-->
+                                                                                            <?php include('billentry_3.php'); ?>
+
+                                                                                        </div>
+                                                                                    </form>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
-                                                                        <?php include('billentry_3.php'); ?>
-                                                                        <!-- Basic datatable -->
-                                                                        <div class="panel-heading" id="div_searchbillno">
-                                                                            <?php include('billentry_4.php'); ?>
-                                                                            <div/>
-                                                                            <!-- /basic datatable -->
+
+
+
+                                                                        <div>
+                                                                            <?php
+                                                                            define("_session_userid_",$_SESSION['user_id']);
+                                                                            define("_session_ip_",$_SESSION['ip']);
+                                                                            ?>
+
+                                                                            <div id="div_searchbillno">
+                                                                                <?php include('billentry_4.php'); ?>
+                                                                                <div/>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>

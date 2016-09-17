@@ -254,7 +254,7 @@ include('page_header.php');
                                 </div>
                                 <div class="panel-footer">
                                     <div class="col-xs-12 text-center">
-                                        <i class="icon-compose text-size-base"></i> <a href="billentry.php"> Generate / Update / Print : Bills</a>
+                                        <i class="icon-compose text-size-base"></i> <a href="rmentry.php"> Generate / Update / Print : Bills</a>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
@@ -273,8 +273,7 @@ include('page_header.php');
                                     <h6 class="panel-title" style="text-align: center;"> <span class="label label-danger" style="font-size:14px;" >Update Delivery Status</span></h6>
                                     <div class="heading-elements">
                                         <ul class="icons-list">
-                                            <!--                                            <li><i class="icon-spinner4 spinner no-edge-top"></i>asas</li>-->
-                                            <li><a data-action="reload" onclick="return refreshpage(0);"></a></li>
+                                            <li><i class="icon-spinner4 spinner no-edge-top"></i></li>
                                             <li><a data-action="collapse"></a></li>
                                         </ul>
                                     </div>
@@ -289,10 +288,65 @@ include('page_header.php');
                         </div>
                     </div>
                     <!-- Road Memo table -->
+
+
+
+                    <!-- Yooyubes -->
+
                     <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-4 col-sm-6">
+                                <div class="thumbnail">
+                                    <div class="video-container">
+                                        <iframe allowfullscreen="" frameborder="0" mozallowfullscreen="" src="https://player.vimeo.com/video/127628756?title=0&amp;byline=0&amp;portrait=0" webkitallowfullscreen=""></iframe>
+                                    </div>
+
+                                    <div class="caption">
+                                        <h6 class="no-margin-top text-semibold"><a href="#" class="text-default">Wholly coming</a> <a href="#" class="text-muted"><i class="icon-cog5 pull-right"></i></a></h6>
+                                        Own hence views two ask right whole ten seems. What near kept met call old west announcing
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-sm-6">
+                                <div class="thumbnail">
+                                    <div class="video-container">
+                                        <iframe allowfullscreen="" frameborder="0" mozallowfullscreen="" src="https://player.vimeo.com/video/126136408?title=0&amp;byline=0&amp;portrait=0" webkitallowfullscreen=""></iframe>
+                                    </div>
+
+                                    <div class="caption">
+                                        <h6 class="no-margin-top text-semibold"><a href="#" class="text-default">Offending delivered</a> <a href="#" class="text-muted"><i class="icon-cog5 pull-right"></i></a></h6>
+                                        Preserved defective offending he daughters on. Rejoiced prospect yet material servants out
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-sm-6">
+                                <div class="thumbnail">
+                                    <div class="video-container">
+                                        <iframe allowfullscreen="" frameborder="0" mozallowfullscreen="" src="https://player.vimeo.com/video/125791075?title=0&amp;byline=0&amp;portrait=0" webkitallowfullscreen=""></iframe>
+                                    </div>
+
+                                    <div class="caption">
+                                        <h6 class="no-margin-top text-semibold"><a href="#" class="text-default">Much did had call</a> <a href="#" class="text-muted"><i class="icon-cog5 pull-right"></i></a></h6>
+                                        Add stairs admire all answer the nearer length. Advantages prosperous remarkably inhabiting
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
+
+
+
+
+
                 </div>
                 <!-- /content wrapper -->
+
+
+
+
                 <!-- Side Bar -->
 
                 <div class="col-lg-2">
@@ -317,10 +371,10 @@ include('page_header.php');
                                                 <i class="icon-steering-wheel"></i> <span>Driver</span></button>
                                         </div>
                                         <div class="col-xs-6">
-                                            <button type="button" class="btn bg-warning-400 btn-block btn-float btn-float-sm" onclick="window.open('add_consignee.php','_self');">
-                                                <i class="icon-stats-bars"></i> <span>Dealer</span></button>
-                                            <button type="button" class="btn bg-blue btn-block btn-float btn-float-sm"  onclick="window.open('warai.php','_self');">
-                                                <i class="icon-cog3"></i> <span>Warai</span></button>
+                                            <button type="button" class="btn bg-warning-400 btn-block btn-float btn-float-sm ">
+                                                <i class="icon-stats-bars"></i> <span>XYZ</span></button>
+                                            <button type="button" class="btn bg-blue btn-block btn-float btn-float-sm">
+                                                <i class="icon-cog3"></i> <span>PQR</span></button>
                                         </div>
                                     </div>
                                 </div>

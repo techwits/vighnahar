@@ -1,10 +1,6 @@
 <!-- Theme JS files -->
-    <script type="text/javascript" src="assets/js/pages/components_dropdowns.js"></script>
+    <script type="text/javascript" src="assets/js/pages/datatables_basic.js"></script>
 <!-- /theme JS files -->
-
-<?php
-//    sec_session_start();
-?>
 
 <?php
     $error_msg="";
@@ -15,11 +11,8 @@
 
 <!-- Single row selection -->
 
-<div class="content">
 
-    <!-- Editable inputs -->
-    <div class="panel panel-flat">
-            <table class="table datatable-basic" width="100%">
+        <table class="table datatable-basic" width="100%">
                 <thead>
                 <tr>
                     <th></th>
@@ -69,11 +62,11 @@
                         $result = mysqli_query($con, $sqlQry);
                         if (mysqli_num_rows($result)!=0)
                         {
-                            $i=0;
+                            $inc=0;
                             $div_name="";
                             while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
                             {
-                                $i+=1;
+                                $inc=$inc+1;
 
                                 $oid=$row[0];
                                 $CreationDate=$row[1];
@@ -103,7 +96,7 @@
                                 $LRQuantityCount=$Split_LRRate_LRQuantityCount[1];
 
                                 
-                                $div_name="div".$i;
+                                $div_name="div".$inc;
 
 
 
@@ -127,7 +120,7 @@
                                                                     <a href="#" class="label bg-info-400 dropdown-toggle" data-toggle="dropdown">Update <span class="caret"></span></a>
                                                                     <ul class="dropdown-menu dropdown-menu-right">
                                                                         <li><a href="#"
-                                                                               onclick="return updateRMStatus('<?php echo $i; ?>', '<?php echo _SessionUserID_; ?>', '<?php echo _SessionIP_; ?>' , '<?php echo $oid; ?>', '<?php echo $LRID; ?>', '2', '0', '<?php echo $LRRate; ?>', '<?php echo $LRQuantityCount; ?>');">Delivered</a>
+                                                                               onclick="return updateRMStatus('<?php echo $inc; ?>', '<?php echo _SessionUserID_; ?>', '<?php echo _SessionIP_; ?>' , '<?php echo $oid; ?>', '<?php echo $LRID; ?>', '2', '0', '<?php echo $LRRate; ?>', '<?php echo $LRQuantityCount; ?>');">Delivered</a>
                                                                         </li>
                                                                         <li class="dropdown-submenu dropdown-submenu-left">
                                                                             <a href="#">UnDelivered</a>
@@ -138,7 +131,7 @@
                                                                                     $Split_SingleUndeliveryReason = explode("~", $SingleUndeliveryReason);
                                                                                     ?>
                                                                                     <li><a href="#"
-                                                                                           onclick="return updateRMStatus('<?php echo $i; ?>', '<?php echo _SessionUserID_; ?>', '<?php echo _SessionIP_; ?>', '<?php echo $oid; ?>', '<?php echo $LRID; ?>', '3', '<?php echo $Split_SingleUndeliveryReason[0]; ?>', '<?php echo $LRRate; ?>', '<?php echo $LRQuantityCount; ?>' );"><?php echo $Split_SingleUndeliveryReason[1]; ?></a>
+                                                                                           onclick="return updateRMStatus('<?php echo $inc; ?>', '<?php echo _SessionUserID_; ?>', '<?php echo _SessionIP_; ?>', '<?php echo $oid; ?>', '<?php echo $LRID; ?>', '3', '<?php echo $Split_SingleUndeliveryReason[0]; ?>', '<?php echo $LRRate; ?>', '<?php echo $LRQuantityCount; ?>' );"><?php echo $Split_SingleUndeliveryReason[1]; ?></a>
                                                                                     </li>
                                                                                     <?php
                                                                                 }
@@ -146,7 +139,7 @@
                                                                             </ul>
                                                                         </li>
                                                                         <li><a href="#"
-                                                                               onclick="return updateRMStatus('<?php echo $i; ?>', '<?php echo _SessionUserID_; ?>', '<?php echo _SessionIP_; ?>' , '<?php echo $oid; ?>', '<?php echo $LRID; ?>', '4', '0', '<?php echo $LRRate; ?>', '<?php echo $LRQuantityCount; ?>');">Wrong LR Entry</a>
+                                                                               onclick="return updateRMStatus('<?php echo $inc; ?>', '<?php echo _SessionUserID_; ?>', '<?php echo _SessionIP_; ?>' , '<?php echo $oid; ?>', '<?php echo $LRID; ?>', '4', '0', '<?php echo $LRRate; ?>', '<?php echo $LRQuantityCount; ?>');">Wrong LR Entry</a>
                                                                         </li>
                                                                     </ul>
                                                                 </li>
@@ -187,21 +180,10 @@
                                     </tr>
                                     <?php
 
-
-
-
-
                             }
                         }
                     ?>
 
-
                 </tbody>
             </table>
-        </div>
-        <!-- /editable inputs -->
-
-    </div>
-    <!-- /content area -->
-
 <!-- /single row selection -->

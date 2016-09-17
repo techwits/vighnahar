@@ -3584,6 +3584,52 @@ function show_warai(LRNO)
 	}
 }
 
+function add_receipt(ConsignorID, ReceiptAmount)
+{
+	var error_count;
+	var error_msg;
+	error_msg="";
+	error_count=0;
+
+	if(ConsignorID.length <= 0 || ConsignorID == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Consignor ID missing" + "\n";
+		// frm.lrno.focus();
+	}
+
+	if(ReceiptAmount.length <= 0 || ReceiptAmount == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please enter Receipt Amount" + "\n";
+		// frm.lrno.focus();
+	}
+
+	if(!isNaN(ReceiptAmount)==false)
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please enter Proper Amount" + "\n";
+	}
+
+
+	if(Number(error_count) == 0)
+	{
+		var div_name = "#div_receipt";
+		var page_name = "save_receipt.php";
+		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
+		$.post(page_name, {ConsignorID:ConsignorID, ReceiptAmount:ReceiptAmount},
+			function(data)
+			{
+				$(div_name).html(data);
+			}
+		);
+		return false;
+	}
+	else{
+		alert(error_msg); //alert(error_msg);
+		return false;
+	}
+}
 
 function add_warai()
 {

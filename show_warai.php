@@ -27,21 +27,18 @@
 
 <!-- Single row selection -->
 
-    <table class="table datatable-selection-single" style="background-color: #FFF700">
-        <thead>
-        <tr>
-            <th>LR Id</th>
-            <th>Amount</th>
-        </tr>
-        </thead>
-        <tbody>
-
         <?php
         $cols="Amount";
-        $sqlQry= "select $cols from `inwardcharge`";
-        $sqlQry.=" where LRID=$searchvalue";
-        $sqlQry.=" and acmid=$acmid";
-        $sqlQry.= " and Active=1";
+        $sqlQry= "select inwardcharge.Amount from `inwardcharge`  where LRID=$searchvalue  and acmid=$acmid and Active=1";
+        $sqlQry.=" UNION ALL ";
+        $sqlQry.=" select outwardlrbill.Amount from `outwardlrbill`  ";
+        $sqlQry.= " inner join outwardlr ";
+        $sqlQry.= " on outwardlr.olrid=outwardlrbill.olrid ";
+        $sqlQry.= " where 1=1";
+        $sqlQry.= " and outwardlr.iid=$searchvalue  ";
+        $sqlQry.= " and acmid=$acmid";
+        $sqlQry.= " and outwardlrbill.Active=1";
+
 //        echo ("Check sqlQry :- $sqlQry </br>");
 //        die();
         unset($con);
@@ -49,6 +46,16 @@
         $result = mysqli_query($con, $sqlQry);
         if (mysqli_num_rows($result)!=0)
         {
+            ?>
+            <table  class="table">
+                <thead>
+                <tr class="bg-blue">
+                    <th>LR Id</th>
+                    <th>Amount</th>
+                </tr>
+                </thead>
+                <tbody>
+            <?php
             while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
             {
                 $Amount=$row[0];
@@ -59,9 +66,10 @@
                 </tr>
                 <?php
             }
+            ?>
+                </tbody>
+            </table>
+            <?php
         }
         ?>
-        </tbody>
-    </table>
-
 <!-- /single row selection -->

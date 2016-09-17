@@ -24,40 +24,41 @@
     <!-- /global stylesheets -->
 
     <!-- Core JS files -->
-    <script type="text/javascript" data-pace-options='{"ajax": false}' src="assets/js/plugins/loaders/pace.min.js"></script>
+    <script type="text/javascript" src="assets/js/plugins/loaders/pace.min.js"></script>
     <script type="text/javascript" src="assets/js/core/libraries/jquery.min.js"></script>
     <script type="text/javascript" src="assets/js/core/libraries/bootstrap.min.js"></script>
     <script type="text/javascript" src="assets/js/plugins/loaders/blockui.min.js"></script>
-
-    <script type="text/javascript" src="assets/js/plugins/loaders/pace.min.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/ui/nicescroll.min.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/ui/drilldown.js"></script>
-
     <!-- /core JS files -->
 
-
     <!-- Theme JS files -->
-    <script type="text/javascript" src="assets/js/core/libraries/jquery_ui/full.min.js"></script>
-    <script type="text/javascript" src="assets/js/pages/form_select2.js"></script>
-
-
-    <script type="text/javascript" src="assets/js/plugins/tables/datatables/datatables.min.js"></script>
+    <script type="text/javascript" src="assets/js/core/libraries/jquery_ui/interactions.min.js"></script>
     <script type="text/javascript" src="assets/js/plugins/forms/selects/select2.min.js"></script>
 
     <script type="text/javascript" src="assets/js/core/app.js"></script>
-    <script type="text/javascript" src="assets/js/pages/datatables_basic.js"></script>
-
-    <script type="text/javascript" src="assets/js/plugins/forms/styling/uniform.min.js"></script>
-    <script type="text/javascript" src="assets/js/plugins/forms/styling/switchery.min.js"></script>
-
-
-    <script type="text/javascript" src="assets/js/pages/components_dropdowns.js"></script>
-
+    <script type="text/javascript" src="assets/js/pages/form_select2.js"></script>
     <!-- /theme JS files -->
 
     <!-- Theme JS files -->
+    <script type="text/javascript" src="assets/js/plugins/notifications/jgrowl.min.js"></script>
+    <script type="text/javascript" src="assets/js/plugins/ui/moment/moment.min.js"></script>
+    <script type="text/javascript" src="assets/js/plugins/pickers/daterangepicker.js"></script>
+    <script type="text/javascript" src="assets/js/plugins/pickers/anytime.min.js"></script>
+    <script type="text/javascript" src="assets/js/plugins/pickers/pickadate/picker.js"></script>
+    <script type="text/javascript" src="assets/js/plugins/pickers/pickadate/picker.date.js"></script>
+    <script type="text/javascript" src="assets/js/plugins/pickers/pickadate/picker.time.js"></script>
+    <script type="text/javascript" src="assets/js/plugins/pickers/pickadate/legacy.js"></script>
 
-    <script type="text/javascript" src="assets/js/pages/invoice_grid.js"></script>
+    <script type="text/javascript" src="assets/js/pages/picker_date.js"></script>
+
+
+    <script type="text/javascript" src="assets/js/plugins/tables/datatables/datatables.min.js"></script>
+    <script type="text/javascript" src="assets/js/pages/datatables_basic.js"></script>
+    <!-- /theme JS files -->
+
+    <!-- Theme JS files -->
+    <script type="text/javascript" src="assets/js/plugins/notifications/bootbox.min.js"></script>
+    <script type="text/javascript" src="assets/js/plugins/notifications/sweet_alert.min.js"></script>
+    <script type="text/javascript" src="assets/js/pages/components_modals.js"></script>
     <!-- /theme JS files -->
 
 
@@ -228,14 +229,17 @@ include('page_header.php');
                                             <div class="col-xs-6 text-center border-right">
                                                 <div class="huge1">
                                                     <?php
-                                                    $first_day_this_month = date('Y-m-01'); // hard-coded '01' for first day
-                                                    $last_day_this_month  = date('Y-m-t');
-                                                    $StartDate=$first_day_this_month." 00:00:00";
-                                                    $EndDate=$last_day_this_month." 23:59:59";
-                                                    $TableName="bill";
-                                                    $ColumnName="CreationDate";
-                                                    $MonthsRM=Get_Count($con, $TableName, $ColumnName, $StartDate, $EndDate);
-                                                    echo("$MonthsRM");
+
+                                                    $CYear=date("Y");
+                                                    $CMonth=date("m");
+                                                    if($CMonth<4){
+                                                        $CYear=$CYear-1;
+                                                    }
+                                                    $FinancialYearID=Get_FinancialYear($con, $CYear);
+                                                    $BillCountFinancialYear=Get_BillCountFinancialYear($con, $FinancialYearID);
+														
+													
+                                                     echo($BillCountFinancialYear);
                                                     ?>
                                                 </div>
                                                 <div>last Bill Count </div>
@@ -280,11 +284,17 @@ include('page_header.php');
                                     </div>
                                 </div>
 
-                                <?php
-                                define("_SessionUserID_", $_SESSION['user_id']);
-                                define("_SessionIP_", $_SESSION['ip']);
-                                include('rmstatus.php');
-                                ?>
+                                <div class="content">
+                                    <!-- Editable inputs -->
+                                    <div class="panel panel-flat">
+                                                <?php
+                                                define("_SessionUserID_", $_SESSION['user_id']);
+                                                define("_SessionIP_", $_SESSION['ip']);
+                                                include('rmstatus.php');
+                                                ?>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -303,7 +313,7 @@ include('page_header.php');
                             <!-- Actions -->
                             <div class="sidebar-category sidebar-category-visible">
                                 <div class="category-title">
-                                    <span>Masters Entry</span>
+                                    <span>Manage Masters</span>
                                     <ul class="icons-list">
                                         <li><a href="#" data-action="collapse"></a></li>
                                     </ul>
@@ -353,7 +363,7 @@ include('page_header.php');
 
 
                                     <!--                                        <button type="button" class="btn btn-info btn-xs" onclick="return displaylr(document.getElementById('show_lrno').value);">Submit</button>-->
-                                    <button type="button" class="btn btn-info btn-xs" onclick="return display_printlr(document.getElementById('show_lrno').value);">Submit</button>
+                                    <button type="button" class="btn btn-info btn-xs" onclick="return displaylr(document.getElementById('show_lrno').value);">Submit</button>
 
                                 </div>
                             </form>
@@ -396,7 +406,7 @@ include('page_header.php');
                 <div class="col-lg-2 col-sm-6">
                     <div class="panel panel-flat">
                         <div class="panel-heading">
-                            <h6 class="panel-title">Share your Problem</h6>
+                            <h6 class="panel-title">Share a Problem</h6>
                             <div class="heading-elements">
                                 <ul class="icons-list">
                                     <li><a data-action="close"></a></li>
