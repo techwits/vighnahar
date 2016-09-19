@@ -840,13 +840,101 @@
 		return $DayAvarage;
 	}
 
+	function Get_LRPackagesReturnCountMonth($con, $StartDate, $EndDate)
+	{
+		$Getting_LRPackagesReturnCountMonth=0;
+		$sqlQry= "";
+		$sqlQry= "select sum(outwardlrbill.Quantity) from inward ";
+
+		$sqlQry.= " inner join outwardlr";
+		$sqlQry.= " on inward.LRID=outwardlr.iid";
+
+		$sqlQry.= " inner join outwardlrbill";
+		$sqlQry.= " on outwardlr.olrid=outwardlrbill.olrid";
+
+		$sqlQry.= " where 1=1";
+		$sqlQry.= " and (inward.ReceivedDate  BETWEEN  '$StartDate' AND '$EndDate')";
+		$sqlQry.= " and outwardlr.RMStatus>0";
+		$sqlQry.= " and outwardlrbill.acmid=5";
+
+		$sqlQry.= " and inward.Active=1";
+		$sqlQry.= " and outwardlr.Active=1";
+		$sqlQry.= " and outwardlrbill.Active=1";
+//					echo ("$sqlQry");
+		//		die();
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0){
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+				$Getting_LRPackagesReturnCountMonth=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_LRPackagesReturnCountMonth;
+	}
+
+
+	function Get_LRPackagesInTransitCountMonth($con, $StartDate, $EndDate)
+	{
+		$Getting_LRPackagesInTransitCountMonth=0;
+		$sqlQry= "";
+		$sqlQry= "select sum(Quantity) from inward ";
+		$sqlQry.= " inner join outwardlr";
+		$sqlQry.= " on inward.LRID=outwardlr.iid";
+		$sqlQry.= " where 1=1";
+		$sqlQry.= " and (inward.ReceivedDate  BETWEEN  '$StartDate' AND '$EndDate')";
+		$sqlQry.= " and outwardlr.RMStatus=0";
+		$sqlQry.= " and inward.active=1";
+		$sqlQry.= " and outwardlr.active=1";
+	//			echo ("$sqlQry");
+		//		die();
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0){
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+				$Getting_LRPackagesInTransitCountMonth=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_LRPackagesInTransitCountMonth;
+	}
+
+
+	function Get_LRPackagesCountMonth($con, $StartDate, $EndDate)
+	{
+		$Getting_LRPackagesCountMonth=0;
+		$sqlQry= "";
+		$sqlQry= "select sum(Quantity) from inward ";
+		$sqlQry.= " left join outwardlr";
+		$sqlQry.= " on inward.LRID=outwardlr.iid";
+		$sqlQry.= " where 1=1";
+		$sqlQry.= " and (inward.ReceivedDate  BETWEEN  '$StartDate' AND '$EndDate')";
+		$sqlQry.= " and outwardlr.iid IS NULL";
+		$sqlQry.= " and inward.active=1";
+//			echo ("$sqlQry");
+	//		die();
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0){
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+				$Getting_LRPackagesCountMonth=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_LRPackagesCountMonth;
+	}
+
+
 	function Get_RMCountMonth($con, $StartDate, $EndDate)
 	{
 		$Getting_RMCount=0;
 		$sqlQry= "";
 		$sqlQry= "select count(*) from outward ";
 		$sqlQry.= " where 1=1";
-		$sqlQry.= " and (ReceivedDate  BETWEEN  '$StartDate' AND '$EndDate')";
+		$sqlQry.= " and (TransitDate  BETWEEN  '$StartDate' AND '$EndDate')";
 		$sqlQry.= " and active=1";
 //		echo ("$sqlQry");
 //		die();
@@ -882,6 +970,390 @@
 		}
 		mysqli_free_result($result);
 		return $Getting_LRCount;
+	}
+
+
+	function Get_PackagesFinancialYear($con, $FinancialYearID)
+	{
+		$Getting_PackagesFinancialYear=0;
+		$sqlQry= "";
+		$sqlQry= "select sum(Quantity) from inward ";
+
+		$sqlQry.= " where 1=1";
+		$sqlQry .= " and inward.fyid=$FinancialYearID";
+		$sqlQry .= " and inward.Active=1";
+
+//		echo ("$sqlQry");
+//		die();
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0){
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+				$Getting_PackagesFinancialYear=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_PackagesFinancialYear;
+	}
+
+
+	function Get_VehicleFinancialYear($con, $FinancialYearID)
+	{
+		$Getting_VehicleFinancialYear=0;
+		$sqlQry= "";
+		$sqlQry= "select outward.vmid, count(*) from outward ";
+
+
+		$sqlQry.= " where 1=1";
+		$sqlQry .= " and outward.fyid=$FinancialYearID";
+		$sqlQry .= " and outward.Active=1";
+
+		$sqlQry.= " group by outward.vmid";
+		$sqlQry.= " order by outward.vmid";
+		//					echo ("$sqlQry");
+		//		die();
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0){
+			$Getting_VehicleFinancialYear=mysqli_num_rows($result);
+			//			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+			////				$Getting_AreaServedFinancialYear=$row{0};
+			//				$AreaServed=$AreaServed+1;
+			//			}
+		}
+		mysqli_free_result($result);
+		return $Getting_VehicleFinancialYear;
+	}
+
+	function Get_ProductsFinancialYear($con, $FinancialYearID)
+	{
+		$Getting_ProductsFinancialYear=0;
+		$sqlQry= "";
+		$sqlQry= "select product_master.pmid, count(*) from inward ";
+	
+		$sqlQry.= " inner join product_master";
+		$sqlQry.= " on inward.pmid=product_master.pmid";
+	
+	
+		$sqlQry.= " where 1=1";
+		$sqlQry .= " and inward.fyid=$FinancialYearID";
+		$sqlQry .= " and inward.Active=1";
+	
+		$sqlQry.= " group by product_master.pmid";
+		$sqlQry.= " order by product_master.pmid";
+//						echo ("$sqlQry");
+		//		die();
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0){
+			$Getting_ProductsFinancialYear=mysqli_num_rows($result);
+	//			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+	////				$Getting_AreaServedFinancialYear=$row{0};
+	//				$AreaServed=$AreaServed+1;
+	//			}
+		}
+		mysqli_free_result($result);
+		return $Getting_ProductsFinancialYear;
+	}
+
+	function Get_TripsFinancialYear($con, $FinancialYearID)
+	{
+		$Getting_TripsFinancialYear=0;
+		$sqlQry= "";
+		$sqlQry= "select oid from outward ";
+
+		$sqlQry.= " where 1=1";
+		$sqlQry .= " and outward.fyid=$FinancialYearID";
+		$sqlQry .= " and outward.Active=1";
+
+		//					echo ("$sqlQry");
+		//		die();
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0){
+			$Getting_TripsFinancialYear=mysqli_num_rows($result);
+			//			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+			////				$Getting_AreaServedFinancialYear=$row{0};
+			//				$AreaServed=$AreaServed+1;
+			//			}
+		}
+		mysqli_free_result($result);
+		return $Getting_TripsFinancialYear;
+	}
+
+	function Get_ConsignorFinancialYear($con, $FinancialYearID)
+	{
+		$Getting_ConsignorFinancialYear=0;
+		$sqlQry= "";
+		$sqlQry= "select inward.caid, count(*) from inward ";
+
+
+		$sqlQry.= " where 1=1";
+		$sqlQry .= " and inward.fyid=$FinancialYearID";
+		$sqlQry .= " and inward.Active=1";
+
+		$sqlQry.= " group by inward.caid";
+		$sqlQry.= " order by inward.caid";
+		//					echo ("$sqlQry");
+		//		die();
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0){
+			$Getting_ConsignorFinancialYear=mysqli_num_rows($result);
+			//			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+			////				$Getting_AreaServedFinancialYear=$row{0};
+			//				$AreaServed=$AreaServed+1;
+			//			}
+		}
+		mysqli_free_result($result);
+		return $Getting_ConsignorFinancialYear;
+	}
+
+
+	function Get_ConsigneeFinancialYear($con, $FinancialYearID)
+	{
+		$Getting_ConsigneeFinancialYear=0;
+		$sqlQry= "";
+		$sqlQry= "select inward.cnid, count(*) from inward ";
+
+
+		$sqlQry.= " where 1=1";
+		$sqlQry .= " and inward.fyid=$FinancialYearID";
+		$sqlQry .= " and inward.Active=1";
+
+		$sqlQry.= " group by inward.cnid";
+		$sqlQry.= " order by inward.cnid";
+	//					echo ("$sqlQry");
+		//		die();
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0){
+			$Getting_ConsigneeFinancialYear=mysqli_num_rows($result);
+	//			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+	////				$Getting_AreaServedFinancialYear=$row{0};
+	//				$AreaServed=$AreaServed+1;
+	//			}
+		}
+		mysqli_free_result($result);
+		return $Getting_ConsigneeFinancialYear;
+	}
+
+	function Get_AreaServedFinancialYear($con, $FinancialYearID)
+	{
+		$Getting_AreaServedFinancialYear=0;
+		$sqlQry= "";
+		$sqlQry= "select consigneeaddress_master.amid, count(*) from inward ";
+
+		$sqlQry.= " inner join consigneeaddress_master";
+		$sqlQry.= " on inward.cnid=consigneeaddress_master.cnid";
+
+
+		$sqlQry.= " where 1=1";
+		$sqlQry .= " and inward.fyid=$FinancialYearID";
+		$sqlQry .= " and inward.Active=1";
+
+		$sqlQry.= " group by consigneeaddress_master.amid";
+		$sqlQry.= " order by consigneeaddress_master.amid";
+//					echo ("$sqlQry");
+		//		die();
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0){
+			$Getting_AreaServedFinancialYear=mysqli_num_rows($result);
+//			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+////				$Getting_AreaServedFinancialYear=$row{0};
+//				$AreaServed=$AreaServed+1;
+//			}
+		}
+		mysqli_free_result($result);
+		return $Getting_AreaServedFinancialYear;
+	}
+
+//	function Get_BillReceivedAmountFinancialYear($con, $FinancialYearID)
+//	{
+//		$BillReceivedAmountFinancialYear=0;
+//		$sqlQry= "";
+//		$sqlQry= "select sum(BillAmount) from bill ";
+//		$sqlQry.= " where 1=1";
+//		$sqlQry .= " and bill.fyid=$FinancialYearID";
+//		$sqlQry .= " and bill.Active=1";
+//		//					echo ("$sqlQry");
+//		//		die();
+//		include('db_connect.php');
+//		$result = mysqli_query($con, $sqlQry);
+//		//fetch tha data from the database
+//		if (mysqli_num_rows($result)!=0){
+//			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+//				$BillAmountFinancialYear=$row{0};
+//			}
+//		}
+//		mysqli_free_result($result);
+//		return $BillAmountFinancialYear;
+//	}
+//
+//
+//	function Get_BillAmountFinancialYear($con, $FinancialYearID)
+//	{
+//		$BillAmountFinancialYear=0;
+//		$sqlQry= "";
+//		$sqlQry= "select sum(BillAmount) from bill ";
+//		$sqlQry.= " where 1=1";
+//		$sqlQry .= " and bill.fyid=$FinancialYearID";
+//		$sqlQry .= " and bill.Active=1";
+//	//					echo ("$sqlQry");
+//		//		die();
+//		include('db_connect.php');
+//		$result = mysqli_query($con, $sqlQry);
+//		//fetch tha data from the database
+//		if (mysqli_num_rows($result)!=0){
+//			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+//				$BillAmountFinancialYear=$row{0};
+//			}
+//		}
+//		mysqli_free_result($result);
+//		return $BillAmountFinancialYear;
+//	}
+
+
+	function Get_BillNotGeneratedCountFinancialYear($con, $FinancialYearID)
+		{
+			$Getting_BillNotGenerated=0;
+			$sqlQry= "";
+			$sqlQry= "select caid, count(*) from inward ";
+
+			$sqlQry.= " inner join outwardlr";
+			$sqlQry.= " on inward.LRID=outwardlr.iid";
+
+			$sqlQry.= " where 1=1";
+			$sqlQry .= " and inward.fyid=$FinancialYearID";
+			$sqlQry .= " and outwardlr.Bill=0";
+			$sqlQry .= " and inward.Active=1";
+			$sqlQry .= " and outwardlr.Active=1";
+
+			$sqlQry.= " group by inward.caid";
+			$sqlQry.= " order by inward.caid";
+//					echo ("$sqlQry");
+			//		die();
+			include('db_connect.php');
+			$result = mysqli_query($con, $sqlQry);
+			//fetch tha data from the database
+			if (mysqli_num_rows($result)!=0){
+				$Getting_BillNotGenerated=mysqli_num_rows($result);
+//				while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+//					$Getting_BillNotGenerated=$row{0};
+//				}
+			}
+			mysqli_free_result($result);
+			return $Getting_BillNotGenerated;
+		}
+
+
+	function Get_BillNotGeneratedAmountFinancialYear($con, $FinancialYearID)
+	{
+		$Getting_BillNotGeneratedAmount=0;
+		$sqlQry= "";
+		$sqlQry= "select sum(outwardlrbill.Amount) from inward ";
+
+		$sqlQry.= " inner join outwardlr";
+		$sqlQry.= " on inward.LRID=outwardlr.iid";
+
+		$sqlQry.= " inner join outwardlrbill";
+		$sqlQry.= " on outwardlr.olrid=outwardlrbill.olrid";
+
+		$sqlQry.= " where 1=1";
+		$sqlQry .= " and inward.fyid=$FinancialYearID";
+		$sqlQry .= " and outwardlr.Bill=0";
+		$sqlQry .= " and inward.Active=1";
+		$sqlQry .= " and outwardlr.Active=1";
+		$sqlQry .= " and outwardlrbill.Active=1";
+
+
+	//		echo ("$sqlQry");
+	//		die();
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0){
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+				$Getting_BillNotGeneratedAmount=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_BillNotGeneratedAmount;
+	}
+
+	function Get_BillGeneratedAmountFinancialYear($con, $FinancialYearID)
+	{
+		$Getting_BillGeneratedAmount=0;
+		$sqlQry= "";
+		$sqlQry= "select sum(outwardlrbill.Amount) from inward ";
+
+		$sqlQry.= " inner join outwardlr";
+		$sqlQry.= " on inward.LRID=outwardlr.iid";
+
+		$sqlQry.= " inner join outwardlrbill";
+		$sqlQry.= " on outwardlr.olrid=outwardlrbill.olrid";
+
+		$sqlQry.= " where 1=1";
+		$sqlQry .= " and inward.fyid=$FinancialYearID";
+		$sqlQry .= " and outwardlr.Bill=1";
+		$sqlQry .= " and inward.Active=1";
+		$sqlQry .= " and outwardlr.Active=1";
+		$sqlQry .= " and outwardlrbill.Active=1";
+
+
+//		echo ("$sqlQry");
+//		die();
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0){
+				while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+					$Getting_BillGeneratedAmount=$row{0};
+				}
+		}
+		mysqli_free_result($result);
+		return $Getting_BillGeneratedAmount;
+	}
+
+
+	function Get_BillGeneratedCountFinancialYear($con, $FinancialYearID)
+	{
+		$Getting_BillGenerated=0;
+		$sqlQry= "";
+		$sqlQry= "select caid, count(*) from inward ";
+
+		$sqlQry.= " inner join outwardlr";
+		$sqlQry.= " on inward.LRID=outwardlr.iid";
+
+		$sqlQry.= " where 1=1";
+		$sqlQry .= " and inward.fyid=$FinancialYearID";
+		$sqlQry .= " and outwardlr.Bill=1";
+		$sqlQry .= " and inward.Active=1";
+		$sqlQry .= " and outwardlr.Active=1";
+
+		$sqlQry.= " group by inward.caid";
+		$sqlQry.= " order by inward.caid";
+//			echo ("$sqlQry");
+	//		die();
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0){
+			$Getting_BillGenerated=mysqli_num_rows($result);
+//			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+//				$Getting_BillGenerated=$row{0};
+//			}
+		}
+		mysqli_free_result($result);
+		return $Getting_BillGenerated;
 	}
 
 	function Get_RMCountFinancialYear($con, $FinancialYearID)
@@ -995,6 +1467,9 @@
 	function Get_RMEntry_30Days($con)
 	{
 		$RMEntry_30Days="";
+		$RMEntry_30Days_DayList="";
+		$RMEntry_30Days_CountList="";
+
 		$EndDate = date('Y-m-d')." 23:59:59";
 		$StartDate=date('Y-m-d', strtotime('today - 30 days'));
 //		echo(" StartDate :- $StartDate </br>");
@@ -1025,16 +1500,26 @@
 //					echo("Valide :- $row{0} </br>");
 //					echo("Day :- $Day </br>");
 				}
-				$inc==1?$RMEntry_30Days=$Day.".".$row{1}:$RMEntry_30Days=$RMEntry_30Days.",".$Day.".".$row{1};
+				$inc==1?$RMEntry_30Days=$row{1}.".".$Day:$RMEntry_30Days=$RMEntry_30Days.",".$row{1}.".".$Day;
+
+				$inc==1?$RMEntry_30Days_DayList=$Day:$RMEntry_30Days_DayList=$RMEntry_30Days_DayList.",".$Day;
+
+				$inc==1?$RMEntry_30Days_CountList=$row{1}:$RMEntry_30Days_CountList=$RMEntry_30Days_CountList.",".$row{1};
+
 			}
 		}
+		$Club="";
+		$Club=$RMEntry_30Days."||".$RMEntry_30Days_DayList."||".$RMEntry_30Days_CountList;
+
 		mysqli_free_result($result);
-		return $RMEntry_30Days;
+		return $Club;
 	}
 
 	function Get_LREntry_30Days($con)
 	{
 		$LREntry_30Days="";
+		$LREntry_30Days_DayList="";
+		$LREntry_30Days_CountList="";
 		$EndDate = date('Y-m-d')." 23:59:59";
 		$StartDate=date('Y-m-d', strtotime('today - 30 days'));
 	//		echo(" StartDate :- $StartDate </br>");
@@ -1046,7 +1531,7 @@
 		$sqlQry.= " and (ReceivedDate  BETWEEN  '$StartDate' AND '$EndDate')";
 		$sqlQry.= " group by ReceivedDate";
 		$sqlQry.= " order by ReceivedDate";
-	//		echo ("$sqlQry");
+//			echo ("</br></br></br></br></br>$sqlQry");
 	//		die();
 		// mysqli_close($con);
 		include('db_connect.php');
@@ -1065,16 +1550,45 @@
 	//					echo("Valide :- $row{0} </br>");
 	//					echo("Day :- $Day </br>");
 				}
-				$inc==1?$LREntry_30Days=$Day.".".$row{1}:$LREntry_30Days=$LREntry_30Days.",".$Day.".".$row{1};
+				$inc==1?$LREntry_30Days=$row{1}.".".$Day:$LREntry_30Days=$LREntry_30Days.",".$row{1}.".".$Day;
+
+				$inc==1?$LREntry_30Days_DayList=$Day:$LREntry_30Days_DayList=$LREntry_30Days_DayList.",".$Day;
+
+				$inc==1?$LREntry_30Days_CountList=$row{1}:$LREntry_30Days_CountList=$LREntry_30Days_CountList.",".$row{1};
 			}
 		}
+		$Club="";
+		$Club=$LREntry_30Days."||".$LREntry_30Days_DayList."||".$LREntry_30Days_CountList;
+
 		mysqli_free_result($result);
-		return $LREntry_30Days;
+		return $Club;
 	}
 
 	function Get_LRDetails($con, $LRID)
 	{
 		$Getting_LRDetails="";
+
+//		0 financialyear_master.FinancialYear ,
+//		1 inward.ReceivedDate,
+// 		2 inward.InvoiceNumber ,
+//		3 vehicle_master.VehicleNumber ,
+//		4 consignoraddress_master.Address,
+// 		5 area_master.AreaName,
+// 		6 consignoraddress_master.Pincode,
+// 		7 consignoraddress_master.City ,
+//		8 consignor_master.ConsignorName,
+// 		9 consignor_master.Pancard ,
+//		10 consignee_master.ConsigneeName ,
+//		11 consigneeaddress_master.Address,
+// 		12 a.AreaName,
+// 		13 consigneeaddress_master.Pincode,
+// 		14 consigneeaddress_master.City ,
+//		15 product_master.ProductName ,
+//		16 inward.PakageType,
+// 		17 inward.Rate,
+//		18 inward.Quantity,
+// 		19 inward.Amount,
+//		20 inward.Active
 
 //		$cols=" financialyear_master.FinancialYear ";
 //		$cols.=" ,inward.ReceivedDate, inward.InvoiceNumber ";

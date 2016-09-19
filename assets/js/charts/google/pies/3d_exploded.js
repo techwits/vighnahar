@@ -17,6 +17,8 @@
 google.load("visualization", "1", {packages:["corechart"]});
 google.setOnLoadCallback(drawExploded3d);
 
+var BillGenerated=BillGeneratedAmountFinancialYear;
+var BillNotGenerated=BillNotGeneratedAmountFinancialYear;
 
 // Chart settings
 function drawExploded3d() {
@@ -24,11 +26,10 @@ function drawExploded3d() {
     // Data
     var data = google.visualization.arrayToDataTable([
         ['Language', 'Speakers (in millions)'],
-        ['Assamese', 1103],
-        ['Bengali', 83]
+        ['Bill Generated', BillGenerated],
+        ['Bill Not Generated', BillNotGenerated]
     ]);
-
-
+    
     // Options
     var options = {
         fontName: 'Roboto',

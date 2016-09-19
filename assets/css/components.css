@@ -18151,15 +18151,24 @@ label.display-block {
   display: block;
 }
 
-.count {
+.count-top {
     font-family: sans-serif, Arial, Helvetica Neue, Roboto ;
-	font-size: 28px;
-    line-height: 26px;
-	color: #73879C;
-    font-weight: 600;
+	font-size: 35px;
+    line-height: 35px;
+    font-weight: 700;
 	margin-bottom: 0px;
 	margin-top: 0px;
 }
+.count {
+    font-family: sans-serif, Arial, Helvetica Neue, Roboto ;
+	font-size: 34px;
+    line-height: 35px;
+	color: #73879C;
+    font-weight: 700;
+	margin-bottom: 0px;
+	margin-top: 0px;
+}
+
 .count_bottom {
     font-size: 13px;
 	

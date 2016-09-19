@@ -28,7 +28,7 @@ function drawBar() {
     var _PendingRoadMemo=LRRoadMemo;
 
     var data = google.visualization.arrayToDataTable([
-        ['Year', 'Sales', {role: 'annotation'}, 'Expenses', {role: 'annotation'}, 'Sachin', {role: 'annotation'}, 'Om', {role: 'annotation'}],
+        ['Year', 'Delivered', {role: 'annotation'}, 'UnDelivered', {role: 'annotation'}, 'InTransit', {role: 'annotation'}, 'PendingRoadMemo', {role: 'annotation'}],
         [_Year,  _Delivered, 'Delivered', _UnDelivered, 'UnDelivered', _InTransit, 'InTransit', _PendingRoadMemo, 'PendingRoadMemo']
     ]);
 

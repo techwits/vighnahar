@@ -1,6 +1,6 @@
 @page {
   size: A4;  
-   margin: .9cm;
+   margin: .8cm;
 }
 
 
@@ -73,9 +73,9 @@ body.print-mode .print-preview {
 .invoice-top{
 	max-width:210mm;
 	margin:auto;
-	padding:15px;
-	font-size:13px;
-	line-height:18px;
+	padding:10px;
+	font-size:12px;
+	line-height:15px;
 	font-family:'sans-serif','Helvetica Neue', 'Helvetica', Arial;
 	color:#555;
 }
@@ -91,6 +91,12 @@ body.print-mode .print-preview {
 	border-bottom: 1px solid #73879C;
 	padding-bottom: 5px;
 }
+.content-add{
+	display: inline-block;
+	text-align: Leff;
+	background-color: transparent;
+	margin-left: 5px;
+}
 .invoice-logo{
 	display: inline-block;
 	text-align: right;
@@ -98,27 +104,31 @@ body.print-mode .print-preview {
 	float:right;
 	vertical-align:middle;
 	margin-right: 20px;
-}
-
-.content-add{
-	display: inline-block;
-	text-align: Leff;
-	background-color: transparent;
-	margin-left: 10px;
-}
-
-.content-date{
-	display: inline-block;
-	text-align: right;
-	background-color: transparent;
-	float:right;
+	margin-top: 0px;
 }
 .invoice-detail{
 	margin:auto;
 	border:1px solid #73879C;
 }
+.content-party{
+	display: inline-block;
+	text-align: left;
+	background-color: transparent;
+	float:left;
+	margin-top: 10px;
+	margin-left: 5px;
+}
+.content-date{
+	display: inline-block;
+	text-align: right;
+	background-color: transparent;
+	float:right;
+	font-size:13px;
+	line-height:18px;
+}
+
 .invoice-payment{
-	border:1px solid #73879C;
+	border-top: 1px solid #73879C;
 }
 .content-payment{
 	display: inline-block;
@@ -126,6 +136,17 @@ body.print-mode .print-preview {
 	background-color: transparent;
 	margin-top: 10px;
 	margin-left: 20px;
+	float: left;
+	width: 200px;
+}
+.Prior-Balance{
+	display: inline-block;
+	background-color: transparent;
+	text-align: center;
+	vertical-align: middle;
+	margin-top: 40px;
+	float: left;
+	width: 200px;
 }
 .content-payment-total{
 	display: inline-block;
@@ -133,62 +154,25 @@ body.print-mode .print-preview {
 	margin-top: 10px;
 	margin-right: 20px;
 	float: right;
+	width: 250px;
 }
-
+.amount-word{
+	margin-top: 20px;
+	margin-left:20px;
+	clear:both;
+}
+.disclaimer{
+	background-color: transparent;
+	padding: 10px;
+	border:1px solid #73879C;
+	position: absolute;
+    top: 265mm;
+	height: 100px;
+	max-width:200mm;
+	margin: 10px 5px 10px 5px;
+}
 
 .top-header{
 	border-bottom: 1px dotted black;
 	margin-top: 0px;
-}
-.Chalan-details1{
-	width: 80px;
-	font-family: Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;
-	font-size: 11px;
-	text-transform: uppercase;
-	line-height: 1;
-	display: inline-block;
-	text-align: Leff;
-	background-color: transparent;
-	margin-top: 10px;
-	margin-left: 20px;
-}
-.Chalan-details2{
-	width: 80px;
-	font-family: Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;
-	font-size: 11px;
-	text-transform: uppercase;
-	line-height: 1;
-	display: inline-block;
-	text-align: Leff;
-	background-color: transparent;
-	margin-top: 10px;
-	margin-left: 10px;
-}
-.Chalan-details3{
-	width: 325px;
-	display: inline-block;
-}
-.Chalan-details4{
-	width: 80px;
-	font-family: Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;
-	font-size: 11px;
-	text-transform: uppercase;
-	line-height: 1;
-	display: inline-block;
-	text-align: Leff;
-	background-color: transparent;
-	margin-top: 10px;
-	margin-left: 20px;
-}
-.Chalan-details5{
-	width: 80px;
-	font-family: Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;
-	font-size: 11px;
-	text-transform: uppercase;
-	line-height: 1;
-	display: inline-block;
-	text-align: Leff;
-	background-color: transparent;
-	margin-top: 10px;
-	margin-left: 10px;
 }

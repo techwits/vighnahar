@@ -235,7 +235,7 @@
                                 <div class="panel-body">
                                 	<div class="row">
                                       <div class="col-xs-12">
-                                        <div class="col-xs-4 text-left border-right ">
+                                        <div class="col-xs-4 text-left">
                                             <?php
 
                                                 $LRCountFinancialYear=0;
@@ -245,7 +245,7 @@
 
                                                 $InTransit=Get_LRCountInTransit($con);
                                             ?>
-                                            <h1 class="no-margin"><?php echo $LRCountMonth; ?></h1>
+                                            <h1 class="count-top no-margin"><?php echo $LRCountMonth; ?></h1>
                                             Month
 
                                             <?php
@@ -405,28 +405,49 @@
                                    <div class="col-md-3">
                                       <div class="panel panel-flat border-top-xlg border-top-info border-grey">
                                           <div class="panel-body">
-                                          		
-                                             	<a href="#" class="media-annotation pull-right">More</a>
                                                   <?php
                                                       $BillGeneratedCountFinancialYear=Get_BillGeneratedCountFinancialYear($con, $FinancialYearID);
 //                                                      $RMCountDayAvarage=Get_RMCountDayAvarage($con, $StartDate, $EndDate);
 //                                                      $RMCountMonth=Get_RMCountMonth($con, $StartDate, $EndDate);
                                                   ?>
 
-                                                <div class="count no-margin"><?php echo $BillGeneratedCountFinancialYear;?></div>
-                                                <span class="count_bottom ">Bills-This Year</span>
+                                                <div class="count no-margin text-center"><?php echo $BillGeneratedCountFinancialYear;?></div>
+                                                <div class="count_bottom text-center">Bills-This Year</div>
                                               </div>
-                                      </div>  
+                                              <div class="p-10">
+                                                <div class="media-body">
+                                                    <strong>More</strong>
+                                                 </div>
+            
+                                                <div class="media-right">
+                                                    <ul class="icons-list">
+                                                        <li><a href="#" data-toggle="modal" data-target="#danger_600"><i class="icon-three-bars"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                      </div> 
                                       <div class="panel panel-flat border-top-xlg border-top-info border-grey">
                                           <div class="panel-body">
-                                              	<a href="#" class="media-annotation pull-right">More</a>
                                                   <?php
                                                       $BillNotGeneratedCountFinancialYear=Get_BillNotGeneratedCountFinancialYear($con, $FinancialYearID);
                                                   ?>
-                                                <div class="count no-margin"><?php echo $BillNotGeneratedCountFinancialYear; ?></div>
-                                          </div>
-                                         
-                                      </div>
+
+                                                <div class="count no-margin text-center"><?php echo $BillNotGeneratedCountFinancialYear; ?></div>
+                                                <div class="count_bottom text-center">Bills-This Year</div>
+                                              </div>
+                                              <div class="p-10">
+                                                <div class="media-body">
+                                                    <strong>More</strong>
+                                                 </div>
+            
+                                                <div class="media-right">
+                                                    <ul class="icons-list">
+                                                        <li><a href="#" data-toggle="modal" data-target="#danger_600"><i class="icon-three-bars"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                      </div> 
+                                      
                                    </div>
                                 </div>
                         		<div class="row">
@@ -789,8 +810,9 @@
                                         </div>
                                         <div class="col-sm-2 text-center">
 
-                                            <a href="#modal_full" data-toggle='modal' class='modalButton3' data-teacherid="1" >
-                                                <button type="button" class="btn btn-danger btn-xs">Submit</button></a>
+                                            <!--                                    <a href="#modal_full" data-toggle='modal' class='modalButton2' data-teacherid="1" >-->
+                                            <button type="button" class="btn btn-success btn-xs" onclick="return displaybill(document.getElementById('show_billno').value);">Submit</button>
+                                            <!--      </a>-->
                                         </div>
                                     </form>
                                 </div>

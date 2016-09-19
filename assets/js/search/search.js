@@ -1007,6 +1007,15 @@ function show_selectedproducts()
 	document.getElementById('selectedproduct').value=SelectedProductsList;
 }
 
+function displaybill(billno)
+{
+	// alert("LRNO :- " + lrno);
+	var strWindowFeatures = "location=yes,height=590,width=820,scrollbars=yes,status=yes";
+	//var URL = "display_LRDetails.php?LRID="+ lrno +"&amp;url=" + location.href;
+	var URL = "display_BillDetails.php?BillNo="+ billno;
+	var win = window.open(URL, "_blank", strWindowFeatures);
+}
+
 function displayrm(rmno)
 {
 	// alert("LRNO :- " + lrno);

@@ -2860,24 +2860,43 @@ $(function() {
 
     // var LRList="21.25,23";
     var PHP_LR=LREntry_30Days;
+    var PHP_LR_DayList=LREntry_30Days_DayList;
+    var PHP_LR_CountList=LREntry_30Days_CountList;
+
     var LRList=PHP_LR;
+    var LRListDay=PHP_LR_DayList;
+    var LRListCount=PHP_LR_CountList;
+
 
     var PHP_RM=RMEntry_30Days;
+    var PHP_RM_DayList=RMEntry_30Days_DayList;
+    var PHP_RM_CountList=RMEntry_30Days_CountList;
+
+
     var RMList=PHP_RM;
+    var RMListDay=PHP_RM_DayList;
+    var RMListCount=PHP_RM_CountList;
+
 
     // var RMList="21,23,45,12,45,21,22,4,56,32,34,56,78,33,56, 23,56, 10, 25, 34, 56, 34, 32, 54, 76, 98";
-    var BillList="21,23,45,12,45,21,22,4,56,32,34,56,78,33,56, 23,56, 10, 25, 34, 56, 34, 32, 54, 76, 98,21,23,45,12,45,21,22,4,56,32,34,56,78,33,56, 23,56, 10, 25, 34, 56, 34, 32, 54, 76, 98,21,23,45,12,45,21,22,4,56,32,34,56,78,33,56, 23,56, 10, 25, 34, 56, 34, 32, 54, 76, 98";
+    var BillListCount="21,23,45,12,45,21,22,4,56,32,34,56,78,33,56, 23,56, 10, 25, 34, 56, 34, 32, 54, 76, 98,21,23,45,12,45,21,22,4,56,32,34,56,78,33,56, 23,56, 10, 25, 34, 56, 34, 32, 54, 76, 98,21,23,45,12,45,21,22,4,56,32,34,56,78,33,56, 23,56, 10, 25, 34, 56, 34, 32, 54, 76, 98";
+    var BillListDay="21,23,45,12,45,21,22,4,56,32,34,56,78,33,56, 23,56, 10, 25, 34, 56, 34, 32, 54, 76, 98,21,23,45,12,45,21,22,4,56,32,34,56,78,33,56, 23,56, 10, 25, 34, 56, 34, 32, 54, 76, 98,21,23,45,12,45,21,22,4,56,32,34,56,78,33,56, 23,56, 10, 25, 34, 56, 34, 32, 54, 76, 98";
     // Initialize charts
     // generateBarChart("#hours-available-bars", 24, 40, true, "elastic", 1200, 50, "#EC407A", "hours", LRList);
     // generateBarChart("#goal-bars", 24, 40, true, "elastic", 1200, 50, "#5C6BC0", "goal", LRList);
-    generateBarChart("#members-lr", 24, 50, true, "elastic", 1200, 50, "rgba(255,255,255,0.5)", "members", RMList);
 
-    generateBarChart("#members-rm", 24, 50, true, "elastic", 1200, 50, "rgba(255,255,255,0.5)", "members", LRList);
+    // alert("RMListCount :- " + RMListCount);
+    // alert("RMListDay :- " + RMListDay);
 
-    generateBarChart("#members-bill", 24, 50, true, "elastic", 1200, 50, "rgba(255,255,255,0.5)", "members", BillList);
+    generateBarChart("#members-lr", 24, 50, true, "elastic", 1200, 50, "rgba(255,255,255,0.5)", "members", RMListCount, RMListDay);
+
+    // alert("LRListCount :- " + LRListCount);
+    generateBarChart("#members-rm", 24, 50, true, "elastic", 1200, 50, "rgba(255,255,255,0.5)", "members", LRListCount, LRListDay);
+
+    generateBarChart("#members-bill", 24, 50, true, "elastic", 1200, 50, "rgba(255,255,255,0.5)", "members", BillListCount, BillListDay);
 
     // Chart setup
-    function generateBarChart(element, barQty, height, animate, easing, duration, delay, color, tooltip, LRList) {
+    function generateBarChart(element, barQty, height, animate, easing, duration, delay, color, tooltip, ListCount, ListDay) {
 
 
         // Basic setup
@@ -2891,10 +2910,24 @@ $(function() {
 
         // bardata.push(1)
 
-        Split_lridlist  = LRList.split(",");
-        for (var j = 0; j < Split_lridlist.length; j++) {
-            bardata.push(Split_lridlist[j])
+
+        Split_listcount  = ListCount.split(",");
+
+        for (var j = 0; j < Split_listcount.length; j++) {
+            bardata.push(Number(Split_listcount[j]))
+            // alert("Split_listday[j]" + Split_listday[j]);
+            // alert("Split_lridlistcount[j]" + Split_lridlistcount[j]);
         }
+
+        // Split_lridlistday  = LRListDay.split(",");
+        // for (var k = 0; k < Split_lridlistday.length; k++) {
+        //     bardata.push(Split_lridlistday[k])
+        // }
+        //
+        // Split_lridlistcount  = LRListCount.split(",");
+        // for (var l = 0; l < Split_lridlistcount.length; l++) {
+        //     bardata.push(Split_lridlistcount[l])
+        // }
 
         // Main variables
         var d3Container = d3.select(element),
@@ -2997,11 +3030,10 @@ $(function() {
         // Online members tooltip content
         if(tooltip == "members") {
             tip.html(function (d, i) {
-                // alert("d  :- " + d );
-                var DateCount=d.split(".");
+                Split_listday  = ListDay.split(",");
                 return "<div class='text-center'>" +
-                    "<span class='text-size-small'> Date:   " + DateCount[0]  + "</span>" +
-                    "<h4 class='no-margin'> Count:  " + DateCount[1]  + "</h4>" +
+                    "<span class='text-size-small'> Date:   " +  Split_listday[i] + "</span>" +
+                    "<h4 class='no-margin'> Count:  " +  d  +"</span>" +
                     "</div>"
             });
         }
