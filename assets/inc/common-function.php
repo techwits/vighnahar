@@ -84,6 +84,59 @@
 		$LogTableUpdate_Result = mysqli_query($con, $Proc);
 	}
 
+	function AmountinWords($number)
+	{
+		/**
+		 * Created by PhpStorm.
+		 * User: sakthikarthi
+		 * Date: 9/22/14
+		 * Time: 11:26 AM
+		 * Converting Currency Numbers to words currency format
+		 */
+//		$number = 190908100.25;
+		$AmountinWords="";
+		$no = round($number);
+		$point = round($number - $no, 2) * 100;
+		$hundred = null;
+		$digits_1 = strlen($no);
+		$i = 0;
+		$str = array();
+		$words = array('0' => '', '1' => 'one', '2' => 'two',
+			'3' => 'three', '4' => 'four', '5' => 'five', '6' => 'six',
+			'7' => 'seven', '8' => 'eight', '9' => 'nine',
+			'10' => 'ten', '11' => 'eleven', '12' => 'twelve',
+			'13' => 'thirteen', '14' => 'fourteen',
+			'15' => 'fifteen', '16' => 'sixteen', '17' => 'seventeen',
+			'18' => 'eighteen', '19' =>'nineteen', '20' => 'twenty',
+			'30' => 'thirty', '40' => 'forty', '50' => 'fifty',
+			'60' => 'sixty', '70' => 'seventy',
+			'80' => 'eighty', '90' => 'ninety');
+		$digits = array('', 'hundred', 'thousand', 'lakh', 'crore');
+		while ($i < $digits_1) {
+			$divider = ($i == 2) ? 10 : 100;
+			$number = floor($no % $divider);
+			$no = floor($no / $divider);
+			$i += ($divider == 10) ? 1 : 2;
+			if ($number) {
+				$plural = (($counter = count($str)) && $number > 9) ? 's' : null;
+				$hundred = ($counter == 1 && $str[0]) ? ' and ' : null;
+				$str [] = ($number < 21) ? $words[$number] .
+					" " . $digits[$counter] . $plural . " " . $hundred
+					:
+					$words[floor($number / 10) * 10]
+					. " " . $words[$number % 10] . " "
+					. $digits[$counter] . $plural . " " . $hundred;
+			} else $str[] = null;
+		}
+		$str = array_reverse($str);
+		$result = implode('', $str);
+		$points = ($point) ?
+			"." . $words[$point / 10] . " " .
+			$words[$point = $point % 10] : '';
+		$AmountinWords=$result . "Rupees  " . $points; //. " Paise";
+		$AmountinWords=ucfirst($AmountinWords);
+		return $AmountinWords;
+	}
 
 	function Log_Start($con, $CurrentDate, $Creator, $ip, $PageName, $inTime, $tablename, $searchColumn, $searchColumn_Value)
 	{
@@ -361,6 +414,29 @@
 		}
 		mysqli_free_result($result);
 		return $Getting_LRAdditionalCharge;
+	}
+
+	function Get_ConsignorIDONBillNo($con, $BillNo)
+	{
+		$Getting_ConsignorID=0;
+		$sqlQry= "";
+		$sqlQry= "select caid from bill";
+		$sqlQry.= " where bid=$BillNo";
+		$sqlQry.= " and Active=1";
+//		echo ("$sqlQry");
+//		die();
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0)
+		{
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$Getting_ConsignorID=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_ConsignorID;
 	}
 
 	function Get_ConsigneeArea($con, $cnid)
@@ -1842,6 +1918,99 @@
 		return $Getting_LRGrandTotal;
 	}
 
+
+	function Get_Vehicle_RoadMemo_DailyQuantity($con, $StartDate, $EndDate)
+	{
+
+		$Getting_Vehicle_RoadMemo_DailyQuantity="";
+		$sqlQry= "";
+
+
+//		$sqlQry.= "select outward.oid, outward.vmid, outwardlr.olrid, inward.Quantity from outward ";
+		$sqlQry.= "select outward.vmid, sum(inward.Quantity) from outward ";
+
+
+		$sqlQry.= " inner join outwardlr ";
+		$sqlQry.= " on outward.oid=outwardlr.oid";
+
+		$sqlQry.= " inner join inward ";
+		$sqlQry.= " on outwardlr.iid=inward.LRID";
+
+		$sqlQry.= " where 1=1 ";
+		$sqlQry.= " and (outward.TransitDate BETWEEN  '$StartDate' AND '$EndDate')";
+		$sqlQry.= " and outward.Active=1";
+		$sqlQry.= " and outwardlr.Active=1";
+		$sqlQry.= " and inward.Active=1";
+
+		$sqlQry.= " group by outward.vmid";
+		$sqlQry.= " order by outward.vmid";
+
+
+
+//		echo ("$sqlQry");
+//		die();
+		$RowCount=0;
+		$inc=0;
+		$Club="";
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0){
+			$RowCount=mysqli_num_rows($result);
+//			echo("RowCount :- $RowCount </br>");
+//			die();
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+				//		[{value: 335, name: 'IE'}, {value: 310, name: 'Opera'}];
+
+				$inc=$inc+1;
+				$vmid=$row{0};
+				$Quantity=$row{1};
+
+				$VehicleNumber=Get_VehicleNumber($con, $vmid);
+
+
+				$Club.="{value: $Quantity, name: '$VehicleNumber'}";
+				if($inc<>$RowCount){
+					$Club.=", ";
+				}
+
+			}
+		}
+//		echo("Club :- $Club </br>");
+//		die();
+		$Getting_Vehicle_RoadMemo_DailyQuantity="[".$Club."]";
+//		$Getting_Vehicle_RoadMemo_DailyQuantity=$Club;
+		mysqli_free_result($result);
+		return $Getting_Vehicle_RoadMemo_DailyQuantity;
+	}
+
+	function Get_BillAmount($con, $caid, $BillNo)
+	{
+		$Getting_BillAmount=0;
+		$sqlQry= "";
+		$sqlQry= "select sum(BillAmount) from bill ";
+		$sqlQry.= " where caid=$caid";
+		if($BillNo>0){
+			$sqlQry.= " and bid<>$BillNo";
+		}
+		$sqlQry.= " and Active=1";
+	//		echo ("$sqlQry");
+	//		die();
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0){
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+				$Getting_BillAmount=$row{0};
+			}
+		}
+		if($Getting_BillAmount==""){
+			$Getting_BillAmount=0;
+		}
+		mysqli_free_result($result);
+		return $Getting_BillAmount;
+	}
+
 	function Get_Receipt($con, $caid)
 	{
 		$Getting_Receipt=0;
@@ -1859,6 +2028,9 @@
 			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
 				$Getting_Receipt=$row{0};
 			}
+		}
+		if($Getting_Receipt==""){
+			$Getting_Receipt=0;
 		}
 		mysqli_free_result($result);
 		return $Getting_Receipt;
@@ -1908,6 +2080,115 @@
 		}
 		mysqli_free_result($result);
 		return $Getting_Consignor_LastBillGeneratedDetails;
+	}
+
+	function Get_ConsignorPanNo($con, $ConsignorID)
+	{
+		$Getting_ConsignorPanNo="";
+		$sqlQry= "";
+		$sqlQry= "select Pancard from consignor_master ";
+		$sqlQry.= " where cid=$ConsignorID";
+		$sqlQry.= " and Active=1";
+//		echo ("$sqlQry");
+//		die();
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0){
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+				$Getting_ConsignorPanNo=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_ConsignorPanNo;
+	}
+
+	function Get_BillDate($con, $BillNo)
+	{
+		$Getting_BillDate="";
+		$sqlQry= "";
+		$sqlQry= "select BillingDate from bill ";
+		$sqlQry.= " where bid=$BillNo";
+		$sqlQry.= " and Active=1";
+	//		echo ("$sqlQry");
+	//		die();
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0)
+		{
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$Getting_BillDate=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_BillDate;
+	}
+
+
+	function Get_Consignor_TelephoneEmailWebsite($con, $ConsignorAddressID)
+	{
+		$Getting_ConsignorTelephoneEmailWebsite="";
+		$Telephone="";
+		$Email="";
+		$Website="";
+
+		$sqlQry= "";
+		$sqlQry= "select ctmid, Contact from consignorcontact_master ";
+		$sqlQry.= " where caid=$ConsignorAddressID";
+		$sqlQry.= " and Active=1";
+		$sqlQry.= " order by ccid";
+//		echo ("$sqlQry");
+//		die();
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0)
+		{
+			$inc=0;
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$inc=$inc+1;
+				if($inc==1){
+					$Telephone=$row{1};
+				}
+				if($row{0}==2){
+					$Email=$row{1};
+				}
+				if($row{0}==3){
+					$Website=$row{1};
+				}
+			}
+		}
+		$Getting_ConsignorTelephoneEmailWebsite=$Telephone."|".$Email."|".$Website;
+		mysqli_free_result($result);
+		return $Getting_ConsignorTelephoneEmailWebsite;
+	}
+
+	function Get_Consignor_PersonAddress($con, $ConsignorAddressID)
+	{
+		$Getting_ConsignorPersonAddress="";
+		$sqlQry= "";
+		$sqlQry= "select Person, Address, area_master.AreaName, Pincode, City from consignoraddress_master ";
+		$sqlQry.= " inner join area_master";
+		$sqlQry.= " on consignoraddress_master.amid=area_master.amid";
+		$sqlQry.= " where consignoraddress_master.caid=$ConsignorAddressID";
+		$sqlQry.= " and consignoraddress_master.Active=1";
+//		echo ("$sqlQry");
+//		die();
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0)
+		{
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+			{
+				$Getting_ConsignorPersonAddress=$row{0}."~~~".$row{1}."|||".$row{2}."|||".$row{3}."|||".$row{4};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_ConsignorPersonAddress;
 	}
 
 	function Get_ConsignorName($con, $ConsignorAddressID)

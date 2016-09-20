@@ -90,14 +90,16 @@
 
 					<?php
 							$dir = "assets/demo_data/d3/tree/";
-							$my_file = 'tree_data_collapsible_sachin.json';
-							$FilePath="assets/demo_data/d3/tree/tree_data_collapsible.json";
+							$my_file = 'tree_data_collapsible_sachin.txt';
+//							$FilePath="assets/demo_data/d3/tree/tree_data_collapsible.json";
+							$FilePath="assets/demo_data/d3/tree/tree_data_collapsible.txt";
+
 							// Open a directory, and read its contents
 							if (is_dir($dir)) {
 								if ($handle = opendir('.')) {
 									while (false !== ($file = readdir($handle))) {
 //										echo("file :- $file </br>");
-										if ($file != "tree_data_collapsible_sachin.json") {
+										if ($file != "tree_data_collapsible_sachin.txt") {
 											$handle = fopen($FilePath, 'w') or die('Cannot open file:  ' . $my_file); //implicitly creates file
 											$data="";
 //											echo "filename:" . file_get_contents($FilePath)  . "<br>";

@@ -356,8 +356,10 @@
                                 
                                 <div class="panel-footer"><a class="heading-elements-toggle"><i class="icon-more"></i></a>
                                   <div class="col-md-12">
-                                      <button type="button" name="submit" id="submit" class="btn btn-primary heading-btn pull-right"onclick="return add_lrentry();"><span class="text-semibold" id="<?php echo $span_pageButton; ?>">Submit</span></button>
-                                    </div>
+                                      <div class="text-right">
+                                          <button type="submit" name="submit" id="submit" class="btn btn-primary heading-btn pull-right" onclick="return add_lrentry();"><span class="text-semibold" id="<?php echo $span_pageButton; ?>">Submit</span></button>
+                                      </div>
+                                  </div>
                                     <div id="div_lrentry"></div>
                                 </div>
 							</div>

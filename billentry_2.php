@@ -263,7 +263,8 @@ include('assets/inc/common-function.php');
                                 <div class="panel-footer">
                                     <div class="col-md-12">
                                         <div class="text-right">
-                                            <button type="button" name="submit" id="submit" class="btn bg-grey-600" onclick="return add_billentry();"><span class="text-semibold" id="<?php echo $span_pageButton; ?>">Submit</span></button>
+                                            <button type="button" name="submit" id="submit" class="btn btn-primary heading-btn pull-right"
+ onclick="return add_billentry();"><span class="text-semibold" id="<?php echo $span_pageButton; ?>">Submit</span></button>
                                         </div>
                                     </div>
                                     <div id="div_savebillentry"></div>

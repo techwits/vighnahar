@@ -165,7 +165,6 @@ body.print-mode .print-preview {
 	background-color: transparent;
 	padding: 10px;
 	border:1px solid #73879C;
-	position: absolute;
     top: 265mm;
 	height: 100px;
 	max-width:200mm;

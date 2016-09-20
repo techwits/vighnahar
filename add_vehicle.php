@@ -104,7 +104,7 @@
 							<input type="hidden" name="AddEdit" id="AddEdit" value="0">
 							<input type="hidden" name="cyear" id="cyear" value="<?php echo $CYear; ?>">
 
-							<div id="<?php echo $div_merchantcontrols; ?>" class="panel panel-flat" style="border-color:<?php echo $Form_BorderColor; ?>; border-top-width:<?php echo $Form_BorderTopWidth; ?>;">
+							<div id="<?php echo $div_merchantcontrols; ?>" class="panel panel-default" style="border-color:<?php echo $Form_BorderColor; ?>; border-top-width:<?php echo $Form_BorderTopWidth; ?>;">
 
 								<div class="panel-heading" id="<?php echo $div_panel; ?>" style="background-color:<?php echo $FormHeadingColor; ?>;">
 									<h5 class="panel-title"><i class="icon-bus position-left"></i> <span class="text-semibold" id="<?php echo $span_pageName; ?>"><?php echo $PageHeaderName; ?></h5>
@@ -156,7 +156,7 @@
 										<div class="col-lg-3">
 											<div class="form-group">
 												<label>Ownership Type <span class="text-danger">*</span></label>
-												<select name="vehicleownershipname" id="vehicleownershipname" class="form-control" required="required">
+												<select name="vehicleownershipname" id="vehicleownershipname" class="form-control" required>
 													<option value=""></option>-->
 													<?php
 														Fill_VehicleOwnership($con);
@@ -223,7 +223,7 @@
 								<div class="panel-footer">
 									<div class="col-md-12">
 										<div class="text-right">
-											<button type="button" name="submit" id="submit" class="btn bg-grey-600" onclick="return add_vehicle();"><span class="text-semibold" id="<?php echo $span_pageButton; ?>">Submit</span></button>
+											<button type="button" name="submit" id="submit" class="btn btn-primary heading-btn pull-right" onclick="return add_vehicle();"><span class="text-semibold" id="<?php echo $span_pageButton; ?>">Submit</span></button>
 										</div>
 									</div>
 									<div id="div_vehicle"></div>

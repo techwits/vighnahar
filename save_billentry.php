@@ -28,6 +28,7 @@
     $olrid_List=$_REQUEST["olrid_List"];
     $financialyear=$_REQUEST["financialyear"];
     $rmdate=$_REQUEST["rmdate"];
+    $rmdate = implode("-", array_reverse(explode("/", $rmdate)));
     $consignoraddressid=$_REQUEST["consignoraddressid"];
     $lrlist=$_REQUEST["lrlist"];
     $total=$_REQUEST["total"];

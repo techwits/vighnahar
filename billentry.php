@@ -167,7 +167,7 @@
 
                                                                 <!-- Search field -->
 
-                                                                <div class="col-sm-10 col-md-10 col-lg-10 col-lg-10 col-lg-offset-1">
+                                                                <div class="col-sm-12 col-md-12 col-lg-12 col-lg-12">
 
                                                                     <!-- Search field -->
                                                                     <div class="panel panel-default">

@@ -13,14 +13,13 @@
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown dropdown-user">
                 <a class="dropdown-toggle" data-toggle="dropdown">
-                    <img src="assets/images/placeholder.jpg" alt="">
-                    <span>Victoria</span>
+                    <img src="assets/images/user_icon.png" alt="">
+                    <span><?php echo $_SESSION['username']?></span>
                     <i class="caret"></i>
                 </a>
 
                 <ul class="dropdown-menu dropdown-menu-right">
-                    <li><a href="#"><i class="icon-cog5"></i> Account settings</a></li>
-                    <li><a href="#"><i class="icon-switch2"></i> Logout</a></li>
+                    <li><a href="#" onclick="return logout();"><i class="icon-switch2"></i> Logout</a></li>
                 </ul>
             </li>
         </ul>

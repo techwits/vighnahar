@@ -305,7 +305,7 @@ include('page_header.php');
                 <!-- /content wrapper -->
                 <!-- Side Bar -->
 
-                <div class="col-lg-2">
+                <div class="col-lg-2 col-sm-6">
                     <!-- Secondary sidebar -->
                     <div class="sidebar sidebar-secondary sidebar-default">
                         <div class="sidebar-content">
@@ -392,8 +392,7 @@ include('page_header.php');
                                 </div>
                                 <div class="col-sm-2 text-center">
 
-                                    <a href="#modal_full" data-toggle='modal' class='modalButton3' data-teacherid="1" >
-                                        <button type="button" class="btn btn-danger btn-xs">Submit</button></a>
+                                    <button type="button" class="btn btn-success btn-xs" onclick="return displaybill(document.getElementById('show_billno').value);">Submit</button>
                                 </div>
                             </form>
                         </div>

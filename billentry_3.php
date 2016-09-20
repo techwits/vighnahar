@@ -23,7 +23,7 @@
 <!--    </div>-->
 
     <div class="input-group">
-        <input type="text" class="form-control" name="searchvalue_billno" id="searchvalue_billno" placeholder="Enter LR No...." required="required" onkeypress="return only_Alpha_Numeric_Apostrophy_Space(event);" ondrop="return false;" onpaste="return false;" >
+        <input type="text" class="form-control" name="searchvalue_billno" id="searchvalue_billno" placeholder="Enter Bill No...." required="required" onkeypress="return only_Alpha_Numeric_Apostrophy_Space(event);" ondrop="return false;" onpaste="return false;" >
         <span class="input-group-btn">
             <button type="button" class="btn btn-primary btn-xs" onclick="return searchform1_session(document.getElementById('searchvalue_billno').value, 1, 'div_searchbillno','billentry_4.php', '<?php echo $_SESSION['user_id']; ?>', '<?php echo $_SESSION['ip']; ?>');">Search</button>
         </span>

@@ -115,7 +115,7 @@
 							<input type="hidden" name="AddEdit2" id="AddEdit2" value="0">
 							<input type="hidden" name="AddEdit3" id="AddEdit3" value="0">
 							<input type="hidden" name="AddEdit4" id="AddEdit4" value="0">
-							<div id="<?php echo $div_merchantcontrols; ?>" class="panel panel-flat" style="border-color:<?php echo $Form_BorderColor; ?>; border-top-width:<?php echo $Form_BorderTopWidth; ?>;">
+							<div id="<?php echo $div_merchantcontrols; ?>" class="panel panel-default" style="border-color:<?php echo $Form_BorderColor; ?>; border-top-width:<?php echo $Form_BorderTopWidth; ?>;">
 
 								<div class="panel-heading" id="<?php echo $div_panel; ?>" style="background-color:<?php echo $FormHeadingColor; ?>;">
 									<h5 class="panel-title"><i class="icon-user-check position-left"></i> <span class="text-semibold" id="<?php echo $span_pageName; ?>"><?php echo $PageHeaderName; ?></h5>
@@ -327,7 +327,7 @@
 								<div class="panel-footer">
 									<div class="col-md-12">
 										<div class="text-right">
-											<button type="button" name="submit" id="submit" class="btn bg-grey-600" onclick="return add_consignor();"><span class="text-semibold" id="<?php echo $span_pageButton; ?>">Submit</span></button>
+											<button type="button" name="submit" id="submit" class="btn btn-primary heading-btn pull-right" onclick="return add_consignor();"><span class="text-semibold" id="<?php echo $span_pageButton; ?>">Submit</span></button>
 										</div>
 									</div>
 									<div id="div_consignor"></div>

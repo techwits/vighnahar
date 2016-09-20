@@ -85,7 +85,7 @@
 							<input type="hidden" name="session_userid" id="session_userid" value="<?php echo $_SESSION['user_id']; ?>">
 							<input type="hidden" name="session_ip" id="session_ip" value="<?php echo $_SESSION['ip']; ?>">
 							<input type="hidden" name="AddEdit" id="AddEdit" value="0">
-							<div id="<?php echo $div_merchantcontrols; ?>" class="panel panel-flat" style="border-color:<?php echo $Form_BorderColor; ?>; border-top-width:<?php echo $Form_BorderTopWidth; ?>;">
+							<div id="<?php echo $div_merchantcontrols; ?>" class="panel panel-default" style="border-color:<?php echo $Form_BorderColor; ?>; border-top-width:<?php echo $Form_BorderTopWidth; ?>;">
 
 								<div class="panel-heading" id="<?php echo $div_panel; ?>" style="background-color:<?php echo $FormHeadingColor; ?>;">
 									<h5 class="panel-title"><i class="icon-address-book position-left"></i> <span class="text-semibold" id="<?php echo $span_pageName; ?>"><?php echo $PageHeaderName; ?></h5>
@@ -100,7 +100,7 @@
 								<div class="panel-body" style="margin-top:15px;">
 									<div class="row">
 
-										<div class="col-lg-6">
+										<div class="col-lg-6 col-lg-offset-3">
 											<div class="form-group form-group-material">
 												<label>Contact Type<span class="text-danger">*</span></label>
 												<div class="input-group">
@@ -116,7 +116,7 @@
 								<div class="panel-footer">
 									<div class="col-md-12">
 										<div class="text-right">
-											<button type="button" name="submit" id="submit" class="btn bg-grey-600" onclick="return add_contacttype();"><span class="text-semibold" id="<?php echo $span_pageButton; ?>">Submit</span></button>
+											<button type="button" name="submit" id="submit" class="btn btn-primary heading-btn pull-right" onclick="return add_contacttype();"><span class="text-semibold" id="<?php echo $span_pageButton; ?>">Submit</span></button>
 										</div>
 									</div>
 									<div id="div_contacttypename"></div>

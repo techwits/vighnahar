@@ -58,12 +58,13 @@ if ($searchin==1){
             <input type="hidden" name="session_ip" id="session_ip" value="<?php echo $session_ip; ?>">
             <thead>
             <tr>
-                <th>Bill No.</th>
                 <th>Financial year</th>
+                <th>Bill No.</th>
                 <th>Bill Date</th>
                 <th>Consignor Name</th>
                 <th>Discount</th>
                 <th>Bill Amount</th>
+                <th>Action</th>
             </tr>
             </thead>
             <tbody>
@@ -75,6 +76,7 @@ if ($searchin==1){
                     $sqlQry .= " and $columnname '$pre_wildcharacter$searchvalue$post_wildcharacter'";
                 }
                 $sqlQry.= " and Active=1";
+                $sqlQry.= " order by bid desc";
 //                echo ("Check sqlQry :- $sqlQry </br>");
 //                die();
                 include('assets/inc/db_connect.php');
@@ -104,16 +106,29 @@ if ($searchin==1){
 
                         ?>
                         <tr>
-                            <td>
-                                <div id="<?php echo $bid;?>">
-                                    <a href="#" onclick="return delete_bill(<?php echo $bid; ?>);"><?php echo $bid; ?></a>
-                                </div>
-                            </td>
                             <td><?php echo $FinancialYearOnID; ?></td>
+                            <td><?php echo $bid; ?></td>
                             <td><?php echo $BillingDate; ?></td>
                             <td><?php echo $ConsignorName; ?></td>
                             <td><?php echo $Discount; ?></td>
                             <td><?php echo $BillAmount; ?></td>
+                            <td align="center">
+                                <div id="<?php echo $inc;?>">
+                                    <ul class="icons-list">
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="icon-circle-down2"></i>
+                                            </a>
+                                            <ul class="dropdown-menu dropdown-menu-right dropdown-menu-xs">
+                                                <li><a href="#modal_full" onclick="return displaybill(<?php echo $bid; ?>,1);"> <i class="icon-eye4"></i> View</a></li>
+                                                <li><a href="#" onclick="return displaybill(<?php echo $bid; ?>,2);"><i class="icon-printer2"></i> Print</a></li>
+                                                <li class="divider"></li>
+                                                <li><a href="#" onclick="return delete_bill('<?php echo _session_userid_?>', '<?php echo _session_ip_?>', <?php echo $bid; ?>, <?php echo $inc;?>, <?php echo $LRIDExist_ForRM; ?>);"><i class="icon-cross"></i> Delete</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
                         </tr>
                         <?php
                     }

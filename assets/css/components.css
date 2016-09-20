@@ -18161,15 +18161,18 @@ label.display-block {
 }
 .count {
     font-family: sans-serif, Arial, Helvetica Neue, Roboto ;
-	font-size: 34px;
-    line-height: 35px;
+	font-size: 48px;
+    line-height: 50px;
 	color: #73879C;
-    font-weight: 700;
+    font-weight: 800;
 	margin-bottom: 0px;
-	margin-top: 0px;
+	margin-top: 10px;
 }
 
 .count_bottom {
     font-size: 13px;
 	
+}
+.navbar-inverse .navbar-text a{
+    color: #fd9f31;
 }

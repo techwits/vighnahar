@@ -71,7 +71,16 @@
         $BillNotGeneratedAmountFinancialYear=Get_BillNotGeneratedAmountFinancialYear($con, $FinancialYearID);
 //        echo("BillNotGeneratedAmountFinancialYear :- $BillNotGeneratedAmountFinancialYear </br>");
 
+        $CurrentDate="2016-09-15";//date('Y-m-d');
+        $SDate=$CurrentDate." 00:00:00";
+        $EDate=$CurrentDate." 23:59:59";
+
+        $Vehicle_RoadMemo_DailyQuantity=Get_Vehicle_RoadMemo_DailyQuantity($con, $SDate, $EDate);
+//        echo("Vehicle_RoadMemo_DailyQuantity :- $Vehicle_RoadMemo_DailyQuantity </br>");
+//        die();
+
     ?>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -177,6 +186,11 @@
 
     <!-- Theme JS files  (EChart Pie)-->
         <script type="text/javascript" src="assets/js/plugins/visualization/echarts/echarts.js"></script>
+
+        <script type="text/javascript">
+            var Vehicle_RoadMemo_DailyQuantity="<?php echo $Vehicle_RoadMemo_DailyQuantity ?>";
+        </script>
+
         <script type="text/javascript" src="assets/js/charts/echarts/pies_donuts.js"></script>
     <!-- Theme JS files  (EChart Pie)-->
 
@@ -192,11 +206,11 @@
     $icon="icon-address-book";
     include('page_header.php');
 
-//    $php_page=basename(__FILE__);
-//    $get_return_value=login_check($con, $php_page);
-//    include_once("assets/inc/handle_error.php");
-//    log_pageaccess($con, $_SESSION["pageid"], basename(__FILE__));
-//    include_once('assets/inc/db_connect.php');
+    $php_page=basename(__FILE__);
+    $get_return_value=login_check($con, $php_page);
+    include_once("assets/inc/handle_error.php");
+    log_pageaccess($con, $_SESSION["pageid"], basename(__FILE__));
+    include_once('assets/inc/db_connect.php');
 ?>
 <!-- /main navbar -->
 
@@ -274,13 +288,13 @@
                                 <div class="panel-body">
                                 	<div class="row">
                                         <div class="col-xs-12">
-                                            <div class="col-xs-4 text-left border-right">
+                                            <div class="col-xs-4 text-left">
                                                 <?php
                                                     $RMCountFinancialYear=Get_RMCountFinancialYear($con, $FinancialYearID);
                                                     $RMCountDayAvarage=Get_RMCountDayAvarage($con, $StartDate, $EndDate);
                                                     $RMCountMonth=Get_RMCountMonth($con, $StartDate, $EndDate);
                                                 ?>
-                                                 <h3 class="no-margin"><?php echo $RMCountMonth;?></h3>
+                                                 <h3 class="count-top no-margin"><?php echo $RMCountMonth;?></h3>
                                                 Month
 
                                                 <?php
@@ -288,6 +302,9 @@
                                                 ?>
 
                                                 <div class="text-muted text-size-small"><?php echo $RMCountDayAvarage;?> avg</div>
+                                            </div>
+                                            <div class="col-xs-4 text-right">
+                                                
                                             </div>
 
 
@@ -334,7 +351,7 @@
                                                 <?php
                                                     $LRPackagesCountMonth=Get_LRPackagesCountMonth($con, $StartDate, $EndDate);
                                                 ?>
-                                                 <h3 class="no-margin"><?php echo $LRPackagesCountMonth;?></h3>
+                                                 <h3 class="count-top no-margin"><?php echo $LRPackagesCountMonth;?></h3>
                                                 Stock Inward
 
 
@@ -344,7 +361,7 @@
                                                 <?php
                                                     $LRPackagesInTransitCountMonth=Get_LRPackagesInTransitCountMonth($con, $StartDate, $EndDate);
                                                 ?>
-                                                <h3 class="no-margin"><?php echo $LRPackagesInTransitCountMonth;?></h3>
+                                                <h3 class="count-top no-margin"><?php echo $LRPackagesInTransitCountMonth;?></h3>
                                                 Stock Outward
                                             </div>
                                             <div class="col-xs-4 text-left">
@@ -381,7 +398,7 @@
                         	<div class="col-md-8">
                             	<div class="row">
                                     <div class="col-md-9">
-                                       <div class="panel panel-flat border-top-xlg border-top-info border-grey">
+                                       <div class="panel panel-flat border-top-info">
                                           <div class="panel-heading">
                                               <h6 class="panel-title">Current Financial Year LR Status
                                                   <span class="heading-text badge bg-blue-800"> <?php echo $LRCountFinancialYear;?> </span>
@@ -403,7 +420,7 @@
                                       </div>
                                    </div>
                                    <div class="col-md-3">
-                                      <div class="panel panel-flat border-top-xlg border-top-info border-grey">
+                                      <div class="panel panel-flat border-top-info">
                                           <div class="panel-body">
                                                   <?php
                                                       $BillGeneratedCountFinancialYear=Get_BillGeneratedCountFinancialYear($con, $FinancialYearID);
@@ -411,41 +428,28 @@
 //                                                      $RMCountMonth=Get_RMCountMonth($con, $StartDate, $EndDate);
                                                   ?>
 
+                                                <div class="count_bottom text-left">Bills-This Year</div>
                                                 <div class="count no-margin text-center"><?php echo $BillGeneratedCountFinancialYear;?></div>
-                                                <div class="count_bottom text-center">Bills-This Year</div>
-                                              </div>
-                                              <div class="p-10">
                                                 <div class="media-body">
-                                                    <strong>More</strong>
+                                                      <a href="#" class="heading-text pull-right"><strong>More</strong></a>
                                                  </div>
-            
-                                                <div class="media-right">
-                                                    <ul class="icons-list">
-                                                        <li><a href="#" data-toggle="modal" data-target="#danger_600"><i class="icon-three-bars"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                      </div> 
-                                      <div class="panel panel-flat border-top-xlg border-top-info border-grey">
+                                                
+                                              </div>
+                                      </div>
+                                      
+                                      <div class="panel panel-flat border-top-info">
                                           <div class="panel-body">
-                                                  <?php
-                                                      $BillNotGeneratedCountFinancialYear=Get_BillNotGeneratedCountFinancialYear($con, $FinancialYearID);
-                                                  ?>
+											  <?php
+                                                  $BillNotGeneratedCountFinancialYear=Get_BillNotGeneratedCountFinancialYear($con, $FinancialYearID);
+                                              ?>
 
-                                                <div class="count no-margin text-center"><?php echo $BillNotGeneratedCountFinancialYear; ?></div>
-                                                <div class="count_bottom text-center">Bills-This Year</div>
-                                              </div>
-                                              <div class="p-10">
-                                                <div class="media-body">
-                                                    <strong>More</strong>
-                                                 </div>
-            
-                                                <div class="media-right">
-                                                    <ul class="icons-list">
-                                                        <li><a href="#" data-toggle="modal" data-target="#danger_600"><i class="icon-three-bars"></i></a></li>
-                                                    </ul>
-                                                </div>
+                                            <div class="count_bottom text-left">Unbills-This Year</div>
+                                            <div class="count no-margin text-center"><?php echo $BillNotGeneratedCountFinancialYear; ?>
                                             </div>
+                                            <div class="media-body">
+                                                  <a href="#" class="heading-text pull-right"><strong>More</strong></a>
+                                             </div>
+                                          </div>
                                       </div> 
                                       
                                    </div>
@@ -454,7 +458,7 @@
                                  <div class="col-md-12">
                                  	<div class="row">
                                     	<div class="col-md-6">
-                                            <div class="panel panel-flat border-top-xlg border-top-info border-grey">
+                                            <div class="panel panel-flat border-top-info">
                                                 <div class="panel-heading">
                                                     <h6 class="panel-title">Statistics</h6>
                                                     <div class="heading-elements">
@@ -474,7 +478,7 @@
                                             </div>
                                          </div>
                                          <div class="col-md-6">
-                                            <div class="panel panel-flat border-top-xlg border-top-info border-grey">
+                                            <div class="panel panel-flat border-top-info">
                                                 <div class="panel-heading">
                                                     <h6 class="panel-title">Custom panel border</h6>
                                                     <div class="heading-elements">
@@ -498,7 +502,7 @@
                                  </div>
                              </div>
                         	<div class="col-md-4">
-                        		<div class="panel panel-flat border-top-xlg border-top-info border-grey">
+                        		<div class="panel panel-flat border-top-info">
                                   <div class="panel-heading">
                                       <h6 class="panel-title">Facts & Figures</h6>
                                       <div class="heading-elements">
@@ -740,7 +744,7 @@
                     <div class="col-md-12">
                     	<div class="row">
 								<div class="col-md-12">
-									<div class="panel border-left-lg border-left-info">
+									<div class="panel panel-flat border-top-info">
 										<div class="panel-body">
 
                                             <?php include('billstatus.php'); ?>
@@ -754,71 +758,72 @@
                     </div>
                     
                 </div>
+                
+                <div class="col-lg-2 col-sm-6">
+                               <!-- View LR RM -->
+                              <div class="panel panel-flat">
+                                  <div class="panel-heading">
+                                      <h6 class="panel-title">View LR / Rm / Bill</h6>
+                                      <div class="heading-elements">
+                                          <ul class="icons-list">
+                                              <li><a data-action="collapse"></a></li>
+                                          </ul>
+                                      </div>
+                                  </div>
+  
+                                  <div class="panel-body">
+                                      <form action="#">
+                                          <div class="form-group">
+                                              <input class="form-control input-micro" type="text" placeholder="View LR" name="show_lrno" id="show_lrno" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
+                                          </div>
+                                          <div class="col-sm-2 text-center">
+  
+  
+                                              <!--                                        <button type="button" class="btn btn-info btn-xs" onclick="return displaylr(document.getElementById('show_lrno').value);">Submit</button>-->
+                                              <button type="button" class="btn btn-info btn-xs" onclick="return displaylr(document.getElementById('show_lrno').value);">Submit</button>
+  
+                                          </div>
+                                      </form>
+                                  </div>
+  
+  
+                                  <div class="panel-body">
+                                      <form action="#">
+                                          <div class="form-group">
+                                              <input class="form-control input-micro" type="text" placeholder="View RM" name="show_rmno" id="show_rmno" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
+                                          </div>
+                                          <div class="col-sm-2 text-center">
+  
+                                              <!--                                    <a href="#modal_full" data-toggle='modal' class='modalButton2' data-teacherid="1" >-->
+                                              <button type="button" class="btn btn-success btn-xs" onclick="return displayrm(document.getElementById('show_rmno').value);">Submit</button>
+                                              <!--                                        </a>-->
+                                          </div>
+                                      </form>
+                                  </div>
+  
+  
+                                  <div class="panel-body">
+                                      <form action="#">
+                                          <div class="form-group">
+                                              <input class="form-control input-micro" type="text" placeholder="View Bill" name="show_billno" id="show_billno" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
+                                          </div>
+                                          <div class="col-sm-2 text-center">
+  
+                                              <!--                                    <a href="#modal_full" data-toggle='modal' class='modalButton2' data-teacherid="1" >-->
+                                              <button type="button" class="btn btn-success btn-xs" onclick="return displaybill(document.getElementById('show_billno').value);">Submit</button>
+                                              <!--      </a>-->
+                                          </div>
+                                      </form>
+                                  </div>
+                              </div>
+                              <!-- /View LR RM -->
+                            </div>
 
                 <div class="col-lg-2 col-sm-6">
                     <!-- Secondary sidebar -->
                     <div class="sidebar sidebar-secondary sidebar-default">
                         <div class="sidebar-content">
-
-
-                            <!-- View LR RM -->
-                            <div class="panel panel-flat">
-                                <div class="panel-heading">
-                                    <h6 class="panel-title">View LR / Rm / Bill</h6>
-                                    <div class="heading-elements">
-                                        <ul class="icons-list">
-                                            <li><a data-action="collapse"></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                <div class="panel-body">
-                                    <form action="#">
-                                        <div class="form-group">
-                                            <input class="form-control input-micro" type="text" placeholder="View LR" name="show_lrno" id="show_lrno" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
-                                        </div>
-                                        <div class="col-sm-2 text-center">
-
-
-                                            <!--                                        <button type="button" class="btn btn-info btn-xs" onclick="return displaylr(document.getElementById('show_lrno').value);">Submit</button>-->
-                                            <button type="button" class="btn btn-info btn-xs" onclick="return displaylr(document.getElementById('show_lrno').value);">Submit</button>
-
-                                        </div>
-                                    </form>
-                                </div>
-
-
-                                <div class="panel-body">
-                                    <form action="#">
-                                        <div class="form-group">
-                                            <input class="form-control input-micro" type="text" placeholder="View RM" name="show_rmno" id="show_rmno" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
-                                        </div>
-                                        <div class="col-sm-2 text-center">
-
-                                            <!--                                    <a href="#modal_full" data-toggle='modal' class='modalButton2' data-teacherid="1" >-->
-                                            <button type="button" class="btn btn-success btn-xs" onclick="return displayrm(document.getElementById('show_rmno').value);">Submit</button>
-                                            <!--                                        </a>-->
-                                        </div>
-                                    </form>
-                                </div>
-
-
-                                <div class="panel-body">
-                                    <form action="#">
-                                        <div class="form-group">
-                                            <input class="form-control input-micro" type="text" placeholder="View Bill" name="show_billno" id="show_billno" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;">
-                                        </div>
-                                        <div class="col-sm-2 text-center">
-
-                                            <!--                                    <a href="#modal_full" data-toggle='modal' class='modalButton2' data-teacherid="1" >-->
-                                            <button type="button" class="btn btn-success btn-xs" onclick="return displaybill(document.getElementById('show_billno').value);">Submit</button>
-                                            <!--      </a>-->
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <!-- /View LR RM -->
-                            <!-- Actions -->
+							<!-- Actions -->
                             <div class="sidebar-category">
                                 <div class="bg-blue-800 text-center"><span>Manage Masters </span></div>
 
@@ -879,20 +884,18 @@
 
 
                             <!-- Navigation -->
+                            
                             <div class="sidebar-category">
                                 <div class="category-content no-padding">
-
                                 </div>
                             </div>
                             <!-- /navigation -->
-
                         </div>
-
 
                     </div>
                     <!-- /secondary sidebar -->
-
                 </div>
+                
         <!-- /main content -->
 
     </div>

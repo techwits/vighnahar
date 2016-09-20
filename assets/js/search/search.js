@@ -1007,12 +1007,12 @@ function show_selectedproducts()
 	document.getElementById('selectedproduct').value=SelectedProductsList;
 }
 
-function displaybill(billno)
+function displaybill(billno, viewprint)
 {
 	// alert("LRNO :- " + lrno);
 	var strWindowFeatures = "location=yes,height=590,width=820,scrollbars=yes,status=yes";
 	//var URL = "display_LRDetails.php?LRID="+ lrno +"&amp;url=" + location.href;
-	var URL = "display_BillDetails.php?BillNo="+ billno;
+	var URL = "display_BillDetails.php?BillNo="+ billno+ "&ViewPrint=" +viewprint;
 	var win = window.open(URL, "_blank", strWindowFeatures);
 }
 
@@ -5438,6 +5438,10 @@ function PrintDiv() {
 	popupWin.document.close();
 }
 
+function logout()
+{
+	window.open("login.php","_self");
+}
 
 function open_vehicle(pageName)
 {
