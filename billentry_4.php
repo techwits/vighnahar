@@ -1,5 +1,6 @@
 <!-- Theme JS files -->
 <script type="text/javascript" src="assets/js/pages/datatables_basic.js"></script>
+<script type="text/javascript" src="assets/js/pages/components_modals.js"></script>
 <!-- /theme JS files -->
 
 <?php
@@ -83,8 +84,10 @@ if ($searchin==1){
                 $result = mysqli_query($con, $sqlQry);
                 if (mysqli_num_rows($result)!=0)
                 {
+                    $inc=0;
                     while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
                     {
+                        $inc=$inc+1;
                         $bid=$row[0];
                         $CreationDate=$row[1];
                         $ModificationDate=$row[2];
@@ -123,7 +126,7 @@ if ($searchin==1){
                                                 <li><a href="#modal_full" onclick="return displaybill(<?php echo $bid; ?>,1);"> <i class="icon-eye4"></i> View</a></li>
                                                 <li><a href="#" onclick="return displaybill(<?php echo $bid; ?>,2);"><i class="icon-printer2"></i> Print</a></li>
                                                 <li class="divider"></li>
-                                                <li><a href="#" onclick="return delete_bill('<?php echo _session_userid_?>', '<?php echo _session_ip_?>', <?php echo $bid; ?>, <?php echo $inc;?>, <?php echo $LRIDExist_ForRM; ?>);"><i class="icon-cross"></i> Delete</a></li>
+                                                <li><a href="#" onclick="return delete_bill('<?php echo _session_userid_?>', '<?php echo _session_ip_?>', <?php echo $bid; ?>, <?php echo $inc; ?>);"><i class="icon-cross"></i> Delete</a></li>
                                             </ul>
                                         </li>
                                     </ul>

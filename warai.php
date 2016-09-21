@@ -145,14 +145,13 @@ include_once('assets/inc/db_connect.php');
 
                                 <div class="row">
                                     <div class="col-md-4 col-lg-offset-2">
-                                        <form class="form-horizontal">
-                                            <div class="form-group form-group-material">
-                                                <label class="col-sm-3 control-label" style=" font-size:18px;">LR No.</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" autofocus class="form-control typeahead-basic" name="lrno" id="lrno" onkeyup="return fill_rmtable(event, this.value);" onblur="return show_warai(this.value);" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;" style="border: 1px solid black; float: left; border-top: 0px; border-left: 0px; border-right: 0px; margin: 0; padding: 0; font-size:24px;">
-                                                </div>
+
+                                        <div class="form-group form-group-material">
+                                            <label>LR No <span class="text-danger">*</span></label>
+                                            <div class="input-group">
+                                                <input type="text" autofocus class="form-control typeahead-basic" name="lrno" id="lrno" onkeyup="return fill_rmtable(event, this.value);" onblur="return show_warai(this.value);" onkeypress="return only_Numeric(event);" ondrop="return false;" onpaste="return false;" style="border: 1px solid black; float: left; border-top: 0px; border-left: 0px; border-right: 0px; margin: 0; padding: 0; font-size:24px;">
                                             </div>
-                                        </form>
+                                        </div>
                                     </div>
                                     <div class="col-lg-3">
                                         <div class="form-group form-group-material">

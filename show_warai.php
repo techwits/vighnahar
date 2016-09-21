@@ -29,7 +29,7 @@
 
         <?php
         $cols="Amount";
-        $sqlQry= "select inwardcharge.Amount from `inwardcharge`  where LRID=$searchvalue  and acmid=$acmid and Active=1";
+        $sqlQry= "select inwardcharge.Amount from `inwardcharge`  where LRID=$searchvalue  and acmid=$acmid and Amount>0 and Active=1";
         $sqlQry.=" UNION ALL ";
         $sqlQry.=" select outwardlrbill.Amount from `outwardlrbill`  ";
         $sqlQry.= " inner join outwardlr ";
@@ -37,6 +37,7 @@
         $sqlQry.= " where 1=1";
         $sqlQry.= " and outwardlr.iid=$searchvalue  ";
         $sqlQry.= " and acmid=$acmid";
+        $sqlQry.= " and outwardlrbill.Amount>0";
         $sqlQry.= " and outwardlrbill.Active=1";
 
 //        echo ("Check sqlQry :- $sqlQry </br>");

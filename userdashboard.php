@@ -86,13 +86,13 @@ include('page_header.php');
 <!-- /main navbar -->
 
 <!-- Page header -->
-<div class="page-header">
-    <div class="page-header-content">
-        <div class="page-title">
-            <h4><i class="icon-display4 position-left"></i> <span class="text-semibold"> Dashboard</span> </h4>
-        </div>
-    </div>
-</div>
+<!--<div class="page-header">-->
+<!--    <div class="page-header-content">-->
+<!--        <div class="page-title">-->
+<!--            <h4><i class="icon-display4 position-left"></i> <span class="text-semibold"> Dashboard</span> </h4>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 <!-- /page header -->
 
 
@@ -176,12 +176,12 @@ include('page_header.php');
                                             <div class="col-xs-6 text-center border-right">
                                                 <div class="huge1">
                                                     <?php
-                                                    $StartDate=date("Y-m-d")." 00:00:00";
-                                                    $EndDate=date("Y-m-d")." 23:59:59";
-                                                    $TableName="outward";
-                                                    $ColumnName="CreationDate";
-                                                    $TodaysRM=Get_Count($con, $TableName, $ColumnName, $StartDate, $EndDate);
-                                                    echo("$TodaysRM");
+                                                        $StartDate=date("Y-m-d")." 00:00:00";
+                                                        $EndDate=date("Y-m-d")." 23:59:59";
+                                                        $TableName="outward";
+                                                        $ColumnName="CreationDate";
+                                                        $TodaysRM=Get_Count($con, $TableName, $ColumnName, $StartDate, $EndDate);
+                                                        echo("$TodaysRM");
                                                     ?>
                                                 </div>
                                                 <div>Today's RM </div>
@@ -189,14 +189,14 @@ include('page_header.php');
                                             <div class="col-xs-6 text-center">
                                                 <div class="huge1">
                                                     <?php
-                                                    $first_day_this_month = date('Y-m-01'); // hard-coded '01' for first day
-                                                    $last_day_this_month  = date('Y-m-t');
-                                                    $StartDate=$first_day_this_month." 00:00:00";
-                                                    $EndDate=$last_day_this_month." 23:59:59";
-                                                    $TableName="outward";
-                                                    $ColumnName="CreationDate";
-                                                    $MonthsRM=Get_Count($con, $TableName, $ColumnName, $StartDate, $EndDate);
-                                                    echo("$MonthsRM");
+                                                        $first_day_this_month = date('Y-m-01'); // hard-coded '01' for first day
+                                                        $last_day_this_month  = date('Y-m-t');
+                                                        $StartDate=$first_day_this_month." 00:00:00";
+                                                        $EndDate=$last_day_this_month." 23:59:59";
+                                                        $TableName="outward";
+                                                        $ColumnName="CreationDate";
+                                                        $MonthsRM=Get_Count($con, $TableName, $ColumnName, $StartDate, $EndDate);
+                                                        echo("$MonthsRM");
                                                     ?>
                                                 </div>
                                                 <div>Month's RM </div>
@@ -230,19 +230,19 @@ include('page_header.php');
                                                 <div class="huge1">
                                                     <?php
 
-                                                    $CYear=date("Y");
-                                                    $CMonth=date("m");
-                                                    if($CMonth<4){
-                                                        $CYear=$CYear-1;
-                                                    }
-                                                    $FinancialYearID=Get_FinancialYear($con, $CYear);
-                                                    $BillCountFinancialYear=Get_BillCountFinancialYear($con, $FinancialYearID);
-
-
-                                                    echo($BillCountFinancialYear);
+                                                        $CYear=date("Y");
+                                                        $CMonth=date("m");
+                                                        if($CMonth<4){
+                                                            $CYear=$CYear-1;
+                                                        }
+                                                        $FinancialYearID=Get_FinancialYear($con, $CYear);
+                                                        $BillCountFinancialYear=Get_BillCountFinancialYear($con, $FinancialYearID);
+    
+    
+                                                        echo($BillCountFinancialYear);
                                                     ?>
                                                 </div>
-                                                <div>last Bill Count </div>
+                                                <div>Last Bill Count </div>
                                             </div>
                                             <div class="col-xs-6 text-center">
                                                 <div class="huge1">
@@ -272,7 +272,7 @@ include('page_header.php');
                     <!-- Road Memo table -->
                     <div class="col-lg-12">
                         <div class="row">
-                            <div class="panel panel-flat" style="border-color: #F44336; border-top-width: 4px;">
+                            <div class="panel panel-flat" style="border-color: #F44336; border-top-width: 2px;">
                                 <div class="panel-heading" style="background-color:<?php echo $SearchHeadingColor; ?>;">
                                     <h6 class="panel-title" style="text-align: center;"> <span class="label label-danger" style="font-size:14px;" >Update Delivery Status</span></h6>
                                     <div class="heading-elements">
@@ -304,6 +304,8 @@ include('page_header.php');
                 </div>
                 <!-- /content wrapper -->
                 <!-- Side Bar -->
+
+
 
                 <div class="col-lg-2 col-sm-6">
                     <!-- Secondary sidebar -->
@@ -339,11 +341,7 @@ include('page_header.php');
                         </div>
                     </div>
                     <!-- /secondary sidebar -->
-
-                </div>
-
-
-                <div class="col-lg-2 col-sm-6">
+                    <!-- View LR / Rm / Bill -->
                     <div class="panel panel-flat">
                         <div class="panel-heading">
                             <h6 class="panel-title">View LR / Rm / Bill</h6>
@@ -392,54 +390,52 @@ include('page_header.php');
                                 </div>
                                 <div class="col-sm-2 text-center">
 
-                                    <button type="button" class="btn btn-success btn-xs" onclick="return displaybill(document.getElementById('show_billno').value);">Submit</button>
+                                    <button type="button" class="btn btn-danger btn-xs" onclick="return displaybill(document.getElementById('show_billno').value);">Submit</button>
                                 </div>
                             </form>
                         </div>
-
-
                     </div>
+                    <!-- View LR / Rm / Bill -->
+                    
+                     <div class="panel panel-flat">
+                          <div class="panel-heading">
+                              <h6 class="panel-title">Share a Problem</h6>
+                              <div class="heading-elements">
+                                  <ul class="icons-list">
+                                      <li><a data-action="close"></a></li>
+                                  </ul>
+                              </div>
+                              <a class="heading-elements-toggle"><i class="icon-menu"></i></a></div>
+  
+                          <div class="panel-body">
+                              <form action="#">
+                                  <div class="form-group">
+                                      <textarea name="enter-message" class="form-control mb-15" rows="3" cols="1" placeholder="Enter Details"></textarea>
+                                  </div>
+  
+                                  <div class="row">
+                                      <div class="col-sm-4">
+                                          <ul class="icons-list icons-list-extended mt-10">
+                                              <li><a href="#" data-popup="tooltip" title="Attach Image" data-container="body" data-original-title="Add photo"><i class="icon-images2"></i></a></li>
+                                          </ul>
+                                      </div>
+  
+                                      <div class="col-sm-8 text-center">
+                                          <a class="mailto" href="mailto:golive@samarthdigitech.in">
+                                              <button type="button" class="btn btn-primary btn-labeled btn-labeled-right">Email <b><i class="icon-circle-right2"></i></b></button>
+                                          </a>
+                                      </div>
+                                      <div class="col-sm-12">
+                                          <hr>
+  
+                                          <p>Share Your problems with Admin</p>
+                                      </div>
+                                  </div>
+                          		</div>
+                          </form>
+                      </div>
                 </div>
-
-
-                <div class="col-lg-2 col-sm-6">
-                    <div class="panel panel-flat">
-                        <div class="panel-heading">
-                            <h6 class="panel-title">Share a Problem</h6>
-                            <div class="heading-elements">
-                                <ul class="icons-list">
-                                    <li><a data-action="close"></a></li>
-                                </ul>
-                            </div>
-                            <a class="heading-elements-toggle"><i class="icon-menu"></i></a></div>
-
-                        <div class="panel-body">
-                            <form action="#">
-                                <div class="form-group">
-                                    <textarea name="enter-message" class="form-control mb-15" rows="3" cols="1" placeholder="Enter Details"></textarea>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <ul class="icons-list icons-list-extended mt-10">
-                                            <li><a href="#" data-popup="tooltip" title="Attach Image" data-container="body" data-original-title="Add photo"><i class="icon-images2"></i></a></li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="col-sm-8 text-center">
-                                        <button type="button" class="btn btn-primary btn-labeled btn-labeled-right">Email <b><i class="icon-circle-right2"></i></b></button>
-                                    </div>
-                                    <div class="col-sm-12">
-                                        <hr>
-
-                                        <p>Share Your problems with Admin</p>
-                                    </div>
-                                </div>
-
-                        </div>
-                        </form>
-                    </div>
-                </div>
+                
             </div>
 
             <!-- Side Bar -->

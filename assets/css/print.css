@@ -88,7 +88,6 @@ body.print-mode .print-preview {
 	background-color: transparent;
 	margin-top: 10px;
 	margin-left: 20px;
-	border-bottom: 1px dotted black;
 }
 .Chalan-details2{
 	width: 125px;
@@ -107,7 +106,7 @@ body.print-mode .print-preview {
 	display: inline-block;
 }
 .Chalan-details4{
-	width: 80px;
+	width: 40px;
 	font-family: Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;
 	font-size: 11px;
 	text-transform: uppercase;
@@ -119,7 +118,7 @@ body.print-mode .print-preview {
 	margin-left: 20px;
 }
 .Chalan-details5{
-	width: 125px;
+	width: 150px;
 	font-family: Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;
 	font-size: 11px;
 	text-transform: uppercase;
@@ -133,7 +132,10 @@ body.print-mode .print-preview {
 .footerdetails{
 	border-top: 1px dotted black;
 	border-bottom: 1px dotted black;
-	margin-top: 250px;
+	position: absolute;
+	top: 300mm;
+	height: 30mm;
+	width: 190mm;
 }
 .driversign{
 	border-top: 1px dotted black;

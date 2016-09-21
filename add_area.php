@@ -101,11 +101,11 @@
 
 								<div class="panel-body" style="margin-top:15px;">
 									<div class="row">
-										<div class="col-lg-6">
+										<div class="col-lg-6 col-lg-offset-3">
 											<div class="form-group form-group-material">
-												<label>Area Name <span class="text-danger">*</span></label>
+												<label>Area Name (20 Characters) <span class="text-danger">*</span></label>
 												<div class="input-group">
-													<input type="text" class="form-control" name="areaname" id="areaname" autofocus required="required" onkeypress="return only_Alpha_Numeric_Space(event);" ondrop="return false;" onpaste="return false;">
+													<input type="text" class="form-control" name="areaname" id="areaname" autofocus MAXLENGTH="20" required="required" onkeypress="return only_Alpha_Numeric_Space(event);" ondrop="return false;" onpaste="return false;">
                                                         <span class="input-group-addon">
                                                     <i class="icon-location4"></i>
                                                     </span>

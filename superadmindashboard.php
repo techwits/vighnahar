@@ -810,7 +810,7 @@
                                           <div class="col-sm-2 text-center">
   
                                               <!--                                    <a href="#modal_full" data-toggle='modal' class='modalButton2' data-teacherid="1" >-->
-                                              <button type="button" class="btn btn-success btn-xs" onclick="return displaybill(document.getElementById('show_billno').value);">Submit</button>
+                                              <button type="button" class="btn btn-danger btn-xs" onclick="return displaybill(document.getElementById('show_billno').value);">Submit</button>
                                               <!--      </a>-->
                                           </div>
                                       </form>

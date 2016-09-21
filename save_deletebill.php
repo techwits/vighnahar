@@ -41,13 +41,12 @@
     $Creator=$session_userid;
     $ip=$session_ip;
 
-    /* Log Start*/
-        $LogStart_Value=Log_Start($con, $CurrentDate, $Creator, $ip, $PageName, $inTime, $tablename, $searchColumn, $searchColumn_Value);
-//        echo ("LogStart_Value :- $LogStart_Value </br>");
-//		die();
-    /* Log Start*/
+
 
     if(trim($error_msg)=="") {
+        /* Log Start*/
+            $LogStart_Value=Log_Start($con, $CurrentDate, $Creator, $ip, $PageName, $inTime, $tablename, $searchColumn, $searchColumn_Value);
+        /* Log Start*/
         if ($AddEdit==0) {
             Set_BillDeactive($con, $CurrentDate, $session_userid, $session_ip, $BillID, $deletereason);
         }

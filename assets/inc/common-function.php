@@ -1462,8 +1462,8 @@
 		$sqlQry.= " where 1=1";
 		$sqlQry .= " and fyid=$FinancialYearID";
 		$sqlQry.= " and active=1";
-	//				echo ("$sqlQry");
-		//		die();
+//		echo ("$sqlQry");
+//		die();
 		include('db_connect.php');
 		$result = mysqli_query($con, $sqlQry);
 		//fetch tha data from the database
@@ -1826,6 +1826,62 @@
 		return $Getting_ConsignorAddress;
 	}
 
+	function Get_AreaOnLRID($con, $LRID)
+	{
+		$Getting_Area="";
+		$sqlQry= "";
+		$sqlQry= "select area_master.AreaName from  inward ";
+
+		$sqlQry.= " inner join consigneeaddress_master";
+		$sqlQry.= " on inward.cnid= consigneeaddress_master.cnid";
+
+		$sqlQry.= " inner join area_master";
+		$sqlQry.= " on consigneeaddress_master.amid= area_master.amid";
+
+		$sqlQry.= " where inward.LRID=$LRID";
+
+		$sqlQry.= " and inward.Active=1";
+		$sqlQry.= " and consigneeaddress_master.Active=1";
+		$sqlQry.= " and area_master.Active=1";
+		//		echo ("$sqlQry");
+		//		die();
+		// mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0){
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+				$Getting_Area=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_Area;
+	}
+
+
+	function Get_PackageCountOnLRID($con, $LRID)
+	{
+		$Getting_PackageCount=0;
+		$sqlQry= "";
+		$sqlQry= "select Quantity from  inward ";
+		$sqlQry.= " where LRID=$LRID";
+		$sqlQry.= " and Active=1";
+	//		echo ("$sqlQry");
+	//		die();
+		// mysqli_close($con);
+		include('db_connect.php');
+		$result = mysqli_query($con, $sqlQry);
+		//fetch tha data from the database
+		if (mysqli_num_rows($result)!=0){
+			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+				$Getting_PackageCount=$row{0};
+			}
+		}
+		mysqli_free_result($result);
+		return $Getting_PackageCount;
+	}
+
+
 	function Get_ConsignorNameOnLRID($con, $LRID)
 	{
 		$Getting_ConsignorName="";
@@ -1994,7 +2050,7 @@
 			$sqlQry.= " and bid<>$BillNo";
 		}
 		$sqlQry.= " and Active=1";
-	//		echo ("$sqlQry");
+//			echo ("$sqlQry </br>");
 	//		die();
 		include('db_connect.php');
 		$result = mysqli_query($con, $sqlQry);
@@ -2018,7 +2074,7 @@
 		$sqlQry= "select sum(Amount) from billreceipt ";
 		$sqlQry.= " where caid=$caid";
 		$sqlQry.= " And Active=1";
-//		echo ("$sqlQry");
+//		echo ("$sqlQry </br>");
 //		die();
 		// mysqli_close($con);
 		include('db_connect.php');
@@ -2199,7 +2255,7 @@
 		$sqlQry.= " inner join consignoraddress_master";
 		$sqlQry.= " on consignor_master.cid=consignoraddress_master.cid";
 		$sqlQry.= " where consignoraddress_master.caid=$ConsignorAddressID";
-	//		echo ("$sqlQry");
+//		echo ("$sqlQry </br>");
 	//		die();
 		// mysqli_close($con);
 		include('db_connect.php');
@@ -2430,20 +2486,21 @@
 	function Fill_Consignor($con)
 	{
 		$sqlQry= "";
-		$sqlQry= "select consignor_master.cid, consignor_master.ConsignorName, consignoraddress_master.caid, consignoraddress_master.Pincode from consignor_master ";
+		$sqlQry= "select consignoraddress_master.caid, consignor_master.ConsignorName from consignor_master ";
 		$sqlQry.= " inner join consignoraddress_master";
 		$sqlQry.= " on consignor_master.cid=consignoraddress_master.cid";
 		$sqlQry.= " where consignor_master.Active=1";
+		$sqlQry.= " and consignoraddress_master.Active=1";
 		$sqlQry.= " order by consignor_master.ConsignorName";
-		//echo ("$sqlQry");
+//		echo ("$sqlQry </br>");
 		// mysqli_close($con);
 		include('db_connect.php');
 		$result = mysqli_query($con, $sqlQry);
 		//fetch tha data from the database
 		while ($row = mysqli_fetch_array($result, MYSQLI_NUM))
 		{
-			$ID=$row{2};
-			$Name=$row{1}." (".$row{3}.") ";
+			$ID=$row{0};
+			$Name=$row{1};
 			echo "<option value=".$ID.">".$Name." </option>";
 		}
 		mysqli_free_result($result);
@@ -2718,11 +2775,11 @@
 		//fetch tha data from the database
 		if (mysqli_num_rows($result)!=0)
 		{
-			$Getting_UnbillCount=0;
-			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
-			{
-				$Getting_UnbillCount = $Getting_UnbillCount + 1;
-			}
+			$Getting_UnbillCount=mysqli_num_rows($result);
+//			while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
+//			{
+//				$Getting_UnbillCount = $Getting_UnbillCount + 1;
+//			}
 		}
 		mysqli_free_result($result);
 		return $Getting_UnbillCount;
@@ -3047,10 +3104,9 @@
 	{
 		$Getting_ServiceTax=0;
 		$sqlQry= "";
-		$sqlQry= "select ChargePercentage from `additionalcharge_master`";
-		$sqlQry= $sqlQry." where acmid=3";
-		$sqlQry= $sqlQry." and Active=1";
-	//		echo ("Check sqlQry :- $sqlQry </br>");
+		$sqlQry= "select ChargePercentage from `servicetax_master`";
+		$sqlQry= $sqlQry." where Active=1";
+//			echo ("Check sqlQry :- $sqlQry </br>");
 	//		die();
 		unset($con);
 		include('db_connect.php');
@@ -3120,6 +3176,7 @@
 		$sqlQry= "select count(*) from `$TableName`";
 		$sqlQry.= " where 1=1";
 		$sqlQry.= " and ($ColumnName  BETWEEN  '$StartDate' AND '$EndDate')";
+		$sqlQry.= " and Active=1";
 //		echo ("Check sqlQry :- $sqlQry </br>");
 //		die();
 		unset($con);

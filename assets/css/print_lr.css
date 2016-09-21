@@ -86,7 +86,7 @@ page[size="A5"][layout="portrait"] {
 	margin-left: 15px;
 }
 .Chalan-details2{
-	width: 3cm;
+	width: 8cm;
 	font-family: Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;
 	font-size: 14px;
 	text-transform: uppercase;
@@ -98,11 +98,11 @@ page[size="A5"][layout="portrait"] {
 	margin-left: 15px;
 }
 .Chalan-details3{
-	width: 6.6cm;
+	width: 1.6cm;
 	display: inline-block;
 }
 .Chalan-details4{
-	width: 3cm;
+	width: 1cm;
 	font-family: Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;
 	font-size: 14px;
 	text-transform: uppercase;
@@ -115,7 +115,7 @@ page[size="A5"][layout="portrait"] {
 	
 }
 .Chalan-details5{
-	width: 3.5cm;
+	width: 5.5cm;
 	font-family: Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;
 	font-size: 14px;
 	text-transform: uppercase;
@@ -146,8 +146,8 @@ tr {
 	padding-left: 7px;
 }
 td {
-    padding-left: 10px;
-	padding-right: 20px;
+    padding-left: 5px;
+	padding-right: 10px;
 	padding-top: 2px;
 	border: 1px solid black;
 }

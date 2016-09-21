@@ -34,6 +34,7 @@
     $total=$_REQUEST["total"];
     $discount=$_REQUEST["discount"];
     $servicetax=$_REQUEST["servicetax"];
+    $priorbalance=$_REQUEST["priorbalance"];
     $billtotal=$_REQUEST["billtotal"];
 
 
@@ -47,6 +48,7 @@
 //    echo ("total :- ".$total ."</br>");
 //    echo ("discount :- ".$discount ."</br>");
 //    echo ("servicetax :- ".$servicetax ."</br>");
+//    echo ("priorbalance :- ".$priorbalance ."</br>");
 //    echo ("billtotal :- ".$billtotal ."</br>");
 //    die();
 
@@ -78,7 +80,7 @@
         if ($AddEdit==0) {
 
             // $olrid_List=$_REQUEST["olrid_List"];
-            $Procedure = "Call Save_Bill('$CurrentDate', $session_userid, '$session_ip', $financialyear, '$rmdate', $consignoraddressid, $total, $discount, $servicetax, $billtotal);";
+            $Procedure = "Call Save_Bill('$CurrentDate', $session_userid, '$session_ip', $financialyear, '$rmdate', $consignoraddressid, $total, $discount, $servicetax, $priorbalance, $billtotal);";
         }
 //        echo ("Procedure:- ".$Procedure."</br>");
 //        die();

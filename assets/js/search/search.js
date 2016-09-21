@@ -534,7 +534,7 @@ function changepassword_checkuserid()
     }
 }
 
-function delete_bill(BillID)
+function delete_bill(session_userid, session_ip, BillID, DivName)
 {
 	//alert("Hi...");
 	var frm=document.deletebill_form;
@@ -545,14 +545,12 @@ function delete_bill(BillID)
 
 
 
-	var session_userid=document.getElementById("session_userid").value;
 	if(session_userid.length <= 0 || session_userid == "")
 	{
 		error_count = error_count + 1;
 		error_msg  =  error_msg + error_count + ") " + " Please Enter User ID" + "\n";
 		// frm.username.focus();
 	}
-	var session_ip=document.getElementById("session_ip").value;
 	if(session_ip.length <= 0 || session_ip == "")
 	{
 		error_count = error_count + 1;
@@ -560,7 +558,6 @@ function delete_bill(BillID)
 		// frm.username.focus();
 	}
 
-	
 	if(BillID.length <= 0 || BillID == "")
 	{
 		error_count = error_count + 1;
@@ -575,11 +572,23 @@ function delete_bill(BillID)
 		error_count = error_count + 1;
 		error_msg  =  error_msg + error_count + ") " + " Please Enter Bill Deletion Reason" + "\n";
 	}
+	// 	var deletereason="";
+	// 	bootbox.prompt("Please enter Bill Deletion Reason", function(result) {
+	// 		if (result === null) {
+	// 			// bootbox.alert("Prompt dismissed");
+	// 			error_count = error_count + 1;
+	// 			error_msg  =  error_msg + error_count + ") " + " Please Enter Bill Deletion Reason" + "\n";
+	// 		}
+	// 		else {
+	// 			bootbox.alert("Hi <b>"+result+"</b>");
+	// 			deletereason=bootbox.result;
+	// 		}
+	// 	});
 
 
 	if(Number(error_count) == 0)
 	{
-		var div_name = "#"+BillID;
+		var div_name = "#"+DivName;
 		var page_name = "save_deletebill.php";
 		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
 		$.post(page_name, {session_userid:session_userid, session_ip:session_ip, BillID:BillID, deletereason:deletereason},
@@ -1009,55 +1018,191 @@ function show_selectedproducts()
 
 function displaybill(billno, viewprint)
 {
-	// alert("LRNO :- " + lrno);
-	var strWindowFeatures = "location=yes,height=590,width=820,scrollbars=yes,status=yes";
-	//var URL = "display_LRDetails.php?LRID="+ lrno +"&amp;url=" + location.href;
-	var URL = "display_BillDetails.php?BillNo="+ billno+ "&ViewPrint=" +viewprint;
-	var win = window.open(URL, "_blank", strWindowFeatures);
+	var error_count;
+	var error_msg;
+	error_msg="";
+	error_count=0;
+
+	if(billno.length <= 0 || billno == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter Bill Number" + "\n";
+		// frm.searchvalue.focus();
+	}
+
+	if(Number(error_count) == 0)
+	{
+		// alert("LRNO :- " + lrno);
+		var strWindowFeatures = "location=yes,height=590,width=820,scrollbars=yes,status=yes";
+		//var URL = "display_LRDetails.php?LRID="+ lrno +"&amp;url=" + location.href;
+		var URL = "display_BillDetails.php?BillNo="+ billno+ "&ViewPrint=" +viewprint;
+		var win = window.open(URL, "_blank", strWindowFeatures);
+	}
+	else{
+		show_error(error_msg); //alert(error_msg);
+		return false;
+	}
 }
 
 function displayrm(rmno)
 {
-	// alert("LRNO :- " + lrno);
-	var strWindowFeatures = "location=yes,height=590,width=820,scrollbars=yes,status=yes";
-	//var URL = "display_LRDetails.php?LRID="+ lrno +"&amp;url=" + location.href;
-	var URL = "display_RMDetails.php?RMID="+ rmno;
-	var win = window.open(URL, "_blank", strWindowFeatures);
+	var error_count;
+	var error_msg;
+	error_msg="";
+	error_count=0;
+
+	if(rmno.length <= 0 || rmno == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter RM Number" + "\n";
+		// frm.searchvalue.focus();
+	}
+
+	if(Number(error_count) == 0)
+	{
+		// alert("LRNO :- " + lrno);
+		var strWindowFeatures = "location=yes,height=590,width=820,scrollbars=yes,status=yes";
+		//var URL = "display_LRDetails.php?LRID="+ lrno +"&amp;url=" + location.href;
+		var URL = "display_RMDetails.php?RMID="+ rmno;
+		var win = window.open(URL, "_blank", strWindowFeatures);
+	}
+	else{
+		show_error(error_msg); //alert(error_msg);
+		return false;
+	}
+
+
 }
 
 function displayrm(rmno)
 {
-	// alert("LRNO :- " + lrno);
-	var strWindowFeatures = "location=yes,height=590,width=820,scrollbars=NO,status=yes";
-	//var URL = "display_LRDetails.php?LRID="+ lrno +"&amp;url=" + location.href;
-	var URL = "display_RMDetails.php?RMID="+ rmno;
-	var win = window.open(URL, "_blank", strWindowFeatures);
+
+	var error_count;
+	var error_msg;
+	error_msg="";
+	error_count=0;
+
+	// var searchvalue=trim(frm.searchvalue_company.value);
+	// alert("searchvalue :- " + searchvalue);
+	if(rmno.length <= 0 || rmno == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter RM Number" + "\n";
+		// frm.searchvalue.focus();
+	}
+
+
+	if(Number(error_count) == 0)
+	{
+		// alert("LRNO :- " + lrno);
+		var strWindowFeatures = "location=yes,height=590,width=820,scrollbars=NO,status=yes";
+		//var URL = "display_LRDetails.php?LRID="+ lrno +"&amp;url=" + location.href;
+		var URL = "display_RMDetails.php?RMID="+ rmno;
+		var win = window.open(URL, "_blank", strWindowFeatures);
+	}
+	else{
+		show_error(error_msg); //alert(error_msg);
+		return false;
+	}
+
 }
 
 
 function displaylr(lrno)
 {
-	// alert("LRNO :- " + lrno);
-	var strWindowFeatures = "location=yes,height=590,width=820,scrollbars=NO,status=yes";
-	//var URL = "display_LRDetails.php?LRID="+ lrno +"&amp;url=" + location.href;
-	var URL = "display_LRDetails.php?LRID="+ lrno;
-	var win = window.open(URL, "_blank", strWindowFeatures);
+
+	var error_count;
+	var error_msg;
+	error_msg="";
+	error_count=0;
+
+	// var searchvalue=trim(frm.searchvalue_company.value);
+	// alert("searchvalue :- " + searchvalue);
+	if(lrno.length <= 0 || lrno == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter LR Number" + "\n";
+		// frm.searchvalue.focus();
+	}
+
+
+	if(Number(error_count) == 0)
+	{
+		// alert("LRNO :- " + lrno);
+		var strWindowFeatures = "location=yes,height=590,width=820,scrollbars=NO,status=yes";
+		//var URL = "display_LRDetails.php?LRID="+ lrno +"&amp;url=" + location.href;
+		var URL = "display_LRDetails.php?LRID="+ lrno;
+		var win = window.open(URL, "_blank", strWindowFeatures);
+	}
+	else{
+		show_error(error_msg); //alert(error_msg);
+		return false;
+	}
+
+
 }
 
 function display_printrm(rmno)
 {
-	// alert("LRNO :- " + lrno);
-	var strWindowFeatures = "location=yes,height=590,width=820,scrollbars=NO,status=yes";
-	var URL = "rmprint.php?RMID="+ rmno;
-	var win = window.open(URL, "_blank", strWindowFeatures);
+	var error_count;
+	var error_msg;
+	error_msg="";
+	error_count=0;
+
+	// var searchvalue=trim(frm.searchvalue_company.value);
+	// alert("searchvalue :- " + searchvalue);
+	if(rmno.length <= 0 || rmno == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter RM Number" + "\n";
+		// frm.searchvalue.focus();
+	}
+
+	if(Number(error_count) == 0)
+	{
+		// alert("LRNO :- " + lrno);
+		var strWindowFeatures = "location=yes,height=590,width=820,scrollbars=NO,status=yes";
+		var URL = "rmprint.php?RMID="+ rmno;
+		var win = window.open(URL, "_blank", strWindowFeatures);
+	}
+	else{
+		show_error(error_msg); //alert(error_msg);
+		return false;
+	}
+
+
 }
 
 function display_printlr(lrno)
 {
-	// alert("LRNO :- " + lrno);
-	var strWindowFeatures = "location=yes,height=590,width=820,scrollbars=NO,status=yes";
-	var URL = "lrprint.php?LRID="+ lrno;
-	var win = window.open(URL, "_blank", strWindowFeatures);
+
+	var error_count;
+	var error_msg;
+	error_msg="";
+	error_count=0;
+
+	// var searchvalue=trim(frm.searchvalue_company.value);
+	// alert("searchvalue :- " + searchvalue);
+	if(lrno.length <= 0 || lrno == "")
+	{
+		error_count = error_count + 1;
+		error_msg  =  error_msg + error_count + ") " + " Please Enter LR Number" + "\n";
+		// frm.searchvalue.focus();
+	}
+
+	if(Number(error_count) == 0)
+	{
+		// alert("LRNO :- " + lrno);
+		var strWindowFeatures = "location=yes,height=590,width=820,scrollbars=NO,status=yes";
+		var URL = "lrprint.php?LRID="+ lrno;
+		var win = window.open(URL, "_blank", strWindowFeatures);
+	}
+	else{
+		show_error(error_msg); //alert(error_msg);
+		return false;
+	}
+
+
 }
 
 function searchlogin(searchvalue, searchin)
@@ -2240,8 +2385,9 @@ function get_LROnConsignor(ConsignorID, session_userid, session_ip)
 	}
 }
 
-function billDiscount(DiscountAmount, GrandTotal, ServiceTaxAmount)
+function billDiscount(DiscountAmount, GrandTotal, ServiceTaxAmount, PriorBalance)
 {
+	// alert("PriorBalance :- " + PriorBalance);
 	var error_count;
 	var error_msg;
 	error_msg="";
@@ -2305,17 +2451,28 @@ function billDiscount(DiscountAmount, GrandTotal, ServiceTaxAmount)
 		else{
 			BillAmount=DiscountedAmount+ServiceTax;
 		}
-
+		BillAmount=Number(BillAmount)+Number(PriorBalance);
 		// alert("ServiceTax :- " + ServiceTax);
 		// alert("BillAmount :- " + BillAmount);
 
-		document.getElementById("servicetax").value=ServiceTax;
-		document.getElementById("billtotal").value=BillAmount;
+		if(Number(BillAmount)>=0){
+			document.getElementById("servicetax").value=ServiceTax;
+			document.getElementById("billtotal").value=BillAmount;
 
-		return false;
+			return false;
+		}
+		else{
+			show_error("Discount cannot be more than total amount payable : " + BillAmount); //alert(error_msg);
+			// alert("Hi....");
+			// document.getElementById("billtotal").value="";
+			// alert("Yes....");
+			return false;
+		}
+
 	}
 	else{
 		show_error(error_msg); //alert(error_msg);
+		// document.getElementById("billtotal").value="";
 		return false;
 	}
 }
@@ -2761,6 +2918,7 @@ function add_billentry()
 
 	discount=document.getElementById("discount").value
 	servicetax=document.getElementById("servicetax").value
+	priorbalance=document.getElementById("priorbalance").value
 
 	billtotal=document.getElementById("billtotal").value
 	if(billtotal.length <= 0 || billtotal == "")
@@ -2777,7 +2935,7 @@ function add_billentry()
 		var div_name = "#div_savebillentry";
 		var page_name = "save_billentry.php";
 		$(div_name).html("<div align='center' class='please_wait'><br /><br /><img src='assets/images/wait.gif' /></div>");
-		$.post(page_name, {session_userid:session_userid, session_ip:session_ip, olrid_List:olrid_List, financialyear:financialyear, rmdate:rmdate, consignoraddressid:consignoraddressid, lrlist:lrlist, total:total, discount:discount, servicetax:servicetax, billtotal:billtotal},
+		$.post(page_name, {session_userid:session_userid, session_ip:session_ip, olrid_List:olrid_List, financialyear:financialyear, rmdate:rmdate, consignoraddressid:consignoraddressid, lrlist:lrlist, total:total, discount:discount, servicetax:servicetax, priorbalance:priorbalance, billtotal:billtotal},
 			function(data)
 			{
 				$(div_name).html(data);

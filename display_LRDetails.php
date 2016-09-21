@@ -132,6 +132,21 @@
             $ConsigneeName=$row[7];
             $ProductName=$row[8];
 
+            $j=0;
+            $SingleChar="";
+            $Club="";
+            for($i==1; $i<=strlen(trim($ProductName)); $i++ )
+            {
+                $j=$j+1;
+                $SingleChar=substr($ProductName,$i,1);
+                $Club.=$SingleChar;
+                if($j==8){
+                    $Club.=" ";
+                    $j=0;
+                }
+
+            }
+            $ProductName=$Club;
             $fyid=$row[9];
             $Rate=$row[10];
             $Quantity=$row[11];
@@ -278,7 +293,7 @@
 
     <div class="footerdetails">
         <div class="footertext">
-            <P>All Disputes equiries and complaintsor the receipt to be paid refunded to above office within seven days no claim shall be entertained after that No claim shall be entertained due to loss in accident or any natural calamity and Liquied material glass chinware paper and plastic packing goods.</P>
+            <P>All disputes enquiries and complaints or the receipt to be paid refunded to above office within seven days no claim shall be entertained after that. No claim shall be entertained due to loss in accident or any natural calamity and liquid materials glass chinware paper and plastic packing goods. Goods are booked at owners risk. We carry at your risk only.</P>
         </div>
         <div class="footersign">
             <P>For shree vignahar logistics</P>

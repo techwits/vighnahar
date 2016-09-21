@@ -15,11 +15,13 @@
         <table class="table datatable-basic" width="100%">
                 <thead>
                 <tr>
-                    <th></th>
                     <th>RMID</th>
-                    <th>Transit Date</th>
+                    <th>RM Date</th>
                     <th>Vehicle Number</th>
-                    <th>Driver Name</th>
+                    <th>Consignor</th>
+                    <th>Consignee</th>
+                    <th>Area</th>
+                    <th>Pkgs</th>
                     <th>LRID</th>
                     <th>Status</th>
                 </tr>
@@ -94,20 +96,30 @@
                                 $Split_LRRate_LRQuantityCount = explode(",", $LRRate_LRQuantityCount);
                                 $LRRate=$Split_LRRate_LRQuantityCount[0];
                                 $LRQuantityCount=$Split_LRRate_LRQuantityCount[1];
-
+                                $ConsignorName=Get_ConsignorNameOnLRID($con, $LRID);
+                                $ConsigneeName=Get_ConsigneeNameOnLRID($con, $LRID);
+                                $PackageCount=Get_PackageCountOnLRID($con, $LRID);
                                 
+                                $AreaName=Get_AreaOnLRID($con, $LRID);
+                                
+
+                                // Get_ConsignorNameOnLRID Get_ConsigneeNameOnLRID Get_PackageCountOnLRID
                                 $div_name="div".$inc;
 
 
 
 
                                     ?>
+
                                     <tr>
-                                        <td></td>
                                         <td><?php echo $oid; ?></td>
                                         <td><?php echo $Transitdate; ?></td>
                                         <td><?php echo $VehicleNumber; ?></td>
-                                        <td><?php echo $TransporterName; ?></td>
+                                        <td><?php echo $ConsignorName; ?></td>
+                                        <td><?php echo $ConsigneeName; ?></td>
+                                        <td><?php echo $AreaName; ?></td>
+                                        <td><?php echo $PackageCount; ?></td>
+
                                         <td><span class="badge bg-danger"><?php echo $LRID; ?></span></td>
 
                                         <?php

@@ -66,6 +66,7 @@ $ViewPrint = $_GET['ViewPrint'];
 
     $cols=" `bill`.BillingDate, `bill`.caid, `bill`.Amount, `bill`.Discount, `bill`.ServiceTax, `bill`.BillAmount ";
     $cols.=" , `outwardlr`.`iid`";
+    $cols.=" , `bill`.`PriorBalance`";
 
     $sqlQry= "select $cols from `bill`";
 
@@ -126,16 +127,16 @@ $ViewPrint = $_GET['ViewPrint'];
         $ConsignorEmail=$Split_ConsignorTelephoneEmailWebsite[1];
         $ConsignorWebsite=$Split_ConsignorTelephoneEmailWebsite[2];
 
-        $BillAmount=0;
-        $Receipt=0;
-        $BillAmount=Get_BillAmount($con, $ConsignorID, $BillNo);
-        $Receipt=Get_Receipt($con, $ConsignorID);
-//        echo("BillAmount :- $BillAmount </br>");
-//        echo("Receipt :- $Receipt </br>");
-//        die();
-        $OverallDue=0;
-        $OverallDue=$BillAmount-$Receipt;
-        $OverallDue = number_format((float)$OverallDue, 2, '.', '');
+//        $BillAmount=0;
+//        $Receipt=0;
+//        $BillAmount=Get_BillAmount($con, $ConsignorID, $BillNo);
+//        $Receipt=Get_Receipt($con, $ConsignorID);
+////        echo("BillAmount :- $BillAmount </br>");
+////        echo("Receipt :- $Receipt </br>");
+////        die();
+//        $OverallDue=0;
+//        $OverallDue=$BillAmount-$Receipt;
+//        $OverallDue = number_format((float)$OverallDue, 2, '.', '');
 
 //        die();
 
@@ -184,17 +185,32 @@ $ViewPrint = $_GET['ViewPrint'];
                             <li><?php echo $ConsignorAdd; ?></li>
                             <li><?php echo $ConsignorArea.", ".$ConsignorPincode.", ".$ConsignorCity; ?></li>
                             <li><?php echo $ConsignorTelephone; ?></li>
-                            <li><?php echo $ConsignorEmail; ?></li>
-                            <li><?php echo $ConsignorWebsite; ?></li>
                         </ul>
                     </div>
-                    <div class="content-date">
-                        <h5 class="text-uppercase text-semibold">Invoice #<?php echo $BillNo;?></h5>
-                        <ul class="list-condensed list-unstyled">
-                            <li>Date: <span class="text-semibold"><?php echo $BillDate; ?></span></li>
-                            <li>Pan No.: <span class="text-semibold"><?php echo $ConsignorPanNo; ?></span></li>
-                        </ul>
+
+
+                    <div class="content-payment-total">
+                        <div class="table no-border">
+                            <table class="table table-borderless">
+                                <tbody>
+                                <tr>
+                                    <th><font style="font-size: 14px;">Invoice:</font></th>
+                                    <td class="text-left"><font style="font-size: 16px;">#<?php echo $BillNo;?></font></td>
+                                </tr>
+                                <tr>
+                                    <th>Date:</th>
+                                    <td class="text-left"><?php echo $BillDate; ?></td>
+                                </tr>
+                                <tr>
+                                    <th>Pan No.: <span class="text-regular"></span></th>
+                                    <td class="text-left"><?php echo $ConsignorPanNo; ?></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
                     </div>
+
                 </div>
 
             </div>
@@ -227,7 +243,7 @@ $ViewPrint = $_GET['ViewPrint'];
                 $ServiceTax = $row[4];
                 $BillAmount = $row[5];
                 $iid = $row[6];
-
+                $PriorBalance = $row[7];
 
                 $LRDetails = Get_LRDetails($con, $iid);
 //                echo("LRDetails :- $LRDetails </br>");
@@ -365,7 +381,7 @@ $ViewPrint = $_GET['ViewPrint'];
 
                             <div class="Prior-Balance">
                                 <h5><span class="text-highlight">Prior Balance</span></h5>
-                                <h3><span class="bg-indigo-400 text-highlight"><?php echo $OverallDue;?></span></h3>
+                                <h3><span class="bg-indigo-400 text-highlight"><?php echo $PriorBalance;?></span></h3>
                             </div>
 
                             <div class="content-payment-total">
@@ -394,7 +410,7 @@ $ViewPrint = $_GET['ViewPrint'];
                                 <div class="text-right">
                                     <?php
                                         $TotalDues=0;
-                                        $TotalDues=$OverallDue+$BillAmount;
+                                        $TotalDues=$BillAmount; //$OverallDue+$BillAmount;
                                         $TotalDues=round($TotalDues,0);
                                         $TotalDues = number_format((float)$TotalDues, 2, '.', '');
 

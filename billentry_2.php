@@ -116,15 +116,16 @@ include('assets/inc/common-function.php');
 
 
                     $inc=$inc+1;
-
                     if($inc==1) {
                         $ServiceTax = 0;
                         $ServiceTaxApplicable = 0;
                         $ServiceTaxApplicable = Check_ServiceTaxApplicable($con, $caid);
 //                        echo("ServiceTaxApplicable :- $ServiceTaxApplicable </br>");
+//                        die();
                         if ($ServiceTaxApplicable == 1) {
                             $ServiceTax = Get_ServiceTax($con);
 //                            echo("ServiceTax  :- $ServiceTax  </br>");
+//                            die();
                         }
                         $olrid_List=$olrid;
                     }
@@ -211,7 +212,7 @@ include('assets/inc/common-function.php');
                             <input type="hidden" class="form-control" name="lrlist" id="lrlist" value="<?php echo $LRList;?>">
                             <div class="panel-body" style="margin-top:15px; ">
                                 <div class="row" style="background-color: lightgrey;">
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-2">
                                         <div class="form-group form-group-material">
                                             <label>Total</label>
                                             <div class="input-group">
@@ -223,11 +224,11 @@ include('assets/inc/common-function.php');
                                         </div>
                                     </div>
     
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-2">
                                         <div class="form-group form-group-material">
                                             <label>Discount</label>
                                             <div class="input-group">
-                                                <input type="text" class="form-control" name="discount" id="discount" autofocus required="required" value="0" onblur="return billDiscount(this.value, <?php echo $GrandTotal; ?>, <?php echo $ServiceTax; ?>);" onkeypress="return only_Numeric_Dot(event);" ondrop="return false;" onpaste="return false;">
+                                                <input type="text" class="form-control" name="discount" id="discount" autofocus required="required" value="0" onblur="return billDiscount(this.value, <?php echo $GrandTotal; ?>, <?php echo $ServiceTax; ?>, document.getElementById('priorbalance').value);" onkeypress="return only_Numeric_Dot(event);" ondrop="return false;" onpaste="return false;">
                                                     <span class="input-group-addon">
                                                         <img src="assets/images/rupees-128.png" height="15" width="15">
                                                     </span>
@@ -235,7 +236,7 @@ include('assets/inc/common-function.php');
                                         </div>
                                     </div>
     
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-2">
                                         <div class="form-group form-group-material">
                                             <label>Service Tax</label>
                                             <div class="input-group">
@@ -246,8 +247,41 @@ include('assets/inc/common-function.php');
                                             </div>
                                         </div>
                                     </div>
-    
-                                    <div class="col-lg-3">
+
+                                    <?php
+                                        $BillNo=0;
+                                        $BillAmt=0;
+                                        $ReceiptAmt=0;
+
+//                                        echo("ConsignorID :- $ConsignorID </br>");
+
+                                        $BillAmt=Get_BillAmount($con, $ConsignorID, $BillNo);
+                                        $ReceiptAmt=Get_Receipt($con, $ConsignorID);
+//                                        echo("BillAmount :- $BillAmt </br>");
+//                                        echo("Receipt :- $ReceiptAmt </br>");
+//                                        die();
+                                        $OverallDue=0;
+                                        $OverallDue=$BillAmt-$ReceiptAmt;
+                                        $OverallDue = number_format((float)$OverallDue, 2, '.', '');
+                                    ?>
+                                    <div class="col-lg-2">
+                                        <div class="form-group form-group-material">
+                                            <label>Prior Balance</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="priorbalance" id="priorbalance" disabled value="<?php echo $OverallDue; ?>" onkeypress="return only_Numeric_Dot(event);" ondrop="return false;" onpaste="return false;">
+                                                    <span class="input-group-addon">
+                                                        <img src="assets/images/rupees-128.png" height="15" width="15">
+                                                    </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <?php
+                                        $BillAmount=$BillAmount+$OverallDue;
+                                    ?>
+
+                                    <div class="col-lg-4">
                                         <div class="form-group form-group-material">
                                             <label>Grand Total</label>
                                             <div class="input-group">
