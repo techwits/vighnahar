@@ -118,12 +118,14 @@
 														</div>
 												</div>
 													<div class="row">
-														<div class="col-lg-3" id="div_product">
-															<div class="form-group">
-																<label>Select Product <span class="text-danger">*</span></label>
-																<select name="productid" id="productid" class="form-control" onblur="return control_disabled(this.value, 'productid');">
-																	<option></option>
-																</select>
+														<div id="div_product">
+															<div class="col-lg-3">
+																<div class="form-group">
+																	<label>Select Product <span class="text-danger">*</span></label>
+																	<select name="productid" id="productid" class="form-control" onblur="return control_disabled(this.value, 'productid');">
+																		<option></option>
+																	</select>
+																</div>
 															</div>
 														</div>
 														<div class="col-lg-3">

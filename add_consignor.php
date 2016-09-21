@@ -159,10 +159,10 @@
 												<label>Area <span class="text-danger">*</span> </label>
 												<div class="input-group">
 													<input type="text" class="form-control typeahead-basic" placeholder="Enter Area" name="area" id="area" required="required" onkeypress="return only_Alpha_Space(event);" ondrop="return false;" onpaste="return true;">
-                                                        <span class="input-group-addon">
-                                                    		<i class="icon-location4"></i>
-                                                    	</span>
-												</div>
+													<span class="input-group-addon">
+                                                    <i class="icon-location3  "></i>
+                                                    </span>
+                                                </div>
 											</div>
 										</div>
 										<div class="col-md-4">

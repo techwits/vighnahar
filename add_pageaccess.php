@@ -93,14 +93,17 @@
 								</div>
 								<div class="panel-body" style="margin-top:15px;">
 									<div class="row">
-										
+										<?php
+											$UserID=$_SESSION['user_id'];
+//											echo("UserID :- $UserID </br>");
+										?>
 										<div class="col-lg-6">
 											<div class="form-group">
 												<label>Select Page Name <span class="text-danger">*</span></label>
 												<select name="pagename" id="pagename" class="form-control" multiple>
 													<option></option>
 														<?php
-															$UserID=$_SESSION['user_id'];
+
 															Fill_PageName_Selected($con, $UserID);
 														?>
 												</select>

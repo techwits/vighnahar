@@ -133,7 +133,7 @@ body.print-mode .print-preview {
 	border-top: 1px dotted black;
 	border-bottom: 1px dotted black;
 	position: absolute;
-	top: 300mm;
+	top: 240mm;
 	height: 30mm;
 	width: 190mm;
 }

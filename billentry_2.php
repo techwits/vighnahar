@@ -73,7 +73,7 @@ include('assets/inc/common-function.php');
 //            echo ("Check sqlQry :- $sqlQry </br>");
 //            die();
 
-            unset($con);
+            $HasRecords=0;
             include('assets/inc/db_connect.php');
             $result = mysqli_query($con, $sqlQry);
             if (mysqli_num_rows($result)!=0)
@@ -87,6 +87,7 @@ include('assets/inc/common-function.php');
                 <?php
                 while ($row = mysqli_fetch_array($result,MYSQLI_NUM))
                 {
+                    $HasRecords=$HasRecords+1;
                     $iid=$row[0];
                     $CreationDate=$row[1];
                     $ModificationDate=$row[2];
@@ -196,12 +197,14 @@ include('assets/inc/common-function.php');
         </div>
         </div>
         <?php
-//            echo("GrandTotal :- $GrandTotal </br>");
-            $ServiceTaxAmount=0;
-            if($ServiceTax>0){
-                $ServiceTaxAmount= ($GrandTotal*$ServiceTax)/100;
+            if($HasRecords>0) {
+    //            echo("GrandTotal :- $GrandTotal </br>");
+                $ServiceTaxAmount = 0;
+                if ($ServiceTax > 0) {
+                    $ServiceTaxAmount = ($GrandTotal * $ServiceTax) / 100;
+                }
+                $BillAmount = $GrandTotal + $ServiceTaxAmount; //$olrid_List
             }
-            $BillAmount=$GrandTotal+$ServiceTaxAmount; //$olrid_List
         ?>
 
         <div class="col-sm-12 col-md-12 col-lg-12 col-lg-12">
@@ -249,20 +252,22 @@ include('assets/inc/common-function.php');
                                     </div>
 
                                     <?php
-                                        $BillNo=0;
-                                        $BillAmt=0;
-                                        $ReceiptAmt=0;
+                                        if($HasRecords>0) {
+                                            $BillNo = 0;
+                                            $BillAmt = 0;
+                                            $ReceiptAmt = 0;
 
-//                                        echo("ConsignorID :- $ConsignorID </br>");
+    //                                        echo("ConsignorID :- $ConsignorID </br>");
 
-                                        $BillAmt=Get_BillAmount($con, $ConsignorID, $BillNo);
-                                        $ReceiptAmt=Get_Receipt($con, $ConsignorID);
-//                                        echo("BillAmount :- $BillAmt </br>");
-//                                        echo("Receipt :- $ReceiptAmt </br>");
-//                                        die();
-                                        $OverallDue=0;
-                                        $OverallDue=$BillAmt-$ReceiptAmt;
-                                        $OverallDue = number_format((float)$OverallDue, 2, '.', '');
+                                            $BillAmt = Get_BillAmount($con, $ConsignorID, $BillNo);
+                                            $ReceiptAmt = Get_Receipt($con, $ConsignorID);
+    //                                        echo("BillAmount :- $BillAmt </br>");
+    //                                        echo("Receipt :- $ReceiptAmt </br>");
+    //                                        die();
+                                            $OverallDue = 0;
+                                            $OverallDue = $BillAmt - $ReceiptAmt;
+                                            $OverallDue = number_format((float)$OverallDue, 2, '.', '');
+                                        }
                                     ?>
                                     <div class="col-lg-2">
                                         <div class="form-group form-group-material">
@@ -278,7 +283,9 @@ include('assets/inc/common-function.php');
 
 
                                     <?php
-                                        $BillAmount=$BillAmount+$OverallDue;
+                                        if($HasRecords>0) {
+                                            $BillAmount = $BillAmount + $OverallDue;
+                                        }
                                     ?>
 
                                     <div class="col-lg-4">

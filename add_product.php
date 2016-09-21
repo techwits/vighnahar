@@ -92,7 +92,7 @@
 								</div>
 								<div class="panel-body" style="margin-top:15px;">
 									<div class="row">
-										<div class="col-lg-6">
+										<div class="col-lg-6 col-lg-offset-3">
 											<div class="form-group form-group-material">
 												<label>Product Name <span class="text-danger">*</span></label>
 												<div class="input-group">

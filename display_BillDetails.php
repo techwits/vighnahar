@@ -375,7 +375,7 @@ $ViewPrint = $_GET['ViewPrint'];
                                 </div>
 
                                 <ul class="list-condensed list-unstyled text-muted">
-                                    <li>Eugene Kopyov</li>
+                                    <li>Chetan Nalavade</li>
                                 </ul>
                             </div>
 

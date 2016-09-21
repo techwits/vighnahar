@@ -10,6 +10,7 @@ sec_session_start();
 //    echo("Previlage ID :- ". $_SESSION["privilage"] . "</br>");
     $PrivilageID=$_SESSION["privilage"];
 //    echo("sdsd PrivilageID :- ". $PrivilageID . "</br>");
+//die();
     if($PrivilageID==1){
         ?>
             <script type="text/JavaScript">

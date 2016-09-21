@@ -134,7 +134,7 @@
 			"." . $words[$point / 10] . " " .
 			$words[$point = $point % 10] : '';
 		$AmountinWords=$result . "Rupees  " . $points; //. " Paise";
-		$AmountinWords=ucfirst($AmountinWords);
+		$AmountinWords=ucwords(strtolower($AmountinWords));
 		return $AmountinWords;
 	}
 
@@ -752,18 +752,20 @@
 		return $Getting_LRBillAmount;
 	}
 
-	function Get_LRRoadMemo($con, $Status)
+	function Get_LRRoadMemo($con, $FinancialYearID, $Status)
 	{
 		$Getting_LRRoadMemo=0;
 		$sqlQry= "";
 		$sqlQry= "select count(*) from inward ";
-		$sqlQry.= " left join outwardlr";
-		$sqlQry.= " on inward.LRID = outwardlr.iid";
-		$sqlQry.= " where 1=1";
-		if($Status==1) {
-			$sqlQry.= " and outwardlr.iid IS NULL";
-		}
-		$sqlQry.= " and inward.active=1";
+//		$sqlQry.= " left join outwardlr";
+//		$sqlQry.= " on inward.LRID = outwardlr.iid";
+		$sqlQry.= " where LRID not in(select iid from outwardlr where Active=1)";
+//		if($Status==1) {
+//			$sqlQry.= " and outwardlr.iid IS NULL";
+//		}
+		$sqlQry.= " and inward.fyid=$FinancialYearID";
+		$sqlQry.= " and inward.Active=1";
+//		$sqlQry.= " and outwardlr.Active=1";
 //		echo ("$sqlQry");
 //		die();
 		include('db_connect.php');
@@ -778,31 +780,42 @@
 		return $Getting_MasterDataCount;
 	}
 
-	function Get_LRStatusCount($con, $Status)
+	function Get_LRStatusCount($con, $FinancialYearID, $Status)
 	{
 		$Getting_LRDelivered=0;
 		$sqlQry= "";
-		$sqlQry= "select count(*) from outwardlr ";
+		$sqlQry.= "select count(*) from outwardlr ";
+		$sqlQry.= "inner join inward ";
+		$sqlQry.= "on outwardlr.iid=inward.LRID ";
+
 		$sqlQry.= " where 1=1";
 		if($Status==1) {
-			$sqlQry .= " and RMStatus > 0";
+			$sqlQry .= " and outwardlr.RMStatus=2";
 		}
 		elseif($Status==2) {
-			$sqlQry .= " and RMStatus=2";
+			$sqlQry .= " and outwardlr.RMStatus=3";
 		}
 		elseif($Status==3) {
-			$sqlQry .= " and RMStatus=0";
+			$sqlQry .= " and outwardlr.RMStatus=0";
 		}
-		$sqlQry.= " and active=1";
-		//		echo ("$sqlQry");
+
+		$sqlQry.= " and inward.fyid=$FinancialYearID";
+		$sqlQry.= " and outwardlr.active=1";
+		$sqlQry.= " and inward.active=1";
+		$sqlQry.= " group by inward.LRID";
+		$sqlQry.= " order by inward.LRID";
+
+
+//				echo (" $sqlQry </br>");
 		//		die();
 		include('db_connect.php');
 		$result = mysqli_query($con, $sqlQry);
 		//fetch tha data from the database
 		if (mysqli_num_rows($result)!=0){
-			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
-				$Getting_LRDelivered=$row{0};
-			}
+			$Getting_LRDelivered=mysqli_num_rows($result);
+//			while ($row = mysqli_fetch_array($result,MYSQLI_NUM)){
+//				$Getting_LRDelivered=$row{0};
+//			}
 		}
 		mysqli_free_result($result);
 		return $Getting_LRDelivered;
@@ -987,7 +1000,7 @@
 		$sqlQry.= " on inward.LRID=outwardlr.iid";
 		$sqlQry.= " where 1=1";
 		$sqlQry.= " and (inward.ReceivedDate  BETWEEN  '$StartDate' AND '$EndDate')";
-		$sqlQry.= " and outwardlr.iid IS NULL";
+			$sqlQry.= " and outwardlr.iid IS NULL";
 		$sqlQry.= " and inward.active=1";
 //			echo ("$sqlQry");
 	//		die();
@@ -1054,11 +1067,9 @@
 		$Getting_PackagesFinancialYear=0;
 		$sqlQry= "";
 		$sqlQry= "select sum(Quantity) from inward ";
-
 		$sqlQry.= " where 1=1";
 		$sqlQry .= " and inward.fyid=$FinancialYearID";
 		$sqlQry .= " and inward.Active=1";
-
 //		echo ("$sqlQry");
 //		die();
 		include('db_connect.php');
@@ -1079,12 +1090,9 @@
 		$Getting_VehicleFinancialYear=0;
 		$sqlQry= "";
 		$sqlQry= "select outward.vmid, count(*) from outward ";
-
-
 		$sqlQry.= " where 1=1";
 		$sqlQry .= " and outward.fyid=$FinancialYearID";
 		$sqlQry .= " and outward.Active=1";
-
 		$sqlQry.= " group by outward.vmid";
 		$sqlQry.= " order by outward.vmid";
 		//					echo ("$sqlQry");
@@ -1166,12 +1174,9 @@
 		$Getting_ConsignorFinancialYear=0;
 		$sqlQry= "";
 		$sqlQry= "select inward.caid, count(*) from inward ";
-
-
 		$sqlQry.= " where 1=1";
 		$sqlQry .= " and inward.fyid=$FinancialYearID";
 		$sqlQry .= " and inward.Active=1";
-
 		$sqlQry.= " group by inward.caid";
 		$sqlQry.= " order by inward.caid";
 		//					echo ("$sqlQry");
@@ -1302,19 +1307,27 @@
 		{
 			$Getting_BillNotGenerated=0;
 			$sqlQry= "";
-			$sqlQry= "select caid, count(*) from inward ";
+			$sqlQry= "select inward.caid, consignor_master.ConsignorName, count(*) from inward ";
 
 			$sqlQry.= " inner join outwardlr";
 			$sqlQry.= " on inward.LRID=outwardlr.iid";
 
+			$sqlQry.= " inner join consignoraddress_master";
+			$sqlQry.= " on inward.caid=consignoraddress_master.caid";
+
+			$sqlQry.= " inner join consignor_master";
+			$sqlQry.= " on consignoraddress_master.cid=consignor_master.cid";
+
+
 			$sqlQry.= " where 1=1";
 			$sqlQry .= " and inward.fyid=$FinancialYearID";
+			$sqlQry .= " and outwardlr.RMStatus>0";
 			$sqlQry .= " and outwardlr.Bill=0";
 			$sqlQry .= " and inward.Active=1";
 			$sqlQry .= " and outwardlr.Active=1";
 
-			$sqlQry.= " group by inward.caid";
-			$sqlQry.= " order by inward.caid";
+			$sqlQry.= " group by inward.caid, consignor_master.ConsignorName";
+			$sqlQry.= " order by inward.caid, consignor_master.ConsignorName";
 //					echo ("$sqlQry");
 			//		die();
 			include('db_connect.php');
@@ -1411,6 +1424,7 @@
 
 		$sqlQry.= " where 1=1";
 		$sqlQry .= " and inward.fyid=$FinancialYearID";
+		$sqlQry .= " and outwardlr.RMStatus>0";
 		$sqlQry .= " and outwardlr.Bill=1";
 		$sqlQry .= " and inward.Active=1";
 		$sqlQry .= " and outwardlr.Active=1";
@@ -2898,7 +2912,8 @@
 
 		$sqlQry.= " left join pageaccess_member";
 		$sqlQry.= " on 1menusub.menusub_id=pageaccess_member.menusub_id";
-
+		$sqlQry.= " where 1=1";
+		$sqlQry.= " and pageaccess_member.designation_id=$UserID";
 		$sqlQry.= " and 1menusub.Active=1";
 
 		$sqlQry.= " order by 1menusub.urlDescription";
@@ -4269,9 +4284,9 @@
 		mysqli_free_result($resultBill);
 	}
 
-	function Update_OutwardLRBill_Return($con, $CurrentDate, $session_userid, $session_ip, $OutwardLRID, $acmid, $Return_Charge)
+	function Update_OutwardLRBill_Return($con, $CurrentDate, $session_userid, $session_ip, $OutwardLRID, $returncount, $acmid, $Return_Charge)
 	{
-		$ProcedureBIll = "Call Save_OutwardLRBill('$CurrentDate', $session_userid, '$session_ip', $OutwardLRID, $acmid, $Return_Charge);";
+		$ProcedureBIll = "Call Save_OutwardLRBill('$CurrentDate', $session_userid, '$session_ip', $OutwardLRID, $returncount, $acmid, $Return_Charge);";
 //			echo("ProcedureBIll:- " . $ProcedureBIll . "</br>");
 //			die();
 		// mysqli_close($con);
@@ -4298,7 +4313,7 @@
 				$db_acmid=$row{0};
 				$db_amount=$row{1};
 
-				$ProcedureBIll = "Call Save_OutwardLRBill('$CurrentDate', $session_userid, '$session_ip', $OutwardLRID, $db_acmid, $db_amount);";
+				$ProcedureBIll = "Call Save_OutwardLRBill('$CurrentDate', $session_userid, '$session_ip', $OutwardLRID, 0, $db_acmid, $db_amount);";
 //				echo("ProcedureBIll:- " . $ProcedureBIll . "</br>");
 //				die();
 				// mysqli_close($con);

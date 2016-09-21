@@ -27,14 +27,15 @@ include('assets/inc/common-function.php');
 //	die();
 
 ?>
-<div class="form-group form-group-material">
-	<label>Product</label>
-	<div class="input-group">
-		<select name="productid" id="productid"  class="form-control" onblur="return lrentry_disabled(this.value, 'productid');">
-			<option></option>
-			<?php
-				Fill_ProductOnConsignor($con, $ConsignorID);
-			?>
-		</select>
+
+<div class="col-lg-3">
+	<div class="form-group">
+		<label>Select Product <span class="text-danger">*</span></label>
+			<select name="productid" id="productid"  class="form-control" onblur="return lrentry_disabled(this.value, 'productid');">
+				<option></option>
+				<?php
+					Fill_ProductOnConsignor($con, $ConsignorID);
+				?>
+			</select>
 	</div>
 </div>
